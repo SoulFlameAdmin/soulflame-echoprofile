@@ -5,9 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "local": "node server.js",
-    "v23:preflight": "node scripts/v23-vercel-preflight.js",
-    "v24:preflight": "node scripts/v24-api-preflight.js"
+    "local": "node server.js"
   },
   "author": "SoulFlame",
   "license": "MIT"
