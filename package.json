@@ -2,10 +2,6 @@
   "name": "soulflame-twins",
   "version": "1.0.0",
   "description": "SoulFlame Twins public Vercel + Supabase app",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
   "author": "SoulFlame",
   "license": "MIT"
 }
