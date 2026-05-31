@@ -1,7 +1,7 @@
 {
   "name": "soulflame-twins",
   "version": "1.0.0",
-  "description": "SoulFlame EchoProfile V24 Real Vercel API Migration",
+  "description": "SoulFlame Twins public Vercel + Supabase app",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

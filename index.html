@@ -1,403 +1,278 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoulFlame EchoProfile V17</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="v17-addon.css" />
-  <link rel="stylesheet" href="v20-addon.css" />
-  <link rel="stylesheet" href="v21-addon.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SoulFlame Twins — EchoProfile</title>
+  <style>
+    :root {
+      --bg: #070812;
+      --card: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.16);
+      --text: #f5f7ff;
+      --muted: #aab3d0;
+      --accent: #7c3cff;
+      --accent2: #00f0ff;
+      --good: #23d18b;
+      --bad: #ff4d6d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(124,60,255,.35), transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(0,240,255,.22), transparent 30%),
+        linear-gradient(135deg, #05060d, #101327 55%, #070812);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero, .panel {
+      border: 1px solid var(--line);
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      box-shadow: 0 22px 80px rgba(0,0,0,.35);
+      padding: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--good);
+      box-shadow: 0 0 18px var(--good);
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: .94;
+      margin: 0 0 18px;
+      letter-spacing: -2px;
+    }
+
+    .grad {
+      background: linear-gradient(90deg, var(--accent2), var(--accent), #ff5cf7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0 0 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    a, button {
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 16px;
+      padding: 14px 16px;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), #4c8dff);
+      box-shadow: 0 12px 36px rgba(124,60,255,.25);
+    }
+
+    a.secondary, button.secondary {
+      background: rgba(255,255,255,.09);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .status {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      font-family: Consolas, monospace;
+      color: var(--muted);
+      min-height: 74px;
+      white-space: pre-wrap;
+      overflow: auto;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 7px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: rgba(0,0,0,.28);
+      color: var(--text);
+      outline: none;
+    }
+
+    textarea { min-height: 86px; resize: vertical; }
+
+    .mini {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .shell { grid-template-columns: 1fr; }
+      .hero, .panel { padding: 22px; border-radius: 22px; }
+    }
+  </style>
 </head>
 <body>
-
-  <div class="orb orb-a"></div>
-  <div class="orb orb-b"></div>
-  <div class="orb orb-c"></div>
-
-  <main class="app">
-    <nav class="nav">
-      <div class="brand">
-        <div class="brand-mark">SF</div>
-        <div>
-          <strong>SoulFlame</strong>
-          <span>EchoProfile V17 Deploy Prep</span>
-        </div>
-      </div>
-
-      <div class="nav-actions">
-        <button onclick="showPage('landingScreen')">Начало</button>
-        <button onclick="showPage('leadScreen')">Тест</button>
-        <button onclick="showPage('pricingScreen')">Цени</button>
-        <button onclick="showAdmin()">Админ</button>
-      </div>
-    </nav>
-
-    <section class="screen landing" id="landingScreen">
-      <div class="hero-grid">
-        <div class="hero-text">
-          <div class="badge">V17 • Online Deploy Prep</div>
-          <h1>EchoProfile вече е online-safe продуктова система</h1>
-          <p>
-            Mini Echo събира интерес. Full Echo се отключва с код. Payment Flow създава заявка.
-            Database Engine може да работи локално или със Supabase cloud база.
-          </p>
-
-          <div class="hero-actions">
-            <button class="main-btn" onclick="showPage('leadScreen')">Започни Mini Echo</button>
-            <button class="ghost-btn" onclick="showPage('pricingScreen')">Виж офертата</button>
-          </div>
-
-          <div class="trust-row">
-            <span>✓ Public Client Mode</span>
-            <span>✓ Admin Lock</span>
-            <span>✓ Payment Flow</span>
-            <span>✓ One-Time Codes</span>
-            <span>✓ Business Metrics</span>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <div class="scan-ring">
-            <div class="scan-core">V15</div>
-          </div>
-          <h3>Real Product Engine</h3>
-          <p>
-            Това вече не е тест. Това е фуния: клиент → профил → заявка → плащане → код → Full доклад.
-          </p>
-        </div>
-      </div>
-
-      <div class="feature-grid">
-        <div><h3>1. Data Adapter</h3><p>Подготвен слой за local/cloud данни.</p></div>
-        <div><h3>2. Public Mode</h3><p>Клиентите виждат само публичната част.</p></div>
-        <div><h3>3. Payment Flow</h3><p>Заявка → pending → paid → code.</p></div>
-        <div><h3>4. Metrics</h3><p>Оборот, плащания, кодове и заявки.</p></div>
-      </div>
-    </section>
-
-    <section class="screen panel hidden" id="leadScreen">
-      <div class="section-head">
-        <div class="result-label">Mini Echo</div>
-        <h2>Кой прави Echo профила?</h2>
-        <p>Попълни кратко. След теста можеш да заявиш Full Echo.</p>
-      </div>
-
-      <div class="form-grid">
-        <input id="userName" type="text" placeholder="Име" />
-        <input id="userContact" type="text" placeholder="Телефон / Instagram / имейл" />
-        <select id="userGoal">
-          <option value="Не е избрана цел">Каква е целта?</option>
-          <option value="Да разбера себе си">Да разбера себе си</option>
-          <option value="Бизнес посока">Бизнес посока</option>
-          <option value="Връзки и партньорство">Връзки и партньорство</option>
-          <option value="AI Twin / Echo">AI Twin / Echo</option>
-        </select>
-        <select id="userAge">
-          <option value="Не е избрана възраст">Възраст</option>
-          <option value="Под 18">Под 18</option>
-          <option value="18-24">18-24</option>
-          <option value="25-34">25-34</option>
-          <option value="35-44">35-44</option>
-          <option value="45+">45+</option>
-        </select>
-      </div>
-
-      <button class="main-btn" onclick="startTest()">Започни теста</button>
-      <p class="mini-note">Ориентационен психологически профил. Не е медицинска диагноза.</p>
-    </section>
-
-    <section class="screen panel hidden" id="quizScreen">
-      <div class="top-line">
-        <p id="counter">Въпрос 1</p>
-        <p>Echo scanning...</p>
-      </div>
-
-      <div class="progress"><div id="progressBar"></div></div>
-      <h2 id="questionText"></h2>
+  <main class="shell">
+    <section class="hero">
+      <div class="badge"><span class="dot"></span> Production Online · Vercel + Supabase</div>
+      <h1>SoulFlame <span class="grad">Twins</span></h1>
+      <p>
+        EchoProfile вече е онлайн. Публичният сайт говори с Vercel API,
+        а Vercel API записва в Supabase cloud база.
+      </p>
+      <p>
+        Това е първото стабилно тяло на AI Echo / SoulFlame Twins системата.
+      </p>
 
       <div class="actions">
-        <button onclick="answerQuestion('yes')">Да</button>
-        <button onclick="answerQuestion('no')">Не</button>
+        <a href="/api/health" target="_blank">Провери API Health</a>
+        <button class="secondary" onclick="checkHealth()">Live Health Test</button>
       </div>
+
+      <p class="mini">
+        API: /api/health · /api/profile · Supabase: soulflame-twins
+      </p>
     </section>
 
-    <section class="screen panel hidden" id="resultScreen">
-      <div class="result-label">Mini Echo Report</div>
-      <h2 id="resultTitle"></h2>
-      <p id="resultIntro"></p>
+    <section class="panel">
+      <h2>Public EchoProfile Write Test</h2>
+      <p>Тествай запис от сайта директно към Supabase.</p>
 
-      <div class="score-box">
-        <div><span>Визия</span><strong id="visionScore">0</strong></div>
-        <div><span>Емоция</span><strong id="emotionScore">0</strong></div>
-        <div><span>Логика</span><strong id="logicScore">0</strong></div>
-        <div><span>Социалност</span><strong id="socialScore">0</strong></div>
-        <div><span>Действие</span><strong id="actionScore">0</strong></div>
-      </div>
+      <div class="grid">
+        <label>Име</label>
+        <input id="name" value="Frontend Production Client" />
 
-      <div class="report" id="finalReport"></div>
+        <label>Контакт</label>
+        <input id="contact" value="frontend-test@soulflame.local" />
 
-      <div class="client-instructions">
-        <h3>Как да отключиш Full Echo?</h3>
-        <ol>
-          <li>Натисни „Заяви плащане и код“.</li>
-          <li>Заявката влиза в админ панела.</li>
-          <li>След потвърждение получаваш еднократен код.</li>
-          <li>Въвеждаш кода и отключваш Full Echo.</li>
-        </ol>
-      </div>
+        <label>Цел</label>
+        <textarea id="goal">Frontend production flow test</textarea>
 
-      <div class="locked-box" id="fullLockBox">
-        <span class="price-tag">Full Echo Locked</span>
-        <h3>Отключи пълния AI Echo анализ</h3>
-        <p>Въведи еднократен код, генериран след плащане или от админ панела.</p>
-
-        <div class="unlock-row">
-          <input id="fullUnlockCode" type="text" placeholder="Еднократен код за Full Echo" />
-          <button class="main-btn" onclick="unlockFullEcho()">Отключи Full Echo</button>
-        </div>
-
-        <div class="upgrade-actions">
-          <button class="main-btn" onclick="requestPayment('Full AI Echo - 19.99 лв', '19.99 лв')">Заяви плащане и код</button>
-          <button class="ghost-btn" onclick="copyRequestOnly('Full AI Echo - 19.99 лв')">Копирай заявка</button>
-        </div>
-
-        <p class="copy-status" id="unlockStatus"></p>
-      </div>
-
-      <div class="premium-preview hidden" id="fullEchoBox">
-        <span class="price-tag">Full Echo Unlocked</span>
-        <h3>Full AI Echo Analysis</h3>
-        <div class="report" id="fullEchoReport"></div>
-
-        <div class="result-actions">
-          <button class="main-btn" onclick="openClientReportFromCurrent()">Client Report</button>
-          <button class="ghost-btn" onclick="copyFullReport()">Копирай Full</button>
-          <button class="ghost-btn" onclick="downloadFullReport()">TXT Full</button>
-          <button class="ghost-btn" onclick="printClientReportFromCurrent()">Print</button>
-        </div>
-      </div>
-
-      <div class="result-actions">
-        <button class="ghost-btn" onclick="copyResult()">Копирай Mini</button>
-        <button class="ghost-btn" onclick="downloadTextReport()">TXT Mini</button>
-        <button class="ghost-btn" onclick="restartTest()">Нов тест</button>
-      </div>
-
-      <p class="copy-status" id="copyStatus"></p>
-    </section>
-
-    <section class="screen panel hidden" id="clientReportScreen">
-      <div class="client-report-head">
-        <div>
-          <div class="result-label">Client Report</div>
-          <h2 id="clientReportTitle">Full Echo Report</h2>
-          <p class="muted">Премиум изглед за клиентски доклад.</p>
-        </div>
-
-        <div class="admin-actions">
-          <button class="main-btn" onclick="copyClientReport()">Копирай</button>
-          <button class="ghost-btn" onclick="downloadClientReport()">TXT</button>
-          <button class="ghost-btn" onclick="window.print()">Print</button>
-          <button class="ghost-btn" onclick="showPage('resultScreen')">Назад</button>
-        </div>
-      </div>
-
-      <div class="client-report-card"><pre id="clientReportText"></pre></div>
-    </section>
-
-    <section class="screen panel hidden" id="pricingScreen">
-      <div class="section-head">
-        <div class="result-label">Оферта</div>
-        <h2>EchoProfile Pricing</h2>
-        <p>Free вход + paid unlock + premium blueprint.</p>
-      </div>
-
-      <div class="pricing-grid">
-        <div class="price-card">
-          <span class="price-tag">Free</span>
-          <h3>Mini Echo</h3>
-          <strong>0 лв</strong>
-          <p>Основен профил, точки, сила, риск и следващ ход.</p>
-          <button class="ghost-btn" onclick="showPage('leadScreen')">Пусни тест</button>
-        </div>
-
-        <div class="price-card featured">
-          <span class="price-tag">Core product</span>
-          <h3>Full AI Echo</h3>
-          <strong>19.99 лв</strong>
-          <p>Пълен доклад: характер, връзки, бизнес посока, блокажи и 30-дневен план.</p>
-          <button class="main-btn" onclick="showPage('leadScreen')">Започни</button>
-        </div>
-
-        <div class="price-card">
-          <span class="price-tag">Premium</span>
-          <h3>Deep Blueprint</h3>
-          <strong>49 лв</strong>
-          <p>Full Echo + AI Twin база + персонална стратегия.</p>
-          <button class="ghost-btn" onclick="showPage('leadScreen')">Започни</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="screen panel hidden" id="adminScreen">
-      <div class="admin-head">
-        <div>
-          <div class="result-label">Admin Engine</div>
-          <h2>Профили, плащания, кодове и метрики</h2>
-          <p class="muted">Admin PIN заключва контролния център.</p>
-        </div>
-
-        <div class="admin-actions">
-          <button class="ghost-btn" onclick="loadBackendData()">Sync</button>
-          <button class="ghost-btn" onclick="logoutAdmin()">Logout</button>
-          <button class="ghost-btn" onclick="exportJSON()">Export JSON</button>
-          <button class="ghost-btn" onclick="exportCSV()">Export CSV</button>
-          <button class="danger-btn" onclick="clearAll()">Изчисти</button>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <div><span>Профили</span><strong id="mProfiles">0</strong></div>
-        <div><span>Заявки</span><strong id="mLeads">0</strong></div>
-        <div><span>Плащания</span><strong id="mPayments">0</strong></div>
-        <div><span>Платени</span><strong id="mPaid">0</strong></div>
-        <div><span>Кодове</span><strong id="mCodes">0</strong></div>
-        <div><span>Използвани</span><strong id="mUsedCodes">0</strong></div>
-        <div><span>Оборот</span><strong id="mRevenue">0</strong></div>
-      </div>
-
-      <div class="payment-panel">
-        <div class="admin-head">
-          <div>
-            <div class="result-label">Payments</div>
-            <h2>Payment Status Flow</h2>
-            <p class="muted">pending → paid → code_generated → used</p>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Статус</th>
-                <th>Оферта</th>
-                <th>Сума</th>
-                <th>Име</th>
-                <th>Контакт</th>
-                <th>Код</th>
-                <th>Действие</th>
-              </tr>
-            </thead>
-            <tbody id="paymentsTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="code-panel">
-        <div class="admin-head">
-          <div>
-            <div class="result-label">Unlock Codes</div>
-            <h2>Генератор на кодове</h2>
-            <p class="muted">Всеки код отключва Full Echo само веднъж.</p>
-          </div>
-          <div class="admin-actions">
-            <button class="main-btn" onclick="generateUnlockCode()">Генерирай код</button>
-            <button class="ghost-btn" onclick="copyGeneratedCode()">Копирай последния</button>
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <input id="codeOffer" type="text" value="Full AI Echo - 19.99 лв" placeholder="Оферта" />
-          <input id="codeNote" type="text" placeholder="Бележка / име на клиент" />
-        </div>
-
-        <div id="generatedCodeOutput" class="generated-code">Още няма генериран код.</div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Код</th>
-                <th>Статус</th>
-                <th>Оферта</th>
-                <th>Бележка</th>
-                <th>Delivery Text</th>
-                <th>Използван</th>
-              </tr>
-            </thead>
-            <tbody id="codesTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="admin-tools">
-        <input id="adminSearch" type="text" placeholder="Търси по име, контакт, цел или профил..." oninput="renderAdminTables()" />
-        <select id="adminTraitFilter" onchange="renderAdminTables()">
-          <option value="all">Всички Echo типове</option>
-          <option value="vision">Визионерски</option>
-          <option value="emotion">Емоционално-интуитивен</option>
-          <option value="logic">Стратегически</option>
-          <option value="social">Социално-свързващ</option>
-          <option value="action">Действащ реализатор</option>
-        </select>
-      </div>
-
-      <h3 class="admin-title">Профили</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Дата</th>
-              <th>Име</th>
-              <th>Контакт</th>
-              <th>Цел</th>
-              <th>Профил</th>
-              <th>Точки</th>
-              <th>Действие</th>
-            </tr>
-          </thead>
-          <tbody id="profilesTable"></tbody>
-        </table>
-      </div>
-
-      <h3 class="admin-title">Събития</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Дата</th>
-              <th>Тип</th>
-              <th>Данни</th>
-            </tr>
-          </thead>
-          <tbody id="eventsTable"></tbody>
-        </table>
+        <button onclick="sendProfile()">Запиши тестов EchoProfile</button>
+        <div id="status" class="status">Готов за тест.</div>
       </div>
     </section>
   </main>
 
-  <div class="modal hidden" id="reportModal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3 id="modalTitle">Доклад</h3>
-        <div class="modal-actions">
-          <button onclick="copyModalReport()">Копирай</button>
-          <button onclick="downloadModalReport()">TXT</button>
-          <button onclick="closeModal()">Затвори</button>
-        </div>
-      </div>
-      <pre id="modalReport"></pre>
-    </div>
-  </div>
+  <script>
+    const statusEl = document.getElementById("status");
 
-  <script src="script.js"></script>
-  <script src="v17-addon.js"></script>
-  <script src="v20-addon.js"></script>
-  <script src="v21-addon.js"></script>
+    function show(data) {
+      statusEl.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    async function checkHealth() {
+      show("Проверявам /api/health...");
+      try {
+        const res = await fetch("/api/health");
+        const data = await res.json();
+        show(data);
+      } catch (error) {
+        show("Health error: " + error.message);
+      }
+    }
+
+    async function sendProfile() {
+      show("Пращам към /api/profile...");
+
+      const payload = {
+        id: Date.now(),
+        user: {
+          name: document.getElementById("name").value.trim(),
+          contact: document.getElementById("contact").value.trim(),
+          goal: document.getElementById("goal").value.trim(),
+          age: "25-34"
+        },
+        mainTrait: "vision",
+        secondTrait: "logic",
+        profile: "Frontend production Supabase profile",
+        scores: {
+          vision: 10,
+          logic: 9,
+          emotion: 6,
+          social: 5,
+          action: 8
+        },
+        report: "Frontend production Mini Echo test.",
+        fullReport: "Frontend production Full Echo test.",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          show(data);
+          return;
+        }
+
+        show(data);
+      } catch (error) {
+        show("Profile error: " + error.message);
+      }
+    }
+
+    checkHealth();
+  </script>
 </body>
 </html>
-
-
-
-
