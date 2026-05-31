@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supabase Keys | SoulFlame EchoProfile</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="v18-addon.css" />
+  <link rel="stylesheet" href="v20-addon.css" />
+  <link rel="stylesheet" href="v21-addon.css" />
+</head>
+<body>
+  <main class="legal-page">
+    <div class="legal-card">
+      <div class="result-label">V21 Supabase Keys</div>
+      <h1>Supabase Key Intake</h1>
+
+      <p>Тук са данните, които трябва да вземеш от Supabase Dashboard → Project Settings → API.</p>
+
+      <div class="v21-key-grid">
+        <div><strong>SUPABASE_URL</strong><span>Project URL</span></div>
+        <div><strong>SUPABASE_ANON_KEY</strong><span>Public anon key</span></div>
+        <div><strong>SUPABASE_SERVICE_ROLE_KEY</strong><span>Secret backend key</span></div>
+      </div>
+
+      <h2>Къде се слагат?</h2>
+      <pre>
+E:\SoulFlame_EchoProfile_MVP\.env
+
+DATA_MODE=supabase
+SUPABASE_URL=...
+SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+      </pre>
+
+      <div class="v21-status-box danger">
+        <strong>Внимание</strong>
+        <span>Service role key не се слага във frontend и не се качва публично.</span>
+      </div>
+
+      <a class="ghost-link" href="supabase-activation.html">Supabase Wizard</a>
+      <a class="ghost-link" href="index.html">Назад</a>
+    </div>
+  </main>
+</body>
+</html>

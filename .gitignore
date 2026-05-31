@@ -1,0 +1,13 @@
+﻿.vscode
+node_modules
+.vercel
+.env
+.env.local
+.env.production
+.env.*.local
+private
+data
+backups
+exports
+*.log
+.DS_Store

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Security | SoulFlame EchoProfile</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="v18-addon.css" />
+  <link rel="stylesheet" href="v20-addon.css" />
+  <link rel="stylesheet" href="v21-addon.css" />
+</head>
+<body>
+  <main class="legal-page">
+    <div class="legal-card">
+      <div class="result-label">V21 Admin Security</div>
+      <h1>Admin Security Lock</h1>
+
+      <p>Default Admin PIN беше сменен автоматично. Новият PIN е записан локално в private/v21-admin-pin.txt.</p>
+
+      <div class="v21-status-box">
+        <strong>Важно</strong>
+        <span>Не качвай private/ онлайн. Не пращай PIN-а на клиенти.</span>
+      </div>
+
+      <h2>PowerShell команди</h2>
+      <pre>
+cd E:\SoulFlame_EchoProfile_MVP
+.\show-admin-pin-v21.ps1
+.\generate-admin-pin-v21.ps1
+.\env-audit-v21.ps1
+      </pre>
+
+      <a class="ghost-link" href="deploy-command-center.html">Command Center</a>
+      <a class="ghost-link" href="index.html">Назад</a>
+    </div>
+  </main>
+</body>
+</html>

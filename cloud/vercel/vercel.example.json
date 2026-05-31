@@ -1,0 +1,13 @@
+﻿{
+  "version": 2,
+  "name": "soulflame-echoprofile",
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": "npm install",
+  "env": {
+    "APP_MODE": "production",
+    "DATA_MODE": "supabase"
+  },
+  "cleanUrls": true
+}

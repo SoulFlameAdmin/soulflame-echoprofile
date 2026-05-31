@@ -1,0 +1,33 @@
+﻿{
+  "version": "V16_SUPABASE_ADAPTER",
+  "mode": "local",
+  "dataMode": "local",
+  "supportedDataModes": ["local", "supabase"],
+  "productName": "SoulFlame EchoProfile",
+  "databaseEngine": {
+    "local": "JSON files in /data",
+    "supabase": "Supabase REST adapter"
+  },
+  "products": {
+    "mini": "Mini Echo",
+    "full": "Full AI Echo",
+    "deep": "Deep Echo Blueprint"
+  },
+  "prices": {
+    "mini": "0 лв",
+    "full": "19.99 лв",
+    "deep": "49 лв"
+  },
+  "v16Upgrades": [
+    "Data Mode Switch",
+    "Supabase Adapter",
+    "Unified Database Engine",
+    "Cloud ENV Settings",
+    "Database Schema Upgrade",
+    "Migration Plan",
+    "Local-to-Cloud Export",
+    "Safer Admin API",
+    "Cloud Warning System",
+    "V16 Stability Backup"
+  ]
+}

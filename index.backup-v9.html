@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoulFlame EchoProfile V7</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+
+  <main class="app">
+
+    <nav class="nav">
+      <div class="brand">
+        <div class="brand-mark">SF</div>
+        <div>
+          <strong>SoulFlame</strong>
+          <span>EchoProfile V7 Backend</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button onclick="showPage('landingScreen')">Начало</button>
+        <button onclick="showPage('leadScreen')">Тест</button>
+        <button onclick="showPage('pricingScreen')">Цени</button>
+        <button onclick="showAdmin()">Админ</button>
+      </div>
+    </nav>
+
+    <section class="screen landing" id="landingScreen">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="badge">AI Echo профил • Local Backend + Real Request</div>
+          <h1>Разбери какъв човек си отвътре</h1>
+          <p>
+            EchoProfile превръща отговорите ти в личен Echo модел: мислене, емоции,
+            логика, социалност, действие, любовен стил, бизнес посока и следващ ход.
+          </p>
+
+          <div class="hero-actions">
+            <button class="main-btn" onclick="showPage('leadScreen')">Започни безплатно</button>
+            <button class="ghost-btn" onclick="showPage('pricingScreen')">Виж пълния анализ</button>
+          </div>
+
+          <div class="trust-row">
+            <span>✓ 24 въпроса</span>
+            <span>✓ AI-style доклад</span>
+            <span>✓ Платен premium слой</span>
+            <span>✓ Админ история</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="scan-ring">
+            <div class="scan-core">ECHO</div>
+          </div>
+          <h3>Mini Echo безплатно</h3>
+          <p>
+            Първо получаваш основен профил. После можеш да заявиш пълен Deep Echo Blueprint.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div>
+          <h3>Психологически модел</h3>
+          <p>Как мислиш, усещаш, решаваш и реагираш.</p>
+        </div>
+        <div>
+          <h3>Любовен стил</h3>
+          <p>Какъв партньорски тип ти пасва най-добре.</p>
+        </div>
+        <div>
+          <h3>Бизнес посока</h3>
+          <p>Къде можеш да превърнеш личността си в резултат.</p>
+        </div>
+        <div>
+          <h3>AI Twin база</h3>
+          <p>Първи слой за бъдещ личен Echo Twin.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen panel hidden" id="leadScreen">
+      <div class="section-head">
+        <div class="result-label">Старт</div>
+        <h2>Кой прави Echo профила?</h2>
+        <p>Попълни кратко. Ако искаш после пълен анализ, остави контакт.</p>
+      </div>
+
+      <div class="form-grid">
+        <input id="userName" type="text" placeholder="Име" />
+        <input id="userContact" type="text" placeholder="Телефон / Instagram / имейл" />
+        <select id="userGoal">
+          <option value="Не е избрана цел">Каква е целта?</option>
+          <option value="Да разбера себе си">Да разбера себе си</option>
+          <option value="Бизнес посока">Бизнес посока</option>
+          <option value="Връзки и партньорство">Връзки и партньорство</option>
+          <option value="AI Twin / Echo">AI Twin / Echo</option>
+        </select>
+        <select id="userAge">
+          <option value="Не е избрана възраст">Възраст</option>
+          <option value="Под 18">Под 18</option>
+          <option value="18-24">18-24</option>
+          <option value="25-34">25-34</option>
+          <option value="35-44">35-44</option>
+          <option value="45+">45+</option>
+        </select>
+      </div>
+
+      <button class="main-btn" onclick="startTest()">Започни теста</button>
+      <p class="mini-note">Ориентационен психологически профил. Не е медицинска диагноза.</p>
+    </section>
+
+    <section class="screen panel hidden" id="quizScreen">
+      <div class="top-line">
+        <p id="counter">Въпрос 1</p>
+        <p>Echo scanning...</p>
+      </div>
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+
+      <h2 id="questionText"></h2>
+
+      <div class="actions">
+        <button onclick="answerQuestion('yes')">Да</button>
+        <button onclick="answerQuestion('no')">Не</button>
+      </div>
+    </section>
+
+    <section class="screen panel hidden" id="resultScreen">
+      <div class="result-label">Твоят Mini Echo доклад</div>
+      <h2 id="resultTitle"></h2>
+      <p id="resultIntro"></p>
+
+      <div class="score-box">
+        <div><span>Визия</span><strong id="visionScore">0</strong></div>
+        <div><span>Емоция</span><strong id="emotionScore">0</strong></div>
+        <div><span>Логика</span><strong id="logicScore">0</strong></div>
+        <div><span>Социалност</span><strong id="socialScore">0</strong></div>
+        <div><span>Действие</span><strong id="actionScore">0</strong></div>
+      </div>
+
+      <div class="report" id="finalReport"></div>
+
+      <div class="locked-box" id="lockedPreview">
+        <div>
+          <span class="price-tag">Locked Premium Preview</span>
+          <h3>Отключи примерен Deep Echo Blueprint</h3>
+          <p>
+            Въведи код <strong>ECHO999</strong>, за да видиш как изглежда заключеният премиум слой.
+            В реална версия този код може да се дава след плащане.
+          </p>
+        </div>
+
+        <div class="unlock-row">
+          <input id="unlockCode" type="text" placeholder="Код за отключване" />
+          <button class="main-btn" onclick="unlockPremiumPreview()">Отключи</button>
+        </div>
+
+        <p class="copy-status" id="unlockStatus"></p>
+      </div>
+
+      <div class="premium-preview hidden" id="premiumPreview">
+        <span class="price-tag">Premium отключен</span>
+        <h3>Deep Echo Blueprint Preview</h3>
+        <div class="report" id="premiumReport"></div>
+      </div>
+
+      <div class="upgrade-box">
+        <h3>Искаш пълния AI Echo анализ?</h3>
+        <p>
+          Пълният анализ може да включва детайлен характер, любовен стил,
+          блокажи, бизнес посока, 30-дневен план, AI Twin база и персонална стратегия.
+        </p>
+
+        <div class="upgrade-actions">
+          <button class="main-btn" onclick="sendRequestEmail('Full AI Echo - 19.99 лв')">Изпрати през Gmail — 19.99 лв</button>
+          <button class="ghost-btn" onclick="sendRequestEmail('Deep Echo Blueprint - 49 лв')">Gmail Deep Blueprint — 49 лв</button>
+          <button class="ghost-btn" onclick="openMailtoRequest('Full AI Echo - 19.99 лв')">Отвори Email app</button>
+          <button class="ghost-btn" onclick="copyRequestOnly('Full AI Echo - 19.99 лв')">Копирай заявката</button>
+          <button class="ghost-btn" onclick="saveInterest('Локално запазена заявка')">Запази локално</button>
+        </div>
+      </div>
+
+      <div class="share-box">
+        <h3>Готов текст за Viber / Instagram</h3>
+        <p>Натисни бутона и ще копираш кратко съобщение, което може да се праща на клиент.</p>
+        <button class="ghost-btn" onclick="copyClientMessage()">Копирай клиентски текст</button>
+      </div>
+
+      <div class="result-actions">
+        <button class="main-btn" onclick="openCurrentAIReport()">Генерирай AI анализ</button>
+        <button class="ghost-btn" onclick="copyResult()">Копирай доклада</button>
+        <button class="ghost-btn" onclick="downloadTextReport()">Изтегли TXT</button>
+        <button class="ghost-btn" onclick="restartTest()">Нов тест</button>
+      </div>
+
+      <p class="copy-status" id="copyStatus"></p>
+    </section>
+
+    <section class="screen panel hidden" id="pricingScreen">
+      <div class="section-head">
+        <div class="result-label">Цени</div>
+        <h2>EchoProfile оферта</h2>
+        <p>Това е версията, която можем да превърнем в реална услуга.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <span class="price-tag">Free</span>
+          <h3>Mini Echo</h3>
+          <strong>0 лв</strong>
+          <p>Основен профил, точки, сила, риск и следващ ход.</p>
+          <button class="ghost-btn" onclick="showPage('leadScreen')">Пусни тест</button>
+        </div>
+
+        <div class="price-card featured">
+          <span class="price-tag">Най-продаваемо</span>
+          <h3>Full AI Echo</h3>
+          <strong>19.99 лв</strong>
+          <p>Пълен доклад: характер, връзки, бизнес посока, силни страни и 7-дневен план.</p>
+          <button class="main-btn" onclick="sendRequestEmail('Full AI Echo - 19.99 лв')">Заяви</button>
+        </div>
+
+        <div class="price-card">
+          <span class="price-tag">Premium</span>
+          <h3>Deep Blueprint</h3>
+          <strong>49 лв</strong>
+          <p>Дълбок профил + 30-дневен план + AI Twin база + лична стратегия.</p>
+          <button class="ghost-btn" onclick="sendRequestEmail('Deep Echo Blueprint - 49 лв')">Заяви</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen panel hidden" id="adminScreen">
+      <div class="admin-head">
+        <div>
+          <div class="result-label">Админ</div>
+          <h2>История, заявки и данни</h2>
+        </div>
+
+        <div class="admin-actions">
+          <button class="ghost-btn" onclick="syncBackendData()">Sync Backend</button>
+          <button class="ghost-btn" onclick="exportJSON()">Export JSON</button>
+          <button class="ghost-btn" onclick="exportCSV()">Export CSV</button>
+          <button class="danger-btn" onclick="clearAll()">Изчисти</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div><span>Профили</span><strong id="totalProfiles">0</strong></div>
+        <div><span>Заявки</span><strong id="totalLeads">0</strong></div>
+        <div><span>Визионери</span><strong id="statVision">0</strong></div>
+        <div><span>Стратези</span><strong id="statLogic">0</strong></div>
+      </div>
+
+      <h3 class="admin-title">Последни профили</h3>
+      <div id="historyList" class="history-list"></div>
+
+      <h3 class="admin-title">Заявки за платен анализ</h3>
+      <div id="leadList" class="history-list"></div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
