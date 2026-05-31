@@ -1,13 +1,13 @@
-﻿{
-  "name": "soulflame-echoprofile-v23",
+{
+  "name": "soulflame-twins",
   "version": "1.0.0",
-  "description": "SoulFlame EchoProfile V23 Vercel Deploy Prep",
+  "description": "SoulFlame EchoProfile V24 Real Vercel API Migration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "local": "node server.js",
     "v23:preflight": "node scripts/v23-vercel-preflight.js",
-    "vercel:env": "powershell -ExecutionPolicy Bypass -File open-vercel-env-template.ps1"
+    "v24:preflight": "node scripts/v24-api-preflight.js"
   },
   "author": "SoulFlame",
   "license": "MIT"
