@@ -19,7 +19,7 @@
       padding: 24px;
     }
     .card {
-      width: min(950px, 100%);
+      width: min(980px, 100%);
       border: 1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.08);
       border-radius: 28px;
@@ -30,6 +30,7 @@
       font-size: clamp(42px, 7vw, 86px);
       line-height: .92;
       margin: 0 0 18px;
+      letter-spacing: -2px;
     }
     .grad {
       background: linear-gradient(90deg,#00f0ff,#7c3cff,#ff5cf7);
@@ -53,7 +54,7 @@
       text-decoration: none;
       cursor: pointer;
     }
-    button.secondary, a.secondary {
+    button.secondary {
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.16);
     }
@@ -65,6 +66,7 @@
       color: #aab3d0;
       white-space: pre-wrap;
       overflow: auto;
+      min-height: 120px;
     }
   </style>
 </head>
@@ -72,8 +74,10 @@
   <main class="card">
     <h1>SoulFlame <span class="grad">Twins</span></h1>
     <p>Production frontend is online. Vercel API is connected to Supabase cloud.</p>
+
     <a href="/api/health" target="_blank">API Health</a>
     <button class="secondary" onclick="testWrite()">Test Supabase Write</button>
+
     <pre id="out">Loading health...</pre>
   </main>
 
@@ -86,17 +90,17 @@
       const body = {
         id: Date.now(),
         user: {
-          name: "Root Frontend Test Client",
-          contact: "root-frontend@soulflame.local",
-          goal: "Root frontend production test",
+          name: "Hard Root Test Client",
+          contact: "hard-root@soulflame.local",
+          goal: "Hard root frontend production test",
           age: "25-34"
         },
         mainTrait: "vision",
         secondTrait: "logic",
-        profile: "Root frontend Supabase test profile",
+        profile: "Hard root Supabase test profile",
         scores: { vision:10, logic:9, emotion:6, social:5, action:8 },
-        report: "Root frontend Mini Echo test.",
-        fullReport: "Root frontend Full Echo test.",
+        report: "Hard root Mini Echo test.",
+        fullReport: "Hard root Full Echo test.",
         createdAt: new Date().toISOString()
       };
 
