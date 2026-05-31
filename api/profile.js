@@ -1,34 +1,23 @@
-﻿async function readJson(req) {
+async function readJson(req) {
   if (req.body && typeof req.body === "object") return req.body;
 
   if (typeof req.body === "string") {
-    try {
-      return JSON.parse(req.body || "{}");
-    } catch {
-      return {};
-    }
+    try { return JSON.parse(req.body || "{}"); } catch { return {}; }
   }
 
   return new Promise((resolve, reject) => {
     let data = "";
-
     req.on("data", chunk => {
       data += chunk.toString();
-
       if (data.length > 2000000) {
         reject(new Error("Body too large"));
         req.destroy();
       }
     });
-
     req.on("end", () => {
-      try {
-        resolve(data ? JSON.parse(data) : {});
-      } catch {
-        reject(new Error("Invalid JSON"));
-      }
+      try { resolve(data ? JSON.parse(data) : {}); }
+      catch { reject(new Error("Invalid JSON")); }
     });
-
     req.on("error", reject);
   });
 }
@@ -41,7 +30,7 @@ function getUrl() {
   return String(process.env.SUPABASE_URL || "").replace(/\/$/, "");
 }
 
-function toProfileRow(body) {
+function rowFromBody(body) {
   return {
     id: Number(body.id) || Date.now(),
     name: body.user?.name || body.name || "",
@@ -59,16 +48,12 @@ function toProfileRow(body) {
 }
 
 async function insertProfile(row) {
-  const supabaseUrl = getUrl();
+  const url = getUrl();
   const key = getKey();
 
-  if (!supabaseUrl || !key) {
-    throw new Error("Missing SUPABASE_URL or SUPABASE key in Vercel Environment Variables.");
-  }
+  if (!url || !key) throw new Error("Missing Supabase env vars.");
 
-  const endpoint = `${supabaseUrl}/rest/v1/profiles`;
-
-  const response = await fetch(endpoint, {
+  const response = await fetch(`${url}/rest/v1/profiles`, {
     method: "POST",
     headers: {
       "apikey": key,
@@ -85,25 +70,18 @@ async function insertProfile(row) {
     throw new Error(`Supabase error ${response.status}: ${text}`);
   }
 
-  try {
-    return text ? JSON.parse(text) : [];
-  } catch {
-    return text;
-  }
+  return text ? JSON.parse(text) : [];
 }
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
-    res.status(405).json({
-      ok: false,
-      error: "Method not allowed. Use POST."
-    });
+    res.status(405).json({ ok:false, error:"Method not allowed. Use POST." });
     return;
   }
 
   try {
     const body = await readJson(req);
-    const row = toProfileRow(body);
+    const row = rowFromBody(body);
     const inserted = await insertProfile(row);
 
     res.status(200).json({

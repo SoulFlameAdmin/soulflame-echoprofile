@@ -1,4 +1,4 @@
-﻿module.exports = async function handler(req, res) {
+module.exports = async function handler(req, res) {
   const supabaseUrl = process.env.SUPABASE_URL || "";
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
   const anonKey = process.env.SUPABASE_ANON_KEY || "";
@@ -8,7 +8,7 @@
     ok: true,
     app: "SoulFlame Twins",
     module: "EchoProfile",
-    version: process.env.APP_VERSION || "V27_REAL_PROFILE_API",
+    version: process.env.APP_VERSION || "V27_REAL_ECHOPROFILE_PRODUCT",
     appMode: process.env.APP_MODE || "production",
     requestedDataMode: process.env.DATA_MODE || "supabase",
     activeDataMode: configured ? "supabase" : "missing_supabase_env",
