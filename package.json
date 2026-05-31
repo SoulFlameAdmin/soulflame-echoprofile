@@ -4,8 +4,7 @@
   "description": "SoulFlame Twins public Vercel + Supabase app",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "local": "node server.js"
+    "start": "node server.js"
   },
   "author": "SoulFlame",
   "license": "MIT"
