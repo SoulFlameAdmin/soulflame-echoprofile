@@ -3,31 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SoulFlame Twins — EchoProfile</title>
-  <meta name="description" content="Открий своя EchoProfile — кратък AI психологически профил от SoulFlame Twins.">
-  <meta property="og:title" content="SoulFlame Twins — EchoProfile">
-  <meta property="og:description" content="Кратък AI профил, който показва твоя водещ вътрешен модел.">
-  <meta name="theme-color" content="#080914">
+  <title>AI Twin by SoulFlame — Levitation Twin</title>
+  <meta name="description" content="AI Twin by SoulFlame — създай своя дигитален двойник чрез EchoProfile, Future Twin и персонален AI сигнал.">
+  <meta property="og:title" content="AI Twin by SoulFlame">
+  <meta property="og:description" content="Срещни своя AI Twin — дигитална версия на теб, която започва от EchoProfile.">
+  <meta name="theme-color" content="#050611">
 
   <style>
     :root{
-      --bg0:#050611;
-      --bg1:#101327;
-      --bg2:#07111e;
-      --card:rgba(255,255,255,.085);
-      --card2:rgba(0,0,0,.32);
+      --bg0:#04050d;
+      --bg1:#090b1d;
+      --bg2:#10163a;
+      --glass:rgba(255,255,255,.085);
+      --glass2:rgba(255,255,255,.055);
       --line:rgba(255,255,255,.16);
       --text:#f7f7ff;
-      --muted:#aab3d0;
-      --accent:#7c3cff;
-      --accent2:#00eaff;
-      --pink:#ff5cf7;
-      --good:#22d18b;
-      --bad:#ff4d6d;
-      --warn:#ffd166;
+      --muted:#aeb8d7;
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#25e0a3;
+      --red:#ff4d6d;
+      --shadow:0 30px 110px rgba(0,0,0,.46);
     }
 
     *{box-sizing:border-box}
+
     html{scroll-behavior:smooth}
 
     body{
@@ -36,15 +38,30 @@
       font-family:Arial, Helvetica, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 18% 8%, rgba(124,60,255,.38), transparent 35%),
-        radial-gradient(circle at 86% 18%, rgba(0,234,255,.24), transparent 32%),
-        radial-gradient(circle at 50% 100%, rgba(255,92,247,.12), transparent 35%),
-        linear-gradient(135deg,var(--bg0),var(--bg1) 55%,var(--bg2));
+        radial-gradient(circle at 16% 8%, rgba(124,60,255,.36), transparent 34%),
+        radial-gradient(circle at 82% 14%, rgba(0,234,255,.22), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255,79,243,.13), transparent 36%),
+        linear-gradient(135deg,var(--bg0),var(--bg1) 46%,var(--bg2));
       overflow-x:hidden;
     }
 
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:52px 52px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.55), transparent 78%);
+      z-index:0;
+    }
+
     .wrap{
-      width:min(1220px,100%);
+      position:relative;
+      z-index:1;
+      width:min(1240px,100%);
       margin:0 auto;
       padding:24px;
     }
@@ -54,30 +71,33 @@
       align-items:center;
       justify-content:space-between;
       gap:16px;
-      padding:16px 0 22px;
+      padding:14px 0 28px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
-      font-weight:900;
-      letter-spacing:-.4px;
+      gap:13px;
+      font-weight:950;
+      letter-spacing:-.6px;
     }
 
     .logo{
-      width:42px;
-      height:42px;
-      border-radius:15px;
-      background:linear-gradient(135deg,var(--accent2),var(--accent),var(--pink));
-      box-shadow:0 0 42px rgba(124,60,255,.46);
+      width:44px;
+      height:44px;
+      border-radius:17px;
+      background:
+        radial-gradient(circle at 30% 25%, #fff, transparent 22%),
+        linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));
+      box-shadow:0 0 45px rgba(124,60,255,.55);
     }
 
     .navlinks{
       display:flex;
+      align-items:center;
+      justify-content:flex-end;
       gap:10px;
       flex-wrap:wrap;
-      justify-content:flex-end;
     }
 
     .pill{
@@ -88,24 +108,24 @@
       padding:10px 13px;
       text-decoration:none;
       font-size:13px;
-      font-weight:800;
+      font-weight:850;
     }
 
     .hero{
       display:grid;
-      grid-template-columns:1.08fr .92fr;
+      grid-template-columns:1.02fr .98fr;
       gap:22px;
       align-items:stretch;
-      padding:22px 0 18px;
+      padding:12px 0 22px;
     }
 
     .card{
       border:1px solid var(--line);
-      background:var(--card);
-      backdrop-filter:blur(18px);
-      border-radius:30px;
-      box-shadow:0 22px 80px rgba(0,0,0,.34);
-      padding:32px;
+      background:linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.055));
+      backdrop-filter:blur(20px);
+      border-radius:32px;
+      padding:34px;
+      box-shadow:var(--shadow);
     }
 
     .badge{
@@ -113,12 +133,12 @@
       align-items:center;
       gap:9px;
       border:1px solid var(--line);
-      background:rgba(0,0,0,.24);
+      background:rgba(0,0,0,.23);
       color:var(--muted);
       padding:9px 13px;
       border-radius:999px;
       font-size:13px;
-      font-weight:800;
+      font-weight:900;
       margin-bottom:18px;
     }
 
@@ -126,30 +146,26 @@
       width:9px;
       height:9px;
       border-radius:99px;
-      background:var(--good);
-      box-shadow:0 0 18px var(--good);
+      background:var(--green);
+      box-shadow:0 0 18px var(--green);
     }
 
     h1{
       margin:0 0 18px;
-      font-size:clamp(44px,7vw,92px);
-      line-height:.92;
-      letter-spacing:-3px;
+      font-size:clamp(48px,7.6vw,104px);
+      line-height:.88;
+      letter-spacing:-4px;
     }
 
     h2{
       margin:0 0 14px;
-      font-size:clamp(26px,3.4vw,42px);
-      letter-spacing:-1.4px;
+      font-size:clamp(26px,3.5vw,46px);
+      letter-spacing:-1.5px;
     }
 
-    h3{margin:0 0 10px;font-size:20px}
-
-    .grad{
-      background:linear-gradient(90deg,var(--accent2),var(--accent),var(--pink));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
+    h3{
+      margin:0 0 10px;
+      font-size:20px;
     }
 
     p{
@@ -157,6 +173,17 @@
       font-size:17px;
       line-height:1.6;
       margin:0 0 15px;
+    }
+
+    .grad{
+      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .gold{
+      color:var(--gold);
     }
 
     .actions{
@@ -170,12 +197,13 @@
       border:0;
       cursor:pointer;
       color:white;
-      background:linear-gradient(135deg,var(--accent),#4c8dff);
-      border-radius:16px;
+      background:linear-gradient(135deg,var(--violet),#4c8dff);
+      border-radius:17px;
       padding:14px 18px;
-      font-weight:900;
+      font-weight:950;
       text-decoration:none;
-      box-shadow:0 14px 36px rgba(124,60,255,.24);
+      box-shadow:0 15px 42px rgba(124,60,255,.27);
+      font-size:15px;
     }
 
     button.secondary,.btn.secondary{
@@ -184,57 +212,122 @@
       box-shadow:none;
     }
 
-    button.warn{background:linear-gradient(135deg,#f59e0b,#ef4444)}
-    button:disabled{opacity:.55;cursor:not-allowed}
-
-    .statusBox{
-      background:var(--card2);
-      border:1px solid var(--line);
-      border-radius:22px;
-      padding:16px;
-      min-height:120px;
-      font-family:Consolas,monospace;
-      font-size:13px;
-      color:#cbd5ff;
-      overflow:auto;
-      white-space:pre-wrap;
+    button.gold,.btn.gold{
+      background:linear-gradient(135deg,#ffb703,#ff4ff3);
     }
 
-    .systemHuman{display:grid;gap:12px;margin-top:12px}
-
-    .systemItem{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.055);
-      border-radius:16px;
-      padding:12px;
-      color:var(--muted);
+    .levitationStage{
+      position:relative;
+      min-height:530px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
     }
 
-    .systemItem b{color:var(--text)}
+    .orb{
+      position:relative;
+      width:min(390px,88vw);
+      aspect-ratio:1/1;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,.92), transparent 10%),
+        radial-gradient(circle at 50% 45%, rgba(0,234,255,.85), transparent 0 20%, rgba(124,60,255,.58) 38%, rgba(255,79,243,.30) 58%, transparent 70%),
+        radial-gradient(circle, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:
+        0 0 80px rgba(0,234,255,.26),
+        0 0 140px rgba(124,60,255,.34),
+        inset 0 0 80px rgba(255,255,255,.08);
+      animation:floatOrb 5.6s ease-in-out infinite;
+    }
 
-    .flow{
+    .orb:before,
+    .orb:after{
+      content:"";
+      position:absolute;
+      inset:11%;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      transform:rotateX(72deg) rotateZ(18deg);
+      box-shadow:0 0 42px rgba(0,234,255,.22);
+    }
+
+    .orb:after{
+      inset:22%;
+      transform:rotateX(68deg) rotateZ(-31deg);
+      border-color:rgba(255,79,243,.22);
+    }
+
+    .ring{
+      position:absolute;
+      width:min(520px,96vw);
+      height:130px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.16);
+      transform:rotateX(68deg);
+      box-shadow:0 0 55px rgba(0,234,255,.12);
+      animation:ringSpin 9s linear infinite;
+    }
+
+    .floatChip{
+      position:absolute;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.28);
+      backdrop-filter:blur(16px);
+      border-radius:18px;
+      padding:12px 14px;
+      font-weight:900;
+      color:#dbe4ff;
+      box-shadow:0 22px 60px rgba(0,0,0,.26);
+      animation:floatChip 4.8s ease-in-out infinite;
+    }
+
+    .chip1{top:40px;left:26px}
+    .chip2{right:28px;top:92px;animation-delay:.7s}
+    .chip3{left:52px;bottom:76px;animation-delay:1.3s}
+    .chip4{right:58px;bottom:48px;animation-delay:2s}
+
+    @keyframes floatOrb{
+      0%,100%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-22px) scale(1.025)}
+    }
+
+    @keyframes floatChip{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-13px)}
+    }
+
+    @keyframes ringSpin{
+      from{transform:rotateX(68deg) rotateZ(0)}
+      to{transform:rotateX(68deg) rotateZ(360deg)}
+    }
+
+    .section{
+      padding:18px 0;
+    }
+
+    .grid4{
       display:grid;
       grid-template-columns:repeat(4,1fr);
       gap:14px;
-      margin-top:18px;
     }
 
-    .miniCard{
+    .mini{
       border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
-      border-radius:22px;
-      padding:16px;
+      background:var(--glass2);
+      border-radius:24px;
+      padding:18px;
     }
 
-    .miniCard strong{display:block;margin-bottom:8px}
-    .section{padding:18px 0}
+    .mini strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+    }
 
     .appGrid{
       display:grid;
-      grid-template-columns:.75fr 1.25fr;
+      grid-template-columns:.78fr 1.22fr;
       gap:22px;
       align-items:start;
     }
@@ -250,7 +343,7 @@
     input,textarea,select{
       width:100%;
       border:1px solid var(--line);
-      background:rgba(0,0,0,.25);
+      background:rgba(0,0,0,.27);
       color:var(--text);
       border-radius:16px;
       padding:14px 15px;
@@ -258,91 +351,79 @@
       font-size:15px;
     }
 
-    textarea{resize:vertical;min-height:92px}
+    textarea{
+      min-height:100px;
+      resize:vertical;
+    }
 
-    .questions{display:grid;gap:12px;margin-top:14px}
+    .signalGrid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
 
-    .question{
+    .signal{
       border:1px solid var(--line);
-      background:rgba(0,0,0,.22);
+      background:rgba(0,0,0,.24);
       border-radius:18px;
       padding:15px;
+      cursor:pointer;
+      transition:.18s;
     }
 
-    .qTop{
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      align-items:flex-start;
-      margin-bottom:12px;
+    .signal:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,234,255,.36);
     }
 
-    .qText{font-weight:800;line-height:1.35}
+    .signal.active{
+      background:linear-gradient(135deg, rgba(124,60,255,.35), rgba(0,234,255,.14));
+      border-color:rgba(0,234,255,.46);
+      box-shadow:0 18px 55px rgba(0,234,255,.08);
+    }
 
-    .qTag{
+    .signal b{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .signal span{
       color:var(--muted);
-      font-size:12px;
-      border:1px solid var(--line);
-      padding:5px 8px;
-      border-radius:999px;
-      white-space:nowrap;
+      font-size:13px;
+      line-height:1.45;
     }
 
-    .choice{display:flex;gap:10px;flex-wrap:wrap}
-
-    .choice button{
-      padding:10px 13px;
-      border-radius:12px;
-      background:rgba(255,255,255,.09);
-      border:1px solid var(--line);
-      box-shadow:none;
+    .result{
+      display:none;
+      margin-top:16px;
     }
 
-    .choice button.active{
-      background:linear-gradient(135deg,var(--accent),#4c8dff);
-      border-color:transparent;
+    .result.show{
+      display:block;
     }
-
-    .progress{
-      height:12px;
-      background:rgba(255,255,255,.08);
-      border:1px solid var(--line);
-      border-radius:999px;
-      overflow:hidden;
-      margin:12px 0 4px;
-    }
-
-    .bar{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,var(--accent2),var(--accent),var(--pink));
-      transition:.25s;
-    }
-
-    .result{display:none;margin-top:16px}
-    .result.show{display:block}
 
     .resultHero{
       border:1px solid var(--line);
       background:
         radial-gradient(circle at 20% 20%, rgba(0,234,255,.16), transparent 30%),
-        radial-gradient(circle at 80% 10%, rgba(124,60,255,.18), transparent 34%),
-        rgba(255,255,255,.06);
-      border-radius:24px;
-      padding:20px;
-      margin-bottom:16px;
+        radial-gradient(circle at 80% 10%, rgba(124,60,255,.22), transparent 36%),
+        rgba(255,255,255,.055);
+      border-radius:26px;
+      padding:22px;
+      margin-bottom:14px;
     }
 
     .resultTitle{
-      font-size:clamp(26px,4vw,48px);
-      font-weight:900;
-      letter-spacing:-1.4px;
-      margin:6px 0 12px;
+      font-size:clamp(28px,4vw,52px);
+      font-weight:950;
+      letter-spacing:-1.8px;
+      margin:8px 0 10px;
     }
 
     .scoreGrid{
       display:grid;
-      grid-template-columns:repeat(5,1fr);
+      grid-template-columns:repeat(4,1fr);
       gap:10px;
       margin:14px 0;
     }
@@ -350,32 +431,30 @@
     .score{
       border:1px solid var(--line);
       background:rgba(255,255,255,.06);
-      border-radius:16px;
-      padding:12px;
+      border-radius:18px;
+      padding:13px;
       text-align:center;
     }
 
-    .score b{display:block;font-size:22px;margin-bottom:3px}
-
-    .locked{
-      border:1px solid rgba(255,209,102,.28);
-      background:rgba(255,209,102,.08);
-      border-radius:20px;
-      padding:16px;
-      margin-top:14px;
+    .score b{
+      display:block;
+      font-size:24px;
+      margin-bottom:3px;
     }
 
     .success{
-      border:1px solid rgba(34,209,139,.28);
-      background:rgba(34,209,139,.08);
-      border-radius:20px;
-      padding:14px;
-      margin-top:14px;
-      color:#caffdf;
       display:none;
+      border:1px solid rgba(37,224,163,.35);
+      background:rgba(37,224,163,.09);
+      color:#caffdf;
+      border-radius:20px;
+      padding:15px;
+      margin-top:14px;
     }
 
-    .success.show{display:block}
+    .success.show{
+      display:block;
+    }
 
     details{
       border:1px solid var(--line);
@@ -385,22 +464,43 @@
       margin-top:14px;
     }
 
-    summary{cursor:pointer;font-weight:900}
-
-    .footer{
-      color:var(--muted);
-      font-size:13px;
-      padding:24px 0 40px;
-      text-align:center;
+    summary{
+      cursor:pointer;
+      font-weight:900;
     }
 
-    @media(max-width:920px){
+    pre{
+      background:rgba(0,0,0,.36);
+      border:1px solid var(--line);
+      color:#dbe4ff;
+      border-radius:18px;
+      padding:16px;
+      overflow:auto;
+      white-space:pre-wrap;
+      min-height:120px;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      padding:28px 0 44px;
+    }
+
+    @media(max-width:960px){
       .hero,.appGrid{grid-template-columns:1fr}
-      .flow,.scoreGrid{grid-template-columns:1fr}
-      .card{padding:22px;border-radius:24px}
+      .grid4,.scoreGrid{grid-template-columns:1fr}
+      .signalGrid{grid-template-columns:1fr}
+      .card{padding:23px;border-radius:26px}
       h1{letter-spacing:-2px}
-      .nav{align-items:flex-start; flex-direction:column}
+      .levitationStage{min-height:430px}
+      .nav{align-items:flex-start;flex-direction:column}
       .navlinks{justify-content:flex-start}
+      .floatChip{font-size:12px}
+      .chip1{left:12px}
+      .chip2{right:12px}
+      .chip3{left:18px}
+      .chip4{right:18px}
     }
   </style>
 </head>
@@ -409,11 +509,10 @@
     <nav class="nav">
       <div class="brand">
         <div class="logo"></div>
-        <div>SoulFlame Twins</div>
+        <div>AI Twin by SoulFlame</div>
       </div>
       <div class="navlinks">
-        <a class="pill" href="#start">Започни</a>
-        <a class="pill" href="#system">Статус</a>
+        <a class="pill" href="#create">Create Twin</a>
         <a class="pill" href="/test" target="_blank">Test</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
       </div>
@@ -421,50 +520,62 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> EchoProfile · Production V30</div>
-        <h1>Разбери своя <span class="grad">вътрешен модел</span></h1>
+        <div class="badge"><span class="dot"></span> V34 · Levitation AI Twin</div>
+        <h1>Създай своя <span class="grad">AI Twin</span></h1>
         <p>
-          Отговори на 12 кратки въпроса и получи Mini EchoProfile — твоя водещ начин на мислене,
-          действие и усещане.
+          Не просто EchoProfile. Това е началото на твоя дигитален двойник —
+          версия на теб, която помни, анализира, симулира бъдещи избори и постепенно се превръща в личен AI съюзник.
         </p>
         <p>
-          SoulFlame Twins вече работи като публична cloud система: сайт, Vercel API и Supabase база.
+          SoulFlame Twin започва с вътрешен сигнал: визия, логика, емоция, действие и социална интуиция.
+          После отключва Future Twin, Full Echo и персонален AI път.
         </p>
         <div class="actions">
-          <a class="btn" href="#start">Започни EchoProfile</a>
-          <button class="secondary" onclick="fillDemo()">Демо попълване</button>
-        </div>
-      </div>
-
-      <div id="system" class="card">
-        <h2>Системата е онлайн</h2>
-        <p>Frontend, API и Supabase cloud са свързани.</p>
-
-        <div class="systemHuman">
-          <div class="systemItem"><span>Сайт</span><b id="siteState">Online</b></div>
-          <div class="systemItem"><span>API</span><b id="apiState">Проверявам...</b></div>
-          <div class="systemItem"><span>Database</span><b id="dbState">Проверявам...</b></div>
+          <a class="btn" href="#create">Активирай Twin Signal</a>
+          <button class="secondary" onclick="checkHealth()">Провери системата</button>
+          <button class="gold" onclick="demoTwin()">Демо Twin</button>
         </div>
 
         <details>
-          <summary>Advanced system log</summary>
-          <div id="systemStatus" class="statusBox">Зареждам /api/health...</div>
+          <summary>System Status</summary>
+          <pre id="healthBox">Ready.</pre>
         </details>
+      </div>
+
+      <div class="card levitationStage">
+        <div class="ring"></div>
+        <div class="orb"></div>
+        <div class="floatChip chip1">EchoProfile Core</div>
+        <div class="floatChip chip2">Future Self Simulation</div>
+        <div class="floatChip chip3">Memory Layer</div>
+        <div class="floatChip chip4">AI Twin Signal</div>
       </div>
     </section>
 
     <section class="section">
-      <div class="flow">
-        <div class="miniCard"><strong>1. Отговаряш</strong><p>12 Да/Не въпроса.</p></div>
-        <div class="miniCard"><strong>2. Получаваш профил</strong><p>Mini Echo резултат.</p></div>
-        <div class="miniCard"><strong>3. Запис в cloud</strong><p>Резултатът се пази в Supabase.</p></div>
-        <div class="miniCard"><strong>4. Full Echo</strong><p>Може да заявиш пълен анализ.</p></div>
+      <div class="grid4">
+        <div class="mini">
+          <strong>1. Echo Signal</strong>
+          <p>Избираш вътрешните си модели и системата изгражда първичен психологически отпечатък.</p>
+        </div>
+        <div class="mini">
+          <strong>2. Digital Twin Seed</strong>
+          <p>Създава се първо ядро на твоя AI Twin — профил, цел, мотивация и стил.</p>
+        </div>
+        <div class="mini">
+          <strong>3. Future Twin</strong>
+          <p>Получаваш версия на себе си, която говори от бъдещето и те насочва.</p>
+        </div>
+        <div class="mini">
+          <strong>4. Full Echo</strong>
+          <p>Отключваш дълбок анализ, поведенчески цикли, рискове и next-step план.</p>
+        </div>
       </div>
     </section>
 
-    <section id="start" class="section appGrid">
+    <section id="create" class="section appGrid">
       <div class="card">
-        <h2>Твоите данни</h2>
+        <h2>Твоят Twin Seed</h2>
 
         <label>Име</label>
         <input id="name" placeholder="Например: Димитър">
@@ -480,430 +591,368 @@
           <option>45+</option>
         </select>
 
-        <label>Какво искаш да разбереш?</label>
-        <textarea id="goal" placeholder="Например: искам да разбера силните си страни, защо реагирам така, какъв тип човек съм..."></textarea>
+        <label>Какво искаш да направи твоят AI Twin за теб?</label>
+        <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
 
-        <div class="progress">
-          <div id="progressBar" class="bar"></div>
+        <div class="actions">
+          <button onclick="generateTwin()">Generate AI Twin</button>
+          <button class="secondary" onclick="resetTwin()">Reset</button>
         </div>
-        <p id="progressText">0/12 въпроса</p>
-
-        <button onclick="calculateEcho()">Генерирай Mini Echo</button>
-
-        <details>
-          <summary>Имам Full Echo код</summary>
-          <label>Код</label>
-          <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
-          <button style="margin-top:10px" onclick="unlockFullEcho()">Отключи Full Echo</button>
-        </details>
       </div>
 
       <div class="card">
-        <h2>Echo Questions</h2>
-        <p>Отговори интуитивно. Първият импулс често е най-точен.</p>
-        <div id="questions" class="questions"></div>
+        <h2>Избери Twin Signals</h2>
+        <p>Натисни сигналите, които най-много приличат на теб.</p>
+
+        <div id="signals" class="signalGrid"></div>
+
+        <div id="successBox" class="success">
+          AI Twin seed е записан успешно в SoulFlame cloud.
+        </div>
 
         <div id="result" class="result">
-          <div id="successBox" class="success">Профилът е запазен успешно в SoulFlame cloud.</div>
-
           <div class="resultHero">
-            <div class="badge"><span class="dot"></span> Mini EchoProfile</div>
+            <div class="badge"><span class="dot"></span> AI Twin Activated</div>
             <div id="resultTitle" class="resultTitle"></div>
             <div id="resultText"></div>
           </div>
 
           <div id="scoreGrid" class="scoreGrid"></div>
 
-          <div class="locked">
-            <h3>Full Echo Blueprint</h3>
+          <div class="mini">
+            <h3>Full Twin Upgrade</h3>
             <p>
-              Пълният анализ може да включва дълбок профил, поведенчески цикли,
-              емоционални тригери, силни страни, рискове и next-step план.
+              Full Twin може да включва персонален AI профил, Future Twin message,
+              deep Echo Blueprint и план за развитие.
             </p>
             <div class="actions">
-              <button class="warn" onclick="requestPayment()">Заяви Full Echo</button>
-              <button class="secondary" onclick="copyResult()">Копирай резултата</button>
-              <button class="secondary" onclick="sendLead()">Изпрати интерес</button>
+              <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
+              <button class="secondary" onclick="copyTwin()">Копирай резултата</button>
             </div>
           </div>
 
           <details>
             <summary>Advanced API response</summary>
-            <div id="saveStatus" class="statusBox">Резултатът още не е записан.</div>
+            <pre id="apiBox">Ready.</pre>
           </details>
         </div>
       </div>
     </section>
 
     <div class="footer">
-      SoulFlame Twins · EchoProfile V30 · Vercel + Supabase
+      SoulFlame Twins · V34 Top Levitation AI Twin · Vercel + Supabase
     </div>
   </div>
 
   <script>
-    const questions = [
-      { text:"Често ли усещаш, че виждаш идеи преди другите да ги разберат?", trait:"vision" },
-      { text:"Когато има хаос, търсиш ли веднага структура и система?", trait:"logic" },
-      { text:"Попиваш ли емоциите на хората около теб?", trait:"emotion" },
-      { text:"Предпочиташ ли да действаш бързо, вместо да чакаш перфектния момент?", trait:"action" },
-      { text:"Лесно ли усещаш какво иска другият човек, дори да не го казва?", trait:"social" },
-      { text:"Имаш ли усещане, че си създаден за нещо по-голямо от нормалния живот?", trait:"vision" },
-      { text:"Дразни ли те, когато нещо няма ясна логика?", trait:"logic" },
-      { text:"Понякога преживяваш ли нещата прекалено дълбоко?", trait:"emotion" },
-      { text:"Когато искаш нещо, трудно ли стоиш на едно място?", trait:"action" },
-      { text:"Можеш ли да влияеш на хората с думи, тон или присъствие?", trait:"social" },
-      { text:"Често ли мислиш за бъдещи системи, бизнеси или технологии?", trait:"vision" },
-      { text:"Обичаш ли да превръщаш идеите в план, стъпки и структура?", trait:"logic" }
+    const signalDefs = [
+      {
+        key: "vision",
+        title: "Визионер",
+        text: "Виждам идеи преди да станат очевидни.",
+        score: 10
+      },
+      {
+        key: "logic",
+        title: "Архитект",
+        text: "Превръщам хаоса в план и система.",
+        score: 10
+      },
+      {
+        key: "emotion",
+        title: "Емоционален радар",
+        text: "Усещам хора, сигнали и скрити настроения.",
+        score: 10
+      },
+      {
+        key: "action",
+        title: "Двигател",
+        text: "Искам движение, скорост и реален резултат.",
+        score: 10
+      },
+      {
+        key: "social",
+        title: "Влияние",
+        text: "Мога да въздействам чрез думи, присъствие и идея.",
+        score: 10
+      },
+      {
+        key: "future",
+        title: "Future Self",
+        text: "Мисля за версията на себе си след 1, 3 или 5 години.",
+        score: 10
+      },
+      {
+        key: "deep",
+        title: "Deep Mind",
+        text: "Искам да разбера подсъзнателните си модели.",
+        score: 10
+      },
+      {
+        key: "leader",
+        title: "Създател",
+        text: "Не искам само да участвам. Искам да създавам системи.",
+        score: 10
+      }
     ];
 
-    const answers = {};
-    let lastProfile = null;
+    const selected = {};
+    let lastTwin = null;
 
-    const traitNames = {
-      vision: "Визионер",
-      logic: "Архитект",
-      emotion: "Емпат",
-      action: "Двигател",
-      social: "Влияещ"
+    const archetypes = {
+      vision: "Future Architect",
+      logic: "System Builder",
+      emotion: "Emotional Mirror",
+      action: "Momentum Engine",
+      social: "Influence Twin",
+      future: "Future Self Twin",
+      deep: "Subconscious Explorer",
+      leader: "Creator Twin"
     };
 
-    const traitDescriptions = {
-      vision: "Ти виждаш посоки преди да са очевидни. Водещата ти сила е бъдещето — идеи, възможности, нови системи и развитие.",
-      logic: "Ти превръщаш хаоса в структура. Водещата ти сила е подреждането — план, логика, стратегия и контрол.",
-      emotion: "Ти усещаш дълбоко. Водещата ти сила е емоционалната чувствителност — разбираш нюанси, които другите пропускат.",
-      action: "Ти си движение. Водещата ти сила е импулсът към действие — не чакаш прекалено дълго, а натискаш напред.",
-      social: "Ти четеш хората. Водещата ти сила е социалната интуиция — усещаш намерения, тон и скрити сигнали."
+    const descriptions = {
+      vision: "Твоят AI Twin трябва да мисли напред — идеи, сценарии, възможности и бъдещи системи.",
+      logic: "Твоят AI Twin трябва да подрежда хаоса — планове, стъпки, структури и решения.",
+      emotion: "Твоят AI Twin трябва да разчита емоционални сигнали — вътрешни реакции, хора и връзки.",
+      action: "Твоят AI Twin трябва да те бута към действие — скорост, фокус и изпълнение.",
+      social: "Твоят AI Twin трябва да усилва влиянието ти — комуникация, позициониране и присъствие.",
+      future: "Твоят AI Twin трябва да говори като твоя бъдеща версия — предупреждения, избори и посока.",
+      deep: "Твоят AI Twin трябва да анализира дълбоки модели — страхове, мотивация и повторения.",
+      leader: "Твоят AI Twin трябва да работи като създател — бизнес, системи, идеи и реализация."
     };
 
-    function showJson(el, data){
-      document.getElementById(el).textContent = typeof data === "string" ? data : JSON.stringify(data,null,2);
+    function showJson(id, data) {
+      document.getElementById(id).textContent =
+        typeof data === "string" ? data : JSON.stringify(data, null, 2);
     }
 
-    function saveDraft(){
-      const draft = {
-        name: document.getElementById("name").value,
-        contact: document.getElementById("contact").value,
-        age: document.getElementById("age").value,
-        goal: document.getElementById("goal").value,
-        answers
-      };
-      localStorage.setItem("soulflame_echo_draft", JSON.stringify(draft));
-    }
-
-    function loadDraft(){
-      try{
-        const raw = localStorage.getItem("soulflame_echo_draft");
-        if (!raw) return;
-        const draft = JSON.parse(raw);
-
-        document.getElementById("name").value = draft.name || "";
-        document.getElementById("contact").value = draft.contact || "";
-        document.getElementById("age").value = draft.age || "25-34";
-        document.getElementById("goal").value = draft.goal || "";
-
-        if (draft.answers) Object.assign(answers, draft.answers);
-      }catch{}
-    }
-
-    function renderQuestions(){
-      const box = document.getElementById("questions");
+    function renderSignals() {
+      const box = document.getElementById("signals");
       box.innerHTML = "";
 
-      questions.forEach((q, index) => {
+      signalDefs.forEach(signal => {
         const div = document.createElement("div");
-        div.className = "question";
-        div.innerHTML = `
-          <div class="qTop">
-            <div class="qText">${index + 1}. ${q.text}</div>
-            <div class="qTag">${traitNames[q.trait]}</div>
-          </div>
-          <div class="choice">
-            <button type="button" data-value="yes">Да</button>
-            <button type="button" data-value="no">Не</button>
-          </div>
-        `;
+        div.className = "signal";
+        div.dataset.key = signal.key;
+        div.innerHTML = "<b>" + signal.title + "</b><span>" + signal.text + "</span>";
 
-        div.querySelectorAll("button").forEach(btn => {
-          btn.addEventListener("click", () => {
-            answers[index] = btn.dataset.value;
-            div.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            updateProgress();
-            saveDraft();
-          });
-
-          if (answers[index] === btn.dataset.value) btn.classList.add("active");
+        div.addEventListener("click", () => {
+          selected[signal.key] = !selected[signal.key];
+          div.classList.toggle("active", selected[signal.key]);
         });
 
         box.appendChild(div);
       });
     }
 
-    function updateProgress(){
-      const answered = Object.keys(answers).length;
-      const total = questions.length;
-      const percent = Math.round((answered / total) * 100);
-      document.getElementById("progressBar").style.width = percent + "%";
-      document.getElementById("progressText").textContent = `${answered}/${total} въпроса`;
-    }
+    async function checkHealth() {
+      showJson("healthBox", "Checking /api/health...");
 
-    async function checkHealth(){
-      showJson("systemStatus", "Проверявам /api/health...");
-
-      try{
+      try {
         const res = await fetch("/api/health");
         const data = await res.json();
-
-        showJson("systemStatus", data);
-
-        document.getElementById("apiState").textContent = data.ok ? "Online" : "Problem";
-        document.getElementById("dbState").textContent = data.activeDataMode === "supabase" ? "Supabase" : "Missing env";
-      }catch(error){
-        document.getElementById("apiState").textContent = "Problem";
-        document.getElementById("dbState").textContent = "Unknown";
-        showJson("systemStatus", "Health error: " + error.message);
+        showJson("healthBox", data);
+      } catch (error) {
+        showJson("healthBox", error.message);
       }
     }
 
-    function fillDemo(){
-      document.getElementById("name").value = "Demo Client";
+    function demoTwin() {
+      document.getElementById("name").value = "Demo Twin";
       document.getElementById("contact").value = "demo@soulflame.local";
       document.getElementById("age").value = "25-34";
-      document.getElementById("goal").value = "Искам да разбера водещия си вътрешен модел.";
+      document.getElementById("goal").value = "Искам AI Twin, който ми помага да вземам по-смели решения и да развивам идеите си.";
 
-      questions.forEach((q, index) => {
-        answers[index] = index % 3 === 1 ? "no" : "yes";
+      ["vision", "logic", "future", "leader"].forEach(key => selected[key] = true);
+
+      document.querySelectorAll(".signal").forEach(el => {
+        el.classList.toggle("active", Boolean(selected[el.dataset.key]));
       });
 
-      renderQuestions();
-      updateProgress();
-      saveDraft();
-      location.hash = "#start";
+      location.hash = "#create";
     }
 
-    function calculateScores(){
-      const scores = { vision:0, logic:0, emotion:0, action:0, social:0 };
+    function buildScores() {
+      const scores = {
+        vision: 0,
+        logic: 0,
+        emotion: 0,
+        action: 0,
+        social: 0,
+        future: 0,
+        deep: 0,
+        leader: 0
+      };
 
-      questions.forEach((q, index) => {
-        if (answers[index] === "yes") scores[q.trait] += 10;
-        if (answers[index] === "no") scores[q.trait] += 2;
+      signalDefs.forEach(signal => {
+        scores[signal.key] = selected[signal.key] ? signal.score : 2;
       });
 
       return scores;
     }
 
-    function topTraits(scores){
-      return Object.entries(scores).sort((a,b) => b[1] - a[1]);
+    function getTopSignals(scores) {
+      return Object.entries(scores).sort((a, b) => b[1] - a[1]);
     }
 
-    async function calculateEcho(){
-      const answered = Object.keys(answers).length;
-
-      if (answered < questions.length){
-        alert("Отговори на всички въпроси, за да генерираш EchoProfile.");
-        return;
-      }
-
+    async function generateTwin() {
       const name = document.getElementById("name").value.trim();
       const contact = document.getElementById("contact").value.trim();
       const age = document.getElementById("age").value;
       const goal = document.getElementById("goal").value.trim();
 
-      if (!name){
+      if (!name) {
         alert("Попълни име.");
         return;
       }
 
-      if (!contact){
+      if (!contact) {
         alert("Попълни контакт.");
         return;
       }
 
-      const scores = calculateScores();
-      const sorted = topTraits(scores);
-      const mainTrait = sorted[0][0];
-      const secondTrait = sorted[1][0];
+      const activeSignals = Object.keys(selected).filter(key => selected[key]);
 
-      const profile = `${traitNames[mainTrait]} + ${traitNames[secondTrait]}`;
-      const report = traitDescriptions[mainTrait];
+      if (!activeSignals.length) {
+        alert("Избери поне един Twin Signal.");
+        return;
+      }
+
+      const scores = buildScores();
+      const top = getTopSignals(scores);
+      const mainKey = top[0][0];
+      const secondKey = top[1][0];
+
+      const profile = archetypes[mainKey] + " + " + archetypes[secondKey];
+      const report = descriptions[mainKey];
 
       const fullReport =
-        `Пълен Echo Blueprint за ${name}: основен модел ${traitNames[mainTrait]}, втори модел ${traitNames[secondTrait]}. ` +
-        `Следващата стъпка е да се анализират поведенчески цикли, емоционални тригери, мотивация и социален стил.`;
+        "Full AI Twin за " + name + ": водещ слой " + archetypes[mainKey] +
+        ", втори слой " + archetypes[secondKey] +
+        ". Следващата стъпка е Future Twin message, личен план и deep Echo анализ.";
 
-      lastProfile = {
+      lastTwin = {
         id: Date.now(),
         user: { name, contact, age, goal },
-        mainTrait,
-        secondTrait,
+        mainTrait: mainKey,
+        secondTrait: secondKey,
         profile,
         scores,
         report,
         fullReport,
-        answers,
+        selectedSignals: activeSignals,
+        product: "AI Twin by SoulFlame",
+        version: "V34_TOP_LEVITATION_AI_TWIN",
         createdAt: new Date().toISOString()
       };
 
       document.getElementById("result").classList.add("show");
       document.getElementById("resultTitle").textContent = profile;
-      document.getElementById("resultText").innerHTML = `
-        <p><strong>${name}</strong>, твоят водещ модел е <strong class="grad">${traitNames[mainTrait]}</strong>.</p>
-        <p>${report}</p>
-        <p>Втори активен слой: <strong>${traitNames[secondTrait]}</strong>.</p>
-      `;
 
-      const scoreGrid = document.getElementById("scoreGrid");
-      scoreGrid.innerHTML = "";
+      document.getElementById("resultText").innerHTML =
+        "<p><strong>" + name + "</strong>, твоят AI Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
+        "<p>" + report + "</p>" +
+        "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
+        "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
 
-      Object.entries(scores).forEach(([key,value]) => {
+      const grid = document.getElementById("scoreGrid");
+      grid.innerHTML = "";
+
+      top.slice(0, 4).forEach(([key, value]) => {
         const div = document.createElement("div");
         div.className = "score";
-        div.innerHTML = `<b>${value}</b><span>${traitNames[key]}</span>`;
-        scoreGrid.appendChild(div);
+        div.innerHTML = "<b>" + value + "</b><span>" + archetypes[key] + "</span>";
+        grid.appendChild(div);
       });
 
-      await saveProfile(lastProfile);
+      await saveTwin(lastTwin);
     }
 
-    async function saveProfile(profile){
-      showJson("saveStatus", "Записвам профила в SoulFlame cloud...");
+    async function saveTwin(twin) {
+      showJson("apiBox", "Saving AI Twin seed to SoulFlame cloud...");
 
-      try{
+      try {
         const res = await fetch("/api/profile", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify(profile)
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(twin)
         });
 
         const data = await res.json();
-        showJson("saveStatus", data);
+        showJson("apiBox", data);
 
-        if (data.ok) document.getElementById("successBox").classList.add("show");
-      }catch(error){
-        showJson("saveStatus", "Profile save error: " + error.message);
-      }
-    }
-
-    async function sendLead(){
-      if (!lastProfile){
-        alert("Първо генерирай Mini Echo.");
-        return;
-      }
-
-      showJson("saveStatus", "Записвам интерес...");
-
-      try{
-        const res = await fetch("/api/lead", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify({
-            offer:"EchoProfile Lead",
-            user:lastProfile.user,
-            profile:lastProfile.profile,
-            scores:lastProfile.scores
-          })
-        });
-
-        const data = await res.json();
-        showJson("saveStatus", data);
-      }catch(error){
-        showJson("saveStatus", "Lead error: " + error.message);
-      }
-    }
-
-    async function requestPayment(){
-      if (!lastProfile){
-        alert("Първо генерирай Mini Echo.");
-        return;
-      }
-
-      showJson("saveStatus", "Създавам заявка за Full Echo...");
-
-      try{
-        const res = await fetch("/api/payment-request", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify({
-            offer:"Full AI Echo",
-            amount:"19.99 лв",
-            method:"manual",
-            user:lastProfile.user,
-            profile:lastProfile.profile,
-            scores:lastProfile.scores
-          })
-        });
-
-        const data = await res.json();
-        showJson("saveStatus", data);
-
-        if (data.ok) alert("Заявката е създадена. След потвърждение се издава unlock code.");
-      }catch(error){
-        showJson("saveStatus", "Payment request error: " + error.message);
-      }
-    }
-
-    async function unlockFullEcho(){
-      const code = document.getElementById("unlockCode").value.trim();
-
-      if (!code){
-        alert("Въведи unlock code.");
-        return;
-      }
-
-      showJson("saveStatus", "Проверявам unlock code...");
-
-      try{
-        const res = await fetch("/api/unlock", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify({
-            code,
-            user:lastProfile ? lastProfile.user : {},
-            profileId:lastProfile ? lastProfile.id : null
-          })
-        });
-
-        const data = await res.json();
-        showJson("saveStatus", data);
-
-        if (data.ok && data.unlocked && lastProfile){
-          document.getElementById("resultText").innerHTML += `
-            <div class="locked">
-              <h3>Full Echo отключен</h3>
-              <p>${lastProfile.fullReport}</p>
-            </div>
-          `;
+        if (data.ok) {
+          document.getElementById("successBox").classList.add("show");
         }
-      }catch(error){
-        showJson("saveStatus", "Unlock error: " + error.message);
+      } catch (error) {
+        showJson("apiBox", error.message);
       }
     }
 
-    function copyResult(){
-      if (!lastProfile){
-        alert("Няма резултат за копиране.");
+    async function requestFullTwin() {
+      if (!lastTwin) {
+        alert("Първо генерирай AI Twin.");
+        return;
+      }
+
+      showJson("apiBox", "Creating Full AI Twin request...");
+
+      try {
+        const res = await fetch("/api/payment-request", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            offer: "Full AI Twin by SoulFlame",
+            amount: "19.99 лв",
+            method: "manual",
+            user: lastTwin.user,
+            profile: lastTwin.profile,
+            scores: lastTwin.scores,
+            rawTwin: lastTwin
+          })
+        });
+
+        const data = await res.json();
+        showJson("apiBox", data);
+
+        if (data.ok) {
+          alert("Заявката за Full AI Twin е създадена.");
+        }
+      } catch (error) {
+        showJson("apiBox", error.message);
+      }
+    }
+
+    function copyTwin() {
+      if (!lastTwin) {
+        alert("Няма AI Twin за копиране.");
         return;
       }
 
       const text =
-        `SoulFlame EchoProfile\n` +
-        `Име: ${lastProfile.user.name}\n` +
-        `Профил: ${lastProfile.profile}\n` +
-        `Mini Echo: ${lastProfile.report}\n`;
+        "AI Twin by SoulFlame\n" +
+        "Име: " + lastTwin.user.name + "\n" +
+        "Профил: " + lastTwin.profile + "\n" +
+        "Report: " + lastTwin.report + "\n";
 
       navigator.clipboard.writeText(text);
-      alert("Резултатът е копиран.");
+      alert("AI Twin резултатът е копиран.");
     }
 
-    ["name","contact","age","goal"].forEach(id => {
-      document.addEventListener("input", event => {
-        if (event.target && event.target.id === id) saveDraft();
-      });
-    });
+    function resetTwin() {
+      Object.keys(selected).forEach(key => delete selected[key]);
+      document.querySelectorAll(".signal").forEach(el => el.classList.remove("active"));
+      document.getElementById("result").classList.remove("show");
+      document.getElementById("successBox").classList.remove("show");
+      showJson("apiBox", "Ready.");
+      lastTwin = null;
+    }
 
-    loadDraft();
-    renderQuestions();
-    updateProgress();
+    renderSignals();
     checkHealth();
   </script>
 </body>

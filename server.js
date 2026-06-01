@@ -1,4 +1,4 @@
-﻿const http = require("http");
+const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
@@ -33,7 +33,7 @@ const ROOT = __dirname;
 
 const APP_NAME = "SoulFlame Twins";
 const MODULE_NAME = "EchoProfile";
-const APP_VERSION = "V33_ABSOLUTE_PATH_HARD_FIX";
+const APP_VERSION = "V34_TOP_LEVITATION_AI_TWIN";
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const APP_MODE = process.env.APP_MODE || "production";
