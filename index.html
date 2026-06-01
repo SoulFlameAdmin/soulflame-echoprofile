@@ -3,46 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>AI Twin by SoulFlame — Quantum Levitation</title>
-  <meta name="description" content="AI Twin by SoulFlame — Quantum Levitation дизайн, EchoProfile, Future Twin и персонален AI сигнал.">
-  <meta property="og:title" content="AI Twin by SoulFlame — Quantum Levitation">
-  <meta property="og:description" content="Създай AI Twin, който започва от твоя вътрешен Echo сигнал.">
+  <title>AI Twin by SoulFlame — Quantum Smooth</title>
+  <meta name="description" content="AI Twin by SoulFlame — smooth quantum design без лаг при scroll.">
   <meta name="theme-color" content="#050611">
 
   <style>
-    @property --spin {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: 0deg;
-    }
-
-    @property --glow {
-      syntax: "<number>";
-      inherits: false;
-      initial-value: 0;
-    }
-
     :root {
-      --bg0: #03040a;
-      --bg1: #07091a;
-      --bg2: #101843;
-      --text: #f8f7ff;
-      --soft: #b9c3e8;
-      --muted: #7f8ab4;
-      --line: rgba(255,255,255,.16);
-      --glass: rgba(255,255,255,.085);
-      --glass2: rgba(255,255,255,.052);
-      --blackGlass: rgba(0,0,0,.34);
-      --cyan: #00eaff;
-      --violet: #7c3cff;
-      --pink: #ff4ff3;
-      --gold: #ffd166;
-      --green: #23e6a8;
-      --red: #ff4770;
-      --radius: 30px;
-      --shadow: 0 32px 120px rgba(0,0,0,.52);
-      --mx: 50%;
-      --my: 50%;
+      --bg0:#03040a;
+      --bg1:#07091a;
+      --bg2:#101843;
+      --text:#f8f7ff;
+      --soft:#b9c3e8;
+      --muted:#7f8ab4;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.075);
+      --glass2:rgba(255,255,255,.045);
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#23e6a8;
+      --shadow:0 28px 90px rgba(0,0,0,.42);
     }
 
     * {
@@ -57,80 +38,52 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at var(--mx) var(--my), rgba(0,234,255,.16), transparent 18rem),
-        radial-gradient(circle at 14% 8%, rgba(124,60,255,.36), transparent 34rem),
-        radial-gradient(circle at 86% 12%, rgba(0,234,255,.22), transparent 30rem),
-        radial-gradient(circle at 50% 105%, rgba(255,79,243,.14), transparent 34rem),
+        radial-gradient(circle at 15% 8%, rgba(124,60,255,.30), transparent 32rem),
+        radial-gradient(circle at 86% 12%, rgba(0,234,255,.18), transparent 30rem),
+        radial-gradient(circle at 50% 105%, rgba(255,79,243,.10), transparent 34rem),
         linear-gradient(135deg, var(--bg0), var(--bg1) 46%, var(--bg2));
       overflow-x: hidden;
-      text-rendering: geometricPrecision;
       -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 0;
       pointer-events: none;
+      z-index: 0;
       background:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 58px 58px;
-      mask-image: radial-gradient(circle at 50% 18%, rgba(0,0,0,.72), transparent 72%);
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: -20%;
-      z-index: 0;
-      pointer-events: none;
-      background: conic-gradient(from var(--spin), transparent, rgba(0,234,255,.11), transparent, rgba(255,79,243,.12), transparent);
-      filter: blur(70px);
-      opacity: .75;
-      animation: spinField 18s linear infinite;
-    }
-
-    @keyframes spinField {
-      to {
-        --spin: 360deg;
-      }
-    }
-
-    #quantumCanvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: .62;
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 16%, rgba(0,0,0,.6), transparent 70%);
     }
 
     .wrap {
       position: relative;
-      z-index: 2;
-      width: min(1280px, 100%);
+      z-index: 1;
+      width: min(1240px, 100%);
       margin: 0 auto;
       padding: 22px;
     }
 
     .nav {
-      position: sticky;
-      top: 12px;
-      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 14px;
       padding: 12px;
       border: 1px solid rgba(255,255,255,.12);
-      background: rgba(6,8,20,.58);
-      backdrop-filter: blur(22px) saturate(140%);
+      background: rgba(6,8,20,.72);
       border-radius: 24px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.24);
+      box-shadow: 0 16px 45px rgba(0,0,0,.22);
+      position: sticky;
+      top: 12px;
+      z-index: 20;
     }
 
     .brand {
@@ -138,7 +91,7 @@
       align-items: center;
       gap: 12px;
       font-weight: 950;
-      letter-spacing: -.55px;
+      letter-spacing: -.5px;
       white-space: nowrap;
     }
 
@@ -146,30 +99,18 @@
       width: 42px;
       height: 42px;
       border-radius: 16px;
-      position: relative;
       background:
-        radial-gradient(circle at 31% 24%, #fff, transparent 16%),
-        conic-gradient(from var(--spin), var(--cyan), var(--violet), var(--pink), var(--cyan));
-      box-shadow: 0 0 42px rgba(124,60,255,.48);
-      animation: spinField 8s linear infinite;
+        radial-gradient(circle at 30% 22%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow: 0 0 34px rgba(124,60,255,.42);
       flex: 0 0 auto;
-    }
-
-    .logo::after {
-      content: "";
-      position: absolute;
-      inset: 7px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.26);
-      background: rgba(0,0,0,.18);
     }
 
     .navlinks {
       display: flex;
-      justify-content: flex-end;
-      align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .pill {
@@ -179,21 +120,21 @@
       font-weight: 900;
       padding: 10px 12px;
       border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.065);
+      background: rgba(255,255,255,.06);
       border-radius: 999px;
-      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
     }
 
     .pill:hover {
       transform: translateY(-2px);
-      border-color: rgba(0,234,255,.44);
-      background: rgba(0,234,255,.09);
+      border-color: rgba(0,234,255,.36);
+      background: rgba(0,234,255,.08);
     }
 
     .hero {
       min-height: calc(100vh - 110px);
       display: grid;
-      grid-template-columns: 1.03fr .97fr;
+      grid-template-columns: 1.02fr .98fr;
       gap: 22px;
       align-items: center;
       padding: 44px 0 28px;
@@ -202,44 +143,20 @@
     .card {
       border: 1px solid var(--line);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.055)),
-        radial-gradient(circle at 20% 10%, rgba(0,234,255,.10), transparent 40%);
-      backdrop-filter: blur(24px) saturate(150%);
-      border-radius: var(--radius);
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.045)),
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.08), transparent 38%);
+      border-radius: 30px;
       padding: clamp(22px, 4vw, 42px);
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
       transform: translateZ(0);
-      content-visibility: auto;
-      contain-intrinsic-size: 700px;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: .55;
-      pointer-events: none;
+    .card.light {
       background:
-        linear-gradient(115deg, transparent 0 35%, rgba(255,255,255,.14) 49%, transparent 61%),
-        radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.10), transparent 22rem);
-      transform: translateX(-38%);
-      animation: glassScan 8.5s ease-in-out infinite;
-    }
-
-    @keyframes glassScan {
-      0%, 100% {
-        transform: translateX(-42%);
-      }
-      50% {
-        transform: translateX(42%);
-      }
-    }
-
-    .above {
-      position: relative;
-      z-index: 2;
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.04)),
+        rgba(255,255,255,.035);
     }
 
     .badge {
@@ -247,7 +164,7 @@
       align-items: center;
       gap: 9px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.24);
+      background: rgba(0,0,0,.20);
       color: var(--soft);
       padding: 9px 13px;
       border-radius: 999px;
@@ -261,27 +178,26 @@
       height: 9px;
       border-radius: 99px;
       background: var(--green);
-      box-shadow: 0 0 18px var(--green);
+      box-shadow: 0 0 16px var(--green);
     }
 
     h1 {
       margin: 0 0 18px;
-      font-size: clamp(48px, 8vw, 116px);
-      letter-spacing: -4.8px;
-      line-height: .86;
+      font-size: clamp(48px, 8vw, 110px);
+      letter-spacing: -4px;
+      line-height: .87;
     }
 
     h2 {
       margin: 0 0 14px;
-      font-size: clamp(28px, 4vw, 52px);
-      letter-spacing: -1.8px;
+      font-size: clamp(28px, 4vw, 50px);
+      letter-spacing: -1.6px;
       line-height: 1;
     }
 
     h3 {
       margin: 0 0 8px;
       font-size: 21px;
-      letter-spacing: -.4px;
     }
 
     p {
@@ -292,7 +208,7 @@
     }
 
     .grad {
-      background: linear-gradient(90deg, var(--cyan), #57a7ff, var(--violet), var(--pink));
+      background: linear-gradient(90deg, var(--cyan), #5ca8ff, var(--violet), var(--pink));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -314,24 +230,22 @@
       border: 0;
       cursor: pointer;
       color: white;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.36), transparent 22%),
-        linear-gradient(135deg, var(--violet), #3f8dff);
+      background: linear-gradient(135deg, var(--violet), #3f8dff);
       border-radius: 18px;
       padding: 14px 18px;
       font-weight: 950;
       text-decoration: none;
       font-size: 15px;
-      box-shadow: 0 18px 50px rgba(124,60,255,.28);
-      transition: transform .22s ease, filter .22s ease, box-shadow .22s ease;
+      box-shadow: 0 16px 42px rgba(124,60,255,.24);
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
       transform: translateZ(0);
     }
 
     button:hover,
     .btn:hover {
-      transform: translateY(-3px) scale(1.01);
-      filter: saturate(1.2);
-      box-shadow: 0 24px 70px rgba(124,60,255,.38);
+      transform: translateY(-2px);
+      filter: saturate(1.1);
+      box-shadow: 0 20px 52px rgba(124,60,255,.30);
     }
 
     button.secondary,
@@ -343,107 +257,91 @@
 
     button.gold,
     .btn.gold {
-      background:
-        radial-gradient(circle at 28% 20%, rgba(255,255,255,.38), transparent 22%),
-        linear-gradient(135deg, #ffb703, #ff4ff3);
-      box-shadow: 0 18px 55px rgba(255,79,243,.22);
+      background: linear-gradient(135deg, #ffb703, #ff4ff3);
+      box-shadow: 0 16px 45px rgba(255,79,243,.18);
     }
 
-    .quantumStage {
-      min-height: 590px;
+    .stage {
+      min-height: 560px;
       display: grid;
       place-items: center;
-      perspective: 1400px;
+      perspective: 1000px;
       overflow: hidden;
-      border-radius: var(--radius);
     }
 
     .device {
       position: relative;
-      width: min(460px, 86vw);
-      aspect-ratio: 1 / 1.18;
+      width: min(440px, 86vw);
+      aspect-ratio: 1 / 1.15;
       transform-style: preserve-3d;
-      will-change: transform;
-      transition: transform .08s linear;
+      transition: transform .14s linear;
     }
 
     .halo {
       position: absolute;
-      inset: 9%;
+      inset: 12%;
       border-radius: 50%;
-      background: conic-gradient(from var(--spin), rgba(0,234,255,.0), rgba(0,234,255,.8), rgba(124,60,255,.0), rgba(255,79,243,.72), rgba(0,234,255,.0));
-      filter: blur(20px);
-      opacity: .72;
-      animation: spinField 7s linear infinite;
-      transform: translateZ(-60px);
+      background: radial-gradient(circle, rgba(0,234,255,.22), rgba(124,60,255,.10), transparent 64%);
+      opacity: .75;
+      animation: haloPulse 5.5s ease-in-out infinite;
     }
 
     .orb {
       position: absolute;
-      inset: 13% 8% 18%;
-      border-radius: 48% 52% 44% 56% / 46% 48% 52% 54%;
+      inset: 14% 8% 20%;
+      border-radius: 50%;
       background:
         radial-gradient(circle at 34% 24%, rgba(255,255,255,.95), transparent 10%),
-        radial-gradient(circle at 42% 42%, rgba(0,234,255,.80), transparent 22%),
-        radial-gradient(circle at 58% 56%, rgba(124,60,255,.66), transparent 38%),
-        radial-gradient(circle at 70% 70%, rgba(255,79,243,.44), transparent 50%),
+        radial-gradient(circle at 42% 42%, rgba(0,234,255,.72), transparent 24%),
+        radial-gradient(circle at 58% 56%, rgba(124,60,255,.60), transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255,79,243,.36), transparent 55%),
         rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.24);
+      border: 1px solid rgba(255,255,255,.22);
       box-shadow:
-        inset 0 0 100px rgba(255,255,255,.08),
-        0 0 90px rgba(0,234,255,.28),
-        0 0 160px rgba(124,60,255,.36);
-      animation: levitate 5.8s ease-in-out infinite, morph 8s ease-in-out infinite;
-      transform: translateZ(90px);
+        inset 0 0 80px rgba(255,255,255,.07),
+        0 0 80px rgba(0,234,255,.20),
+        0 0 120px rgba(124,60,255,.28);
+      animation: levitate 5.8s ease-in-out infinite;
+      transform: translateZ(70px);
     }
 
-    .orb::before,
-    .orb::after {
+    .orb::before {
       content: "";
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 128%;
-      height: 31%;
-      border: 1px solid rgba(255,255,255,.22);
+      width: 126%;
+      height: 30%;
+      border: 1px solid rgba(255,255,255,.20);
       border-radius: 50%;
-      transform: translate(-50%, -50%) rotateX(72deg) rotateZ(16deg);
-      box-shadow: 0 0 40px rgba(0,234,255,.20);
-    }
-
-    .orb::after {
-      width: 86%;
-      height: 22%;
-      transform: translate(-50%, -50%) rotateX(68deg) rotateZ(-36deg);
-      border-color: rgba(255,79,243,.28);
+      transform: translate(-50%, -50%) rotateX(70deg) rotateZ(15deg);
     }
 
     .shadowOrb {
       position: absolute;
       left: 50%;
-      bottom: 3%;
+      bottom: 5%;
       width: 54%;
       height: 12%;
       transform: translateX(-50%) rotateX(72deg);
-      background: radial-gradient(ellipse, rgba(0,234,255,.36), rgba(124,60,255,.18), transparent 68%);
-      filter: blur(13px);
-      opacity: .88;
+      background: radial-gradient(ellipse, rgba(0,234,255,.28), rgba(124,60,255,.14), transparent 68%);
+      filter: blur(10px);
+      opacity: .72;
       animation: shadowPulse 5.8s ease-in-out infinite;
     }
 
     .chip {
       position: absolute;
       z-index: 4;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(2,4,14,.52);
-      backdrop-filter: blur(18px) saturate(150%);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(2,4,14,.58);
       border-radius: 18px;
       padding: 12px 14px;
       color: #e7ecff;
-      box-shadow: 0 20px 70px rgba(0,0,0,.30);
+      box-shadow: 0 16px 45px rgba(0,0,0,.26);
       font-weight: 950;
-      animation: chipFloat 4.9s ease-in-out infinite;
-      transform: translateZ(160px);
+      animation: chipFloat 5.4s ease-in-out infinite;
+      transform: translateZ(120px);
       white-space: nowrap;
     }
 
@@ -454,65 +352,29 @@
       font-weight: 800;
     }
 
-    .chip.c1 {
-      top: 4%;
-      left: 0;
-    }
-
-    .chip.c2 {
-      top: 18%;
-      right: -3%;
-      animation-delay: .8s;
-    }
-
-    .chip.c3 {
-      bottom: 18%;
-      left: -1%;
-      animation-delay: 1.4s;
-    }
-
-    .chip.c4 {
-      bottom: 5%;
-      right: 7%;
-      animation-delay: 2.1s;
-    }
+    .chip.c1 { top: 6%; left: 1%; }
+    .chip.c2 { top: 18%; right: 0; animation-delay: .7s; }
+    .chip.c3 { bottom: 18%; left: 0; animation-delay: 1.3s; }
+    .chip.c4 { bottom: 6%; right: 7%; animation-delay: 2s; }
 
     @keyframes levitate {
-      0%, 100% {
-        transform: translateY(0) translateZ(90px) scale(1);
-      }
-      50% {
-        transform: translateY(-24px) translateZ(110px) scale(1.025);
-      }
+      0%,100% { transform: translateY(0) translateZ(70px) scale(1); }
+      50% { transform: translateY(-18px) translateZ(84px) scale(1.018); }
     }
 
-    @keyframes morph {
-      0%, 100% {
-        border-radius: 48% 52% 44% 56% / 46% 48% 52% 54%;
-      }
-      50% {
-        border-radius: 54% 46% 58% 42% / 48% 55% 45% 52%;
-      }
+    @keyframes haloPulse {
+      0%,100% { transform: scale(.96); opacity:.52; }
+      50% { transform: scale(1.07); opacity:.82; }
     }
 
     @keyframes shadowPulse {
-      0%, 100% {
-        opacity: .58;
-        transform: translateX(-50%) rotateX(72deg) scale(.92);
-      }
-      50% {
-        opacity: .92;
-        transform: translateX(-50%) rotateX(72deg) scale(1.16);
-      }
+      0%,100% { opacity:.46; transform: translateX(-50%) rotateX(72deg) scale(.92); }
+      50% { opacity:.75; transform: translateX(-50%) rotateX(72deg) scale(1.1); }
     }
 
     @keyframes chipFloat {
-      0%, 100% {
-        translate: 0 0;
-      }
-      50% {
-        translate: 0 -14px;
-      }
+      0%,100% { translate:0 0; }
+      50% { translate:0 -10px; }
     }
 
     .section {
@@ -532,9 +394,7 @@
       padding: 18px;
       transform: translateY(18px);
       opacity: 0;
-      transition: transform .7s cubic-bezier(.2,.9,.2,1), opacity .7s ease;
-      content-visibility: auto;
-      contain-intrinsic-size: 230px;
+      transition: transform .55s ease, opacity .55s ease;
     }
 
     .mini.show {
@@ -568,21 +428,20 @@
     select {
       width: 100%;
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.28);
+      background: rgba(0,0,0,.26);
       color: var(--text);
       border-radius: 16px;
       padding: 14px 15px;
       outline: none;
       font-size: 15px;
-      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      transition: border-color .18s ease, box-shadow .18s ease;
     }
 
     input:focus,
     textarea:focus,
     select:focus {
-      border-color: rgba(0,234,255,.52);
-      box-shadow: 0 0 0 4px rgba(0,234,255,.08);
-      background: rgba(0,0,0,.34);
+      border-color: rgba(0,234,255,.48);
+      box-shadow: 0 0 0 4px rgba(0,234,255,.07);
     }
 
     textarea {
@@ -599,28 +458,21 @@
 
     .signal {
       border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 20% 10%, rgba(0,234,255,.08), transparent 34%),
-        rgba(0,0,0,.24);
+      background: rgba(0,0,0,.24);
       border-radius: 20px;
       padding: 16px;
       cursor: pointer;
-      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
-      transform: translateZ(0);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
     }
 
     .signal:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0,234,255,.36);
-      box-shadow: 0 16px 60px rgba(0,234,255,.08);
+      transform: translateY(-3px);
+      border-color: rgba(0,234,255,.32);
     }
 
     .signal.active {
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,.18), transparent 28%),
-        linear-gradient(135deg, rgba(124,60,255,.40), rgba(0,234,255,.16));
-      border-color: rgba(0,234,255,.52);
-      box-shadow: 0 20px 80px rgba(0,234,255,.10);
+      background: linear-gradient(135deg, rgba(124,60,255,.34), rgba(0,234,255,.12));
+      border-color: rgba(0,234,255,.44);
     }
 
     .signal b {
@@ -643,26 +495,19 @@
 
     .result.show {
       display: block;
-      animation: resultIn .55s cubic-bezier(.2,.9,.2,1);
+      animation: resultIn .42s ease both;
     }
 
     @keyframes resultIn {
-      from {
-        opacity: 0;
-        transform: translateY(16px) scale(.985);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity:0; transform:translateY(12px); }
+      to { opacity:1; transform:translateY(0); }
     }
 
     .resultHero {
       border: 1px solid var(--line);
       background:
-        radial-gradient(circle at 20% 20%, rgba(0,234,255,.18), transparent 30%),
-        radial-gradient(circle at 80% 10%, rgba(124,60,255,.24), transparent 36%),
-        rgba(255,255,255,.055);
+        radial-gradient(circle at 20% 20%, rgba(0,234,255,.14), transparent 30%),
+        rgba(255,255,255,.045);
       border-radius: 26px;
       padding: 22px;
       margin-bottom: 14px;
@@ -685,7 +530,7 @@
 
     .score {
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.055);
       border-radius: 18px;
       padding: 13px;
       text-align: center;
@@ -699,8 +544,8 @@
 
     .success {
       display: none;
-      border: 1px solid rgba(37,224,163,.35);
-      background: rgba(37,224,163,.09);
+      border: 1px solid rgba(37,224,163,.34);
+      background: rgba(37,224,163,.08);
       color: #caffdf;
       border-radius: 20px;
       padding: 15px;
@@ -713,7 +558,7 @@
 
     details {
       border: 1px solid var(--line);
-      background: rgba(0,0,0,.20);
+      background: rgba(0,0,0,.18);
       border-radius: 20px;
       padding: 14px;
       margin-top: 14px;
@@ -725,7 +570,7 @@
     }
 
     pre {
-      background: rgba(0,0,0,.36);
+      background: rgba(0,0,0,.34);
       border: 1px solid var(--line);
       color: #dbe4ff;
       border-radius: 18px;
@@ -735,30 +580,24 @@
       min-height: 120px;
     }
 
+    #progress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+      z-index: 100;
+      pointer-events: none;
+    }
+
     .footer {
       text-align: center;
       color: var(--muted);
       font-size: 13px;
       padding: 30px 0 48px;
-    }
-
-    @supports (animation-timeline: view()) {
-      .mini {
-        animation: revealByView both;
-        animation-timeline: view();
-        animation-range: entry 10% cover 34%;
-      }
-
-      @keyframes revealByView {
-        from {
-          opacity: 0;
-          transform: translateY(28px) scale(.98);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -770,13 +609,13 @@
         transition-duration: .001ms !important;
         scroll-behavior: auto !important;
       }
-
-      #quantumCanvas {
-        display: none;
-      }
     }
 
     @media (max-width: 980px) {
+      html {
+        scroll-behavior: auto;
+      }
+
       .hero,
       .appGrid {
         grid-template-columns: 1fr;
@@ -791,8 +630,8 @@
         grid-template-columns: 1fr;
       }
 
-      .quantumStage {
-        min-height: 500px;
+      .stage {
+        min-height: 460px;
       }
 
       .card {
@@ -800,7 +639,7 @@
       }
 
       h1 {
-        letter-spacing: -2.7px;
+        letter-spacing: -2.5px;
       }
 
       .nav {
@@ -818,261 +657,16 @@
         font-size: 12px;
       }
 
-      .chip.c1 {
-        left: 2%;
-      }
-
-      .chip.c2 {
-        right: 2%;
-      }
-
-      .chip.c3 {
-        left: 3%;
-      }
-
-      .chip.c4 {
-        right: 4%;
-      }
-    }
-      /* ================================
-       V37_FULL_SITE_SMOOTH_ENGINE_CSS
-       ================================ */
-
-    html.v37-smooth {
-      scroll-behavior: auto;
-    }
-
-    ::selection {
-      background: rgba(0,234,255,.34);
-      color: #fff;
-    }
-
-    * {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      overscroll-behavior-y: none;
-    }
-
-    body.v37-loaded .card,
-    body.v37-loaded .mini,
-    body.v37-loaded .signal,
-    body.v37-loaded .nav {
-      transition-timing-function: cubic-bezier(.16, 1, .3, 1);
-    }
-
-    #smoothProgress {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 3px;
-      z-index: 9999;
-      transform-origin: 0 50%;
-      transform: scaleX(0);
-      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
-      box-shadow: 0 0 22px rgba(0,234,255,.55);
-      pointer-events: none;
-    }
-
-    #cursorAura,
-    #cursorDot {
-      position: fixed;
-      left: 0;
-      top: 0;
-      border-radius: 999px;
-      pointer-events: none;
-      z-index: 9998;
-      opacity: 0;
-      transform: translate3d(-50%, -50%, 0);
-      transition: opacity .35s ease;
-      mix-blend-mode: screen;
-    }
-
-    #cursorAura {
-      width: 220px;
-      height: 220px;
-      background:
-        radial-gradient(circle, rgba(0,234,255,.18), rgba(124,60,255,.08) 36%, transparent 68%);
-      filter: blur(10px);
-    }
-
-    #cursorDot {
-      width: 9px;
-      height: 9px;
-      background: rgba(255,255,255,.88);
-      box-shadow: 0 0 20px rgba(0,234,255,.85);
-    }
-
-    body.v37-pointer #cursorAura,
-    body.v37-pointer #cursorDot {
-      opacity: 1;
-    }
-
-    #smoothPreloader {
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 50% 35%, rgba(124,60,255,.28), transparent 32rem),
-        linear-gradient(135deg, #03040a, #07091a);
-      transition: opacity .7s cubic-bezier(.16, 1, .3, 1), visibility .7s ease;
-    }
-
-    #smoothPreloader.hide {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .preBox {
-      text-align: center;
-      color: var(--soft);
-      font-weight: 900;
-      letter-spacing: -.2px;
-    }
-
-    .preOrb {
-      width: 86px;
-      height: 86px;
-      margin: 0 auto 18px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 20%, #fff, transparent 14%),
-        conic-gradient(from var(--spin), var(--cyan), var(--violet), var(--pink), var(--cyan));
-      box-shadow:
-        0 0 50px rgba(0,234,255,.34),
-        0 0 90px rgba(124,60,255,.36);
-      animation: spinField 2.8s linear infinite, preFloat 2.2s ease-in-out infinite;
-    }
-
-    @keyframes preFloat {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(-10px) scale(1.04);
-      }
-    }
-
-    #backToTop {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 9997;
-      width: 48px;
-      height: 48px;
-      padding: 0;
-      border-radius: 18px;
-      opacity: 0;
-      transform: translateY(14px) scale(.92);
-      pointer-events: none;
-      transition: opacity .28s ease, transform .28s cubic-bezier(.16, 1, .3, 1);
-    }
-
-    #backToTop.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    .card,
-    .mini,
-    .signal,
-    button,
-    .btn,
-    .pill,
-    input,
-    textarea,
-    select {
-      transition-duration: .42s;
-      transition-timing-function: cubic-bezier(.16, 1, .3, 1);
-    }
-
-    .card {
-      transform: translate3d(0,0,0);
-    }
-
-    .card:hover {
-      border-color: rgba(0,234,255,.25);
-      box-shadow:
-        var(--shadow),
-        0 0 90px rgba(0,234,255,.05);
-    }
-
-    .signal,
-    button,
-    .btn,
-    .pill {
-      will-change: transform;
-    }
-
-    .v37-soft-reveal {
-      opacity: 0;
-      transform: translateY(22px) scale(.985);
-      filter: blur(10px);
-      transition:
-        opacity .85s cubic-bezier(.16, 1, .3, 1),
-        transform .85s cubic-bezier(.16, 1, .3, 1),
-        filter .85s cubic-bezier(.16, 1, .3, 1);
-    }
-
-    .v37-soft-reveal.v37-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
-    }
-
-    .hero .card:nth-child(1) {
-      animation: heroSmoothIn .9s cubic-bezier(.16, 1, .3, 1) both;
-    }
-
-    .hero .card:nth-child(2) {
-      animation: heroSmoothIn .9s cubic-bezier(.16, 1, .3, 1) .12s both;
-    }
-
-    @keyframes heroSmoothIn {
-      from {
-        opacity: 0;
-        transform: translateY(28px) scale(.985);
-        filter: blur(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
-    }
-
-    @media (max-width: 760px) {
-      #cursorAura,
-      #cursorDot {
-        display: none;
-      }
-
-      #backToTop {
-        right: 14px;
-        bottom: 14px;
-      }
+      .chip.c1 { left: 2%; }
+      .chip.c2 { right: 2%; }
+      .chip.c3 { left: 3%; }
+      .chip.c4 { right: 4%; }
     }
   </style>
 </head>
+
 <body>
-  <canvas id="quantumCanvas" aria-hidden="true"></canvas>
-  <div id="smoothProgress"></div>
-  <div id="cursorAura"></div>
-  <div id="cursorDot"></div>
-
-  <div id="smoothPreloader">
-    <div class="preBox">
-      <div class="preOrb"></div>
-      <div>Loading SoulFlame Twin Core...</div>
-    </div>
-  </div>
-
-  <button id="backToTop" aria-label="Back to top">↑</button>
+  <div id="progress"></div>
 
   <div class="wrap">
     <nav class="nav">
@@ -1083,43 +677,41 @@
 
       <div class="navlinks">
         <a class="pill" href="#create">Create Twin</a>
-        <a class="pill" href="#quantum">Quantum Core</a>
+        <a class="pill" href="#core">Quantum Core</a>
         <a class="pill" href="/test" target="_blank">Test</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
       </div>
     </nav>
 
     <section class="hero">
-      <div class="card tilt">
-        <div class="above">
-          <div class="badge"><span class="dot"></span> V37 · Full Site Smooth Engine</div>
+      <div class="card">
+        <div class="badge"><span class="dot"></span> V38 · Performance Smooth Fix</div>
 
-          <h1>Build your <span class="grad">AI Twin</span> in quantum mode</h1>
+        <h1>AI Twin <span class="grad">without lag</span></h1>
 
-          <p>
-            Това е новото лице на SoulFlame Twins — гладък, левитиращ, футуристичен AI Twin интерфейс,
-            който комбинира EchoProfile, Future Self, deep signal и cloud запис.
-          </p>
+        <p>
+          Това е оптимизираната версия на SoulFlame Twins: smooth, quantum, premium —
+          но без тежък custom scroll и без лаг при движение.
+        </p>
 
-          <p>
-            Дизайнът е построен за усещане: плавно движение, 3D parallax, quantum particles,
-            стъклени слоеве и реален Supabase backend.
-          </p>
+        <p>
+          Запазваме футуристичното усещане, но махаме най-тежките ефекти.
+          Scroll-ът вече е нативен и стабилен.
+        </p>
 
-          <div class="actions">
-            <a class="btn" href="#create">Активирай AI Twin</a>
-            <button class="secondary" onclick="checkHealth()">System Check</button>
-            <button class="gold" onclick="demoTwin()">Demo Twin</button>
-          </div>
-
-          <details>
-            <summary>Live System Status</summary>
-            <pre id="healthBox">Ready.</pre>
-          </details>
+        <div class="actions">
+          <a class="btn" href="#create">Активирай AI Twin</a>
+          <button class="secondary" onclick="checkHealth()">System Check</button>
+          <button class="gold" onclick="demoTwin()">Demo Twin</button>
         </div>
+
+        <details>
+          <summary>Live System Status</summary>
+          <pre id="healthBox">Ready.</pre>
+        </details>
       </div>
 
-      <div class="card quantumStage tilt" id="quantum">
+      <div class="card stage" id="core">
         <div class="device" id="device">
           <div class="halo"></div>
           <div class="orb"></div>
@@ -1127,7 +719,7 @@
 
           <div class="chip c1">Echo Core<small>identity signal</small></div>
           <div class="chip c2">Future Twin<small>simulation layer</small></div>
-          <div class="chip c3">Quantum Memory<small>behavior map</small></div>
+          <div class="chip c3">Memory Map<small>behavior signal</small></div>
           <div class="chip c4">SoulFlame Sync<small>cloud active</small></div>
         </div>
       </div>
@@ -1136,100 +728,96 @@
     <section class="section">
       <div class="grid4">
         <div class="mini">
-          <strong>Quantum Smooth</strong>
-          <p>Движението е върху transform и opacity, за да се усеща леко и плавно.</p>
+          <strong>Native Scroll</strong>
+          <p>Без custom wheel hijack. Браузърът движи страницата плавно и стабилно.</p>
         </div>
 
         <div class="mini">
-          <strong>Levitation Core</strong>
-          <p>Централният orb симулира AI Twin ядро с плаващи слоеве и реакция към курсора.</p>
+          <strong>No Lag FX</strong>
+          <p>Премахнати са тежките particles, огромният cursor blur и постоянните scroll loops.</p>
         </div>
 
         <div class="mini">
-          <strong>Echo Signal</strong>
-          <p>Потребителят избира вътрешните си сигнали и системата създава Twin Seed.</p>
+          <strong>Quantum Visual</strong>
+          <p>Остава левитиращото ядро, glass UI и premium AI Twin усещане.</p>
         </div>
 
         <div class="mini">
-          <strong>Supabase Cloud</strong>
-          <p>Всеки генериран AI Twin се записва като реален profile в базата.</p>
+          <strong>Real Backend</strong>
+          <p>Генерираният AI Twin продължава да се записва в Supabase.</p>
         </div>
       </div>
     </section>
 
     <section id="create" class="section appGrid">
-      <div class="card">
-        <div class="above">
-          <h2>Твоят Twin Seed</h2>
+      <div class="card light">
+        <h2>Твоят Twin Seed</h2>
 
-          <label>Име</label>
-          <input id="name" placeholder="Например: Димитър">
+        <label>Име</label>
+        <input id="name" placeholder="Например: Димитър">
 
-          <label>Контакт</label>
-          <input id="contact" placeholder="email / телефон / Instagram">
+        <label>Контакт</label>
+        <input id="contact" placeholder="email / телефон / Instagram">
 
-          <label>Възраст</label>
-          <select id="age">
-            <option>18-24</option>
-            <option selected>25-34</option>
-            <option>35-44</option>
-            <option>45+</option>
-          </select>
+        <label>Възраст</label>
+        <select id="age">
+          <option>18-24</option>
+          <option selected>25-34</option>
+          <option>35-44</option>
+          <option>45+</option>
+        </select>
 
-          <label>Какво искаш да прави твоят AI Twin?</label>
-          <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
+        <label>Какво искаш да прави твоят AI Twin?</label>
+        <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
 
-          <div class="actions">
-            <button onclick="generateTwin()">Generate AI Twin</button>
-            <button class="secondary" onclick="resetTwin()">Reset</button>
-          </div>
+        <div class="actions">
+          <button onclick="generateTwin()">Generate AI Twin</button>
+          <button class="secondary" onclick="resetTwin()">Reset</button>
         </div>
       </div>
 
-      <div class="card">
-        <div class="above">
-          <h2>Twin Signals</h2>
-          <p>Избери вътрешните сигнали, които най-много приличат на теб.</p>
+      <div class="card light">
+        <h2>Twin Signals</h2>
+        <p>Избери вътрешните сигнали, които най-много приличат на теб.</p>
 
-          <div id="signals" class="signalGrid"></div>
+        <div id="signals" class="signalGrid"></div>
 
-          <div id="successBox" class="success">
-            AI Twin seed е записан успешно в SoulFlame cloud.
+        <div id="successBox" class="success">
+          AI Twin seed е записан успешно в SoulFlame cloud.
+        </div>
+
+        <div id="result" class="result">
+          <div class="resultHero">
+            <div class="badge"><span class="dot"></span> AI Twin Activated</div>
+            <div id="resultTitle" class="resultTitle"></div>
+            <div id="resultText"></div>
           </div>
 
-          <div id="result" class="result">
-            <div class="resultHero">
-              <div class="badge"><span class="dot"></span> AI Twin Activated</div>
-              <div id="resultTitle" class="resultTitle"></div>
-              <div id="resultText"></div>
+          <div id="scoreGrid" class="scoreGrid"></div>
+
+          <div class="mini show">
+            <h3>Full Twin Upgrade</h3>
+            <p>
+              Full Twin отключва Future Twin message, deep Echo Blueprint,
+              личен план и AI mirror profile.
+            </p>
+
+            <div class="actions">
+              <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
+              <button class="secondary" onclick="copyTwin()">Копирай резултата</button>
             </div>
-
-            <div id="scoreGrid" class="scoreGrid"></div>
-
-            <div class="mini show">
-              <h3>Full Twin Upgrade</h3>
-              <p>
-                Full Twin отключва Future Twin message, deep Echo Blueprint,
-                личен план и AI mirror profile.
-              </p>
-
-              <div class="actions">
-                <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
-                <button class="secondary" onclick="copyTwin()">Копирай резултата</button>
-              </div>
-            </div>
-
-            <details>
-              <summary>Advanced API response</summary>
-              <pre id="apiBox">Ready.</pre>
-            </details>
           </div>
+
+          <details>
+            <summary>Advanced API response</summary>
+            <pre id="apiBox">Ready.</pre>
+          </details>
         </div>
       </div>
     </section>
 
     <div class="footer">
-      SoulFlame Twins · V37 Full Site Smooth Engine · Vercel + Supabase
+      SoulFlame Twins · V38 Performance Smooth Fix · Vercel + Supabase
     </div>
   </div>
 
@@ -1242,7 +830,7 @@
       { key: "social", title: "Influence Layer", text: "Влияя чрез думи, присъствие и идея.", score: 10 },
       { key: "future", title: "Future Self", text: "Мисля за версията ми след 1, 3 или 5 години.", score: 10 },
       { key: "deep", title: "Deep Mind", text: "Искам да видя подсъзнателните си модели.", score: 10 },
-      { key: "creator", title: "Creator Mode", text: "Не искам само да участвам. Искам да създавам системи.", score: 10 }
+      { key: "creator", title: "Creator Mode", text: "Искам да създавам системи.", score: 10 }
     ];
 
     const archetypes = {
@@ -1287,16 +875,8 @@
         div.innerHTML = "<b>" + signal.title + "</b><span>" + signal.text + "</span>";
 
         div.addEventListener("click", () => {
-          const change = () => {
-            selected[signal.key] = !selected[signal.key];
-            div.classList.toggle("active", Boolean(selected[signal.key]));
-          };
-
-          if (document.startViewTransition) {
-            document.startViewTransition(change);
-          } else {
-            change();
-          }
+          selected[signal.key] = !selected[signal.key];
+          div.classList.toggle("active", Boolean(selected[signal.key]));
         });
 
         box.appendChild(div);
@@ -1316,7 +896,7 @@
     }
 
     function demoTwin() {
-      document.getElementById("name").value = "Demo Quantum Twin";
+      document.getElementById("name").value = "Demo Smooth Twin";
       document.getElementById("contact").value = "demo@soulflame.local";
       document.getElementById("age").value = "25-34";
       document.getElementById("goal").value = "Искам AI Twin, който ми помага да мисля по-ясно, да вземам решения и да развивам идеите си.";
@@ -1332,11 +912,9 @@
 
     function buildScores() {
       const scores = {};
-
       signalDefs.forEach(signal => {
         scores[signal.key] = selected[signal.key] ? signal.score : 2;
       });
-
       return scores;
     }
 
@@ -1391,36 +969,28 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V37_FULL_SITE_SMOOTH_ENGINE",
+        version: "V38_PERFORMANCE_SMOOTH_FIX",
         createdAt: new Date().toISOString()
       };
 
-      const showResult = () => {
-        document.getElementById("result").classList.add("show");
-        document.getElementById("resultTitle").textContent = profile;
+      document.getElementById("result").classList.add("show");
+      document.getElementById("resultTitle").textContent = profile;
 
-        document.getElementById("resultText").innerHTML =
-          "<p><strong>" + name + "</strong>, твоят AI Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
-          "<p>" + report + "</p>" +
-          "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
-          "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
+      document.getElementById("resultText").innerHTML =
+        "<p><strong>" + name + "</strong>, твоят AI Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
+        "<p>" + report + "</p>" +
+        "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
+        "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
 
-        const grid = document.getElementById("scoreGrid");
-        grid.innerHTML = "";
+      const grid = document.getElementById("scoreGrid");
+      grid.innerHTML = "";
 
-        top.slice(0, 4).forEach(([key, value]) => {
-          const div = document.createElement("div");
-          div.className = "score";
-          div.innerHTML = "<b>" + value + "</b><span>" + archetypes[key] + "</span>";
-          grid.appendChild(div);
-        });
-      };
-
-      if (document.startViewTransition) {
-        document.startViewTransition(showResult);
-      } else {
-        showResult();
-      }
+      top.slice(0, 4).forEach(([key, value]) => {
+        const div = document.createElement("div");
+        div.className = "score";
+        div.innerHTML = "<b>" + value + "</b><span>" + archetypes[key] + "</span>";
+        grid.appendChild(div);
+      });
 
       await saveTwin(lastTwin);
     }
@@ -1505,7 +1075,7 @@
       lastTwin = null;
     }
 
-    function setupReveal() {
+    function setupLightReveal() {
       const items = document.querySelectorAll(".mini");
 
       if (!("IntersectionObserver" in window)) {
@@ -1520,355 +1090,74 @@
             io.unobserve(entry.target);
           }
         });
-      }, { threshold: .16 });
+      }, { threshold: .12 });
 
       items.forEach(el => io.observe(el));
     }
 
-    function setupPointer() {
+    function setupLightParallax() {
       const device = document.getElementById("device");
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      if (!device || reduce) return;
+      if (!device || reduce || window.innerWidth < 980) return;
 
-      let targetX = 0;
-      let targetY = 0;
-      let currentX = 0;
-      let currentY = 0;
+      let tx = 0;
+      let ty = 0;
+      let cx = 0;
+      let cy = 0;
+      let ticking = false;
 
       window.addEventListener("pointermove", event => {
-        const x = event.clientX / window.innerWidth;
-        const y = event.clientY / window.innerHeight;
+        const x = event.clientX / window.innerWidth - .5;
+        const y = event.clientY / window.innerHeight - .5;
 
-        document.documentElement.style.setProperty("--mx", (x * 100).toFixed(2) + "%");
-        document.documentElement.style.setProperty("--my", (y * 100).toFixed(2) + "%");
+        tx = x * 10;
+        ty = y * -10;
 
-        targetX = (x - .5) * 18;
-        targetY = (y - .5) * -18;
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(loop);
+        }
       }, { passive: true });
-
-      function raf() {
-        currentX += (targetX - currentX) * .08;
-        currentY += (targetY - currentY) * .08;
-        device.style.transform = "rotateY(" + currentX.toFixed(2) + "deg) rotateX(" + currentY.toFixed(2) + "deg)";
-        requestAnimationFrame(raf);
-      }
-
-      raf();
-    }
-
-    function setupCanvas() {
-      const canvas = document.getElementById("quantumCanvas");
-      const ctx = canvas.getContext("2d");
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      if (reduce) return;
-
-      let width = 0;
-      let height = 0;
-      let dpr = 1;
-      let particles = [];
-
-      function resize() {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = Math.floor(width * dpr);
-        canvas.height = Math.floor(height * dpr);
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-        const count = Math.min(92, Math.max(44, Math.floor(width / 18)));
-        particles = Array.from({ length: count }, () => ({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - .5) * .22,
-          vy: (Math.random() - .5) * .22,
-          r: Math.random() * 1.8 + .7,
-          a: Math.random() * .42 + .12
-        }));
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.x < -20) p.x = width + 20;
-          if (p.x > width + 20) p.x = -20;
-          if (p.y < -20) p.y = height + 20;
-          if (p.y > height + 20) p.y = -20;
-
-          ctx.beginPath();
-          ctx.fillStyle = "rgba(0,234,255," + p.a + ")";
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
-
-          for (let j = i + 1; j < particles.length; j++) {
-            const q = particles[j];
-            const dx = p.x - q.x;
-            const dy = p.y - q.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            if (dist < 115) {
-              ctx.beginPath();
-              ctx.strokeStyle = "rgba(124,60,255," + ((1 - dist / 115) * .16).toFixed(3) + ")";
-              ctx.lineWidth = 1;
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(q.x, q.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(draw);
-      }
-
-      resize();
-      window.addEventListener("resize", resize, { passive: true });
-      draw();
-    }
-
-    function setupV37SmoothEngine() {
-      document.documentElement.classList.add("v37-smooth");
-
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const progress = document.getElementById("smoothProgress");
-      const aura = document.getElementById("cursorAura");
-      const dot = document.getElementById("cursorDot");
-      const preloader = document.getElementById("smoothPreloader");
-      const backToTop = document.getElementById("backToTop");
-
-      const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-
-      function maxScroll() {
-        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-      }
-
-      function setProgress(value) {
-        if (!progress) return;
-        const amount = maxScroll() === 0 ? 0 : value / maxScroll();
-        progress.style.transform = "scaleX(" + clamp(amount, 0, 1).toFixed(4) + ")";
-      }
-
-      function finishLoad() {
-        document.body.classList.add("v37-loaded");
-
-        if (preloader) {
-          preloader.classList.add("hide");
-        }
-      }
-
-      window.addEventListener("load", finishLoad, { once: true });
-      setTimeout(finishLoad, 900);
-
-      let smoothEnabled = !reduce && window.innerWidth >= 900;
-      let current = window.scrollY;
-      let target = window.scrollY;
-      let nativeSync = false;
-
-      function ignoreWheel(event) {
-        if (!smoothEnabled) return true;
-        if (event.ctrlKey || event.metaKey || event.shiftKey) return true;
-
-        const el = event.target;
-
-        if (!el) return false;
-
-        return Boolean(
-          el.closest("input, textarea, select, option, pre, code, [contenteditable='true']")
-        );
-      }
-
-      window.addEventListener("resize", () => {
-        smoothEnabled = !reduce && window.innerWidth >= 900;
-        current = window.scrollY;
-        target = window.scrollY;
-        setProgress(current);
-      }, { passive: true });
-
-      window.addEventListener("wheel", event => {
-        if (ignoreWheel(event)) return;
-
-        event.preventDefault();
-
-        const multiplier = event.deltaMode === 1 ? 18 : 1;
-        target = clamp(target + event.deltaY * multiplier * 1.02, 0, maxScroll());
-
-        if (backToTop) {
-          backToTop.classList.toggle("show", target > 700);
-        }
-      }, { passive: false });
-
-      window.addEventListener("keydown", event => {
-        if (!smoothEnabled) return;
-
-        const active = document.activeElement;
-        const editing = active && active.matches("input, textarea, select, [contenteditable='true']");
-
-        if (editing) return;
-
-        const step = Math.round(window.innerHeight * .86);
-        let handled = true;
-
-        if (event.key === "PageDown") target += step;
-        else if (event.key === "PageUp") target -= step;
-        else if (event.key === "Home") target = 0;
-        else if (event.key === "End") target = maxScroll();
-        else if (event.key === "ArrowDown") target += 82;
-        else if (event.key === "ArrowUp") target -= 82;
-        else handled = false;
-
-        if (handled) {
-          event.preventDefault();
-          target = clamp(target, 0, maxScroll());
-        }
-      });
-
-      window.addEventListener("scroll", () => {
-        if (!smoothEnabled) {
-          current = window.scrollY;
-          target = window.scrollY;
-        }
-
-        if (backToTop) {
-          backToTop.classList.toggle("show", window.scrollY > 700);
-        }
-
-        setProgress(window.scrollY);
-      }, { passive: true });
-
-      document.addEventListener("click", event => {
-        const link = event.target.closest("a[href^='#']");
-        if (!link) return;
-
-        const href = link.getAttribute("href");
-        if (!href || href === "#") return;
-
-        const destination = document.querySelector(href);
-        if (!destination) return;
-
-        event.preventDefault();
-
-        const top = destination.getBoundingClientRect().top + window.scrollY - 88;
-        target = clamp(top, 0, maxScroll());
-
-        if (!smoothEnabled) {
-          window.scrollTo({ top: target, behavior: "smooth" });
-        }
-      });
-
-      if (backToTop) {
-        backToTop.addEventListener("click", () => {
-          target = 0;
-
-          if (!smoothEnabled) {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }
-        });
-      }
 
       function loop() {
-        if (smoothEnabled) {
-          current += (target - current) * .095;
+        cx += (tx - cx) * .08;
+        cy += (ty - cy) * .08;
 
-          if (Math.abs(target - current) < .08) {
-            current = target;
-          }
+        device.style.transform = "rotateY(" + cx.toFixed(2) + "deg) rotateX(" + cy.toFixed(2) + "deg)";
 
-          if (Math.abs(window.scrollY - current) > .5) {
-            nativeSync = true;
-            window.scrollTo(0, current);
-            nativeSync = false;
-          }
-
-          setProgress(current);
+        if (Math.abs(tx - cx) > .02 || Math.abs(ty - cy) > .02) {
+          requestAnimationFrame(loop);
+        } else {
+          ticking = false;
         }
-
-        requestAnimationFrame(loop);
       }
-
-      loop();
-
-      if (!reduce && aura && dot) {
-        let ax = window.innerWidth / 2;
-        let ay = window.innerHeight / 2;
-        let dx = ax;
-        let dy = ay;
-
-        window.addEventListener("pointermove", event => {
-          document.body.classList.add("v37-pointer");
-
-          dx = event.clientX;
-          dy = event.clientY;
-        }, { passive: true });
-
-        function cursorLoop() {
-          ax += (dx - ax) * .12;
-          ay += (dy - ay) * .12;
-
-          aura.style.transform = "translate3d(" + ax.toFixed(2) + "px," + ay.toFixed(2) + "px,0) translate(-50%, -50%)";
-          dot.style.transform = "translate3d(" + dx.toFixed(2) + "px," + dy.toFixed(2) + "px,0) translate(-50%, -50%)";
-
-          requestAnimationFrame(cursorLoop);
-        }
-
-        cursorLoop();
-      }
-
-      if (!reduce) {
-        document.querySelectorAll("button, .btn, .pill").forEach(el => {
-          el.addEventListener("pointermove", event => {
-            const rect = el.getBoundingClientRect();
-            const x = event.clientX - rect.left - rect.width / 2;
-            const y = event.clientY - rect.top - rect.height / 2;
-
-            el.style.transform = "translate3d(" + (x * .12).toFixed(2) + "px," + (y * .16).toFixed(2) + "px,0) scale(1.015)";
-          }, { passive: true });
-
-          el.addEventListener("pointerleave", () => {
-            el.style.transform = "";
-          });
-        });
-      }
-
-      const revealItems = document.querySelectorAll(".card, .mini, .signal, .resultHero");
-
-      revealItems.forEach(el => {
-        el.classList.add("v37-soft-reveal");
-      });
-
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("v37-visible");
-              io.unobserve(entry.target);
-            }
-          });
-        }, {
-          threshold: .12,
-          rootMargin: "0px 0px -6% 0px"
-        });
-
-        revealItems.forEach(el => io.observe(el));
-      } else {
-        revealItems.forEach(el => el.classList.add("v37-visible"));
-      }
-
-      setProgress(window.scrollY);
     }
 
-    setupV37SmoothEngine();
+    function setupProgress() {
+      const progress = document.getElementById("progress");
+      if (!progress) return;
+
+      let ticking = false;
+
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+
+        ticking = true;
+
+        requestAnimationFrame(() => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const value = max > 0 ? window.scrollY / max : 0;
+          progress.style.transform = "scaleX(" + Math.max(0, Math.min(1, value)).toFixed(4) + ")";
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+
     renderSignals();
-    setupReveal();
-    setupPointer();
-    setupCanvas();
+    setupLightReveal();
+    setupLightParallax();
+    setupProgress();
     checkHealth();
   </script>
 </body>
