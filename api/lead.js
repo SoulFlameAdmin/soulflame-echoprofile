@@ -64,6 +64,10 @@ module.exports = async function handler(req, res) {
 
     res.status(200).json({ ok:true, saved:"lead", inserted:text ? JSON.parse(text) : [] });
   } catch (error) {
-    res.status(500).json({ ok:false, error:error.message });
+    res.status(500).json({
+      ok:false,
+      error:error.message,
+      warning:"If this is a column/table error, run cloud/supabase/v30_schema_patch.sql"
+    });
   }
 };

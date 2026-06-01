@@ -95,6 +95,10 @@ module.exports = async function handler(req, res) {
       deliveryText:`Твоят Full Echo код е: ${code}`
     });
   } catch (error) {
-    res.status(500).json({ ok:false, error:error.message });
+    res.status(500).json({
+      ok:false,
+      error:error.message,
+      warning:"If this is a column/table error, run cloud/supabase/v30_schema_patch.sql"
+    });
   }
 };

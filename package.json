@@ -1,7 +1,10 @@
 {
   "name": "soulflame-twins",
   "version": "1.0.0",
-  "description": "SoulFlame Twins EchoProfile V27",
+  "description": "SoulFlame Twins EchoProfile V31 Recovery Deploy",
   "author": "SoulFlame",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  }
 }

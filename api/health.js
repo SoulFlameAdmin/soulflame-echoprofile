@@ -8,13 +8,14 @@ module.exports = async function handler(req, res) {
     ok: true,
     app: "SoulFlame Twins",
     module: "EchoProfile",
-    version: process.env.APP_VERSION || "V27_REAL_ECHOPROFILE_PRODUCT",
+    version: "V31_RECOVERY_DEPLOY",
     appMode: process.env.APP_MODE || "production",
     requestedDataMode: process.env.DATA_MODE || "supabase",
     activeDataMode: configured ? "supabase" : "missing_supabase_env",
     supabaseConfigured: configured,
     warnings: configured ? [] : ["Missing SUPABASE_URL or SUPABASE key"],
     ownerEmail: process.env.OWNER_EMAIL || "stere0metal360@gmail.com",
+    routes: ["/", "/test", "/admin", "/api/health", "/api/profile", "/api/lead", "/api/payment-request", "/api/unlock"],
     time: new Date().toISOString()
   });
 };

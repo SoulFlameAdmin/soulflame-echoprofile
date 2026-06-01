@@ -70,9 +70,13 @@ module.exports = async function handler(req, res) {
       ok: true,
       saved: "payment-request",
       payment: text ? JSON.parse(text)[0] : row,
-      message: "Заявката за Full Echo е създадена. След потвърждение се генерира unlock code."
+      message: "Заявката за Full Echo е създадена."
     });
   } catch (error) {
-    res.status(500).json({ ok:false, error:error.message });
+    res.status(500).json({
+      ok:false,
+      error:error.message,
+      warning:"If this is a column/table error, run cloud/supabase/v30_schema_patch.sql"
+    });
   }
 };

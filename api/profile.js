@@ -1,10 +1,8 @@
 async function readJson(req) {
   if (req.body && typeof req.body === "object") return req.body;
-
   if (typeof req.body === "string") {
     try { return JSON.parse(req.body || "{}"); } catch { return {}; }
   }
-
   return new Promise((resolve, reject) => {
     let data = "";
     req.on("data", chunk => {
@@ -47,13 +45,13 @@ function rowFromBody(body) {
   };
 }
 
-async function insertProfile(row) {
+async function insertRow(table, row) {
   const url = getUrl();
   const key = getKey();
 
   if (!url || !key) throw new Error("Missing Supabase env vars.");
 
-  const response = await fetch(`${url}/rest/v1/profiles`, {
+  const response = await fetch(`${url}/rest/v1/${table}`, {
     method: "POST",
     headers: {
       "apikey": key,
@@ -82,7 +80,7 @@ module.exports = async function handler(req, res) {
   try {
     const body = await readJson(req);
     const row = rowFromBody(body);
-    const inserted = await insertProfile(row);
+    const inserted = await insertRow("profiles", row);
 
     res.status(200).json({
       ok: true,
@@ -96,7 +94,7 @@ module.exports = async function handler(req, res) {
       ok: false,
       error: error.message,
       activeDataMode: "supabase",
-      warnings: []
+      warnings: ["If this is a column error, run cloud/supabase/v30_schema_patch.sql in Supabase SQL Editor."]
     });
   }
 };

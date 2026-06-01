@@ -32,7 +32,7 @@ async function getTable(table) {
   const text = await response.text();
 
   if (!response.ok) {
-    throw new Error(`${table}: ${response.status} ${text}`);
+    return { error: `${table}: ${response.status} ${text}` };
   }
 
   return text ? JSON.parse(text) : [];
@@ -53,11 +53,11 @@ module.exports = async function handler(req, res) {
     res.status(200).json({
       ok:true,
       metrics:{
-        profiles:profiles.length,
-        leads:leads.length,
-        payments:payments.length,
-        unlock_codes:unlock_codes.length,
-        events:events.length
+        profiles:Array.isArray(profiles) ? profiles.length : 0,
+        leads:Array.isArray(leads) ? leads.length : 0,
+        payments:Array.isArray(payments) ? payments.length : 0,
+        unlock_codes:Array.isArray(unlock_codes) ? unlock_codes.length : 0,
+        events:Array.isArray(events) ? events.length : 0
       },
       profiles,
       leads,

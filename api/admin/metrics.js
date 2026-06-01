@@ -15,6 +15,8 @@ module.exports = async function handler(req, res) {
 
   res.status(200).json({
     ok:true,
+    app:"SoulFlame Twins",
+    version:"V30_PRODUCTION_STABILIZER",
     message:"Metrics endpoint active.",
     time:new Date().toISOString()
   });
