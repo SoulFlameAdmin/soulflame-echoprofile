@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>AI Twin by SoulFlame — Quantum Smooth</title>
-  <meta name="description" content="AI Twin by SoulFlame — smooth quantum design без лаг при scroll.">
+  <title>AI Twin by SoulFlame — Създай своя дигитален двойник</title>
+  <meta name="description" content="Създай безплатен AI Twin чрез EchoProfile. Получи AI профил, Twin Seed и възможност за Full AI Twin анализ.">
+  <meta property="og:title" content="AI Twin by SoulFlame">
+  <meta property="og:description" content="Създай безплатен AI Twin — дигитална версия на теб, която започва с EchoProfile.">
   <meta name="theme-color" content="#050611">
 
   <style>
     :root {
       --bg0:#03040a;
-      --bg1:#07091a;
-      --bg2:#101843;
+      --bg1:#080b1f;
+      --bg2:#111a46;
       --text:#f8f7ff;
       --soft:#b9c3e8;
       --muted:#7f8ab4;
       --line:rgba(255,255,255,.14);
-      --glass:rgba(255,255,255,.075);
+      --glass:rgba(255,255,255,.078);
       --glass2:rgba(255,255,255,.045);
       --cyan:#00eaff;
       --violet:#7c3cff;
       --pink:#ff4ff3;
       --gold:#ffd166;
       --green:#23e6a8;
+      --red:#ff4d6d;
       --shadow:0 28px 90px rgba(0,0,0,.42);
     }
 
@@ -60,7 +63,7 @@
         linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
       background-size: 64px 64px;
-      mask-image: radial-gradient(circle at 50% 16%, rgba(0,0,0,.6), transparent 70%);
+      mask-image: radial-gradient(circle at 50% 16%, rgba(0,0,0,.58), transparent 70%);
     }
 
     .wrap {
@@ -134,7 +137,7 @@
     .hero {
       min-height: calc(100vh - 110px);
       display: grid;
-      grid-template-columns: 1.02fr .98fr;
+      grid-template-columns: 1.04fr .96fr;
       gap: 22px;
       align-items: center;
       padding: 44px 0 28px;
@@ -183,9 +186,9 @@
 
     h1 {
       margin: 0 0 18px;
-      font-size: clamp(48px, 8vw, 110px);
+      font-size: clamp(46px, 7.8vw, 108px);
       letter-spacing: -4px;
-      line-height: .87;
+      line-height: .88;
     }
 
     h2 {
@@ -216,6 +219,10 @@
 
     .gold {
       color: var(--gold);
+    }
+
+    .green {
+      color: var(--green);
     }
 
     .actions {
@@ -259,6 +266,29 @@
     .btn.gold {
       background: linear-gradient(135deg, #ffb703, #ff4ff3);
       box-shadow: 0 16px 45px rgba(255,79,243,.18);
+    }
+
+    .heroBullets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .heroBullet {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 13px;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .heroBullet b {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
     }
 
     .stage {
@@ -378,16 +408,31 @@
     }
 
     .section {
-      padding: 28px 0;
+      padding: 30px 0;
     }
 
-    .grid4 {
+    .grid3,
+    .grid4,
+    .pricingGrid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
 
-    .mini {
+    .grid3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .pricingGrid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mini,
+    .priceCard,
+    .stepCard {
       border: 1px solid var(--line);
       background: var(--glass2);
       border-radius: 24px;
@@ -397,15 +442,59 @@
       transition: transform .55s ease, opacity .55s ease;
     }
 
-    .mini.show {
+    .mini.show,
+    .priceCard.show,
+    .stepCard.show {
       transform: translateY(0);
       opacity: 1;
     }
 
-    .mini strong {
+    .mini strong,
+    .stepCard strong {
       display: block;
       margin-bottom: 8px;
       font-size: 17px;
+    }
+
+    .stepNumber {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .priceCard.featured {
+      border-color: rgba(0,234,255,.38);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.10), transparent 34%),
+        rgba(255,255,255,.06);
+      box-shadow: 0 20px 70px rgba(0,234,255,.08);
+    }
+
+    .price {
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -1px;
+      margin: 10px 0;
+    }
+
+    .list {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .list span::before {
+      content: "✓ ";
+      color: var(--green);
+      font-weight: 950;
     }
 
     .appGrid {
@@ -513,6 +602,16 @@
       margin-bottom: 14px;
     }
 
+    .aiCard {
+      border: 1px solid rgba(0,234,255,.28);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.12), transparent 30%),
+        rgba(0,0,0,.22);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
     .resultTitle {
       font-size: clamp(28px, 4vw, 54px);
       font-weight: 950;
@@ -593,11 +692,34 @@
       pointer-events: none;
     }
 
+    .stickyCta {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 50;
+      transform: translateX(-50%) translateY(120px);
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(6,8,20,.82);
+      border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.34);
+    }
+
+    .stickyCta.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .footer {
       text-align: center;
       color: var(--muted);
       font-size: 13px;
-      padding: 30px 0 48px;
+      padding: 30px 0 70px;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -617,11 +739,10 @@
       }
 
       .hero,
-      .appGrid {
-        grid-template-columns: 1fr;
-      }
-
+      .appGrid,
+      .grid3,
       .grid4,
+      .pricingGrid,
       .scoreGrid {
         grid-template-columns: 1fr;
       }
@@ -630,8 +751,12 @@
         grid-template-columns: 1fr;
       }
 
+      .heroBullets {
+        grid-template-columns: 1fr;
+      }
+
       .stage {
-        min-height: 460px;
+        min-height: 450px;
       }
 
       .card {
@@ -653,6 +778,19 @@
         justify-content: flex-start;
       }
 
+      .stickyCta {
+        display: flex;
+        width: calc(100% - 28px);
+        justify-content: center;
+      }
+
+      .stickyCta .btn,
+      .stickyCta button {
+        flex: 1;
+        padding: 12px 10px;
+        font-size: 13px;
+      }
+
       .chip {
         font-size: 12px;
       }
@@ -668,6 +806,11 @@
 <body>
   <div id="progress"></div>
 
+  <div class="stickyCta" id="stickyCta">
+    <a class="btn" href="#create">Създай Twin</a>
+    <button class="secondary" onclick="demoTwin()">Демо</button>
+  </div>
+
   <div class="wrap">
     <nav class="nav">
       <div class="brand">
@@ -677,7 +820,8 @@
 
       <div class="navlinks">
         <a class="pill" href="#create">Create Twin</a>
-        <a class="pill" href="#core">Quantum Core</a>
+        <a class="pill" href="#how">Как работи</a>
+        <a class="pill" href="#pricing">Цени</a>
         <a class="pill" href="/test" target="_blank">Test</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
       </div>
@@ -685,24 +829,29 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V38 · Performance Smooth Fix</div>
+        <div class="badge"><span class="dot"></span> V39 · Product Conversion Upgrade</div>
 
-        <h1>AI Twin <span class="grad">without lag</span></h1>
+        <h1>Създай безплатен <span class="grad">AI Twin</span></h1>
 
         <p>
-          Това е оптимизираната версия на SoulFlame Twins: smooth, quantum, premium —
-          но без тежък custom scroll и без лаг при движение.
+          Отговори чрез няколко вътрешни сигнала и получи първа версия на своя дигитален двойник —
+          AI профил, който показва как мислиш, как действаш и каква бъдеща версия можеш да развиеш.
         </p>
 
         <p>
-          Запазваме футуристичното усещане, но махаме най-тежките ефекти.
-          Scroll-ът вече е нативен и стабилен.
+          Mini Twin е безплатен. Full AI Twin отключва дълбок Echo анализ, Future Twin послание и личен план.
         </p>
 
         <div class="actions">
-          <a class="btn" href="#create">Активирай AI Twin</a>
+          <a class="btn" href="#create">Създай AI Twin безплатно</a>
           <button class="secondary" onclick="checkHealth()">System Check</button>
-          <button class="gold" onclick="demoTwin()">Demo Twin</button>
+          <button class="gold" onclick="demoTwin()">Виж демо</button>
+        </div>
+
+        <div class="heroBullets">
+          <div class="heroBullet"><b>Безплатен старт</b>Mini AI Twin seed</div>
+          <div class="heroBullet"><b>Cloud запис</b>Supabase backend</div>
+          <div class="heroBullet"><b>Full upgrade</b>Дълбок AI профил</div>
         </div>
 
         <details>
@@ -725,26 +874,53 @@
       </div>
     </section>
 
+    <section id="how" class="section">
+      <div class="card light">
+        <h2>Как работи</h2>
+        <p>Процесът е кратък, ясен и направен да превръща любопитството в реален AI профил.</p>
+
+        <div class="grid3">
+          <div class="stepCard">
+            <div class="stepNumber">1</div>
+            <strong>Избираш сигнали</strong>
+            <p>Маркираш кои вътрешни модели те описват: визия, логика, емоция, действие, бъдеще.</p>
+          </div>
+
+          <div class="stepCard">
+            <div class="stepNumber">2</div>
+            <strong>Получаваш Twin Seed</strong>
+            <p>Системата генерира първия ти AI Twin профил и го записва в SoulFlame cloud.</p>
+          </div>
+
+          <div class="stepCard">
+            <div class="stepNumber">3</div>
+            <strong>Отключваш Full Twin</strong>
+            <p>Full версията добавя Future Twin послание, deep Echo Blueprint и личен план.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="grid4">
         <div class="mini">
-          <strong>Native Scroll</strong>
-          <p>Без custom wheel hijack. Браузърът движи страницата плавно и стабилно.</p>
+          <strong>За самоанализ</strong>
+          <p>Разбираш кои модели управляват мисленето и реакциите ти.</p>
         </div>
 
         <div class="mini">
-          <strong>No Lag FX</strong>
-          <p>Премахнати са тежките particles, огромният cursor blur и постоянните scroll loops.</p>
+          <strong>За бизнес</strong>
+          <p>Виждаш силните си страни като създател, лидер или стратег.</p>
         </div>
 
         <div class="mini">
-          <strong>Quantum Visual</strong>
-          <p>Остава левитиращото ядро, glass UI и premium AI Twin усещане.</p>
+          <strong>За бъдещи решения</strong>
+          <p>Future Twin може да ти даде посока какъв човек градиш.</p>
         </div>
 
         <div class="mini">
-          <strong>Real Backend</strong>
-          <p>Генерираният AI Twin продължава да се записва в Supabase.</p>
+          <strong>За AI Echo</strong>
+          <p>Това е първа стъпка към персонален AI двойник.</p>
         </div>
       </div>
     </section>
@@ -791,6 +967,11 @@
             <div class="badge"><span class="dot"></span> AI Twin Activated</div>
             <div id="resultTitle" class="resultTitle"></div>
             <div id="resultText"></div>
+
+            <div class="aiCard" id="aiCard">
+              <h3>AI Twin Card</h3>
+              <p id="aiCardText">Твоята AI карта ще се появи тук.</p>
+            </div>
           </div>
 
           <div id="scoreGrid" class="scoreGrid"></div>
@@ -816,8 +997,61 @@
       </div>
     </section>
 
+    <section id="pricing" class="section">
+      <div class="card light">
+        <h2>Пакети</h2>
+        <p>Започваш безплатно. Плащаш само ако искаш по-дълбока версия.</p>
+
+        <div class="pricingGrid">
+          <div class="priceCard">
+            <h3>Mini Twin</h3>
+            <div class="price">0€</div>
+            <p>Първи AI Twin seed.</p>
+            <div class="list">
+              <span>Основен AI профил</span>
+              <span>Twin signals</span>
+              <span>Cloud запис</span>
+            </div>
+            <div class="actions">
+              <a class="btn secondary" href="#create">Започни</a>
+            </div>
+          </div>
+
+          <div class="priceCard featured">
+            <h3>Full AI Twin</h3>
+            <div class="price">19€</div>
+            <p>Дълбок личен AI профил.</p>
+            <div class="list">
+              <span>Full Echo Blueprint</span>
+              <span>Future Twin message</span>
+              <span>Личен next-step план</span>
+              <span>Unlock code</span>
+            </div>
+            <div class="actions">
+              <a class="btn gold" href="#create">Отключи</a>
+            </div>
+          </div>
+
+          <div class="priceCard">
+            <h3>Deep Twin</h3>
+            <div class="price">49€</div>
+            <p>По-дълбок анализ за развитие.</p>
+            <div class="list">
+              <span>Поведенчески цикли</span>
+              <span>Силни страни</span>
+              <span>Рискове и блокажи</span>
+              <span>AI roadmap</span>
+            </div>
+            <div class="actions">
+              <a class="btn secondary" href="#create">Заяви</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="footer">
-      SoulFlame Twins · V38 Performance Smooth Fix · Vercel + Supabase
+      SoulFlame Twins · V39 Product Conversion Upgrade · Vercel + Supabase
     </div>
   </div>
 
@@ -896,7 +1130,7 @@
     }
 
     function demoTwin() {
-      document.getElementById("name").value = "Demo Smooth Twin";
+      document.getElementById("name").value = "Demo Product Twin";
       document.getElementById("contact").value = "demo@soulflame.local";
       document.getElementById("age").value = "25-34";
       document.getElementById("goal").value = "Искам AI Twin, който ми помага да мисля по-ясно, да вземам решения и да развивам идеите си.";
@@ -969,7 +1203,7 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V38_PERFORMANCE_SMOOTH_FIX",
+        version: "V39_PRODUCT_CONVERSION_UPGRADE",
         createdAt: new Date().toISOString()
       };
 
@@ -981,6 +1215,11 @@
         "<p>" + report + "</p>" +
         "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
         "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
+
+      document.getElementById("aiCardText").innerHTML =
+        "<strong>" + profile + "</strong><br>" +
+        "Основна посока: " + report + "<br>" +
+        "Следващо ниво: Full AI Twin с Future message и личен план.";
 
       const grid = document.getElementById("scoreGrid");
       grid.innerHTML = "";
@@ -1030,7 +1269,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             offer: "Full AI Twin by SoulFlame",
-            amount: "19.99 лв",
+            amount: "19.00 EUR",
             method: "manual",
             user: lastTwin.user,
             profile: lastTwin.profile,
@@ -1075,8 +1314,8 @@
       lastTwin = null;
     }
 
-    function setupLightReveal() {
-      const items = document.querySelectorAll(".mini");
+    function setupReveal() {
+      const items = document.querySelectorAll(".mini, .priceCard, .stepCard");
 
       if (!("IntersectionObserver" in window)) {
         items.forEach(el => el.classList.add("show"));
@@ -1134,30 +1373,36 @@
       }
     }
 
-    function setupProgress() {
+    function setupProgressAndSticky() {
       const progress = document.getElementById("progress");
-      if (!progress) return;
-
+      const sticky = document.getElementById("stickyCta");
       let ticking = false;
 
       window.addEventListener("scroll", () => {
         if (ticking) return;
-
         ticking = true;
 
         requestAnimationFrame(() => {
           const max = document.documentElement.scrollHeight - window.innerHeight;
           const value = max > 0 ? window.scrollY / max : 0;
-          progress.style.transform = "scaleX(" + Math.max(0, Math.min(1, value)).toFixed(4) + ")";
+
+          if (progress) {
+            progress.style.transform = "scaleX(" + Math.max(0, Math.min(1, value)).toFixed(4) + ")";
+          }
+
+          if (sticky) {
+            sticky.classList.toggle("show", window.scrollY > 650);
+          }
+
           ticking = false;
         });
       }, { passive: true });
     }
 
     renderSignals();
-    setupLightReveal();
+    setupReveal();
     setupLightParallax();
-    setupProgress();
+    setupProgressAndSticky();
     checkHealth();
   </script>
 </body>
