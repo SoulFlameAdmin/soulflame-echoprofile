@@ -772,6 +772,60 @@
       .chip.c3 { left: 3%; }
       .chip.c4 { right: 4%; }
     }
+      /* V42_CHECKOUT_FLOW_CSS */
+    .checkoutPanel {
+      display: none;
+      border: 1px solid rgba(255,209,102,.35);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,209,102,.12), transparent 30%),
+        rgba(255,255,255,.045);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .checkoutPanel.show {
+      display: block;
+      animation: resultIn .42s ease both;
+    }
+
+    .checkoutGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .checkoutCard {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.20);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .checkoutCard strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .paymentIdBox {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--gold);
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      margin: 8px 0;
+    }
+
+    @media (max-width: 980px) {
+      .checkoutGrid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -801,7 +855,7 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V41 · Full AI Twin Unlock Flow</div>
+        <div class="badge"><span class="dot"></span> V42 · Real Checkout Flow</div>
 
         <h1>Създай и отключи своя <span class="grad">Full AI Twin</span></h1>
 
@@ -928,11 +982,11 @@
           <div class="mini show">
             <h3>Следва: Full Twin</h3>
             <p>
-              Заяви Full Twin, вземи unlock код и отключи дълбокия резултат долу.
+              Checkout Full Twin, вземи unlock код и отключи дълбокия резултат долу.
             </p>
 
             <div class="actions">
-              <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
+              <button class="gold" onclick="requestFullTwin()">Checkout Full AI Twin</button>
               <a class="btn secondary" href="#unlock">Имам код</a>
               <button class="secondary" onclick="copyTwin()">Копирай Mini резултата</button>
             </div>
@@ -946,6 +1000,46 @@
       </div>
     </section>
 
+    <section id="checkout" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> Checkout Flow</div>
+        <h2>Плащане за Full AI Twin</h2>
+        <p>
+          След като заявиш Full AI Twin, системата създава payment request.
+          Ако има настроен payment link във Vercel Environment Variables, бутонът ще отвори директно плащане.
+        </p>
+
+        <div id="checkoutPanel" class="checkoutPanel">
+          <h3>Checkout created</h3>
+          <p id="checkoutText">Payment request created.</p>
+          <div id="paymentIdBox" class="paymentIdBox">paymentId: pending</div>
+
+          <div class="checkoutGrid">
+            <div class="checkoutCard">
+              <strong>1. Плати</strong>
+              <p>Отвори payment link и направи плащане.</p>
+              <div class="actions">
+                <a id="paymentLinkBtn" class="btn gold" href="#" target="_blank">Open Payment Link</a>
+              </div>
+            </div>
+
+            <div class="checkoutCard">
+              <strong>2. Вземи код</strong>
+              <p>След плащане admin потвърждава paymentId и генерира unlock code.</p>
+              <div class="actions">
+                <a class="btn secondary" href="#unlock">Имам код</a>
+                <button class="secondary" onclick="copyPaymentInfo()">Copy Payment Info</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <details>
+          <summary>Checkout API response</summary>
+          <pre id="checkoutApiBox">Ready.</pre>
+        </details>
+      </div>
+    </section>
     <section id="unlock" class="section">
       <div class="card light">
         <div class="badge"><span class="dot"></span> Full AI Twin Unlock</div>
@@ -1078,7 +1172,7 @@
     </section>
 
     <div class="footer">
-      SoulFlame Twins · V41 Full AI Twin Unlock Flow · Vercel + Supabase
+      SoulFlame Twins · V42 Real Checkout Payment Link Flow · Vercel + Supabase
     </div>
   </div>
 
@@ -1233,7 +1327,7 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V41_FULL_AI_TWIN_UNLOCK_FLOW",
+        version: "V42_REAL_CHECKOUT_PAYMENT_LINK_FLOW",
         createdAt: new Date().toISOString()
       };
 
@@ -1289,7 +1383,9 @@
       }
     }
 
-    async function requestFullTwin() {
+    let lastCheckout = null;
+
+    async function createCheckoutForFullTwin() {
       if (!lastTwin) {
         loadLastTwin();
       }
@@ -1299,16 +1395,16 @@
         return;
       }
 
-      showJson("apiBox", "Creating Full AI Twin request...");
+      showJson("checkoutApiBox", "Creating checkout...");
 
       try {
-        const res = await fetch("/api/payment-request", {
+        const res = await fetch("/api/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             offer: "Full AI Twin by SoulFlame",
             amount: "19.00 EUR",
-            method: "manual",
+            provider: "payment_link",
             user: lastTwin.user,
             profile: lastTwin.profile,
             scores: lastTwin.scores,
@@ -1317,15 +1413,95 @@
         });
 
         const data = await res.json();
-        showJson("apiBox", data);
+        showJson("checkoutApiBox", data);
 
-        if (data.ok) {
-          alert("Заявката за Full AI Twin е създадена. Admin може да потвърди и да генерира код.");
-          location.hash = "#unlock";
+        if (!data.ok) {
+          alert(data.error || "Checkout failed.");
+          return;
         }
+
+        lastCheckout = data;
+        localStorage.setItem("soulflame_last_checkout", JSON.stringify(data));
+
+        renderCheckout(data);
+        location.hash = "#checkout";
       } catch (error) {
-        showJson("apiBox", error.message);
+        showJson("checkoutApiBox", error.message);
+        alert(error.message);
       }
+    }
+
+    function renderCheckout(data) {
+      const panel = byId("checkoutPanel");
+      const text = byId("checkoutText");
+      const paymentId = byId("paymentIdBox");
+      const btn = byId("paymentLinkBtn");
+
+      if (!panel) return;
+
+      panel.classList.add("show");
+
+      const id =
+        data.payment && data.payment.id
+          ? data.payment.id
+          : "pending";
+
+      paymentId.textContent = "paymentId: " + id;
+
+      if (data.paymentUrl) {
+        text.innerHTML =
+          "Payment link е активен. Плати, после admin потвърждава paymentId и получаваш unlock code.";
+        btn.href = data.paymentUrl;
+        btn.style.display = "inline-flex";
+      } else {
+        text.innerHTML =
+          "Payment request е създаден, но няма настроен payment link. Добави PAYMENT_LINK_FULL_TWIN във Vercel env или потвърди ръчно от admin.";
+        btn.href = "#";
+        btn.style.display = "none";
+      }
+    }
+
+    function copyPaymentInfo() {
+      if (!lastCheckout) {
+        try {
+          const saved = localStorage.getItem("soulflame_last_checkout");
+          if (saved) lastCheckout = JSON.parse(saved);
+        } catch {}
+      }
+
+      if (!lastCheckout) {
+        alert("Няма checkout info.");
+        return;
+      }
+
+      const id =
+        lastCheckout.payment && lastCheckout.payment.id
+          ? lastCheckout.payment.id
+          : "pending";
+
+      const text =
+        "SoulFlame Full AI Twin payment request\n" +
+        "paymentId: " + id + "\n" +
+        "offer: Full AI Twin by SoulFlame\n" +
+        "amount: 19.00 EUR\n" +
+        "paymentUrl: " + (lastCheckout.paymentUrl || "manual") + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("Payment info copied.");
+    }
+
+    function restoreCheckout() {
+      try {
+        const saved = localStorage.getItem("soulflame_last_checkout");
+        if (saved) {
+          lastCheckout = JSON.parse(saved);
+          renderCheckout(lastCheckout);
+        }
+      } catch {}
+    }
+
+    async function requestFullTwin() {
+      await createCheckoutForFullTwin();
     }
 
     function loadLastTwin() {
@@ -1398,7 +1574,7 @@
         plan,
         nextMove,
         unlockedAt: new Date().toISOString(),
-        version: "V41_FULL_AI_TWIN_UNLOCK_FLOW"
+        version: "V42_REAL_CHECKOUT_PAYMENT_LINK_FLOW"
       };
     }
 
@@ -1533,7 +1709,7 @@
         report: lastFullReport.futureMessage,
         fullReport: JSON.stringify(lastFullReport, null, 2),
         product: "Full AI Twin by SoulFlame",
-        version: "V41_FULL_AI_TWIN_UNLOCK_FLOW",
+        version: "V42_REAL_CHECKOUT_PAYMENT_LINK_FLOW",
         createdAt: new Date().toISOString()
       };
 
@@ -1666,6 +1842,7 @@
     setupLightParallax();
     setupProgressAndSticky();
     restoreSaved();
+    restoreCheckout();
     checkHealth();
   </script>
 </body>
