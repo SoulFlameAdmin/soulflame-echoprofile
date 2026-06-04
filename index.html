@@ -826,6 +826,59 @@
         grid-template-columns: 1fr;
       }
     }
+      /* V43_LEGAL_TRUST_ANALYTICS_CSS */
+    .trustGrid,
+    .faqGrid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .trustGrid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .faqGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trustCard,
+    .faqCard {
+      border: 1px solid var(--line);
+      background: var(--glass2);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .trustCard strong,
+    .faqCard strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .legalLine {
+      border: 1px solid rgba(255,209,102,.28);
+      background: rgba(255,209,102,.08);
+      color: #ffe7a8;
+      border-radius: 20px;
+      padding: 16px;
+      margin-top: 16px;
+      line-height: 1.55;
+    }
+
+    .legalLinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .trustGrid,
+      .faqGrid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -847,7 +900,7 @@
       <div class="navlinks">
         <a class="pill" href="#create">Create Twin</a>
         <a class="pill" href="#unlock">Unlock Full</a>
-        <a class="pill" href="#pricing">Цени</a>
+        <a class="pill" href="#pricing">Цени</a><a class="pill" href="#trust">Trust</a><a class="pill" href="#faq">FAQ</a>
         <a class="pill" href="/test" target="_blank">Test</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
       </div>
@@ -855,7 +908,7 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V42 · Real Checkout Flow</div>
+        <div class="badge"><span class="dot"></span> V43 · Legal Trust Analytics</div>
 
         <h1>Създай и отключи своя <span class="grad">Full AI Twin</span></h1>
 
@@ -1171,8 +1224,80 @@
       </div>
     </section>
 
+    <section id="trust" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> Trust Layer</div>
+        <h2>Сигурност и доверие</h2>
+        <p>
+          SoulFlame AI Twin е MVP, но вече има ясна структура: данни, privacy, disclaimer,
+          admin контрол и вътрешна analytics система.
+        </p>
+
+        <div class="trustGrid">
+          <div class="trustCard">
+            <strong>Privacy-first MVP</strong>
+            <p>Събираме само данните, които въвеждаш доброволно за AI Twin профила.</p>
+          </div>
+
+          <div class="trustCard">
+            <strong>Not medical advice</strong>
+            <p>AI Twin е за самоанализ и креативна рефлексия, не за диагноза.</p>
+          </div>
+
+          <div class="trustCard">
+            <strong>Admin control</strong>
+            <p>Профили, заявки, кодове и събития се виждат в admin dashboard.</p>
+          </div>
+
+          <div class="trustCard">
+            <strong>Analytics events</strong>
+            <p>Важни действия се записват като events, за да знаем какво работи.</p>
+          </div>
+        </div>
+
+        <div class="legalLine">
+          AI Twin не заменя психолог, лекар, юрист или финансов консултант.
+          Резултатите са за лична рефлексия и продуктово преживяване.
+        </div>
+
+        <div class="legalLinks">
+          <a class="btn secondary" href="/privacy" target="_blank">Privacy Policy</a>
+          <a class="btn secondary" href="/terms" target="_blank">Terms</a>
+          <a class="btn secondary" href="/disclaimer" target="_blank">Disclaimer</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> FAQ</div>
+        <h2>Чести въпроси</h2>
+
+        <div class="faqGrid">
+          <div class="faqCard">
+            <strong>Какво е AI Twin?</strong>
+            <p>Дигитален профил, който започва от твоите сигнали, цел и поведенчески модел.</p>
+          </div>
+
+          <div class="faqCard">
+            <strong>Безплатен ли е?</strong>
+            <p>Mini Twin е безплатен. Full Twin се отключва с код след заявка или плащане.</p>
+          </div>
+
+          <div class="faqCard">
+            <strong>Къде отиват данните?</strong>
+            <p>Профилите и събитията се записват в Supabase backend на проекта.</p>
+          </div>
+
+          <div class="faqCard">
+            <strong>Това психологическа диагноза ли е?</strong>
+            <p>Не. Това е AI продукт за самоанализ, креативност и лична посока.</p>
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="footer">
-      SoulFlame Twins · V42 Real Checkout Payment Link Flow · Vercel + Supabase
+      SoulFlame Twins · V43 Legal Trust Analytics · Vercel + Supabase
     </div>
   </div>
 
@@ -1215,6 +1340,68 @@
     let lastFullReport = null;
 
     const byId = id => document.getElementById(id);
+
+    async function trackEvent(type, payload = {}) {
+      try {
+        await fetch("/api/event", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type,
+            page: location.pathname,
+            referrer: document.referrer || "",
+            payload: Object.assign({}, payload, {
+              path: location.pathname,
+              hash: location.hash || "",
+              title: document.title,
+              time: new Date().toISOString()
+            })
+          })
+        });
+      } catch {}
+    }
+
+    function setupV43Analytics() {
+      trackEvent("page_view", {
+        url: location.href
+      });
+
+      document.addEventListener("click", event => {
+        const target = event.target.closest("a, button, .signal");
+        if (!target) return;
+
+        const section = target.closest("section");
+        const label =
+          (target.innerText || target.getAttribute("href") || target.id || target.className || "click")
+            .toString()
+            .trim()
+            .slice(0, 140);
+
+        trackEvent("ui_click", {
+          label,
+          href: target.getAttribute("href") || "",
+          section: section ? section.id || "" : ""
+        });
+      }, { passive: true });
+
+      const milestones = new Set();
+
+      window.addEventListener("scroll", () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+
+        const percent = Math.round((window.scrollY / max) * 100);
+        const marks = [25, 50, 75, 100];
+
+        marks.forEach(mark => {
+          if (percent >= mark && !milestones.has(mark)) {
+            milestones.add(mark);
+            trackEvent("scroll_depth", { percent: mark });
+          }
+        });
+      }, { passive: true });
+    }
+
 
     function showJson(id, data) {
       const el = byId(id);
@@ -1327,7 +1514,7 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V42_REAL_CHECKOUT_PAYMENT_LINK_FLOW",
+        version: "V43_LEGAL_TRUST_ANALYTICS",
         createdAt: new Date().toISOString()
       };
 
@@ -1574,7 +1761,7 @@
         plan,
         nextMove,
         unlockedAt: new Date().toISOString(),
-        version: "V42_REAL_CHECKOUT_PAYMENT_LINK_FLOW"
+        version: "V43_LEGAL_TRUST_ANALYTICS"
       };
     }
 
@@ -1709,7 +1896,7 @@
         report: lastFullReport.futureMessage,
         fullReport: JSON.stringify(lastFullReport, null, 2),
         product: "Full AI Twin by SoulFlame",
-        version: "V42_REAL_CHECKOUT_PAYMENT_LINK_FLOW",
+        version: "V43_LEGAL_TRUST_ANALYTICS",
         createdAt: new Date().toISOString()
       };
 
@@ -1837,6 +2024,7 @@
       } catch {}
     }
 
+    setupV43Analytics();
     renderSignals();
     setupReveal();
     setupLightParallax();
