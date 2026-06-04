@@ -3,7 +3,7 @@ const crypto = require("crypto");
 
 const APP_NAME = "SoulFlame Twins";
 const MODULE_NAME = "EchoProfile";
-const APP_VERSION = "V48_1_ROUTES_CLEANUP_NO_DUPES";
+const APP_VERSION = "V49_HARD_VERCEL_ROUTING_FIX";
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const APP_MODE = process.env.APP_MODE || "production";
@@ -1291,7 +1291,7 @@ async function handleStripeWebhook(req, res) {
   sendJson(res, 200, Object.assign({ ok: true, webhook: "stripe", stripeEvent: event.id || "" }, result));
 }
 
-const server = http.createServer(async (req, res) => {
+async function appHandler(req, res) {
   try {
     const parsed = new URL(req.url, "http://localhost");
     const pathName = parsed.pathname;
@@ -1447,17 +1447,22 @@ const server = http.createServer(async (req, res) => {
       warning: "If this is a Supabase table/column error, run the schema patch in Supabase SQL Editor."
     });
   }
-});
+}
 
-const PORT = Number(process.env.PORT || 3000);
+if (process.env.VERCEL) {
+  module.exports = appHandler;
+} else {
+  const server = http.createServer(appHandler);
+  const PORT = Number(process.env.PORT || 3000);
 
-server.listen(PORT, () => {
-  console.log("");
-  console.log(APP_NAME + " " + APP_VERSION + " running.");
-  console.log("Open: http://localhost:" + PORT);
-  console.log("App mode: " + APP_MODE);
-  console.log("Requested data mode: " + DATA_MODE);
-  console.log("Supabase configured: " + supabaseConfigured());
-  console.log("Owner email: " + OWNER_EMAIL);
-  console.log("");
-});
+  server.listen(PORT, () => {
+    console.log("");
+    console.log(APP_NAME + " " + APP_VERSION + " running.");
+    console.log("Open: http://localhost:" + PORT);
+    console.log("App mode: " + APP_MODE);
+    console.log("Requested data mode: " + DATA_MODE);
+    console.log("Supabase configured: " + supabaseConfigured());
+    console.log("Owner email: " + OWNER_EMAIL);
+    console.log("");
+  });
+}
