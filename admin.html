@@ -425,7 +425,7 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V44 · Email Delivery Flow</div>
+        <div class="badge"><span class="dot"></span> V45 · Auto-Code After Payment</div>
         <h1>AI Twin <span class="grad">Delivery Room</span></h1>
         <p>
           Това е командният център за профили, заявки, плащания, unlock кодове и email/client delivery.
@@ -500,6 +500,43 @@
       </div>
     </section>
 
+    <section class="tools" id="v45AutoCodePanel">
+      <div class="card">
+        <h2>V45 Auto-Code Paid Payment</h2>
+        <p>Симулира реално платено плащане: създава paid payment + unlock code автоматично.</p>
+
+        <input id="autoName" placeholder="Client name">
+        <br><br>
+        <input id="autoContact" placeholder="Client email/contact">
+        <br><br>
+        <input id="autoOffer" value="Full AI Twin by SoulFlame" placeholder="Offer">
+        <br><br>
+        <input id="autoAmount" value="19.00 EUR" placeholder="Amount">
+        <br><br>
+
+        <button class="gold" onclick="autoCodePaid()">Create Paid + Code</button>
+        <button class="secondary" onclick="copyWebhookExample()">Copy Webhook Example</button>
+
+        <pre class="raw" id="autoCodeBox">Ready.</pre>
+      </div>
+
+      <div class="card">
+        <h2>Webhook URLs</h2>
+        <p>За реални плащания можеш да вържеш webhook към тези endpoints.</p>
+
+        <pre class="raw">Generic webhook:
+POST https://soulflame-twins.vercel.app/api/webhook/payment
+Header: x-webhook-secret: PAYMENT_WEBHOOK_SECRET
+
+Stripe webhook:
+POST https://soulflame-twins.vercel.app/api/webhook/stripe
+Header: stripe-signature: from Stripe
+
+Admin auto-code:
+POST https://soulflame-twins.vercel.app/api/admin/auto-code
+Header: x-admin-pin: ECHO_ADMIN_PIN</pre>
+      </div>
+    </section>
     <section class="tools">
       <div class="card">
         <h2>Generate Unlock Code</h2>
@@ -555,7 +592,7 @@
     </section>
 
     <div class="footer">
-      SoulFlame Twins · V44 Email Delivery Client Message Flow · Vercel + Supabase
+      SoulFlame Twins · V45 Auto-Code After Payment Webhook Flow · Vercel + Supabase
     </div>
   </div>
 
@@ -911,6 +948,68 @@
       a.download = "soulflame-admin-export-" + Date.now() + ".json";
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    async function autoCodePaid() {
+      const body = {
+        name: byId("autoName").value.trim(),
+        contact: byId("autoContact").value.trim(),
+        offer: byId("autoOffer").value.trim() || "Full AI Twin by SoulFlame",
+        amount: byId("autoAmount").value.trim() || "19.00 EUR",
+        method: "admin_auto_code",
+        raw: {
+          source: "admin_auto_code_panel",
+          createdAt: new Date().toISOString()
+        }
+      };
+
+      if (!body.contact) {
+        alert("Попълни client email/contact.");
+        return;
+      }
+
+      show("autoCodeBox", "Creating paid payment + unlock code...");
+
+      const result = await api("/api/admin/auto-code", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      show("autoCodeBox", result.data);
+
+      if (result.data && result.data.code) {
+        navigator.clipboard.writeText(result.data.deliveryText || result.data.code);
+
+        state.selectedRow = {
+          name: body.name,
+          contact: body.contact,
+          code: result.data.code
+        };
+
+        byId("emailTo").value = body.contact;
+        templateUnlockCode(state.selectedRow);
+      }
+
+      await loadAll();
+    }
+
+    function copyWebhookExample() {
+      const example = {
+        secret: "put-secret-in-header-x-webhook-secret",
+        name: "Client Name",
+        contact: "client@email.com",
+        offer: "Full AI Twin by SoulFlame",
+        amount: "19.00 EUR",
+        provider: "generic_payment_provider",
+        externalId: "payment_123",
+        status: "paid"
+      };
+
+      navigator.clipboard.writeText(JSON.stringify(example, null, 2));
+      show("autoCodeBox", example);
     }
 
     async function generateCode() {
