@@ -416,7 +416,7 @@
       </div>
 
       <div class="links">
-        <a class="secondary" href="/" target="_blank">Site</a><a class="secondary" href="/landing" target="_blank">Landing</a>
+        <a class="secondary" href="/" target="_blank">Site</a><a class="secondary" href="/landing" target="_blank">Landing</a><a class="secondary" href="/payment-success" target="_blank">Success</a>
         <a class="secondary" href="/test" target="_blank">Test</a>
         <button class="secondary" onclick="loadAll()">Refresh</button>
         <button class="secondary" onclick="exportJson()">Export JSON</button>
@@ -425,7 +425,7 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V47 · Deep Report Engine</div>
+        <div class="badge"><span class="dot"></span> V48 · Payment Provider Setup</div>
         <h1>AI Twin <span class="grad">Delivery Room</span></h1>
         <p>
           Това е командният център за профили, заявки, плащания, unlock кодове и email/client delivery.
@@ -500,6 +500,40 @@
       </div>
     </section>
 
+    <section class="tools" id="v48PaymentSetupPanel">
+      <div class="card">
+        <h2>V48 Payment Provider Setup</h2>
+        <p>Проверява дали payment links и webhook secrets са настроени във Vercel env.</p>
+
+        <div class="links" style="margin-top:12px">
+          <button class="gold" onclick="loadPaymentConfig()">Check Payment Config</button>
+          <button class="secondary" onclick="copyPaymentSetupGuide()">Copy Setup Guide</button>
+          <button class="secondary" onclick="testCheckout()">Test Checkout API</button>
+        </div>
+
+        <pre class="raw" id="paymentConfigBox">Ready.</pre>
+      </div>
+
+      <div class="card">
+        <h2>Provider URLs</h2>
+        <p>Сложи тези URL-и в Stripe/Gumroad/Revolut/PayPal настройките.</p>
+
+        <pre class="raw">Success URL:
+https://soulflame-twins.vercel.app/payment-success
+
+Cancel URL:
+https://soulflame-twins.vercel.app/payment-cancel
+
+Generic webhook:
+https://soulflame-twins.vercel.app/api/webhook/payment
+
+Stripe webhook:
+https://soulflame-twins.vercel.app/api/webhook/stripe
+
+Landing for ads:
+https://soulflame-twins.vercel.app/landing</pre>
+      </div>
+    </section>
     <section class="tools" id="v45AutoCodePanel">
       <div class="card">
         <h2>V45 Auto-Code Paid Payment</h2>
@@ -592,7 +626,7 @@ Header: x-admin-pin: ECHO_ADMIN_PIN</pre>
     </section>
 
     <div class="footer">
-      SoulFlame Twins · V47 Deep Full Twin Report Engine · Vercel + Supabase
+      SoulFlame Twins · V48 Payment Provider Final Setup · Vercel + Supabase
     </div>
   </div>
 
@@ -948,6 +982,65 @@ Header: x-admin-pin: ECHO_ADMIN_PIN</pre>
       a.download = "soulflame-admin-export-" + Date.now() + ".json";
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    async function loadPaymentConfig() {
+      show("paymentConfigBox", "Checking payment config...");
+
+      const result = await api("/api/payment-config");
+      show("paymentConfigBox", result.data);
+    }
+
+    function copyPaymentSetupGuide() {
+      const guide =
+        "SoulFlame V48 Payment Setup\n\n" +
+        "1. Create Stripe Payment Link / Gumroad product / Revolut payment link.\n" +
+        "2. Put link in Vercel env:\n" +
+        "   PAYMENT_LINK_FULL_TWIN=https://...\n\n" +
+        "3. Success URL:\n" +
+        "   https://soulflame-twins.vercel.app/payment-success\n\n" +
+        "4. Cancel URL:\n" +
+        "   https://soulflame-twins.vercel.app/payment-cancel\n\n" +
+        "5. Generic webhook URL:\n" +
+        "   https://soulflame-twins.vercel.app/api/webhook/payment\n\n" +
+        "6. Generic webhook header:\n" +
+        "   x-webhook-secret: PAYMENT_WEBHOOK_SECRET\n\n" +
+        "7. Stripe webhook URL:\n" +
+        "   https://soulflame-twins.vercel.app/api/webhook/stripe\n\n" +
+        "8. Add Stripe webhook secret in Vercel:\n" +
+        "   STRIPE_WEBHOOK_SECRET=whsec_...\n";
+
+      navigator.clipboard.writeText(guide);
+      show("paymentConfigBox", guide);
+    }
+
+    async function testCheckout() {
+      show("paymentConfigBox", "Testing checkout...");
+
+      const result = await api("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          offer: "Full AI Twin by SoulFlame",
+          amount: "19.00 EUR",
+          provider: "admin_test_checkout",
+          user: {
+            name: "Admin Test Client",
+            contact: "admin-test@soulflame.local",
+            goal: "Test V48 payment provider setup",
+            age: "25-34"
+          },
+          profile: "V48 Payment Config Test",
+          scores: {
+            vision: 10,
+            logic: 9
+          }
+        })
+      });
+
+      show("paymentConfigBox", result.data);
     }
 
     async function autoCodePaid() {
