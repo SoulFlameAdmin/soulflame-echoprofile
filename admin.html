@@ -500,6 +500,38 @@
       </div>
     </section>
 
+    <section class="tools" id="v50AutoUnlockPanel">
+      <div class="card">
+        <h2>V50 Auto Unlock 20 EUR</h2>
+        <p>Webhook платено 20 EUR → paid payment → unlock code → email delivery.</p>
+
+        <div class="links" style="margin-top:12px">
+          <button class="gold" onclick="loadV50PaymentConfig()">Check V50 Config</button>
+          <button class="secondary" onclick="copyV50WebhookGuide()">Copy Webhook Guide</button>
+          <button class="secondary" onclick="testV50GenericWebhook()">Test Generic Paid 20 EUR</button>
+        </div>
+
+        <pre class="raw" id="v50Box">Ready.</pre>
+      </div>
+
+      <div class="card">
+        <h2>V50 URLs</h2>
+        <pre class="raw">Gumroad webhook:
+https://soulflame-twins.vercel.app/api/webhook/gumroad?secret=YOUR_SECRET
+
+Generic webhook:
+https://soulflame-twins.vercel.app/api/webhook/payment?secret=YOUR_SECRET
+
+Stripe webhook:
+https://soulflame-twins.vercel.app/api/webhook/stripe
+
+Success:
+https://soulflame-twins.vercel.app/payment-success
+
+Cancel:
+https://soulflame-twins.vercel.app/payment-cancel</pre>
+      </div>
+    </section>
     <section class="tools" id="v48PaymentSetupPanel">
       <div class="card">
         <h2>V48 Payment Provider Setup</h2>
@@ -982,6 +1014,58 @@ Header: x-admin-pin: ECHO_ADMIN_PIN</pre>
       a.download = "soulflame-admin-export-" + Date.now() + ".json";
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    async function loadV50PaymentConfig() {
+      show("v50Box", "Checking V50 config...");
+      const result = await api("/api/payment-config");
+      show("v50Box", result.data);
+    }
+
+    function copyV50WebhookGuide() {
+      const guide =
+        "SoulFlame V50 Auto Unlock Setup\n\n" +
+        "Best automatic provider: Gumroad or Stripe.\n\n" +
+        "Required Vercel env:\n" +
+        "PAYMENT_LINK_FULL_TWIN=https://your-fixed-20-eur-payment-link\n" +
+        "GUMROAD_WEBHOOK_SECRET=your-secret\n" +
+        "PAYMENT_WEBHOOK_SECRET=your-secret\n" +
+        "RESEND_API_KEY=your-resend-key\n" +
+        "EMAIL_FROM=verified@email.com\n\n" +
+        "Gumroad webhook URL:\n" +
+        "https://soulflame-twins.vercel.app/api/webhook/gumroad?secret=YOUR_SECRET\n\n" +
+        "Generic webhook URL:\n" +
+        "https://soulflame-twins.vercel.app/api/webhook/payment?secret=YOUR_SECRET\n\n" +
+        "Stripe webhook URL:\n" +
+        "https://soulflame-twins.vercel.app/api/webhook/stripe\n\n" +
+        "Rule: paid/completed + amount >= 20 EUR + email/contact => auto code + email.\n";
+
+      navigator.clipboard.writeText(guide);
+      show("v50Box", guide);
+    }
+
+    async function testV50GenericWebhook() {
+      show("v50Box", "Testing generic webhook auto unlock...");
+
+      const result = await api("/api/webhook/payment?secret=test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          status: "paid",
+          amount: "20.00",
+          currency: "EUR",
+          provider: "admin_v50_test",
+          externalId: "test_" + Date.now(),
+          name: "V50 Test Client",
+          contact: "v50-test@soulflame.local",
+          email: "v50-test@soulflame.local",
+          offer: "Full AI Twin by SoulFlame"
+        })
+      });
+
+      show("v50Box", result.data);
     }
 
     async function loadPaymentConfig() {

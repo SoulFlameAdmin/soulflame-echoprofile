@@ -826,7 +826,7 @@
         grid-template-columns: 1fr;
       }
     }
-      /* V48_PAYMENT_PROVIDER_FINAL_SETUP_CSS */
+      /* V50_AUTO_UNLOCK_20_EUR_WEBHOOK_CSS */
     .trustGrid,
     .faqGrid {
       display: grid;
@@ -878,6 +878,17 @@
       .faqGrid {
         grid-template-columns: 1fr;
       }
+    }
+      /* V50_AUTO_UNLOCK_NOTE */
+    .v50PayNote {
+      border: 1px solid rgba(255,209,102,.30);
+      background: rgba(255,209,102,.08);
+      color: #ffe7a8;
+      border-radius: 20px;
+      padding: 14px;
+      margin-top: 14px;
+      line-height: 1.55;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -1087,6 +1098,9 @@
           </div>
         </div>
 
+                <div class="v50PayNote">
+          <strong>Auto unlock:</strong> при Gumroad/Stripe/Provider webhook за платени 20 EUR системата автоматично създава unlock code и го праща по email, ако RESEND_API_KEY е настроен. Revolut personal link остава manual backup.
+        </div>
         <details>
           <summary>Checkout API response</summary>
           <pre id="checkoutApiBox">Ready.</pre>
@@ -1514,7 +1528,7 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V48_PAYMENT_PROVIDER_FINAL_SETUP",
+        version: "V50_AUTO_UNLOCK_20_EUR_WEBHOOK",
         createdAt: new Date().toISOString()
       };
 
@@ -1906,7 +1920,7 @@
         thirtyDayPlan,
         fullReportText,
         unlockedAt: new Date().toISOString(),
-        version: "V48_PAYMENT_PROVIDER_FINAL_SETUP"
+        version: "V50_AUTO_UNLOCK_20_EUR_WEBHOOK"
       };
     }
 
@@ -2075,7 +2089,7 @@
         report: lastFullReport.futureMessage,
         fullReport: JSON.stringify(lastFullReport, null, 2),
         product: "Full AI Twin by SoulFlame",
-        version: "V48_PAYMENT_PROVIDER_FINAL_SETUP",
+        version: "V50_AUTO_UNLOCK_20_EUR_WEBHOOK",
         createdAt: new Date().toISOString()
       };
 
