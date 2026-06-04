@@ -826,7 +826,7 @@
         grid-template-columns: 1fr;
       }
     }
-      /* V46_FINAL_MOBILE_AD_LANDING_CSS */
+      /* V47_DEEP_FULL_TWIN_REPORT_ENGINE_CSS */
     .trustGrid,
     .faqGrid {
       display: grid;
@@ -908,7 +908,7 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V46 · Final Mobile + Ad Landing</div>
+        <div class="badge"><span class="dot"></span> V47 · Deep Full Twin Report Engine</div>
 
         <h1>Създай и отключи своя <span class="grad">Full AI Twin</span></h1>
 
@@ -1297,7 +1297,7 @@
       </div>
     </section>
     <div class="footer">
-      SoulFlame Twins · V46 Final Mobile + Ad Landing · Vercel + Supabase
+      SoulFlame Twins · V47 Deep Full Twin Report Engine · Vercel + Supabase
     </div>
   </div>
 
@@ -1514,7 +1514,7 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V46_FINAL_MOBILE_AD_LANDING",
+        version: "V47_DEEP_FULL_TWIN_REPORT_ENGINE",
         createdAt: new Date().toISOString()
       };
 
@@ -1703,8 +1703,89 @@
       } catch {}
     }
 
+    async function createDeepFullReport(codeData) {
+      loadLastTwin();
+
+      const payload = {
+        code: codeData,
+        twin: lastTwin,
+        name:
+          byId("unlockName").value.trim() ||
+          (lastTwin && lastTwin.user && lastTwin.user.name) ||
+          "SoulFlame User",
+        source: "client_unlock"
+      };
+
+      try {
+        const res = await fetch("/api/full-report", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (data.ok && data.report) {
+          return data.report;
+        }
+      } catch {}
+
+      return makeFullReport(codeData);
+    }
+
     function makeFullReport(codeData) {
       loadLastTwin();
+
+      const traitMatrix = {
+        vision: {
+          title: "Future Architect",
+          power: "виждаш посока преди другите да видят пътя",
+          risk: "можеш да се изгубиш в прекалено много възможности",
+          action: "избери една визия и я превърни в 3 конкретни действия"
+        },
+        logic: {
+          title: "Quantum System Builder",
+          power: "превръщаш хаоса в структура, алгоритъм и план",
+          risk: "можеш да анализираш прекалено дълго преди да действаш",
+          action: "сложи срок и пусни първа версия, дори да не е идеална"
+        },
+        emotion: {
+          title: "Emotional Mirror",
+          power: "усещаш хора, нюанси, напрежение и скрити сигнали",
+          risk: "можеш да поемаш чужди емоции като свои",
+          action: "разделяй фактите от усещането преди всяко важно решение"
+        },
+        action: {
+          title: "Momentum Engine",
+          power: "можеш да започваш бързо и да движиш нещата напред",
+          risk: "можеш да гориш енергия без достатъчно посока",
+          action: "вържи всяко действие към една главна цел"
+        },
+        social: {
+          title: "Influence Twin",
+          power: "влияеш чрез думи, присъствие и правилно позициониране",
+          risk: "можеш да се адаптираш прекалено към очакванията на другите",
+          action: "говори от ясна позиция, не от нужда да бъдеш харесан"
+        },
+        future: {
+          title: "Future Self Twin",
+          power: "мислиш през версии на себе си и през бъдещи сценарии",
+          risk: "можеш да живееш в бъдещето, вместо да строиш днес",
+          action: "всеки ден оставяй физическа следа от бъдещата версия"
+        },
+        deep: {
+          title: "Subconscious Explorer",
+          power: "виждаш модели под повърхността и търсиш истинската причина",
+          risk: "можеш да усложняваш простите решения",
+          action: "когато откриеш модел, веднага го превърни в нов навик"
+        },
+        creator: {
+          title: "Creator Twin",
+          power: "създаваш системи, продукти, истории и нови светове",
+          risk: "можеш да започнеш 10 проекта и да завършиш 1",
+          action: "избери един продукт и го доведи до публичен резултат"
+        }
+      };
 
       const name =
         byId("unlockName").value.trim() ||
@@ -1726,28 +1807,82 @@
           ? lastTwin.secondTrait
           : "logic";
 
-      const mainName = archetypes[mainTrait] || "Future Architect";
-      const secondName = archetypes[secondTrait] || "Quantum System Builder";
+      const first = traitMatrix[mainTrait] || traitMatrix.vision;
+      const second = traitMatrix[secondTrait] || traitMatrix.logic;
+
+      const goal =
+        lastTwin && lastTwin.user && lastTwin.user.goal
+          ? lastTwin.user.goal
+          : "да изгради по-ясна бъдеща версия на себе си";
 
       const futureMessage =
         name + ", твоят Future Twin казва: не чакай да станеш готов. Ти се изграждаш чрез действие. " +
-        "Следващата версия на теб не идва от мотивация, а от система, която повтаряш всеки ден.";
+        "Главната ти линия е: " + first.power + ", а вторият ти двигател е, че " + second.power + ". " +
+        "Когато ги комбинираш, ти не просто мислиш — строиш реалност.";
 
       const strength =
-        "Твоята основна сила е комбинацията между " + mainName + " и " + secondName +
-        ". Това означава, че можеш да виждаш посока и да я превръщаш в структура.";
+        "Твоята основна сила е синтезът между " + first.title + " и " + second.title + ". " +
+        "Това означава, че можеш да усещаш посока, да я превръщаш в структура и да я изкарваш като продукт, решение или нова лична версия.";
 
       const risk =
-        "Скритият риск е да държиш прекалено много идеи отворени едновременно. Когато всичко е важно, мозъкът губи фокус. " +
-        "Твоят Full Twin трябва да те връща към 1 главен ход.";
+        "Скритият риск е двоен: " + first.risk + ", а също така " + second.risk + ". " +
+        "Това не е слабост, а знак, че силата ти трябва да бъде канализирана в система.";
+
+      const identityCore =
+        "Identity Core: ти си човек, който не търси просто отговор, а търси форма на бъдещето. " +
+        "Когато имаш ясна посока, можеш да надскочиш средата си. Когато нямаш структура, умът ти започва да се разклонява прекалено.";
+
+      const mindPattern =
+        "Mind Pattern: мисленето ти работи на вълни — идея, симулация, скок, после нужда от конкретна опора. " +
+        "Най-добрият режим за теб е: визия → малка версия → тест → подобрение.";
+
+      const emotionalPattern =
+        "Emotional Pattern: емоцията при теб не е пречка, а гориво. Но ако няма посока, тя става напрежение. " +
+        "Трябва да превръщаш вътрешния заряд в конкретен ход още същия ден.";
+
+      const businessPattern =
+        "Business / Creator Mode: най-силният ти бизнес модел е да превръщаш идеи в преживяване — страница, AI продукт, визуална система, профил, автоматизация или услуга. " +
+        "Не продавай само функция. Продавай трансформация.";
+
+      const moneyPattern =
+        "Money Pattern: парите идват, когато спреш да подобряваш скрито и започнеш да показваш публично. " +
+        "Твоят next income path е: малък продукт → реален тест → обратна връзка → платена версия.";
+
+      const relationshipPattern =
+        "Relationship Mode: имаш нужда от хора, които не убиват визията ти, но и не те оставят да се разпилееш. " +
+        "Правилният човек до теб не само те подкрепя, а те заземява.";
+
+      const shadowPattern =
+        "Shadow Pattern: най-големият ти враг не е липса на идеи, а прекаленото количество възможни реалности. " +
+        "Лекът е brutal focus: един главен проект, един главен резултат, един срок.";
 
       const plan =
         "Ден 1: избери една цел. Ден 2: напиши 3 стъпки. Ден 3: направи първата версия. " +
         "Ден 4: покажи я на човек. Ден 5: вземи обратна връзка. Ден 6: подобри. Ден 7: публикувай или продай.";
 
+      const thirtyDayPlan =
+        "30-Day Upgrade: седмица 1 — изчисти идеята. Седмица 2 — направи работещо демо. " +
+        "Седмица 3 — покажи го на 20 човека. Седмица 4 — вземи първите заявки, пари или реални тестове.";
+
       const nextMove =
-        "Следващият ход е да превърнеш идеята в публичен резултат: страница, демо, пост или оферта. " +
-        "Не усъвършенствай скрито. Изкарвай навън.";
+        "Следващият ход е да превърнеш целта си в публичен резултат. Не още 100 идеи. Една версия. Един линк. Един тест. Един човек, който реагира.";
+
+      const fullReportText =
+        "FULL AI TWIN REPORT — " + name + "\n\n" +
+        "Profile: " + profile + "\n\n" +
+        "Future Message:\n" + futureMessage + "\n\n" +
+        "Core Strength:\n" + strength + "\n\n" +
+        "Hidden Risk:\n" + risk + "\n\n" +
+        "Identity Core:\n" + identityCore + "\n\n" +
+        "Mind Pattern:\n" + mindPattern + "\n\n" +
+        "Emotional Pattern:\n" + emotionalPattern + "\n\n" +
+        "Business Mode:\n" + businessPattern + "\n\n" +
+        "Money Pattern:\n" + moneyPattern + "\n\n" +
+        "Relationship Mode:\n" + relationshipPattern + "\n\n" +
+        "Shadow Pattern:\n" + shadowPattern + "\n\n" +
+        "7-Day Plan:\n" + plan + "\n\n" +
+        "30-Day Upgrade:\n" + thirtyDayPlan + "\n\n" +
+        "Next Move:\n" + nextMove;
 
       return {
         name,
@@ -1755,13 +1890,23 @@
         mainTrait,
         secondTrait,
         code: codeData,
+        goal,
         futureMessage,
         strength,
         risk,
         plan,
         nextMove,
+        identityCore,
+        mindPattern,
+        emotionalPattern,
+        businessPattern,
+        moneyPattern,
+        relationshipPattern,
+        shadowPattern,
+        thirtyDayPlan,
+        fullReportText,
         unlockedAt: new Date().toISOString(),
-        version: "V46_FINAL_MOBILE_AD_LANDING"
+        version: "V47_DEEP_FULL_TWIN_REPORT_ENGINE"
       };
     }
 
@@ -1798,7 +1943,7 @@
           return;
         }
 
-        lastFullReport = makeFullReport(data.code);
+        lastFullReport = await createDeepFullReport(data.code);
         localStorage.setItem("soulflame_last_full_report", JSON.stringify(lastFullReport));
 
         renderFullReport(lastFullReport);
@@ -1812,6 +1957,15 @@
       }
     }
 
+    function escapeReportText(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
     function renderFullReport(report) {
       byId("fullResult").classList.add("show");
       byId("fullTitle").textContent = report.profile;
@@ -1820,6 +1974,31 @@
       byId("riskText").textContent = report.risk;
       byId("planText").textContent = report.plan;
       byId("nextMoveText").textContent = report.nextMove;
+
+      let extra = byId("deepReportExtra");
+
+      if (!extra) {
+        const grid = byId("fullResult").querySelector(".fullGrid");
+        grid.insertAdjacentHTML("afterend", "<div id='deepReportExtra' class='deepReportExtra'></div><div id='fullReportTextBox' class='fullReportTextBox'></div>");
+        extra = byId("deepReportExtra");
+      }
+
+      extra.innerHTML =
+        "<div class='deepReportCard'><div class='deepReportTag'>Identity</div><strong>Identity Core</strong><p>" + escapeReportText(report.identityCore) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>Mind</div><strong>Mind Pattern</strong><p>" + escapeReportText(report.mindPattern) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>Emotion</div><strong>Emotional Pattern</strong><p>" + escapeReportText(report.emotionalPattern) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>Creator</div><strong>Business / Creator Mode</strong><p>" + escapeReportText(report.businessPattern) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>Money</div><strong>Money Pattern</strong><p>" + escapeReportText(report.moneyPattern) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>Social</div><strong>Relationship Mode</strong><p>" + escapeReportText(report.relationshipPattern) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>Shadow</div><strong>Shadow Pattern</strong><p>" + escapeReportText(report.shadowPattern) + "</p></div>" +
+        "<div class='deepReportCard'><div class='deepReportTag'>30 Days</div><strong>30-Day Upgrade</strong><p>" + escapeReportText(report.thirtyDayPlan) + "</p></div>";
+
+      const textBox = byId("fullReportTextBox");
+
+      if (textBox) {
+        textBox.textContent = report.fullReportText || "";
+      }
+
       location.hash = "#unlock";
     }
 
@@ -1896,7 +2075,7 @@
         report: lastFullReport.futureMessage,
         fullReport: JSON.stringify(lastFullReport, null, 2),
         product: "Full AI Twin by SoulFlame",
-        version: "V46_FINAL_MOBILE_AD_LANDING",
+        version: "V47_DEEP_FULL_TWIN_REPORT_ENGINE",
         createdAt: new Date().toISOString()
       };
 
