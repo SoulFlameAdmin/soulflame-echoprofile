@@ -3,7 +3,7 @@ const crypto = require("crypto");
 
 const APP_NAME = "SoulFlame Twins";
 const MODULE_NAME = "EchoProfile";
-const APP_VERSION = "V48_PAYMENT_PROVIDER_FINAL_SETUP";
+const APP_VERSION = "V48_1_ROUTES_CLEANUP_NO_DUPES";
 
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const APP_MODE = process.env.APP_MODE || "production";
@@ -414,17 +414,23 @@ async function handleHealth(req, res) {
     adminSecurityWarning: ADMIN_PIN === "ECHO-ADMIN-999" ? "Change default admin PIN before going online." : null,
     routes: [
       "/",
-      "/admin", "/landing", "/payment-success", "/payment-cancel", "/landing", "/payment-success", "/payment-cancel",
+      "/admin",
+      "/landing",
+      "/payment-success",
+      "/payment-cancel",
       "/test",
       "/privacy",
       "/terms",
       "/disclaimer",
-      "/api/health", "/api/payment-config", "/api/payment-config",
+      "/api/health",
+      "/api/payment-config",
+      "/api/public-config",
       "/api/event",
       "/api/profile",
       "/api/lead",
       "/api/payment-request",
       "/api/checkout",
+      "/api/full-report",
       "/api/unlock",
       "/api/admin/data",
       "/api/admin/metrics",
