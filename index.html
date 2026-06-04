@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>AI Twin by SoulFlame — Създай своя дигитален двойник</title>
-  <meta name="description" content="Създай безплатен AI Twin чрез EchoProfile. Получи AI профил, Twin Seed и възможност за Full AI Twin анализ.">
+  <title>AI Twin by SoulFlame — Full Twin Unlock</title>
+  <meta name="description" content="Създай безплатен AI Twin и отключи Full AI Twin чрез код. EchoProfile, Future Twin message и личен AI план.">
   <meta property="og:title" content="AI Twin by SoulFlame">
-  <meta property="og:description" content="Създай безплатен AI Twin — дигитална версия на теб, която започва с EchoProfile.">
+  <meta property="og:description" content="Създай безплатен AI Twin и отключи Full AI Twin с код.">
   <meta name="theme-color" content="#050611">
 
   <style>
@@ -29,9 +29,7 @@
       --shadow:0 28px 90px rgba(0,0,0,.42);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
@@ -217,13 +215,8 @@
       color: transparent;
     }
 
-    .gold {
-      color: var(--gold);
-    }
-
-    .green {
-      color: var(--green);
-    }
+    .gold { color: var(--gold); }
+    .green { color: var(--green); }
 
     .actions {
       display: flex;
@@ -232,8 +225,7 @@
       margin-top: 24px;
     }
 
-    button,
-    .btn {
+    button, .btn {
       border: 0;
       cursor: pointer;
       color: white;
@@ -248,22 +240,19 @@
       transform: translateZ(0);
     }
 
-    button:hover,
-    .btn:hover {
+    button:hover, .btn:hover {
       transform: translateY(-2px);
       filter: saturate(1.1);
       box-shadow: 0 20px 52px rgba(124,60,255,.30);
     }
 
-    button.secondary,
-    .btn.secondary {
+    button.secondary, .btn.secondary {
       background: rgba(255,255,255,.09);
       border: 1px solid var(--line);
       box-shadow: none;
     }
 
-    button.gold,
-    .btn.gold {
+    button.gold, .btn.gold {
       background: linear-gradient(135deg, #ffb703, #ff4ff3);
       box-shadow: 0 16px 45px rgba(255,79,243,.18);
     }
@@ -407,32 +396,19 @@
       50% { translate:0 -10px; }
     }
 
-    .section {
-      padding: 30px 0;
-    }
+    .section { padding: 30px 0; }
 
-    .grid3,
-    .grid4,
-    .pricingGrid {
+    .grid3, .grid4, .pricingGrid, .fullGrid {
       display: grid;
       gap: 14px;
     }
 
-    .grid3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .grid3 { grid-template-columns: repeat(3, 1fr); }
+    .grid4 { grid-template-columns: repeat(4, 1fr); }
+    .pricingGrid { grid-template-columns: repeat(3, 1fr); }
+    .fullGrid { grid-template-columns: repeat(2, 1fr); }
 
-    .grid4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .pricingGrid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .mini,
-    .priceCard,
-    .stepCard {
+    .mini, .priceCard, .stepCard, .fullBlock {
       border: 1px solid var(--line);
       background: var(--glass2);
       border-radius: 24px;
@@ -442,15 +418,12 @@
       transition: transform .55s ease, opacity .55s ease;
     }
 
-    .mini.show,
-    .priceCard.show,
-    .stepCard.show {
+    .mini.show, .priceCard.show, .stepCard.show, .fullBlock.show {
       transform: translateY(0);
       opacity: 1;
     }
 
-    .mini strong,
-    .stepCard strong {
+    .mini strong, .stepCard strong, .fullBlock strong {
       display: block;
       margin-bottom: 8px;
       font-size: 17px;
@@ -512,9 +485,7 @@
       font-weight: 950;
     }
 
-    input,
-    textarea,
-    select {
+    input, textarea, select {
       width: 100%;
       border: 1px solid var(--line);
       background: rgba(0,0,0,.26);
@@ -526,9 +497,7 @@
       transition: border-color .18s ease, box-shadow .18s ease;
     }
 
-    input:focus,
-    textarea:focus,
-    select:focus {
+    input:focus, textarea:focus, select:focus {
       border-color: rgba(0,234,255,.48);
       box-shadow: 0 0 0 4px rgba(0,234,255,.07);
     }
@@ -577,12 +546,12 @@
       line-height: 1.45;
     }
 
-    .result {
+    .result, .fullResult {
       display: none;
       margin-top: 16px;
     }
 
-    .result.show {
+    .result.show, .fullResult.show {
       display: block;
       animation: resultIn .42s ease both;
     }
@@ -592,7 +561,7 @@
       to { opacity:1; transform:translateY(0); }
     }
 
-    .resultHero {
+    .resultHero, .fullHero {
       border: 1px solid var(--line);
       background:
         radial-gradient(circle at 20% 20%, rgba(0,234,255,.14), transparent 30%),
@@ -600,6 +569,14 @@
       border-radius: 26px;
       padding: 22px;
       margin-bottom: 14px;
+    }
+
+    .fullHero {
+      border-color: rgba(255,209,102,.34);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,209,102,.14), transparent 30%),
+        radial-gradient(circle at 90% 5%, rgba(255,79,243,.14), transparent 35%),
+        rgba(255,255,255,.05);
     }
 
     .aiCard {
@@ -612,7 +589,7 @@
       margin-top: 14px;
     }
 
-    .resultTitle {
+    .resultTitle, .fullTitle {
       font-size: clamp(28px, 4vw, 54px);
       font-weight: 950;
       letter-spacing: -2px;
@@ -641,17 +618,26 @@
       margin-bottom: 3px;
     }
 
-    .success {
+    .success, .errorBox {
       display: none;
-      border: 1px solid rgba(37,224,163,.34);
-      background: rgba(37,224,163,.08);
-      color: #caffdf;
       border-radius: 20px;
       padding: 15px;
       margin-top: 14px;
     }
 
-    .success.show {
+    .success {
+      border: 1px solid rgba(37,224,163,.34);
+      background: rgba(37,224,163,.08);
+      color: #caffdf;
+    }
+
+    .errorBox {
+      border: 1px solid rgba(255,77,109,.34);
+      background: rgba(255,77,109,.08);
+      color: #ffd5dd;
+    }
+
+    .success.show, .errorBox.show {
       display: block;
     }
 
@@ -723,9 +709,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         animation-duration: .001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: .001ms !important;
@@ -734,24 +718,13 @@
     }
 
     @media (max-width: 980px) {
-      html {
-        scroll-behavior: auto;
-      }
+      html { scroll-behavior: auto; }
 
-      .hero,
-      .appGrid,
-      .grid3,
-      .grid4,
-      .pricingGrid,
-      .scoreGrid {
+      .hero, .appGrid, .grid3, .grid4, .pricingGrid, .scoreGrid, .fullGrid {
         grid-template-columns: 1fr;
       }
 
-      .signalGrid {
-        grid-template-columns: 1fr;
-      }
-
-      .heroBullets {
+      .signalGrid, .heroBullets {
         grid-template-columns: 1fr;
       }
 
@@ -784,8 +757,7 @@
         justify-content: center;
       }
 
-      .stickyCta .btn,
-      .stickyCta button {
+      .stickyCta .btn, .stickyCta button {
         flex: 1;
         padding: 12px 10px;
         font-size: 13px;
@@ -808,7 +780,7 @@
 
   <div class="stickyCta" id="stickyCta">
     <a class="btn" href="#create">Създай Twin</a>
-    <button class="secondary" onclick="demoTwin()">Демо</button>
+    <a class="btn secondary" href="#unlock">Отключи</a>
   </div>
 
   <div class="wrap">
@@ -820,7 +792,7 @@
 
       <div class="navlinks">
         <a class="pill" href="#create">Create Twin</a>
-        <a class="pill" href="#how">Как работи</a>
+        <a class="pill" href="#unlock">Unlock Full</a>
         <a class="pill" href="#pricing">Цени</a>
         <a class="pill" href="/test" target="_blank">Test</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
@@ -829,29 +801,29 @@
 
     <section class="hero">
       <div class="card">
-        <div class="badge"><span class="dot"></span> V39 · Product Conversion Upgrade</div>
+        <div class="badge"><span class="dot"></span> V41 · Full AI Twin Unlock Flow</div>
 
-        <h1>Създай безплатен <span class="grad">AI Twin</span></h1>
+        <h1>Създай и отключи своя <span class="grad">Full AI Twin</span></h1>
 
         <p>
-          Отговори чрез няколко вътрешни сигнала и получи първа версия на своя дигитален двойник —
-          AI профил, който показва как мислиш, как действаш и каква бъдеща версия можеш да развиеш.
+          Първо създаваш безплатен Mini Twin. След това с unlock код отключваш Full AI Twin:
+          Future Twin послание, силни страни, рискове, 7-дневен план и следващ ход.
         </p>
 
         <p>
-          Mini Twin е безплатен. Full AI Twin отключва дълбок Echo анализ, Future Twin послание и личен план.
+          Това вече е завършен продукт flow: <span class="green">Free Twin → Request → Code → Full Twin Result</span>.
         </p>
 
         <div class="actions">
-          <a class="btn" href="#create">Създай AI Twin безплатно</a>
+          <a class="btn" href="#create">Създай AI Twin</a>
+          <a class="btn gold" href="#unlock">Отключи Full Twin</a>
           <button class="secondary" onclick="checkHealth()">System Check</button>
-          <button class="gold" onclick="demoTwin()">Виж демо</button>
         </div>
 
         <div class="heroBullets">
-          <div class="heroBullet"><b>Безплатен старт</b>Mini AI Twin seed</div>
-          <div class="heroBullet"><b>Cloud запис</b>Supabase backend</div>
-          <div class="heroBullet"><b>Full upgrade</b>Дълбок AI профил</div>
+          <div class="heroBullet"><b>Mini Twin</b>Безплатен старт</div>
+          <div class="heroBullet"><b>Unlock Code</b>Код от admin</div>
+          <div class="heroBullet"><b>Full Report</b>Красив резултат</div>
         </div>
 
         <details>
@@ -866,10 +838,10 @@
           <div class="orb"></div>
           <div class="shadowOrb"></div>
 
-          <div class="chip c1">Echo Core<small>identity signal</small></div>
-          <div class="chip c2">Future Twin<small>simulation layer</small></div>
-          <div class="chip c3">Memory Map<small>behavior signal</small></div>
-          <div class="chip c4">SoulFlame Sync<small>cloud active</small></div>
+          <div class="chip c1">Mini Twin<small>free signal</small></div>
+          <div class="chip c2">Unlock Code<small>admin generated</small></div>
+          <div class="chip c3">Full Echo<small>deep blueprint</small></div>
+          <div class="chip c4">Future Twin<small>next self</small></div>
         </div>
       </div>
     </section>
@@ -877,57 +849,33 @@
     <section id="how" class="section">
       <div class="card light">
         <h2>Как работи</h2>
-        <p>Процесът е кратък, ясен и направен да превръща любопитството в реален AI профил.</p>
+        <p>V41 добавя липсващата магия след плащане или admin код.</p>
 
         <div class="grid3">
           <div class="stepCard">
             <div class="stepNumber">1</div>
-            <strong>Избираш сигнали</strong>
-            <p>Маркираш кои вътрешни модели те описват: визия, логика, емоция, действие, бъдеще.</p>
+            <strong>Създай Mini Twin</strong>
+            <p>Попълваш име, контакт, цел и избираш вътрешни Twin сигнали.</p>
           </div>
 
           <div class="stepCard">
             <div class="stepNumber">2</div>
-            <strong>Получаваш Twin Seed</strong>
-            <p>Системата генерира първия ти AI Twin профил и го записва в SoulFlame cloud.</p>
+            <strong>Вземи unlock код</strong>
+            <p>Admin генерира код от dashboard или потвърждава плащане.</p>
           </div>
 
           <div class="stepCard">
             <div class="stepNumber">3</div>
-            <strong>Отключваш Full Twin</strong>
-            <p>Full версията добавя Future Twin послание, deep Echo Blueprint и личен план.</p>
+            <strong>Отключи Full Twin</strong>
+            <p>Въвеждаш кода и получаваш Full AI Twin report на самата страница.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="grid4">
-        <div class="mini">
-          <strong>За самоанализ</strong>
-          <p>Разбираш кои модели управляват мисленето и реакциите ти.</p>
-        </div>
-
-        <div class="mini">
-          <strong>За бизнес</strong>
-          <p>Виждаш силните си страни като създател, лидер или стратег.</p>
-        </div>
-
-        <div class="mini">
-          <strong>За бъдещи решения</strong>
-          <p>Future Twin може да ти даде посока какъв човек градиш.</p>
-        </div>
-
-        <div class="mini">
-          <strong>За AI Echo</strong>
-          <p>Това е първа стъпка към персонален AI двойник.</p>
         </div>
       </div>
     </section>
 
     <section id="create" class="section appGrid">
       <div class="card light">
-        <h2>Твоят Twin Seed</h2>
+        <h2>Твоят Mini Twin</h2>
 
         <label>Име</label>
         <input id="name" placeholder="Например: Димитър">
@@ -947,7 +895,8 @@
         <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
 
         <div class="actions">
-          <button onclick="generateTwin()">Generate AI Twin</button>
+          <button onclick="generateTwin()">Generate Mini Twin</button>
+          <button class="secondary" onclick="demoTwin()">Demo</button>
           <button class="secondary" onclick="resetTwin()">Reset</button>
         </div>
       </div>
@@ -959,17 +908,17 @@
         <div id="signals" class="signalGrid"></div>
 
         <div id="successBox" class="success">
-          AI Twin seed е записан успешно в SoulFlame cloud.
+          Mini AI Twin е записан успешно в SoulFlame cloud.
         </div>
 
         <div id="result" class="result">
           <div class="resultHero">
-            <div class="badge"><span class="dot"></span> AI Twin Activated</div>
+            <div class="badge"><span class="dot"></span> Mini Twin Activated</div>
             <div id="resultTitle" class="resultTitle"></div>
             <div id="resultText"></div>
 
             <div class="aiCard" id="aiCard">
-              <h3>AI Twin Card</h3>
+              <h3>Mini AI Twin Card</h3>
               <p id="aiCardText">Твоята AI карта ще се появи тук.</p>
             </div>
           </div>
@@ -977,15 +926,15 @@
           <div id="scoreGrid" class="scoreGrid"></div>
 
           <div class="mini show">
-            <h3>Full Twin Upgrade</h3>
+            <h3>Следва: Full Twin</h3>
             <p>
-              Full Twin отключва Future Twin message, deep Echo Blueprint,
-              личен план и AI mirror profile.
+              Заяви Full Twin, вземи unlock код и отключи дълбокия резултат долу.
             </p>
 
             <div class="actions">
               <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
-              <button class="secondary" onclick="copyTwin()">Копирай резултата</button>
+              <a class="btn secondary" href="#unlock">Имам код</a>
+              <button class="secondary" onclick="copyTwin()">Копирай Mini резултата</button>
             </div>
           </div>
 
@@ -997,10 +946,87 @@
       </div>
     </section>
 
+    <section id="unlock" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> Full AI Twin Unlock</div>
+        <h2>Отключи Full AI Twin</h2>
+        <p>
+          Въведи unlock кода, който си получил. След успешно отключване ще видиш Full Twin report тук.
+        </p>
+
+        <div class="appGrid">
+          <div>
+            <label>Unlock code</label>
+            <input id="unlockCode" placeholder="Например: ECHO-ABCD-1234">
+
+            <label>Име за Full Report</label>
+            <input id="unlockName" placeholder="Ще се попълни автоматично, ако имаш Mini Twin">
+
+            <div class="actions">
+              <button class="gold" onclick="unlockFullTwin()">Unlock Full Twin</button>
+              <button class="secondary" onclick="pasteDemoCode()">Demo code format</button>
+            </div>
+
+            <div id="unlockSuccess" class="success">Full AI Twin е отключен.</div>
+            <div id="unlockError" class="errorBox">Грешка при отключване.</div>
+
+            <details>
+              <summary>Unlock API response</summary>
+              <pre id="unlockApiBox">Ready.</pre>
+            </details>
+          </div>
+
+          <div>
+            <div id="fullResult" class="fullResult">
+              <div class="fullHero">
+                <div class="badge"><span class="dot"></span> Full Twin Activated</div>
+                <div id="fullTitle" class="fullTitle"></div>
+                <p id="futureMessage"></p>
+              </div>
+
+              <div class="fullGrid">
+                <div class="fullBlock show">
+                  <strong>1. Core Strength</strong>
+                  <p id="strengthText"></p>
+                </div>
+
+                <div class="fullBlock show">
+                  <strong>2. Hidden Risk</strong>
+                  <p id="riskText"></p>
+                </div>
+
+                <div class="fullBlock show">
+                  <strong>3. 7-Day Action Plan</strong>
+                  <p id="planText"></p>
+                </div>
+
+                <div class="fullBlock show">
+                  <strong>4. Next Move</strong>
+                  <p id="nextMoveText"></p>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="gold" onclick="copyFullReport()">Копирай Full Report</button>
+                <button class="secondary" onclick="saveFullReportAsProfile()">Запиши Full Report</button>
+              </div>
+            </div>
+
+            <div id="lockedPreview" class="aiCard">
+              <h3>Full Twin Preview</h3>
+              <p>
+                Тук ще се появи отключеният Full AI Twin: Future message, силни страни, рискове и план.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="pricing" class="section">
       <div class="card light">
         <h2>Пакети</h2>
-        <p>Започваш безплатно. Плащаш само ако искаш по-дълбока версия.</p>
+        <p>Започваш безплатно. Отключваш Full Twin чрез код.</p>
 
         <div class="pricingGrid">
           <div class="priceCard">
@@ -1020,15 +1046,16 @@
           <div class="priceCard featured">
             <h3>Full AI Twin</h3>
             <div class="price">19€</div>
-            <p>Дълбок личен AI профил.</p>
+            <p>Отключен Full Report.</p>
             <div class="list">
-              <span>Full Echo Blueprint</span>
               <span>Future Twin message</span>
-              <span>Личен next-step план</span>
+              <span>Core Strength</span>
+              <span>Hidden Risk</span>
+              <span>7-Day Action Plan</span>
               <span>Unlock code</span>
             </div>
             <div class="actions">
-              <a class="btn gold" href="#create">Отключи</a>
+              <a class="btn gold" href="#unlock">Отключи</a>
             </div>
           </div>
 
@@ -1051,7 +1078,7 @@
     </section>
 
     <div class="footer">
-      SoulFlame Twins · V39 Product Conversion Upgrade · Vercel + Supabase
+      SoulFlame Twins · V41 Full AI Twin Unlock Flow · Vercel + Supabase
     </div>
   </div>
 
@@ -1091,15 +1118,18 @@
 
     const selected = {};
     let lastTwin = null;
+    let lastFullReport = null;
+
+    const byId = id => document.getElementById(id);
 
     function showJson(id, data) {
-      const el = document.getElementById(id);
+      const el = byId(id);
       if (!el) return;
       el.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
     }
 
     function renderSignals() {
-      const box = document.getElementById("signals");
+      const box = byId("signals");
       box.innerHTML = "";
 
       signalDefs.forEach(signal => {
@@ -1130,10 +1160,10 @@
     }
 
     function demoTwin() {
-      document.getElementById("name").value = "Demo Product Twin";
-      document.getElementById("contact").value = "demo@soulflame.local";
-      document.getElementById("age").value = "25-34";
-      document.getElementById("goal").value = "Искам AI Twin, който ми помага да мисля по-ясно, да вземам решения и да развивам идеите си.";
+      byId("name").value = "Demo Full Twin";
+      byId("contact").value = "demo@soulflame.local";
+      byId("age").value = "25-34";
+      byId("goal").value = "Искам AI Twin, който ми помага да мисля по-ясно, да вземам решения и да развивам идеите си.";
 
       ["vision", "logic", "future", "creator"].forEach(key => selected[key] = true);
 
@@ -1157,10 +1187,10 @@
     }
 
     async function generateTwin() {
-      const name = document.getElementById("name").value.trim();
-      const contact = document.getElementById("contact").value.trim();
-      const age = document.getElementById("age").value;
-      const goal = document.getElementById("goal").value.trim();
+      const name = byId("name").value.trim();
+      const contact = byId("contact").value.trim();
+      const age = byId("age").value;
+      const goal = byId("goal").value.trim();
 
       if (!name) {
         alert("Попълни име.");
@@ -1203,25 +1233,29 @@
         fullReport,
         selectedSignals: activeSignals,
         product: "AI Twin by SoulFlame",
-        version: "V39_PRODUCT_CONVERSION_UPGRADE",
+        version: "V41_FULL_AI_TWIN_UNLOCK_FLOW",
         createdAt: new Date().toISOString()
       };
 
-      document.getElementById("result").classList.add("show");
-      document.getElementById("resultTitle").textContent = profile;
+      localStorage.setItem("soulflame_last_twin", JSON.stringify(lastTwin));
 
-      document.getElementById("resultText").innerHTML =
-        "<p><strong>" + name + "</strong>, твоят AI Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
+      byId("unlockName").value = name;
+
+      byId("result").classList.add("show");
+      byId("resultTitle").textContent = profile;
+
+      byId("resultText").innerHTML =
+        "<p><strong>" + name + "</strong>, твоят Mini Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
         "<p>" + report + "</p>" +
         "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
-        "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
+        "<p class='gold'>Mini Twin: active · Full Twin: locked</p>";
 
-      document.getElementById("aiCardText").innerHTML =
+      byId("aiCardText").innerHTML =
         "<strong>" + profile + "</strong><br>" +
         "Основна посока: " + report + "<br>" +
-        "Следващо ниво: Full AI Twin с Future message и личен план.";
+        "Следващо ниво: Full AI Twin с unlock code.";
 
-      const grid = document.getElementById("scoreGrid");
+      const grid = byId("scoreGrid");
       grid.innerHTML = "";
 
       top.slice(0, 4).forEach(([key, value]) => {
@@ -1235,7 +1269,7 @@
     }
 
     async function saveTwin(twin) {
-      showJson("apiBox", "Saving AI Twin seed to SoulFlame cloud...");
+      showJson("apiBox", "Saving Mini AI Twin to SoulFlame cloud...");
 
       try {
         const res = await fetch("/api/profile", {
@@ -1248,7 +1282,7 @@
         showJson("apiBox", data);
 
         if (data.ok) {
-          document.getElementById("successBox").classList.add("show");
+          byId("successBox").classList.add("show");
         }
       } catch (error) {
         showJson("apiBox", error.message);
@@ -1257,7 +1291,11 @@
 
     async function requestFullTwin() {
       if (!lastTwin) {
-        alert("Първо генерирай AI Twin.");
+        loadLastTwin();
+      }
+
+      if (!lastTwin) {
+        alert("Първо генерирай Mini Twin.");
         return;
       }
 
@@ -1282,16 +1320,158 @@
         showJson("apiBox", data);
 
         if (data.ok) {
-          alert("Заявката за Full AI Twin е създадена.");
+          alert("Заявката за Full AI Twin е създадена. Admin може да потвърди и да генерира код.");
+          location.hash = "#unlock";
         }
       } catch (error) {
         showJson("apiBox", error.message);
       }
     }
 
+    function loadLastTwin() {
+      try {
+        const saved = localStorage.getItem("soulflame_last_twin");
+        if (saved) {
+          lastTwin = JSON.parse(saved);
+          if (lastTwin.user && lastTwin.user.name) {
+            byId("unlockName").value = lastTwin.user.name;
+          }
+        }
+      } catch {}
+    }
+
+    function makeFullReport(codeData) {
+      loadLastTwin();
+
+      const name =
+        byId("unlockName").value.trim() ||
+        (lastTwin && lastTwin.user && lastTwin.user.name) ||
+        "SoulFlame User";
+
+      const profile =
+        lastTwin && lastTwin.profile
+          ? lastTwin.profile
+          : "Future Architect + Quantum System Builder";
+
+      const mainTrait =
+        lastTwin && lastTwin.mainTrait
+          ? lastTwin.mainTrait
+          : "vision";
+
+      const secondTrait =
+        lastTwin && lastTwin.secondTrait
+          ? lastTwin.secondTrait
+          : "logic";
+
+      const mainName = archetypes[mainTrait] || "Future Architect";
+      const secondName = archetypes[secondTrait] || "Quantum System Builder";
+
+      const futureMessage =
+        name + ", твоят Future Twin казва: не чакай да станеш готов. Ти се изграждаш чрез действие. " +
+        "Следващата версия на теб не идва от мотивация, а от система, която повтаряш всеки ден.";
+
+      const strength =
+        "Твоята основна сила е комбинацията между " + mainName + " и " + secondName +
+        ". Това означава, че можеш да виждаш посока и да я превръщаш в структура.";
+
+      const risk =
+        "Скритият риск е да държиш прекалено много идеи отворени едновременно. Когато всичко е важно, мозъкът губи фокус. " +
+        "Твоят Full Twin трябва да те връща към 1 главен ход.";
+
+      const plan =
+        "Ден 1: избери една цел. Ден 2: напиши 3 стъпки. Ден 3: направи първата версия. " +
+        "Ден 4: покажи я на човек. Ден 5: вземи обратна връзка. Ден 6: подобри. Ден 7: публикувай или продай.";
+
+      const nextMove =
+        "Следващият ход е да превърнеш идеята в публичен резултат: страница, демо, пост или оферта. " +
+        "Не усъвършенствай скрито. Изкарвай навън.";
+
+      return {
+        name,
+        profile,
+        mainTrait,
+        secondTrait,
+        code: codeData,
+        futureMessage,
+        strength,
+        risk,
+        plan,
+        nextMove,
+        unlockedAt: new Date().toISOString(),
+        version: "V41_FULL_AI_TWIN_UNLOCK_FLOW"
+      };
+    }
+
+    async function unlockFullTwin() {
+      const code = byId("unlockCode").value.trim().toUpperCase();
+
+      byId("unlockSuccess").classList.remove("show");
+      byId("unlockError").classList.remove("show");
+
+      if (!code) {
+        alert("Въведи unlock код.");
+        return;
+      }
+
+      showJson("unlockApiBox", "Unlocking Full AI Twin...");
+
+      try {
+        const res = await fetch("/api/unlock", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code,
+            user: lastTwin ? lastTwin.user : { name: byId("unlockName").value.trim() },
+            profileId: lastTwin ? lastTwin.id : null
+          })
+        });
+
+        const data = await res.json();
+        showJson("unlockApiBox", data);
+
+        if (!data.ok) {
+          byId("unlockError").textContent = data.error || "Unlock failed.";
+          byId("unlockError").classList.add("show");
+          return;
+        }
+
+        lastFullReport = makeFullReport(data.code);
+        localStorage.setItem("soulflame_last_full_report", JSON.stringify(lastFullReport));
+
+        renderFullReport(lastFullReport);
+
+        byId("unlockSuccess").classList.add("show");
+        byId("lockedPreview").style.display = "none";
+      } catch (error) {
+        showJson("unlockApiBox", error.message);
+        byId("unlockError").textContent = error.message;
+        byId("unlockError").classList.add("show");
+      }
+    }
+
+    function renderFullReport(report) {
+      byId("fullResult").classList.add("show");
+      byId("fullTitle").textContent = report.profile;
+      byId("futureMessage").textContent = report.futureMessage;
+      byId("strengthText").textContent = report.strength;
+      byId("riskText").textContent = report.risk;
+      byId("planText").textContent = report.plan;
+      byId("nextMoveText").textContent = report.nextMove;
+      location.hash = "#unlock";
+    }
+
+    function pasteDemoCode() {
+      byId("unlockCode").value = "ECHO-XXXX-XXXX";
+      alert("Това е само формат. Истински код се генерира от /admin.");
+    }
+
     function copyTwin() {
       if (!lastTwin) {
-        alert("Няма AI Twin за копиране.");
+        loadLastTwin();
+      }
+
+      if (!lastTwin) {
+        alert("Няма Mini Twin за копиране.");
         return;
       }
 
@@ -1302,20 +1482,91 @@
         "Report: " + lastTwin.report + "\n";
 
       navigator.clipboard.writeText(text);
-      alert("AI Twin резултатът е копиран.");
+      alert("Mini Twin резултатът е копиран.");
+    }
+
+    function copyFullReport() {
+      if (!lastFullReport) {
+        try {
+          const saved = localStorage.getItem("soulflame_last_full_report");
+          if (saved) lastFullReport = JSON.parse(saved);
+        } catch {}
+      }
+
+      if (!lastFullReport) {
+        alert("Няма Full Report за копиране.");
+        return;
+      }
+
+      const text =
+        "FULL AI TWIN by SoulFlame\n\n" +
+        "Име: " + lastFullReport.name + "\n" +
+        "Профил: " + lastFullReport.profile + "\n\n" +
+        "Future Message:\n" + lastFullReport.futureMessage + "\n\n" +
+        "Core Strength:\n" + lastFullReport.strength + "\n\n" +
+        "Hidden Risk:\n" + lastFullReport.risk + "\n\n" +
+        "7-Day Plan:\n" + lastFullReport.plan + "\n\n" +
+        "Next Move:\n" + lastFullReport.nextMove + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("Full Report е копиран.");
+    }
+
+    async function saveFullReportAsProfile() {
+      if (!lastFullReport) {
+        alert("Първо отключи Full Twin.");
+        return;
+      }
+
+      const body = {
+        id: Date.now(),
+        user: {
+          name: lastFullReport.name,
+          contact: lastTwin && lastTwin.user ? lastTwin.user.contact : "",
+          goal: "Full AI Twin unlocked",
+          age: lastTwin && lastTwin.user ? lastTwin.user.age : ""
+        },
+        mainTrait: lastFullReport.mainTrait,
+        secondTrait: lastFullReport.secondTrait,
+        profile: lastFullReport.profile,
+        scores: lastTwin ? lastTwin.scores : {},
+        report: lastFullReport.futureMessage,
+        fullReport: JSON.stringify(lastFullReport, null, 2),
+        product: "Full AI Twin by SoulFlame",
+        version: "V41_FULL_AI_TWIN_UNLOCK_FLOW",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+        showJson("unlockApiBox", data);
+
+        if (data.ok) {
+          alert("Full Report е записан.");
+        }
+      } catch (error) {
+        showJson("unlockApiBox", error.message);
+      }
     }
 
     function resetTwin() {
       Object.keys(selected).forEach(key => delete selected[key]);
       document.querySelectorAll(".signal").forEach(el => el.classList.remove("active"));
-      document.getElementById("result").classList.remove("show");
-      document.getElementById("successBox").classList.remove("show");
+      byId("result").classList.remove("show");
+      byId("successBox").classList.remove("show");
       showJson("apiBox", "Ready.");
       lastTwin = null;
+      localStorage.removeItem("soulflame_last_twin");
     }
 
     function setupReveal() {
-      const items = document.querySelectorAll(".mini, .priceCard, .stepCard");
+      const items = document.querySelectorAll(".mini, .priceCard, .stepCard, .fullBlock");
 
       if (!("IntersectionObserver" in window)) {
         items.forEach(el => el.classList.add("show"));
@@ -1335,7 +1586,7 @@
     }
 
     function setupLightParallax() {
-      const device = document.getElementById("device");
+      const device = byId("device");
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       if (!device || reduce || window.innerWidth < 980) return;
@@ -1374,8 +1625,8 @@
     }
 
     function setupProgressAndSticky() {
-      const progress = document.getElementById("progress");
-      const sticky = document.getElementById("stickyCta");
+      const progress = byId("progress");
+      const sticky = byId("stickyCta");
       let ticking = false;
 
       window.addEventListener("scroll", () => {
@@ -1399,10 +1650,22 @@
       }, { passive: true });
     }
 
+    function restoreSaved() {
+      loadLastTwin();
+
+      try {
+        const savedFull = localStorage.getItem("soulflame_last_full_report");
+        if (savedFull) {
+          lastFullReport = JSON.parse(savedFull);
+        }
+      } catch {}
+    }
+
     renderSignals();
     setupReveal();
     setupLightParallax();
     setupProgressAndSticky();
+    restoreSaved();
     checkHealth();
   </script>
 </body>
