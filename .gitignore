@@ -11,3 +11,4 @@ backups
 exports
 *.log
 .DS_Store
+*.zip
