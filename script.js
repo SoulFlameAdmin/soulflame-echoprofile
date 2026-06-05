@@ -1,825 +1,187 @@
-﻿const OWNER_EMAIL = "stere0metal360@gmail.com";
-const ADMIN_PIN_KEY = "soulflame_echo_admin_pin";
+﻿const chatBox = document.getElementById("chatBox");
+const chatInput = document.getElementById("chatInput");
+const bottomDrawer = document.getElementById("bottomDrawer");
+const overlay = document.getElementById("overlay");
+const modulePreview = document.getElementById("modulePreview");
+const drawerHint = document.getElementById("drawerHint");
+const centerBrand = document.getElementById("centerBrand");
 
-const questions = [
-  { text: "Често ли усещаш, че мислиш различно от хората около теб?", yes: { vision: 2, logic: 1 }, no: { social: 1 } },
-  { text: "Имаш ли силно желание да създадеш нещо голямо, което да остане след теб?", yes: { vision: 3, action: 1 }, no: { emotion: 1 } },
-  { text: "По-лесно ли усещаш емоциите на хората, отколкото те ги казват с думи?", yes: { emotion: 3 }, no: { logic: 1 } },
-  { text: "Когато имаш идея, веднага ли започваш да виждаш система около нея?", yes: { vision: 2, logic: 2 }, no: { social: 1 } },
-  { text: "Понякога ли се чувстваш сякаш си създаден за нещо по-голямо?", yes: { vision: 3, emotion: 1 }, no: { logic: 1 } },
-  { text: "В спор предпочиташ ли истината, дори да звучи директно?", yes: { logic: 3 }, no: { emotion: 1, social: 1 } },
-  { text: "Можеш ли бързо да усетиш дали даден човек е истински или фалшив?", yes: { emotion: 2, logic: 1 }, no: { social: 1 } },
-  { text: "Имаш ли много идеи, но понякога ти е трудно да избереш първата стъпка?", yes: { vision: 2, emotion: 1 }, no: { action: 2 } },
-  { text: "Когато видиш проблем, веднага ли търсиш начин да го превърнеш в продукт?", yes: { vision: 2, logic: 2, action: 1 }, no: { emotion: 1 } },
-  { text: "Вярваш ли, че човек може да стане много повече от това, което е сега?", yes: { vision: 2, emotion: 2 }, no: { logic: 1 } },
-  { text: "Когато си под напрежение, започваш ли да мислиш още по-бързо?", yes: { logic: 2, vision: 1 }, no: { emotion: 1, social: 1 } },
-  { text: "Имаш ли нужда идеите ти да имат смисъл, не просто да носят пари?", yes: { emotion: 2, vision: 1 }, no: { logic: 2 } },
-  { text: "Лесно ли убеждаваш хората, когато вярваш в нещо?", yes: { social: 3, vision: 1 }, no: { logic: 1 } },
-  { text: "Обичаш ли да създаваш неща, които изглеждат невъзможни за другите?", yes: { vision: 3, logic: 1 }, no: { social: 1 } },
-  { text: "Понякога ли усещаш, че хората не разбират мащаба на мисленето ти?", yes: { vision: 2, emotion: 1 }, no: { social: 1 } },
-  { text: "Когато видиш нова технология, веднага ли мислиш как да я превърнеш в бизнес?", yes: { vision: 2, logic: 2 }, no: { emotion: 1 } },
-  { text: "Предпочиташ ли малък, но реален старт пред голям план без действие?", yes: { action: 3, logic: 1 }, no: { vision: 2 } },
-  { text: "Искаш ли системата да те води, вместо всеки ден да решаваш от нулата?", yes: { logic: 2, action: 1 }, no: { social: 1 } },
-  { text: "Имаш ли усещане, че личността ти може да стане продукт или AI модел?", yes: { vision: 3, emotion: 1 }, no: { logic: 1 } },
-  { text: "Би ли използвал AI профил, който ти казва следващия най-умен ход?", yes: { logic: 2, vision: 2 }, no: { emotion: 1 } },
-  { text: "Когато започнеш нещо, можеш ли да го довършиш без да смениш посоката?", yes: { action: 3, logic: 1 }, no: { vision: 1, emotion: 1 } },
-  { text: "Хората често ли идват при теб за съвет, идея или посока?", yes: { social: 2, emotion: 1 }, no: { logic: 1 } },
-  { text: "По-силен ли си, когато имаш ясна мисия?", yes: { vision: 2, action: 2 }, no: { emotion: 1 } },
-  { text: "Би ли платил за дълбок AI анализ, ако ти даде реална посока?", yes: { action: 2, logic: 1 }, no: { emotion: 1 } }
-];
-
-const screens = ["landingScreen", "leadScreen", "quizScreen", "resultScreen", "pricingScreen", "adminScreen", "clientReportScreen"];
-
-let currentQuestion = 0;
-let finalText = "";
-let fullText = "";
-let clientReportText = "";
-let currentModalText = "";
-let lastResult = null;
-let lastGeneratedCode = "";
-
-let adminProfiles = [];
-let adminLeads = [];
-let adminCodes = [];
-let adminPayments = [];
-let adminEvents = [];
-let adminMetrics = {};
-
-let user = { name: "", contact: "", goal: "", age: "" };
-let scores = { vision: 0, emotion: 0, logic: 0, social: 0, action: 0 };
-
-function showPage(id) {
-  screens.forEach(screen => document.getElementById(screen).classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-
-  if (id === "adminScreen") loadBackendData();
+function pageKey() {
+  const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  return file.replace(".html", "") || "index";
 }
 
-async function showAdmin() {
-  const pin = await requestAdminPin(false);
-  if (!pin) return;
-  showPage("adminScreen");
+function storageKey() {
+  return "sf_chat_" + pageKey();
 }
 
-function getStoredAdminPin() {
-  return localStorage.getItem(ADMIN_PIN_KEY) || "";
+function updateCenterBrand() {
+  if (!centerBrand) return;
+
+  const messages = Array.from(document.querySelectorAll(".message"));
+  const hasUser = messages.some(m => m.classList.contains("user"));
+
+  if (messages.length > 1 || hasUser) {
+    centerBrand.classList.add("hidden");
+  } else {
+    centerBrand.classList.remove("hidden");
+  }
 }
 
-function setStoredAdminPin(pin) {
-  localStorage.setItem(ADMIN_PIN_KEY, pin);
+function toggleDrawer(forceState) {
+  if (!bottomDrawer || !overlay) return;
+
+  const shouldOpen = typeof forceState === "boolean"
+    ? forceState
+    : !bottomDrawer.classList.contains("open");
+
+  if (shouldOpen) {
+    bottomDrawer.classList.add("open");
+    overlay.classList.add("open");
+    if (drawerHint) drawerHint.textContent = "затвори";
+  } else {
+    bottomDrawer.classList.remove("open");
+    overlay.classList.remove("open");
+    if (drawerHint) drawerHint.textContent = "плъзни / натисни";
+  }
 }
 
-function logoutAdmin() {
-  localStorage.removeItem(ADMIN_PIN_KEY);
-  alert("Admin PIN е изчистен.");
-  showPage("landingScreen");
+function addMessage(role, text) {
+  if (!chatBox) return;
+
+  const message = document.createElement("div");
+  message.className = `message ${role}`;
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = role === "user" ? "U" : "E";
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+
+  message.appendChild(avatar);
+  message.appendChild(bubble);
+  chatBox.appendChild(message);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+  saveChat();
+  updateCenterBrand();
 }
 
-async function requestAdminPin(force = false) {
-  const stored = getStoredAdminPin();
+function sendMessage() {
+  if (!chatInput) return;
 
-  if (stored && !force) return stored;
+  const text = chatInput.value.trim();
+  if (!text) return;
 
-  const pin = prompt("Въведи Admin PIN:");
+  addMessage("user", text);
+  chatInput.value = "";
 
-  if (!pin) return null;
-
-  setStoredAdminPin(pin.trim());
-  return pin.trim();
+  setTimeout(() => {
+    addMessage("assistant", demoReply(text));
+  }, 350);
 }
 
-function getAdminHeaders(extra = {}) {
-  return { ...extra, "x-admin-pin": getStoredAdminPin() };
-}
+function demoReply(text) {
+  const t = text.toLowerCase();
+  const page = pageKey();
 
-async function adminFetch(url, options = {}) {
-  let pin = await requestAdminPin(false);
-  if (!pin) throw new Error("Admin PIN липсва.");
-
-  let response = await fetch(url, { ...options, headers: getAdminHeaders(options.headers || {}) });
-
-  if (response.status === 401) {
-    localStorage.removeItem(ADMIN_PIN_KEY);
-    pin = await requestAdminPin(true);
-    if (!pin) throw new Error("Admin PIN липсва.");
-    response = await fetch(url, { ...options, headers: getAdminHeaders(options.headers || {}) });
+  if (page === "ai-twin") {
+    return "AI Twin демо: следващият слой е GPT API по модели + памет + EchoProfile контекст.";
   }
 
-  return response;
-}
-
-function startTest() {
-  const name = document.getElementById("userName").value.trim();
-  const contact = document.getElementById("userContact").value.trim();
-  const goal = document.getElementById("userGoal").value;
-  const age = document.getElementById("userAge").value;
-
-  if (!name) {
-    alert("Въведи име.");
-    return;
+  if (page === "echoprofile") {
+    return "EchoProfile демо: тук ще започне въпросникът и scoring логиката.";
   }
 
-  user = { name, contact: contact || "няма въведен контакт", goal, age };
-  currentQuestion = 0;
-  finalText = "";
-  fullText = "";
-  clientReportText = "";
-  lastResult = null;
-  scores = { vision: 0, emotion: 0, logic: 0, social: 0, action: 0 };
+  if (page === "future-twin") {
+    return "Future Twin демо: тук ще симулираме бъдеща версия на човека.";
+  }
 
-  document.getElementById("fullEchoBox").classList.add("hidden");
-  document.getElementById("fullLockBox").classList.remove("hidden");
-  document.getElementById("unlockStatus").textContent = "";
-  document.getElementById("copyStatus").textContent = "";
+  if (page === "memory") {
+    return "Memory демо: тук ще се пазят важните факти и стилът на човека.";
+  }
 
-  showPage("quizScreen");
-  showQuestion();
+  if (t.includes("profile") || t.includes("profil") || t.includes("профил")) {
+    return "EchoProfile е ядрото. Ще извадим психологически модел и от него ще се роди AI Twin.";
+  }
+
+  return "Разбрах. Това е демо отговор. Следващият слой е GPT API за AI Twin.";
 }
 
-function showQuestion() {
-  const q = questions[currentQuestion];
-  document.getElementById("questionText").textContent = q.text;
-  document.getElementById("counter").textContent = `Въпрос ${currentQuestion + 1} от ${questions.length}`;
-  document.getElementById("progressBar").style.width = `${(currentQuestion / questions.length) * 100}%`;
+function clearChat() {
+  localStorage.removeItem(storageKey());
+
+  if (!chatBox) return;
+
+  const initialBubble = document.querySelector(".message.assistant .bubble");
+  const initialText = initialBubble
+    ? initialBubble.textContent.trim()
+    : "Здравей. Аз съм Echo.";
+
+  chatBox.innerHTML = "";
+  addMessage("assistant", initialText);
+  updateCenterBrand();
 }
 
-function answerQuestion(answer) {
-  const q = questions[currentQuestion];
-  const points = q[answer];
+function saveChat() {
+  if (!chatBox) return;
 
-  Object.keys(points).forEach(key => scores[key] += points[key]);
+  const messages = [];
+  document.querySelectorAll(".message").forEach(m => {
+    messages.push({
+      role: m.classList.contains("user") ? "user" : "assistant",
+      text: m.querySelector(".bubble").innerText
+    });
+  });
 
-  currentQuestion++;
-
-  if (currentQuestion < questions.length) showQuestion();
-  else showResult();
+  localStorage.setItem(storageKey(), JSON.stringify(messages));
 }
 
-function getSortedTraits(scoreObj = scores) {
-  return Object.keys(scoreObj).sort((a, b) => Number(scoreObj[b] || 0) - Number(scoreObj[a] || 0));
-}
+function loadChat() {
+  if (!chatBox) return;
 
-function getTraitName(trait) {
-  return {
-    vision: "Визионерски",
-    emotion: "Емоционално-интуитивен",
-    logic: "Стратегически",
-    social: "Социално-свързващ",
-    action: "Действащ реализатор"
-  }[trait] || trait;
-}
+  const saved = localStorage.getItem(storageKey());
 
-function getTraitData(trait) {
-  return {
-    vision: {
-      archetype: "Визионерът",
-      power: "виждаш бъдещи възможности преди повечето хора",
-      risk: "можеш да се разпиляваш между много идеи",
-      business: "AI продукти, AR решения, платформи, личен бранд, визионерски проекти",
-      match: "партньор, който ти дава структура, спокойствие и реални действия",
-      firstMove: "избери една идея и направи малък работещ MVP",
-      shadow: "живееш твърде много в бъдещето и понякога изпускаш първата земна стъпка"
-    },
-    emotion: {
-      archetype: "Емпатичният радар",
-      power: "усещаш скритите емоции, мотиви и напрежения",
-      risk: "можеш да попиваш чужда енергия и да губиш фокус",
-      business: "психологически тестове, консултации, съдържание, връзки, комуникация",
-      match: "партньор, който е честен, стабилен и не играе емоционални игри",
-      firstMove: "превърни интуицията си в метод, въпросник или услуга",
-      shadow: "усещаш твърде много, но не винаги поставяш ясни граници"
-    },
-    logic: {
-      archetype: "Стратегът",
-      power: "режеш хаоса и виждаш структурата зад проблема",
-      risk: "можеш да анализираш прекалено дълго и да забавиш старта",
-      business: "SaaS, автоматизации, CRM, scoring системи, бизнес инструменти",
-      match: "партньор, който уважава истината и не се плаши от директност",
-      firstMove: "създай система с правила, която избира следващата стъпка вместо теб",
-      shadow: "чакаш идеална логика, преди да действаш"
-    },
-    social: {
-      archetype: "Свързващият магнит",
-      power: "можеш да свързваш хора, идеи и възможности",
-      risk: "можеш да зависиш от чужда реакция и одобрение",
-      business: "общности, B2B партньорства, посредничество, продажби, платформи",
-      match: "партньор, който те подкрепя социално, но не те размива",
-      firstMove: "използвай комуникацията си за 10 реални разговора с потенциални клиенти",
-      shadow: "даваш на хората прекалено голяма власт над собствената си посока"
-    },
-    action: {
-      archetype: "Реализаторът",
-      power: "можеш да превърнеш идея в реално действие",
-      risk: "можеш да тръгнеш твърде бързо без достатъчно стратегия",
-      business: "MVP услуги, локални бизнес решения, агенция, прототипи, продажби",
-      match: "партньор, който не те спира, но ти помага да мислиш два хода напред",
-      firstMove: "пусни първата версия, вземи обратна връзка и подобри продукта",
-      shadow: "действаш бързо, но понякога без достатъчно дълбока система"
-    }
-  }[trait];
-}
-
-function getPercent(scoreObj) {
-  const total = Object.values(scoreObj).reduce((sum, value) => sum + Number(value || 0), 0) || 1;
-  const percent = {};
-  Object.keys(scoreObj).forEach(key => percent[key] = Math.round((Number(scoreObj[key] || 0) / total) * 100));
-  return percent;
-}
-
-function generateMiniReport(profile) {
-  const scoreObj = profile?.scores || scores;
-  const userData = profile?.user || user;
-  const sorted = getSortedTraits(scoreObj);
-  const mainTrait = profile?.mainTrait || sorted[0];
-  const secondTrait = profile?.secondTrait || sorted[1];
-  const percent = getPercent(scoreObj);
-  const main = getTraitData(mainTrait);
-  const second = getTraitData(secondTrait);
-
-  return `MINI ECHO REPORT
-
-Име: ${userData.name}
-Контакт: ${userData.contact}
-Цел: ${userData.goal}
-Възраст: ${userData.age}
-
-Основен Echo тип: ${getTraitName(mainTrait)} — ${main.archetype}
-Втори слой: ${getTraitName(secondTrait)} — ${second.archetype}
-
-Разпределение:
-Визия: ${scoreObj.vision} точки / ${percent.vision}%
-Емоция: ${scoreObj.emotion} точки / ${percent.emotion}%
-Логика: ${scoreObj.logic} точки / ${percent.logic}%
-Социалност: ${scoreObj.social} точки / ${percent.social}%
-Действие: ${scoreObj.action} точки / ${percent.action}%
-
-Ядро:
-Ти ${main.power}. Вторият ти слой добавя: ${second.power}.
-
-Основен риск:
-${main.risk}.
-
-Бизнес посока:
-${main.business}.
-
-SoulMatch посока:
-${main.match}.
-
-Следващ ход:
-${main.firstMove}.
-
-Mini заключение:
-Това е базовият ти профил. Full Echo отключва блокажи, връзки, бизнес стратегия, 30-дневен план и AI Twin база.`;
-}
-
-function generateFullReport(profile) {
-  const scoreObj = profile?.scores || scores;
-  const userData = profile?.user || user;
-  const sorted = getSortedTraits(scoreObj);
-  const mainTrait = profile?.mainTrait || sorted[0];
-  const secondTrait = profile?.secondTrait || sorted[1];
-  const weakestTrait = sorted[sorted.length - 1];
-  const percent = getPercent(scoreObj);
-  const main = getTraitData(mainTrait);
-  const second = getTraitData(secondTrait);
-  const weak = getTraitData(weakestTrait);
-
-  return `FULL AI ECHO ANALYSIS
-SoulFlame EchoProfile V15
-
-Име: ${userData.name}
-Контакт: ${userData.contact}
-Цел: ${userData.goal}
-Възраст: ${userData.age}
-
-ОСНОВЕН ECHO ТИП:
-${getTraitName(mainTrait)} — ${main.archetype}
-
-ВТОРИ СЛОЙ:
-${getTraitName(secondTrait)} — ${second.archetype}
-
-НАЙ-СЛАБ СЛОЙ:
-${getTraitName(weakestTrait)} — ${weak.archetype}
-
-ТОЧКИ:
-Визия: ${scoreObj.vision} / ${percent.vision}%
-Емоция: ${scoreObj.emotion} / ${percent.emotion}%
-Логика: ${scoreObj.logic} / ${percent.logic}%
-Социалност: ${scoreObj.social} / ${percent.social}%
-Действие: ${scoreObj.action} / ${percent.action}%
-
-1. ДЪЛБОКО ЯДРО
-Твоят водещ модел е ${main.archetype}. Основната ти сила е, че ${main.power}.
-Вторият слой — ${second.archetype} — добавя: ${second.power}.
-
-2. СКРИТ БЛОКАЖ
-${main.shadow}.
-
-3. БИЗНЕС ПОСОКА
-${main.business}.
-
-4. ВРЪЗКИ И ПАРТНЬОРСТВО
-Най-подходящият партньорски тип за теб е: ${main.match}.
-
-5. 7-ДНЕВЕН ПЛАН
-Ден 1: избери една посока.
-Ден 2: напиши оферта.
-Ден 3: покажи я на 5 човека.
-Ден 4: събери обратна връзка.
-Ден 5: подобри офертата.
-Ден 6: направи първа заявка или продажба.
-Ден 7: превърни го в система.
-
-6. 30-ДНЕВНА СТРАТЕГИЯ
-Седмица 1: фокус.
-Седмица 2: MVP.
-Седмица 3: 20 разговора.
-Седмица 4: продажба и повторение.
-
-7. AI TWIN БАЗА
-Този профил може да стане първи слой за AI Twin чрез стил, глас, правила, решения, ценности и реакции.
-
-FINAL VERDICT:
-Твоят най-силен ход е да превърнеш себе си в система.
-
-ALIEN LOGIC:
-EchoProfile не те описва. EchoProfile започва да те картографира като динамична програма от вероятности.`;
-}
-
-async function showResult() {
-  showPage("resultScreen");
-
-  document.getElementById("visionScore").textContent = scores.vision;
-  document.getElementById("emotionScore").textContent = scores.emotion;
-  document.getElementById("logicScore").textContent = scores.logic;
-  document.getElementById("socialScore").textContent = scores.social;
-  document.getElementById("actionScore").textContent = scores.action;
-
-  const sorted = getSortedTraits(scores);
-  const mainTrait = sorted[0];
-  const secondTrait = sorted[1];
-  const title = `${getTraitName(mainTrait)} Echo профил`;
-
-  lastResult = {
-    id: Date.now(),
-    date: new Date().toLocaleString("bg-BG"),
-    user: { ...user },
-    scores: { ...scores },
-    mainTrait,
-    secondTrait,
-    profile: title
-  };
-
-  finalText = generateMiniReport(lastResult);
-  fullText = generateFullReport(lastResult);
-
-  lastResult.report = finalText;
-  lastResult.fullReport = fullText;
-
-  document.getElementById("resultTitle").textContent = title;
-  document.getElementById("resultIntro").textContent = `${user.name}, системата изчисли твоя Mini Echo модел.`;
-  document.getElementById("finalReport").textContent = finalText;
-  document.getElementById("fullEchoReport").textContent = fullText;
-
-  await saveProfileToServer(lastResult);
-}
-
-async function unlockFullEcho() {
-  const code = document.getElementById("fullUnlockCode").value.trim().toUpperCase();
-
-  if (!code) {
-    document.getElementById("unlockStatus").textContent = "Въведи еднократен код.";
+  if (!saved) {
+    updateCenterBrand();
     return;
   }
 
   try {
-    const response = await fetch("/api/unlock", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code, profileId: lastResult?.id, user: lastResult?.user || user, profile: lastResult?.profile })
+    const messages = JSON.parse(saved);
+    chatBox.innerHTML = "";
+
+    messages.forEach(m => {
+      const message = document.createElement("div");
+      message.className = `message ${m.role}`;
+
+      const avatar = document.createElement("div");
+      avatar.className = "avatar";
+      avatar.textContent = m.role === "user" ? "U" : "E";
+
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = m.text;
+
+      message.appendChild(avatar);
+      message.appendChild(bubble);
+      chatBox.appendChild(message);
     });
 
-    const result = await response.json();
-
-    if (!result.ok) {
-      document.getElementById("unlockStatus").textContent = result.error || "Невалиден код.";
-      return;
-    }
-
-    document.getElementById("fullEchoBox").classList.remove("hidden");
-    document.getElementById("fullLockBox").classList.add("hidden");
-  } catch {
-    document.getElementById("unlockStatus").textContent = "Backend не е активен.";
+    chatBox.scrollTop = chatBox.scrollHeight;
+    updateCenterBrand();
+  } catch (e) {
+    console.warn("Chat load error", e);
+    updateCenterBrand();
   }
 }
 
-async function requestPayment(offer, amount) {
-  if (!lastResult) {
-    alert("Първо направи Echo профил.");
-    return;
-  }
-
-  const payload = { offer, amount, method: "manual", user: { ...user }, profile: { ...lastResult }, scores: { ...scores } };
-
-  try {
-    const response = await fetch("/api/payment-request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const result = await response.json();
-
-    if (!result.ok) {
-      alert("Не успях да създам payment заявка.");
-      return;
-    }
-
-    const message = buildPaymentMessage(result.payment);
-    copyText(message);
-    await saveLeadToServer({ id: Date.now(), date: new Date().toLocaleString("bg-BG"), offer, user: { ...user }, scores: { ...scores }, profile: lastResult.profile });
-
-    alert("Payment заявката е записана. Текстът е копиран. След потвърждение в админ панела се генерира код.");
-  } catch {
-    alert("Backend не е активен.");
-  }
-}
-
-function buildPaymentMessage(payment) {
-  return `SoulFlame EchoProfile — заявка за плащане
-
-Оферта: ${payment.offer}
-Сума: ${payment.amount}
-Име: ${payment.user?.name || "няма"}
-Контакт: ${payment.user?.contact || "няма"}
-Профил: ${payment.profile?.profile || "няма"}
-
-След потвърждение ще получите еднократен код за отключване на Full Echo анализа.`;
-}
-
-async function copyRequestOnly(offer) {
-  await saveLeadToServer({ id: Date.now(), date: new Date().toLocaleString("bg-BG"), offer, user: { ...user }, scores: { ...scores }, profile: lastResult?.profile || "няма" });
-  copyText(buildPaymentMessage({ offer, amount: "19.99 лв", user, profile: lastResult }));
-  alert("Заявката е копирана и записана.");
-}
-
-function openClientReportFromCurrent() {
-  if (!lastResult) return;
-  openClientReport(lastResult, fullText || generateFullReport(lastResult));
-}
-
-function printClientReportFromCurrent() {
-  openClientReportFromCurrent();
-  setTimeout(() => window.print(), 300);
-}
-
-function openClientReport(profile, report) {
-  clientReportText = report || profile.fullReport || generateFullReport(profile);
-  document.getElementById("clientReportTitle").textContent = profile.profile || "Full Echo Report";
-  document.getElementById("clientReportText").textContent = clientReportText;
-  showPage("clientReportScreen");
-}
-
-function copyClientReport() { copyText(clientReportText); alert("Client Report е копиран."); }
-function downloadClientReport() { downloadFile("client-full-echo-report.txt", clientReportText, "text/plain"); }
-function copyFullReport() { copyText(fullText); document.getElementById("copyStatus").textContent = "Full докладът е копиран."; }
-function downloadFullReport() { downloadFile("full-ai-echo-analysis.txt", fullText, "text/plain"); }
-function copyResult() { copyText(finalText); document.getElementById("copyStatus").textContent = "Mini докладът е копиран."; }
-function downloadTextReport() { downloadFile(`Mini-Echo-${safeFileName(user.name)}.txt`, finalText, "text/plain"); }
-function restartTest() { document.getElementById("copyStatus").textContent = ""; showPage("leadScreen"); }
-
-async function saveProfileToServer(profile) {
-  try {
-    const response = await fetch("/api/profile", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(profile) });
-    return await response.json();
-  } catch { return null; }
-}
-
-async function saveLeadToServer(lead) {
-  try {
-    const response = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(lead) });
-    return await response.json();
-  } catch { return null; }
-}
-
-async function loadBackendData() {
-  try {
-    const response = await adminFetch("/api/data");
-    if (!response.ok) { alert("Грешен Admin PIN."); return; }
-
-    const data = await response.json();
-
-    adminProfiles = Array.isArray(data.profiles) ? data.profiles : [];
-    adminLeads = Array.isArray(data.leads) ? data.leads : [];
-    adminCodes = Array.isArray(data.codes) ? data.codes : [];
-    adminPayments = Array.isArray(data.payments) ? data.payments : [];
-    adminEvents = Array.isArray(data.events) ? data.events : [];
-    adminMetrics = data.metrics || {};
-
-    renderMetrics();
-    renderPaymentsTable();
-    renderCodesTable();
-    renderAdminTables();
-    renderEventsTable();
-  } catch {
-    alert("Backend не е активен или Admin PIN липсва.");
-  }
-}
-
-function renderMetrics() {
-  document.getElementById("mProfiles").textContent = adminMetrics.profiles ?? adminProfiles.length;
-  document.getElementById("mLeads").textContent = adminMetrics.leads ?? adminLeads.length;
-  document.getElementById("mPayments").textContent = adminMetrics.payments ?? adminPayments.length;
-  document.getElementById("mPaid").textContent = adminMetrics.paidPayments ?? adminPayments.filter(p => p.status === "paid").length;
-  document.getElementById("mCodes").textContent = adminMetrics.codes ?? adminCodes.length;
-  document.getElementById("mUsedCodes").textContent = adminMetrics.usedCodes ?? adminCodes.filter(c => c.status === "used").length;
-  document.getElementById("mRevenue").textContent = adminMetrics.estimatedRevenue ?? "0 лв";
-}
-
-async function generateUnlockCode() {
-  const offer = document.getElementById("codeOffer")?.value || "Full AI Echo";
-  const note = document.getElementById("codeNote")?.value || "";
-
-  try {
-    const response = await adminFetch("/api/code", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ offer, note }) });
-    const result = await response.json();
-
-    if (!result.ok) { alert("Не успях да генерирам код."); return; }
-
-    lastGeneratedCode = result.code.code;
-    document.getElementById("generatedCodeOutput").textContent = `Нов код: ${lastGeneratedCode}`;
-    copyText(result.code.deliveryText || lastGeneratedCode);
-    await loadBackendData();
-
-    alert("Кодът и delivery текстът са копирани.");
-  } catch {
-    alert("Backend не е активен или Admin PIN е грешен.");
-  }
-}
-
-function copyGeneratedCode() {
-  if (!lastGeneratedCode) { alert("Първо генерирай код."); return; }
-  copyText(lastGeneratedCode);
-  alert("Кодът е копиран.");
-}
-
-async function confirmPayment(paymentId) {
-  const ok = confirm("Потвърждаваш ли, че това плащане е получено?");
-  if (!ok) return;
-
-  try {
-    const response = await adminFetch("/api/payment-confirm", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paymentId }) });
-    const result = await response.json();
-
-    if (!result.ok) { alert(result.error || "Не успях да потвърдя."); return; }
-
-    lastGeneratedCode = result.code.code;
-    copyText(result.code.deliveryText || lastGeneratedCode);
-    await loadBackendData();
-
-    alert(`Плащането е потвърдено. Кодът е генериран: ${lastGeneratedCode}`);
-  } catch {
-    alert("Backend не е активен или Admin PIN е грешен.");
-  }
-}
-
-function copyPaymentCode(code) {
-  if (!code) { alert("Още няма код."); return; }
-  copyText(code);
-  alert("Кодът е копиран.");
-}
-
-function renderPaymentsTable() {
-  const table = document.getElementById("paymentsTable");
-  table.innerHTML = "";
-
-  if (!adminPayments.length) {
-    table.innerHTML = `<tr><td colspan="7" class="empty-row">Още няма payment заявки.</td></tr>`;
-    return;
-  }
-
-  adminPayments.slice().reverse().forEach(payment => {
-    const statusText = payment.status === "paid" ? "Платено" : "Чака";
-    const statusClass = payment.status === "paid" ? "pill unused" : "pill pending";
-    const actionButton = payment.status === "paid"
-      ? `<button class="mini-action" onclick="copyPaymentCode('${payment.code || ""}')">Копирай код</button>`
-      : `<button class="mini-action" onclick="confirmPayment(${Number(payment.id)})">Потвърди</button>`;
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><span class="${statusClass}">${statusText}</span></td>
-      <td><strong>${escapeHTML(payment.offer || "")}</strong></td>
-      <td>${escapeHTML(payment.amount || "")}</td>
-      <td>${escapeHTML(payment.user?.name || "")}</td>
-      <td>${escapeHTML(payment.user?.contact || "")}</td>
-      <td><strong>${escapeHTML(payment.code || "-")}</strong></td>
-      <td>${actionButton}</td>
-    `;
-    table.appendChild(tr);
+if (chatInput) {
+  chatInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") sendMessage();
   });
 }
 
-function renderCodesTable() {
-  const table = document.getElementById("codesTable");
-  table.innerHTML = "";
-
-  if (!adminCodes.length) {
-    table.innerHTML = `<tr><td colspan="6" class="empty-row">Още няма кодове.</td></tr>`;
-    return;
-  }
-
-  adminCodes.slice().reverse().forEach(item => {
-    const statusText = item.status === "used" ? "Използван" : "Свободен";
-    const statusClass = item.status === "used" ? "pill used" : "pill unused";
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td><strong>${escapeHTML(item.code)}</strong></td>
-      <td><span class="${statusClass}">${statusText}</span></td>
-      <td>${escapeHTML(item.offer || "")}</td>
-      <td>${escapeHTML(item.note || "")}</td>
-      <td><button class="mini-action" onclick="copyText('${escapeAttr(item.deliveryText || item.code)}')">Копирай</button></td>
-      <td>${escapeHTML(item.usedAt || "-")}</td>
-    `;
-    table.appendChild(tr);
-  });
-}
-
-function renderAdminTables() {
-  const search = (document.getElementById("adminSearch")?.value || "").toLowerCase();
-  const trait = document.getElementById("adminTraitFilter")?.value || "all";
-
-  const filtered = adminProfiles.filter(item => {
-    const haystack = [item.date, item.user?.name, item.user?.contact, item.user?.goal, item.profile, item.mainTrait].join(" ").toLowerCase();
-    return haystack.includes(search) && (trait === "all" || item.mainTrait === trait);
-  });
-
-  const table = document.getElementById("profilesTable");
-  table.innerHTML = "";
-
-  if (!filtered.length) {
-    table.innerHTML = `<tr><td colspan="7" class="empty-row">Няма намерени профили.</td></tr>`;
-    return;
-  }
-
-  filtered.slice().reverse().forEach(item => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${escapeHTML(item.date || item.serverSavedAt || "")}</td>
-      <td><strong>${escapeHTML(item.user?.name || "")}</strong></td>
-      <td>${escapeHTML(item.user?.contact || "")}</td>
-      <td>${escapeHTML(item.user?.goal || "")}</td>
-      <td><span class="pill">${escapeHTML(item.profile || "")}</span></td>
-      <td>V:${item.scores?.vision ?? 0} E:${item.scores?.emotion ?? 0} L:${item.scores?.logic ?? 0} S:${item.scores?.social ?? 0} A:${item.scores?.action ?? 0}</td>
-      <td>
-        <div class="row-actions">
-          <button class="mini-action" onclick="openMiniReport(${Number(item.id)})">Mini</button>
-          <button class="mini-action" onclick="openFullReport(${Number(item.id)})">Full</button>
-          <button class="mini-action" onclick="openClientReportById(${Number(item.id)})">Client</button>
-        </div>
-      </td>
-    `;
-    table.appendChild(tr);
-  });
-}
-
-function renderEventsTable() {
-  const table = document.getElementById("eventsTable");
-  table.innerHTML = "";
-
-  if (!adminEvents.length) {
-    table.innerHTML = `<tr><td colspan="3" class="empty-row">Още няма събития.</td></tr>`;
-    return;
-  }
-
-  adminEvents.slice().reverse().slice(0, 50).forEach(item => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${escapeHTML(item.createdAt || "")}</td>
-      <td><strong>${escapeHTML(item.type || "")}</strong></td>
-      <td>${escapeHTML(JSON.stringify(item.payload || {}))}</td>
-    `;
-    table.appendChild(tr);
-  });
-}
-
-function findProfile(id) { return adminProfiles.find(profile => Number(profile.id) === Number(id)); }
-
-function openMiniReport(id) {
-  const item = findProfile(id);
-  if (!item) return;
-  currentModalText = item.report || generateMiniReport(item);
-  document.getElementById("modalTitle").textContent = item.profile || "Mini Echo";
-  document.getElementById("modalReport").textContent = currentModalText;
-  document.getElementById("reportModal").classList.remove("hidden");
-}
-
-function openFullReport(id) {
-  const item = findProfile(id);
-  if (!item) return;
-  currentModalText = item.fullReport || generateFullReport(item);
-  document.getElementById("modalTitle").textContent = "Full AI Echo Analysis";
-  document.getElementById("modalReport").textContent = currentModalText;
-  document.getElementById("reportModal").classList.remove("hidden");
-}
-
-function openClientReportById(id) {
-  const item = findProfile(id);
-  if (!item) return;
-  openClientReport(item, item.fullReport || generateFullReport(item));
-}
-
-function closeModal() { document.getElementById("reportModal").classList.add("hidden"); }
-function copyModalReport() { copyText(document.getElementById("modalReport").textContent || currentModalText || ""); alert("Докладът е копиран."); }
-function downloadModalReport() { downloadFile("echo-report.txt", document.getElementById("modalReport").textContent || currentModalText || "", "text/plain"); }
-
-function exportJSON() {
-  downloadFile("echoprofile-v15-data.json", JSON.stringify({
-    profiles: adminProfiles,
-    leads: adminLeads,
-    codes: adminCodes,
-    payments: adminPayments,
-    events: adminEvents,
-    metrics: adminMetrics
-  }, null, 2), "application/json");
-}
-
-function exportCSV() {
-  if (!adminProfiles.length) { alert("Няма профили."); return; }
-
-  const header = ["date", "name", "contact", "goal", "age", "profile", "vision", "emotion", "logic", "social", "action"];
-  const rows = adminProfiles.map(r => [
-    r.date || r.serverSavedAt || "",
-    r.user?.name || "",
-    r.user?.contact || "",
-    r.user?.goal || "",
-    r.user?.age || "",
-    r.profile || "",
-    r.scores?.vision ?? 0,
-    r.scores?.emotion ?? 0,
-    r.scores?.logic ?? 0,
-    r.scores?.social ?? 0,
-    r.scores?.action ?? 0
-  ]);
-
-  const csv = [header, ...rows].map(row => row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\n");
-  downloadFile("echoprofile-v15-results.csv", csv, "text/csv");
-}
-
-async function clearAll() {
-  const ok = confirm("Да изтрия ли всички backend данни?");
-  if (!ok) return;
-
-  try {
-    const response = await adminFetch("/api/data", { method: "DELETE" });
-    if (!response.ok) { alert("Не успях."); return; }
-    await loadBackendData();
-    alert("Всички данни са изчистени.");
-  } catch { alert("Не успях да изчистя."); }
-}
-
-function copyText(text) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
-  } else fallbackCopy(text);
-}
-
-function fallbackCopy(text) {
-  const area = document.createElement("textarea");
-  area.value = text;
-  document.body.appendChild(area);
-  area.select();
-  document.execCommand("copy");
-  document.body.removeChild(area);
-}
-
-function downloadFile(filename, content, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-function safeFileName(name) { return String(name || "profile").replace(/[^a-zA-Z0-9а-яА-Я-_]/g, "_"); }
-
-function escapeHTML(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-function escapeAttr(value) {
-  return String(value ?? "")
-    .replaceAll("\\", "\\\\")
-    .replaceAll("'", "\\'")
-    .replaceAll("\n", "\\n")
-    .replaceAll("\r", "");
-}
+loadChat();

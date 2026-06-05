@@ -490,3 +490,834 @@ td strong { color: white; }
   .hero-text, .panel { padding: 26px; }
   .price-card.featured { transform: none; }
 }
+
+
+/* === SOULFLAME_AI_TWINS_CHAT_UI_PATCH_START === */
+
+/*
+  SAFE CSS ONLY PATCH
+  Goal:
+  - fullscreen GPT-style chat
+  - center transparent AI Twins by SoulFlame card
+  - floating Clear / SF Options buttons
+  - bottom drawer SF Options like screenshot
+  - no Supabase / API / JS / HTML changes
+*/
+
+:root {
+  --sf-bg: #05050d;
+  --sf-panel: rgba(14, 14, 26, 0.82);
+  --sf-panel-strong: rgba(20, 20, 34, 0.92);
+  --sf-glass: rgba(255, 255, 255, 0.055);
+  --sf-border: rgba(255, 255, 255, 0.12);
+  --sf-text: #f5f5f7;
+  --sf-muted: rgba(220, 224, 235, 0.62);
+  --sf-accent: #8b5cf6;
+  --sf-accent2: #22d3ee;
+  --sf-red: #ff4f6d;
+}
+
+html,
+body {
+  margin: 0 !important;
+  width: 100% !important;
+  min-height: 100% !important;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(139, 92, 246, 0.18), transparent 30%),
+    radial-gradient(circle at 86% 82%, rgba(34, 211, 238, 0.12), transparent 34%),
+    linear-gradient(135deg, #04040b, #080814 52%, #020207) !important;
+  color: var(--sf-text) !important;
+}
+
+/* Universal app background */
+.app-bg,
+.background,
+.bg,
+.page-bg {
+  position: fixed !important;
+  inset: 0 !important;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(139, 92, 246, 0.24), transparent 30%),
+    radial-gradient(circle at 88% 78%, rgba(34, 211, 238, 0.14), transparent 35%),
+    linear-gradient(135deg, #04040d, #080816 55%, #020208) !important;
+  z-index: -2 !important;
+}
+
+/* Remove old hero / top marketing layout visually */
+.hero,
+.hero-left,
+.hero-card,
+.topbar,
+.header,
+.main-header,
+.landing-hero,
+.status-pill,
+.quick-actions {
+  display: none !important;
+}
+
+/* Main chat full screen */
+.chat-app,
+.app-layout,
+.shell,
+main {
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+}
+
+/* Chat section becomes full screen */
+.chat-section,
+.chat-panel,
+#gptChatPanel,
+.chat-container {
+  position: relative !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: rgba(7, 7, 17, 0.94) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+
+/* Hide chat title/header if old one exists */
+.chat-header,
+.panel-header {
+  display: none !important;
+}
+
+/* Floating top right buttons */
+.floating-actions {
+  position: fixed !important;
+  top: 22px !important;
+  right: 22px !important;
+  z-index: 80 !important;
+  display: flex !important;
+  gap: 10px !important;
+}
+
+.ghost-btn,
+.clear-btn,
+.drawer-btn-top,
+button[onclick*="clearChat"],
+button[onclick*="toggleDrawer"] {
+  border: 1px solid var(--sf-border) !important;
+  background: rgba(20, 20, 35, 0.64) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  color: white !important;
+  border-radius: 16px !important;
+  padding: 11px 16px !important;
+  cursor: pointer !important;
+  font-weight: 800 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 12px 34px rgba(0,0,0,0.22) !important;
+}
+
+.ghost-btn.primary,
+.drawer-btn-top,
+button[onclick*="toggleDrawer"] {
+  background: linear-gradient(135deg, rgba(139,92,246,.42), rgba(34,211,238,.32)) !important;
+}
+
+/* Chat messages area */
+.chat-box,
+#chatBox {
+  flex: 1 !important;
+  width: 100% !important;
+  overflow-y: auto !important;
+  padding: 96px max(22px, 12vw) 32px !important;
+  scroll-behavior: smooth !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Message layout */
+.message,
+.msg {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 18px !important;
+  align-items: flex-start !important;
+}
+
+.message.user,
+.msg.user {
+  flex-direction: row-reverse !important;
+}
+
+.avatar {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 14px !important;
+  display: grid !important;
+  place-items: center !important;
+  font-weight: 900 !important;
+  flex: 0 0 auto !important;
+  background: linear-gradient(135deg, var(--sf-accent), var(--sf-accent2)) !important;
+}
+
+.message.user .avatar,
+.msg.user .avatar {
+  background: rgba(255,255,255,.12) !important;
+}
+
+.bubble {
+  max-width: 850px !important;
+  padding: 15px 17px !important;
+  line-height: 1.5 !important;
+  border-radius: 20px !important;
+  background: rgba(255,255,255,.075) !important;
+  color: #f3f4f6 !important;
+  font-size: 16px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,.14) !important;
+}
+
+.message.user .bubble,
+.msg.user .bubble {
+  background: rgba(139,92,246,.25) !important;
+}
+
+/* Center transparent brand card */
+.center-brand-overlay,
+#centerBrand {
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 24px !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+  transition: opacity .35s ease, transform .35s ease !important;
+}
+
+.center-brand-overlay.hidden,
+#centerBrand.hidden {
+  opacity: 0 !important;
+  transform: scale(.96) !important;
+}
+
+.center-brand-box {
+  width: min(820px, 88vw) !important;
+  padding: 32px 34px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 28px !important;
+  background: rgba(15,15,30,.50) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  text-align: center !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 24px 80px rgba(0,0,0,.36) !important;
+}
+
+.center-logo {
+  width: 68px !important;
+  height: 68px !important;
+  margin: 0 auto 16px !important;
+  border-radius: 22px !important;
+  display: grid !important;
+  place-items: center !important;
+  font-weight: 900 !important;
+  font-size: 24px !important;
+  background: linear-gradient(135deg, var(--sf-accent), var(--sf-accent2)) !important;
+  box-shadow: 0 0 44px rgba(34,211,238,.22) !important;
+}
+
+.center-brand-box h1 {
+  margin: 0 !important;
+  font-size: clamp(34px, 4.5vw, 70px) !important;
+  line-height: .96 !important;
+  letter-spacing: -.045em !important;
+  color: #f5f5f7 !important;
+}
+
+.center-brand-box p {
+  margin: 14px 0 0 !important;
+  color: rgba(230,234,245,.76) !important;
+  font-size: clamp(14px, 1.4vw, 18px) !important;
+}
+
+/* Input area like GPT */
+.input-area,
+.chat-input-row {
+  padding: 14px max(18px, 12vw) 54px !important;
+  border-top: 1px solid var(--sf-border) !important;
+  display: flex !important;
+  gap: 10px !important;
+  background: rgba(5,5,16,.92) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  position: relative !important;
+  z-index: 30 !important;
+}
+
+.input-area input,
+.chat-input-row input,
+#chatInput {
+  flex: 1 !important;
+  height: 54px !important;
+  border: 1px solid var(--sf-border) !important;
+  border-radius: 18px !important;
+  outline: none !important;
+  padding: 0 18px !important;
+  background: rgba(255,255,255,.075) !important;
+  color: white !important;
+  font-size: 15px !important;
+}
+
+.input-area input::placeholder,
+.chat-input-row input::placeholder,
+#chatInput::placeholder {
+  color: rgba(230,234,245,.44) !important;
+}
+
+.input-area button,
+.chat-input-row button {
+  width: 58px !important;
+  height: 54px !important;
+  border: 0 !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, var(--sf-accent), var(--sf-accent2)) !important;
+  color: white !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  cursor: pointer !important;
+}
+
+/* Bottom drawer */
+.bottom-drawer,
+#bottomDrawer,
+.options-section,
+.options-panel {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  width: min(1100px, calc(100% - 22px)) !important;
+  transform: translateX(-50%) !important;
+  z-index: 60 !important;
+  border: 1px solid var(--sf-border) !important;
+  border-bottom: 0 !important;
+  border-radius: 28px 28px 0 0 !important;
+  background: rgba(14,14,25,.97) !important;
+  backdrop-filter: blur(22px) !important;
+  -webkit-backdrop-filter: blur(22px) !important;
+  box-shadow: 0 -25px 80px rgba(0,0,0,.45) !important;
+  max-height: 38px !important;
+  overflow: hidden !important;
+  transition: max-height .28s ease !important;
+  padding: 0 !important;
+}
+
+.bottom-drawer.open,
+#bottomDrawer.open,
+.options-section.open,
+.options-panel.open {
+  max-height: 92vh !important;
+}
+
+/* Drawer handle */
+.drawer-handle {
+  width: 100% !important;
+  height: 38px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: white !important;
+  cursor: pointer !important;
+  display: grid !important;
+  place-items: center !important;
+  gap: 2px !important;
+}
+
+.drawer-handle span {
+  width: 54px !important;
+  height: 5px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.28) !important;
+}
+
+.drawer-handle strong {
+  font-size: 13px !important;
+}
+
+/* Drawer content - screenshot style */
+.drawer-content {
+  padding: 12px 20px 18px !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.drawer-title,
+.options-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 0 0 12px !important;
+}
+
+.drawer-title h2,
+.options-header h2 {
+  margin: 0 !important;
+  font-size: 26px !important;
+  color: white !important;
+}
+
+.drawer-title p,
+.options-header p {
+  margin: 4px 0 0 !important;
+  color: var(--sf-muted) !important;
+  font-size: 14px !important;
+}
+
+.close-drawer,
+.close-menu {
+  width: 46px !important;
+  height: 46px !important;
+  border: 1px solid var(--sf-border) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,.08) !important;
+  color: white !important;
+  font-size: 25px !important;
+  cursor: pointer !important;
+}
+
+/* Options grid */
+.option-grid,
+.option-list {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 10px !important;
+}
+
+.option-card {
+  min-height: 112px !important;
+  border: 1px solid var(--sf-border) !important;
+  border-radius: 20px !important;
+  background: rgba(255,255,255,.07) !important;
+  color: white !important;
+  cursor: pointer !important;
+  padding: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  text-align: center !important;
+  transition: .18s ease !important;
+}
+
+.option-card:hover,
+.option-card.active {
+  transform: translateY(-2px) !important;
+  background: rgba(139,92,246,.20) !important;
+  border-color: rgba(34,211,238,.38) !important;
+}
+
+.option-card span {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 14px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: rgba(255,255,255,.10) !important;
+  font-size: 19px !important;
+}
+
+.option-card h3 {
+  margin: 0 !important;
+  font-size: 15px !important;
+  color: white !important;
+}
+
+.option-card p {
+  margin: 0 !important;
+  color: var(--sf-muted) !important;
+  font-size: 12px !important;
+}
+
+/* Preview */
+.module-preview,
+.info-panel {
+  margin-top: 10px !important;
+  padding: 14px 16px !important;
+  border: 1px solid var(--sf-border) !important;
+  border-radius: 20px !important;
+  background: rgba(0,0,0,.22) !important;
+  color: white !important;
+}
+
+.module-preview h3,
+.info-panel h2 {
+  margin: 0 0 6px !important;
+  font-size: 20px !important;
+}
+
+.module-preview p,
+.info-panel p {
+  margin: 0 !important;
+  line-height: 1.45 !important;
+  color: #d1d5db !important;
+  font-size: 16px !important;
+}
+
+/* Premium red close button */
+.bottom-close-btn {
+  position: relative !important;
+  width: 100% !important;
+  height: 56px !important;
+  margin-top: 12px !important;
+  border: 1px solid rgba(255,120,140,.34) !important;
+  border-radius: 22px !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.015)),
+    linear-gradient(135deg, rgba(255,80,110,.26), rgba(120,20,45,.30)) !important;
+  color: #fff1f3 !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: .04em !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -14px 24px rgba(80,0,25,.20),
+    0 14px 36px rgba(140,0,40,.28),
+    0 0 22px rgba(255,70,110,.12) !important;
+  overflow: hidden !important;
+  transition: .18s ease !important;
+}
+
+.bottom-close-btn::after {
+  content: "↓" !important;
+  position: absolute !important;
+  right: 22px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  opacity: .75 !important;
+}
+
+.bottom-close-btn:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(255,140,155,.52) !important;
+}
+
+/* Overlay */
+.overlay,
+.mobile-overlay {
+  display: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 50 !important;
+  background: rgba(0,0,0,.45) !important;
+}
+
+.overlay.open,
+.mobile-overlay.open {
+  display: block !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .floating-actions {
+    top: 10px !important;
+    right: 10px !important;
+    gap: 8px !important;
+  }
+
+  .ghost-btn,
+  .clear-btn,
+  .drawer-btn-top,
+  button[onclick*="clearChat"],
+  button[onclick*="toggleDrawer"] {
+    padding: 9px 11px !important;
+    border-radius: 14px !important;
+    font-size: 12px !important;
+  }
+
+  .chat-box,
+  #chatBox {
+    padding: 72px 10px 18px !important;
+  }
+
+  .bubble {
+    max-width: 82% !important;
+    padding: 13px 14px !important;
+    font-size: 14px !important;
+  }
+
+  .avatar {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 13px !important;
+  }
+
+  .center-brand-box {
+    width: 92% !important;
+    padding: 22px 16px !important;
+    border-radius: 22px !important;
+  }
+
+  .center-logo {
+    width: 52px !important;
+    height: 52px !important;
+    font-size: 18px !important;
+    border-radius: 18px !important;
+  }
+
+  .center-brand-box h1 {
+    font-size: 34px !important;
+  }
+
+  .center-brand-box p {
+    font-size: 13px !important;
+  }
+
+  .input-area,
+  .chat-input-row {
+    padding: 9px 8px 48px !important;
+  }
+
+  .input-area input,
+  .chat-input-row input,
+  #chatInput {
+    height: 48px !important;
+    border-radius: 16px !important;
+  }
+
+  .input-area button,
+  .chat-input-row button {
+    width: 50px !important;
+    height: 48px !important;
+    border-radius: 16px !important;
+  }
+
+  .bottom-drawer,
+  #bottomDrawer,
+  .options-section,
+  .options-panel {
+    width: 100% !important;
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  .bottom-drawer.open,
+  #bottomDrawer.open,
+  .options-section.open,
+  .options-panel.open {
+    max-height: 94vh !important;
+  }
+
+  .drawer-content {
+    padding: 10px 12px 14px !important;
+  }
+
+  .drawer-title h2,
+  .options-header h2 {
+    font-size: 20px !important;
+  }
+
+  .drawer-title p,
+  .options-header p {
+    font-size: 12px !important;
+  }
+
+  .option-grid,
+  .option-list {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .option-card {
+    min-height: 86px !important;
+    padding: 10px !important;
+    border-radius: 18px !important;
+  }
+
+  .option-card span {
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 17px !important;
+  }
+
+  .option-card h3 {
+    font-size: 14px !important;
+  }
+
+  .option-card p {
+    font-size: 11px !important;
+  }
+
+  .module-preview,
+  .info-panel {
+    padding: 12px !important;
+    margin-top: 8px !important;
+  }
+
+  .module-preview h3,
+  .info-panel h2 {
+    font-size: 17px !important;
+  }
+
+  .module-preview p,
+  .info-panel p {
+    font-size: 13px !important;
+  }
+
+  .bottom-close-btn {
+    height: 50px !important;
+    border-radius: 18px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* === SOULFLAME_AI_TWINS_CHAT_UI_PATCH_END === */
+
+
+/* === SOULFLAME_PAGES_ROUTER_PATCH_START === */
+
+/* Make SF Options cards work as links */
+a.option-card {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+a.option-card:visited,
+a.option-card:hover,
+a.option-card:active {
+  color: white !important;
+}
+
+/* Main page / module pages need stable center card */
+.center-brand-box {
+  background: rgba(15, 15, 30, 0.50) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+
+/* Better active page state */
+.option-card.active {
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(34, 211, 238, 0.08)) !important;
+  border-color: rgba(34, 211, 238, 0.42) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 0 28px rgba(139, 92, 246, 0.18) !important;
+}
+
+/* Keep drawer clean for all pages */
+.drawer-content {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.bottom-drawer.open {
+  max-height: 94vh !important;
+  overflow: visible !important;
+}
+
+/* Avoid broken underlines on local file pages */
+.option-grid a {
+  text-decoration: none !important;
+}
+
+/* === SOULFLAME_PAGES_ROUTER_PATCH_END === */
+
+
+/* === SOULFLAME_PAGES_FIX_START === */
+
+a.option-card {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+a.option-card:visited,
+a.option-card:hover,
+a.option-card:active {
+  color: white !important;
+}
+
+.option-grid a {
+  text-decoration: none !important;
+}
+
+.option-card.active {
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(34, 211, 238, 0.08)) !important;
+  border-color: rgba(34, 211, 238, 0.42) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 0 28px rgba(139, 92, 246, 0.18) !important;
+}
+
+.drawer-content {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.bottom-drawer.open {
+  max-height: 94vh !important;
+  overflow: visible !important;
+}
+
+body {
+  background: #050510 !important;
+}
+
+/* === SOULFLAME_PAGES_FIX_END === */
+
+
+/* === SOULFLAME_CLICK_PAGES_FIX_START === */
+
+a.option-card {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+a.option-card:visited,
+a.option-card:hover,
+a.option-card:active {
+  color: white !important;
+}
+
+.option-grid a {
+  text-decoration: none !important;
+}
+
+.option-card.active {
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.28), rgba(34, 211, 238, 0.08)) !important;
+  border-color: rgba(34, 211, 238, 0.42) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 0 28px rgba(139, 92, 246, 0.18) !important;
+}
+
+.drawer-content {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.bottom-drawer.open {
+  max-height: 94vh !important;
+  overflow: visible !important;
+}
+
+body {
+  background: #050510 !important;
+}
+
+/* === SOULFLAME_CLICK_PAGES_FIX_END === */
