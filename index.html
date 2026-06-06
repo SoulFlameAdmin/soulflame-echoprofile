@@ -1,16 +1,17 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="bg">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>AI Twins by SoulFlame</title>
-  <meta name="description" content="AI Twins by SoulFlame — chat first, drawer options, Full AI Twin unlock.">
-  <meta name="theme-color" content="#050611">
+  <meta name="description" content="SoulFlame AI Twin OS — personal or business AI Twin onboarding.">
+  <meta name="theme-color" content="#000000">
 
   <style>
     :root {
-      --bg0:#050611;
-      --bg1:#080b1f;
+      --black:#000000;
+      --bg0:#03040b;
+      --bg1:#070817;
       --bg2:#111a46;
       --panel:rgba(255,255,255,.065);
       --panel2:rgba(255,255,255,.045);
@@ -21,8 +22,8 @@
       --cyan:#00eaff;
       --violet:#7c3cff;
       --pink:#ff4ff3;
-      --gold:#ffd166;
       --green:#23e6a8;
+      --gold:#ffd166;
       --headerH:74px;
       --radius:28px;
     }
@@ -32,29 +33,297 @@
     html, body {
       margin:0;
       min-height:100%;
-      background:var(--bg0);
+      background:#000;
       color:var(--text);
       font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       overflow-x:hidden;
-    }
-
-    body {
-      background:
-        radial-gradient(circle at 16% 6%, rgba(124,60,255,.28), transparent 34rem),
-        radial-gradient(circle at 82% 8%, rgba(0,234,255,.16), transparent 32rem),
-        linear-gradient(135deg, var(--bg0), var(--bg1) 48%, var(--bg2));
       -webkit-font-smoothing:antialiased;
     }
 
     button, input, textarea, select { font:inherit; }
     a { color:inherit; text-decoration:none; }
 
+    .hidden { display:none !important; }
+
+    .fadeIn {
+      animation: fadeIn .72s ease both;
+    }
+
+    .fadeOut {
+      animation: fadeOut .58s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(18px) scale(.985); filter:blur(10px); }
+      to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+      to { opacity:0; transform:translateY(-16px) scale(.985); filter:blur(10px); }
+    }
+
+    @keyframes cardFloat {
+      0% { transform:translateY(18px); opacity:0; filter:blur(10px); }
+      100% { transform:translateY(0); opacity:1; filter:blur(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%,100% { box-shadow:0 0 0 rgba(0,234,255,0); }
+      50% { box-shadow:0 0 42px rgba(124,60,255,.24), 0 0 80px rgba(0,234,255,.10); }
+    }
+
+    /* ========================================================
+       ONBOARDING BLACK SCREENS
+    ======================================================== */
+
+    .onboardScreen {
+      min-height:100dvh;
+      background:
+        radial-gradient(circle at 18% 14%, rgba(124,60,255,.16), transparent 30rem),
+        radial-gradient(circle at 82% 70%, rgba(0,234,255,.10), transparent 32rem),
+        #000;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .onboardScreen::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size:52px 52px;
+      mask-image:radial-gradient(circle at center, black, transparent 68%);
+      opacity:.5;
+      pointer-events:none;
+    }
+
+    .onboardShell {
+      width:min(1120px, 94vw);
+      position:relative;
+      z-index:2;
+      display:grid;
+      gap:28px;
+    }
+
+    .onboardBrand {
+      text-align:center;
+      display:grid;
+      gap:12px;
+      justify-items:center;
+    }
+
+    .soulLogo {
+      width:76px;
+      height:76px;
+      border-radius:25px;
+      background:
+        radial-gradient(circle at 30% 24%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow:0 0 50px rgba(124,60,255,.35);
+    }
+
+    .onboardBrand h1 {
+      margin:0;
+      font-size:clamp(34px, 6vw, 76px);
+      line-height:.9;
+      letter-spacing:-3px;
+      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .onboardBrand p {
+      margin:0;
+      color:var(--soft);
+      font-size:clamp(15px, 2vw, 20px);
+      line-height:1.5;
+    }
+
+    .choiceGrid {
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+      margin-top:12px;
+    }
+
+    .choiceBox {
+      min-height:250px;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 20% 12%, rgba(0,234,255,.10), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      border-radius:34px;
+      padding:28px;
+      color:white;
+      cursor:pointer;
+      text-align:left;
+      overflow:hidden;
+      position:relative;
+      opacity:0;
+      animation:cardFloat .72s ease forwards;
+      transition:transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+
+    .choiceBox:nth-child(2) {
+      animation-delay:.16s;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(255,79,243,.12), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+    }
+
+    .choiceBox:hover {
+      transform:translateY(-8px) scale(1.012);
+      border-color:rgba(0,234,255,.35);
+      background:
+        radial-gradient(circle at 20% 12%, rgba(0,234,255,.14), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+    }
+
+    .choiceBox::after {
+      content:"";
+      position:absolute;
+      right:-80px;
+      bottom:-80px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:rgba(124,60,255,.14);
+      filter:blur(4px);
+    }
+
+    .choiceBox small {
+      display:inline-flex;
+      color:var(--cyan);
+      font-weight:950;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+      margin-bottom:44px;
+    }
+
+    .choiceBox h2 {
+      position:relative;
+      z-index:2;
+      margin:0 0 12px;
+      font-size:clamp(30px, 4vw, 52px);
+      letter-spacing:-2px;
+      line-height:.95;
+    }
+
+    .choiceBox p {
+      position:relative;
+      z-index:2;
+      margin:0;
+      color:var(--soft);
+      line-height:1.6;
+      max-width:520px;
+    }
+
+    .loginCard {
+      width:min(520px, 94vw);
+      margin:auto;
+      border:1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(124,60,255,.18), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      border-radius:34px;
+      padding:30px;
+      box-shadow:0 28px 90px rgba(0,0,0,.48);
+      animation:pulseGlow 2.4s ease infinite;
+    }
+
+    .loginCard h2 {
+      margin:0 0 8px;
+      font-size:clamp(32px, 5vw, 54px);
+      letter-spacing:-2px;
+      line-height:.95;
+    }
+
+    .loginCard p {
+      margin:0 0 24px;
+      color:var(--soft);
+      line-height:1.5;
+    }
+
+    .loginFields {
+      display:grid;
+      gap:12px;
+    }
+
+    .loginFields input {
+      width:100%;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(0,0,0,.42);
+      color:var(--text);
+      border-radius:20px;
+      padding:16px 17px;
+      outline:0;
+      font-size:16px;
+    }
+
+    .loginBtn {
+      margin-top:16px;
+      width:100%;
+      border:0;
+      color:white;
+      background:linear-gradient(135deg, var(--violet), #3f8dff);
+      border-radius:20px;
+      padding:16px 18px;
+      font-weight:950;
+      cursor:pointer;
+      box-shadow:0 18px 44px rgba(124,60,255,.28);
+    }
+
+    .introTextScreen {
+      min-height:100dvh;
+      display:grid;
+      place-items:center;
+      background:#000;
+      padding:24px;
+      text-align:center;
+    }
+
+    .introTextScreen h1 {
+      margin:0;
+      font-size:clamp(38px, 7vw, 96px);
+      line-height:.9;
+      letter-spacing:-4px;
+      background:linear-gradient(90deg, #fff, var(--cyan), var(--violet), var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .introTextScreen p {
+      margin:18px 0 0;
+      color:var(--soft);
+      font-size:clamp(16px, 2vw, 22px);
+    }
+
+    /* ========================================================
+       CURRENT CHAT APP
+    ======================================================== */
+
+    .appScreen {
+      min-height:100dvh;
+      background:
+        radial-gradient(circle at 16% 6%, rgba(124,60,255,.28), transparent 34rem),
+        radial-gradient(circle at 82% 8%, rgba(0,234,255,.16), transparent 32rem),
+        linear-gradient(135deg, var(--bg0), var(--bg1) 48%, var(--bg2));
+      color:var(--text);
+    }
+
     .screen {
-      height:100dvh;
       min-height:100dvh;
       padding:14px;
       display:grid;
-      grid-template-rows:var(--headerH) 1fr;
+      grid-template-rows:var(--headerH) calc(100dvh - var(--headerH) - 42px);
       gap:14px;
       overflow:hidden;
     }
@@ -329,6 +598,7 @@
       box-shadow:0 12px 30px rgba(124,60,255,.25);
     }
 
+    /* Drawer */
     .drawerOverlay {
       display:none;
       position:fixed;
@@ -533,6 +803,12 @@
       color:#071017;
     }
 
+    .btn.red {
+      border:1px solid rgba(255,80,120,.28);
+      background:rgba(255,80,120,.12);
+      color:#ffd8e1;
+    }
+
     .unlockGrid {
       display:grid;
       grid-template-columns:1fr;
@@ -665,7 +941,8 @@
         font-size:16px;
       }
 
-      .three {
+      .three,
+      .choiceGrid {
         grid-template-columns:1fr;
       }
     }
@@ -702,178 +979,247 @@
       .bigLogoBlock h1 {
         font-size:32px;
       }
+
+      .choiceBox {
+        min-height:210px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="screen">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo"></div>
-        <div class="brandText">
-          <strong>SoulFlame</strong>
-          <span>AI Twin OS</span>
-        </div>
+
+  <!-- 1. PERSONAL / BUSINESS CHOICE -->
+  <section class="onboardScreen fadeIn" id="choiceScreen">
+    <div class="onboardShell">
+      <div class="onboardBrand">
+        <div class="soulLogo"></div>
+        <h1>AI Twin</h1>
+        <p>Избери какъв Twin искаш да създадеш.</p>
       </div>
 
-      <div class="centerTitle">AI Twins by SoulFlame</div>
+      <div class="choiceGrid">
+        <button class="choiceBox" onclick="selectTwinType('Личен')">
+          <small>Personal AI Twin</small>
+          <h2>Личен</h2>
+          <p>За личен профил, памет, характер, Future Twin, глас, стил и личен AI асистент.</p>
+        </button>
 
-      <div class="topActions">
-        <a class="pill" href="#how">How it works</a>
-        <a class="pill" href="/landing">Landing</a>
-        <a class="pill" href="/admin" target="_blank">Admin</a>
-        <button class="iconBtn" onclick="openDrawer()" aria-label="Open SF Options">☰</button>
+        <button class="choiceBox" onclick="selectTwinType('Бизнес')">
+          <small>Business AI Twin</small>
+          <h2>Бизнес</h2>
+          <p>За фирма, клиенти, оферти, имейли, документи, продажби и работен AI асистент.</p>
+        </button>
       </div>
-    </header>
-
-    <main class="chatOnly">
-      <section class="chatPanel" id="chat">
-        <div class="panelHead">
-          <div class="panelHeadTitle">
-            <strong>Echo Chat</strong>
-            <span>full screen chat · SF Options in drawer</span>
-          </div>
-          <div class="statusDot">Live MVP</div>
-        </div>
-
-        <div class="messages" id="messages"></div>
-
-        <div class="composerWrap">
-          <div class="composer">
-            <textarea id="prompt" placeholder="Ask your AI Twin... Напиши какво искаш да разбереш за себе си"></textarea>
-            <button class="sendBtn" onclick="sendPrompt()">➜</button>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <div class="drawerOverlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-
-  <aside class="drawer" id="drawer">
-    <div class="drawerHead">
-      <strong>SF Options Drawer</strong>
-      <button class="iconBtn" onclick="closeDrawer()">×</button>
-    </div>
-
-    <div class="drawerBody">
-      <div class="bigLogoBlock">
-        <div>
-          <h1>AI Twins<br>by SoulFlame</h1>
-          <p>EchoProfile. Future Twin. Full AI Twin unlock.</p>
-        </div>
-      </div>
-
-      <div class="optionGrid" id="optionGrid"></div>
-
-      <div class="formCard" id="create">
-        <h2>Create Mini Twin</h2>
-
-        <div class="formGrid">
-          <div class="field">
-            <label>Name</label>
-            <input id="name" placeholder="Dimitar / Client">
-          </div>
-
-          <div class="field">
-            <label>Contact</label>
-            <input id="contact" placeholder="email / Instagram / phone">
-          </div>
-
-          <div class="field">
-            <label>Age</label>
-            <select id="age">
-              <option value="18-24">18-24</option>
-              <option value="25-34" selected>25-34</option>
-              <option value="35-44">35-44</option>
-              <option value="45+">45+</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Mode</label>
-            <select id="mode">
-              <option value="personal">Personal Twin</option>
-              <option value="work">Work Twin</option>
-              <option value="future">Future Twin</option>
-              <option value="creator">Creator Twin</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Goal</label>
-            <input id="goal" placeholder="What do you want your AI Twin to help with?">
-          </div>
-        </div>
-
-        <div class="signalGrid" id="signals"></div>
-
-        <div class="actions">
-          <button class="btn primary" onclick="createMiniTwin()">Create Mini Twin</button>
-          <button class="btn gold" onclick="checkoutFullTwin()">Checkout Full Twin</button>
-        </div>
-
-        <div class="paymentNote">
-          Full AI Twin: <b>20 EUR</b> through Revolut.<br>
-          Note in Revolut: <code>Full AI Twin + your email</code>
-        </div>
-
-        <div class="apiBox" id="apiBox">Ready.</div>
-      </div>
-
-      <div class="formCard" id="unlock">
-        <h2>Unlock Full Twin</h2>
-        <p style="color:var(--soft);line-height:1.5;margin-top:0">Enter the code received after payment.</p>
-
-        <div class="unlockGrid">
-          <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
-          <button class="btn green" onclick="unlockFullTwin()">Unlock</button>
-        </div>
-
-        <div class="apiBox" id="fullReportBox">Full report will appear here.</div>
-      </div>
-    </div>
-  </aside>
-
-  <section class="below">
-    <div class="sectionCard" id="how">
-      <h2>Presentation-ready SoulFlame flow</h2>
-      <p>
-        Първият екран вече е само чат. SF Options, Create Mini Twin, Checkout и Unlock са в чекмеджето.
-      </p>
-
-      <div class="three">
-        <div class="mini">
-          <b>1. Full screen chat</b><br>
-          <span>Потребителят вижда AI продукта веднага.</span>
-        </div>
-
-        <div class="mini">
-          <b>2. Drawer options</b><br>
-          <span>Всички опции са прибрани в SF чекмеджето.</span>
-        </div>
-
-        <div class="mini">
-          <b>3. Full Twin</b><br>
-          <span>Checkout 20€ през Revolut, после unlock code.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="sectionCard">
-      <h2>What is AI Twins by SoulFlame?</h2>
-      <p>
-        AI Twin е дигитален профил, който започва с EchoProfile и постепенно се развива към Future Twin,
-        Memory, SoulMatch и персонален AI асистент.
-      </p>
     </div>
   </section>
 
+  <!-- 2. LOGIN -->
+  <section class="onboardScreen hidden" id="loginScreen">
+    <div class="loginCard fadeIn">
+      <div class="soulLogo" style="margin-bottom:22px;"></div>
+      <h2>Вход</h2>
+      <p>Въведи име. След това Twin-ът ще те поздрави лично.</p>
+
+      <div class="loginFields">
+        <input id="loginName" placeholder="Твоето име">
+        <input id="loginContact" placeholder="Имейл / телефон / Instagram — по желание">
+      </div>
+
+      <button class="loginBtn" onclick="startTwinIntro()">Вход</button>
+    </div>
+  </section>
+
+  <!-- 3. CREATE TWIN TEXT -->
+  <section class="introTextScreen hidden" id="createTwinScreen">
+    <div class="fadeIn">
+      <h1>Създайте своя Twin</h1>
+      <p>AI ядрото се активира...</p>
+    </div>
+  </section>
+
+  <!-- 4. CREATED BY SOULFLAME -->
+  <section class="introTextScreen hidden" id="createdByScreen">
+    <div class="fadeIn">
+      <h1>Created by SoulFlame</h1>
+      <p>EchoProfile · AI Twin · SoulMatch · DAVID</p>
+    </div>
+  </section>
+
+  <!-- 5. CURRENT CHAT APP -->
+  <section class="appScreen hidden" id="appScreen">
+    <div class="screen">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo"></div>
+          <div class="brandText">
+            <strong>SoulFlame</strong>
+            <span>AI Twin OS</span>
+          </div>
+        </div>
+
+        <div class="centerTitle">AI Twins by SoulFlame</div>
+
+        <div class="topActions">
+          <a class="pill" href="#how">How it works</a>
+          <a class="pill" href="/landing">Landing</a>
+          <a class="pill" href="/admin" target="_blank">Admin</a>
+          <button class="iconBtn" onclick="openDrawer()" aria-label="Open SF Options">☰</button>
+        </div>
+      </header>
+
+      <main class="chatOnly">
+        <section class="chatPanel" id="chat">
+          <div class="panelHead">
+            <div class="panelHeadTitle">
+              <strong>Echo Chat</strong>
+              <span id="profileLine">full screen chat · SF Options in drawer</span>
+            </div>
+            <div class="statusDot">Live MVP</div>
+          </div>
+
+          <div class="messages" id="messages"></div>
+
+          <div class="composerWrap">
+            <div class="composer">
+              <textarea id="prompt" placeholder="Ask your AI Twin... Напиши какво искаш да разбереш за себе си"></textarea>
+              <button class="sendBtn" onclick="sendPrompt()">➜</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="drawerOverlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+    <aside class="drawer" id="drawer">
+      <div class="drawerHead">
+        <strong>SF Options Drawer</strong>
+        <button class="iconBtn" onclick="closeDrawer()">×</button>
+      </div>
+
+      <div class="drawerBody">
+        <div class="bigLogoBlock">
+          <div>
+            <h1>AI Twins<br>by SoulFlame</h1>
+            <p>EchoProfile. Future Twin. Full AI Twin unlock.</p>
+          </div>
+        </div>
+
+        <div class="optionGrid" id="optionGrid"></div>
+
+        <div class="formCard" id="create">
+          <h2>Create Mini Twin</h2>
+
+          <div class="formGrid">
+            <div class="field">
+              <label>Name</label>
+              <input id="name" placeholder="Dimitar / Client">
+            </div>
+
+            <div class="field">
+              <label>Contact</label>
+              <input id="contact" placeholder="email / Instagram / phone">
+            </div>
+
+            <div class="field">
+              <label>Age</label>
+              <select id="age">
+                <option value="18-24">18-24</option>
+                <option value="25-34" selected>25-34</option>
+                <option value="35-44">35-44</option>
+                <option value="45+">45+</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Mode</label>
+              <select id="mode">
+                <option value="personal">Personal Twin</option>
+                <option value="work">Work Twin</option>
+                <option value="future">Future Twin</option>
+                <option value="creator">Creator Twin</option>
+                <option value="business">Business Twin</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Goal</label>
+              <input id="goal" placeholder="What do you want your AI Twin to help with?">
+            </div>
+          </div>
+
+          <div class="signalGrid" id="signals"></div>
+
+          <div class="actions">
+            <button class="btn primary" onclick="createMiniTwin()">Create Mini Twin</button>
+            <button class="btn gold" onclick="checkoutFullTwin()">Checkout Full Twin</button>
+            <button class="btn red" onclick="resetOnboarding()">Reset login flow</button>
+          </div>
+
+          <div class="paymentNote">
+            Full AI Twin: <b>20 EUR</b> through Revolut.<br>
+            Note in Revolut: <code>Full AI Twin + your email</code>
+          </div>
+
+          <div class="apiBox" id="apiBox">Ready.</div>
+        </div>
+
+        <div class="formCard" id="unlock">
+          <h2>Unlock Full Twin</h2>
+          <p style="color:var(--soft);line-height:1.5;margin-top:0">Enter the code received after payment.</p>
+
+          <div class="unlockGrid">
+            <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
+            <button class="btn green" onclick="unlockFullTwin()">Unlock</button>
+          </div>
+
+          <div class="apiBox" id="fullReportBox">Full report will appear here.</div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="below">
+      <div class="sectionCard" id="how">
+        <h2>Presentation-ready SoulFlame flow</h2>
+        <p>
+          Първо потребителят избира Личен или Бизнес AI Twin. После влиза с име.
+          След кратък плавен intro flow се отваря Echo Chat и Twin-ът поздравява човека лично.
+        </p>
+
+        <div class="three">
+          <div class="mini">
+            <b>1. Личен / Бизнес</b><br>
+            <span>Първият избор определя типа Twin.</span>
+          </div>
+
+          <div class="mini">
+            <b>2. Вход</b><br>
+            <span>Името се пази локално и се използва за поздрава.</span>
+          </div>
+
+          <div class="mini">
+            <b>3. Echo Chat</b><br>
+            <span>След intro flow се отваря сегашният чат.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sectionCard">
+        <h2>What is AI Twins by SoulFlame?</h2>
+        <p>
+          AI Twin е дигитален профил, който започва с EchoProfile и постепенно се развива към Future Twin,
+          Memory, SoulMatch и персонален AI асистент.
+        </p>
+      </div>
+    </section>
+  </section>
+
   <script>
-    const version = "V55_HARD_CHAT_ONLY_SCREEN";
+    const version = "V56_PERSONAL_BUSINESS_LOGIN_INTRO";
     const byId = id => document.getElementById(id);
 
+    let selectedTwinType = null;
     let selectedSignals = ["vision", "logic", "future"];
     let lastTwin = null;
 
@@ -885,7 +1231,9 @@
       ["SoulMatch", "съвместимост и връзки"],
       ["AR EchoCard", "визитка с AI присъствие"],
       ["Settings", "privacy, unlock, profile"],
-      ["Full Twin", "20€ unlock report"]
+      ["Full Twin", "20€ unlock report"],
+      ["Twins World", "свят от дигитални двойници"],
+      ["DAVID", "главен AI агент и OS"]
     ];
 
     const signalItems = [
@@ -899,6 +1247,163 @@
       ["creator", "Creator"]
     ];
 
+    function getProfile() {
+      try {
+        return JSON.parse(localStorage.getItem("soulflame_v56_profile") || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveProfile(data) {
+      localStorage.setItem("soulflame_v56_profile", JSON.stringify(data));
+    }
+
+    function showOnly(id) {
+      ["choiceScreen", "loginScreen", "createTwinScreen", "createdByScreen", "appScreen"].forEach(screenId => {
+        const el = byId(screenId);
+        if (!el) return;
+        if (screenId === id) {
+          el.classList.remove("hidden");
+          el.classList.add("fadeIn");
+        } else {
+          el.classList.add("hidden");
+          el.classList.remove("fadeIn");
+        }
+      });
+    }
+
+    function fadeSwitch(fromId, toId, delay = 520) {
+      const from = byId(fromId);
+      if (from) {
+        from.classList.add("fadeOut");
+      }
+
+      setTimeout(() => {
+        if (from) {
+          from.classList.add("hidden");
+          from.classList.remove("fadeOut", "fadeIn");
+        }
+
+        const to = byId(toId);
+        if (to) {
+          to.classList.remove("hidden");
+          to.classList.add("fadeIn");
+        }
+      }, delay);
+    }
+
+    function selectTwinType(type) {
+      selectedTwinType = type;
+      saveProfile({
+        type,
+        name:"",
+        contact:"",
+        createdAt:new Date().toISOString(),
+        version
+      });
+
+      fadeSwitch("choiceScreen", "loginScreen");
+      setTimeout(() => {
+        const nameInput = byId("loginName");
+        if (nameInput) nameInput.focus();
+      }, 800);
+    }
+
+    function startTwinIntro() {
+      const name = (byId("loginName").value || "").trim() || "приятелю";
+      const contact = (byId("loginContact").value || "").trim();
+
+      const current = getProfile();
+      const profile = {
+        ...current,
+        type:selectedTwinType || current.type || "Личен",
+        name,
+        contact,
+        loggedAt:new Date().toISOString(),
+        version
+      };
+
+      saveProfile(profile);
+
+      fadeSwitch("loginScreen", "createTwinScreen");
+
+      setTimeout(() => {
+        fadeSwitch("createTwinScreen", "createdByScreen", 430);
+      }, 1200);
+
+      setTimeout(() => {
+        fadeSwitch("createdByScreen", "appScreen", 430);
+      }, 2400);
+
+      setTimeout(() => {
+        bootChat(profile);
+      }, 3050);
+    }
+
+    function resetOnboarding() {
+      localStorage.removeItem("soulflame_v56_profile");
+      localStorage.removeItem("soulflame_last_twin");
+      location.reload();
+    }
+
+    function bootChat(profile) {
+      initOptions();
+      initSignals();
+
+      const name = profile.name || "приятелю";
+      const type = profile.type || "Личен";
+
+      const profileLine = byId("profileLine");
+      if (profileLine) {
+        profileLine.textContent = type + " AI Twin · logged as " + name;
+      }
+
+      const nameInput = byId("name");
+      const contactInput = byId("contact");
+      const modeInput = byId("mode");
+
+      if (nameInput) nameInput.value = name;
+      if (contactInput) contactInput.value = profile.contact || "";
+      if (modeInput) {
+        modeInput.value = type === "Бизнес" ? "business" : "personal";
+      }
+
+      addMessage("bot", "Здравей, " + name + ".\n\nАз съм твоят " + type + " AI Twin by SoulFlame.\n\nМога да започна с EchoProfile, AI Twin, Future Twin, Memory, SoulMatch или DAVID.", [
+        { label: "Open SF Options", onClick: openDrawer },
+        { label: "Create Mini Twin", onClick: openDrawer },
+        { label: "EchoProfile", onClick: () => optionClick("EchoProfile") }
+      ]);
+
+      try {
+        fetch("/api/event", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body:JSON.stringify({
+            type:"v56_login_chat_open",
+            page:"/",
+            payload:{
+              version,
+              profile,
+              screen:window.innerWidth + "x" + window.innerHeight,
+              time:new Date().toISOString()
+            }
+          })
+        });
+      } catch {}
+    }
+
+    function bootIfLogged() {
+      const profile = getProfile();
+
+      if (profile && profile.name) {
+        showOnly("appScreen");
+        setTimeout(() => bootChat(profile), 200);
+      } else {
+        showOnly("choiceScreen");
+      }
+    }
+
     function showJson(id, data) {
       const el = byId(id);
       if (!el) return;
@@ -907,6 +1412,8 @@
 
     function addMessage(role, text, actions = []) {
       const box = byId("messages");
+      if (!box) return;
+
       const msg = document.createElement("div");
       msg.className = "message " + role;
       msg.textContent = text;
@@ -930,13 +1437,19 @@
     }
 
     function initOptions() {
-      byId("optionGrid").innerHTML = optionItems.map(item => {
+      const grid = byId("optionGrid");
+      if (!grid) return;
+
+      grid.innerHTML = optionItems.map(item => {
         return "<div class='optionCard' onclick='optionClick(\"" + item[0] + "\")'><b>" + item[0] + "</b><span>" + item[1] + "</span></div>";
       }).join("");
     }
 
     function initSignals() {
-      byId("signals").innerHTML = signalItems.map(item => {
+      const sig = byId("signals");
+      if (!sig) return;
+
+      sig.innerHTML = signalItems.map(item => {
         const active = selectedSignals.includes(item[0]) ? " active" : "";
         return "<div class='signal" + active + "' onclick='toggleSignal(\"" + item[0] + "\")'>" + item[1] + "</div>";
       }).join("");
@@ -962,10 +1475,13 @@
         "SoulMatch": "SoulMatch ще използва EchoProfile за съвместимост.",
         "AR EchoCard": "AR EchoCard е визитка/профил с AI присъствие.",
         "Settings": "Settings пази privacy, unlock и профилните настройки.",
-        "Full Twin": "Full Twin се отключва с код след 20€ Revolut checkout."
+        "Full Twin": "Full Twin се отключва с код след 20€ Revolut checkout.",
+        "Twins World": "Twins World е свят от дигитални двойници.",
+        "DAVID": "DAVID е главният агент над SoulFlame."
       };
 
       addMessage("bot", map[name] || name);
+      closeDrawer();
     }
 
     function sendPrompt() {
@@ -977,9 +1493,11 @@
       input.value = "";
 
       const lower = text.toLowerCase();
+      const profile = getProfile();
+      const name = profile.name || "приятелю";
 
       if (lower.includes("price") || lower.includes("cena") || lower.includes("цена") || lower.includes("20")) {
-        addMessage("bot", "Full AI Twin струва 20 EUR. Плащането е през Revolut. В бележката се пише: Full AI Twin + your email.", [
+        addMessage("bot", name + ", Full AI Twin струва 20 EUR. Плащането е през Revolut. В бележката се пише: Full AI Twin + your email.", [
           { label: "Open SF Options", onClick: openDrawer },
           { label: "Checkout Full Twin", onClick: checkoutFullTwin }
         ]);
@@ -994,15 +1512,15 @@
       }
 
       if (lower.includes("create") || lower.includes("twin") || lower.includes("създай")) {
-        addMessage("bot", "Отвори SF Options чекмеджето и попълни Create Mini Twin.", [
+        addMessage("bot", "Отвори SF Options чекмеджето и попълни Create Mini Twin. Аз вече знам, че си в режим: " + (profile.type || "Личен") + ".", [
           { label: "Open SF Options", onClick: openDrawer }
         ]);
         return;
       }
 
-      addMessage("bot", "Разбрах. Това е Echo Chat — първият екран е само AI разговор. Всички SF Options са в чекмеджето ☰.", [
+      addMessage("bot", "Разбрах, " + name + ". Това ще го използвам като сигнал към твоя Twin Core. Следващото ниво е EchoProfile + Memory.", [
         { label: "Open SF Options", onClick: openDrawer },
-        { label: "Checkout Full Twin", onClick: checkoutFullTwin }
+        { label: "EchoProfile", onClick: () => optionClick("EchoProfile") }
       ]);
     }
 
@@ -1040,13 +1558,15 @@
 
     async function createMiniTwin() {
       const traits = dominantTraits();
+      const savedProfile = getProfile();
 
       const user = {
-        name: byId("name").value.trim() || "SoulFlame User",
-        contact: byId("contact").value.trim(),
+        name: byId("name").value.trim() || savedProfile.name || "SoulFlame User",
+        contact: byId("contact").value.trim() || savedProfile.contact || "",
         age: byId("age").value,
         goal: byId("goal").value.trim() || "Build a stronger future version",
-        mode: byId("mode").value
+        mode: byId("mode").value,
+        selectedType: savedProfile.type || selectedTwinType || "Личен"
       };
 
       const profile = profileName(traits.mainTrait, traits.secondTrait);
@@ -1180,7 +1700,7 @@
             code: data.code,
             twin: lastTwin,
             name: lastTwin && lastTwin.user ? lastTwin.user.name : "SoulFlame User",
-            source: "v55_unlock"
+            source: "v56_unlock"
           })
         });
 
@@ -1204,38 +1724,23 @@
       byId("drawerOverlay").classList.remove("open");
     }
 
-    byId("prompt").addEventListener("keydown", event => {
-      if (event.key === "Enter" && !event.shiftKey) {
-        event.preventDefault();
-        sendPrompt();
+    document.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        const active = document.activeElement;
+
+        if (active && active.id === "prompt" && !event.shiftKey) {
+          event.preventDefault();
+          sendPrompt();
+        }
+
+        if (active && (active.id === "loginName" || active.id === "loginContact")) {
+          event.preventDefault();
+          startTwinIntro();
+        }
       }
     });
 
-    initOptions();
-    initSignals();
-
-    addMessage("bot", "Welcome to AI Twins by SoulFlame.\n\nТова е финалният presentation mode: целият първи екран е Echo Chat. Всички SF Options са в чекмеджето ☰.", [
-      { label: "Open SF Options", onClick: openDrawer },
-      { label: "Create Mini Twin", onClick: openDrawer },
-      { label: "Checkout Full Twin", onClick: checkoutFullTwin }
-    ]);
-
-    try {
-      fetch("/api/event", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "v55_chat_only_view",
-          page: "/",
-          referrer: document.referrer || "",
-          payload: {
-            version,
-            screen: window.innerWidth + "x" + window.innerHeight,
-            time: new Date().toISOString()
-          }
-        })
-      });
-    } catch {}
+    window.addEventListener("load", bootIfLogged);
   </script>
 </body>
 </html>
