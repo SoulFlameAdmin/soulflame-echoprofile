@@ -4,7 +4,7 @@ const path = require("path");
 const crypto = require("crypto");
 
 const APP_NAME = "SoulFlame Twins";
-const APP_VERSION = "V57_PROJECTS_PROGRESS_BOARD";
+const APP_VERSION = "V58_PROJECTS_ONLY_BOTTOM";
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const PORT = process.env.PORT || 3000;
 
@@ -37,11 +37,8 @@ function readBody(req) {
       if (body.length > 1e6) req.destroy();
     });
     req.on("end", () => {
-      try {
-        resolve(body ? JSON.parse(body) : {});
-      } catch {
-        resolve({});
-      }
+      try { resolve(body ? JSON.parse(body) : {}); }
+      catch { resolve({}); }
     });
   });
 }
@@ -50,8 +47,8 @@ function makeId(prefix = "sf") {
   return prefix + "_" + crypto.randomBytes(8).toString("hex");
 }
 
-function injectProjectsBoard(html) {
-  const css = `
+function projectsCss() {
+  return `
     .projectsBoard { display:grid; gap:16px; margin-top:18px; }
     .projectRow { border:1px solid rgba(255,255,255,.13); background:rgba(0,0,0,.16); border-radius:22px; padding:18px; display:grid; gap:12px; }
     .projectTop { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
@@ -66,90 +63,56 @@ function injectProjectsBoard(html) {
     .updateHint { color:var(--muted); font-size:14px; line-height:1.6; margin-top:10px; }
     @media (max-width:720px) { .projectTop, .projectMeta { grid-template-columns:1fr; display:grid; } .percentBadge { width:max-content; } }
   `;
+}
 
-  const section = `
+function projectsSection() {
+  const projects = [
+    ["AI Echo / EchoProfile", 65, "Психологически профил, scoring, личностни, работни и емоционални сигнали.", "Архитектура, начални въпроси, логика за Twin Core и връзка към SoulMatch.", "Реални EchoProfile въпроси + scoring резултат + запис към Memory."],
+    ["AI Twin", 45, "Личен/бизнес Twin, поздрав по име, Memory, Work Twin, Future Twin, Voice/Avatar слоеве.", "Mini Twin, Full Twin checkout/unlock, intro flow Личен/Бизнес + вход.", "Да вържем GPT API + Supabase Memory + реален персонален стил."],
+    ["SoulMatch", 25, "Съвместимост между хора чрез EchoProfile, ценности, комуникация и red/green flags.", "Концепция, логика за съвместимост и място в SoulFlame света.", "Match алгоритъм: 5-10 психологически категории + процент съвместимост."],
+    ["Twins World", 15, "Свят от дигитални двойници, публични профили, AR EchoCards, Twin marketplace.", "Име, структура и място като четвърти свят на SoulFlame.", "Публичен Twin профил + AR EchoCard demo."],
+    ["DAVID", 10, "Главен AI агент и бъдеща операционна система над EchoProfile, Twin, SoulMatch и Twins World.", "Роля, философия, архитектурна позиция и дългосрочна посока.", "DAVID Command Center: задачи, решения, памет и контрол над модулите."]
+  ];
+
+  const rows = projects.map(([name, percent, desc, done, next]) => `
+          <div class="projectRow">
+            <div class="projectTop">
+              <div><b>${name}</b><br><span>${desc}</span></div>
+              <div class="percentBadge">${percent}%</div>
+            </div>
+            <div class="progressTrack"><div class="progressFill" style="width:${percent}%"></div></div>
+            <div class="projectMeta">
+              <div><strong>Създадено</strong>${done}</div>
+              <div><strong>Следващ ход</strong>${next}</div>
+            </div>
+          </div>`).join("\n");
+
+  return `
+    <section class="below">
       <div class="sectionCard" id="soulflame-projects">
         <h2>Проекти на SoulFlame</h2>
         <p>Тук следим всички идеи и системи, които градим. Когато попиташ "до къде сме", този борд показва текущия процент, следващия ход и какво е създадено.</p>
-
-        <div class="projectsBoard">
-          <div class="projectRow">
-            <div class="projectTop">
-              <div><b>AI Echo / EchoProfile</b><br><span>Психологически профил, scoring, личностни, работни и емоционални сигнали.</span></div>
-              <div class="percentBadge">65%</div>
-            </div>
-            <div class="progressTrack"><div class="progressFill" style="width:65%"></div></div>
-            <div class="projectMeta">
-              <div><strong>Създадено</strong>Архитектура, начални въпроси, логика за Twin Core и връзка към SoulMatch.</div>
-              <div><strong>Следващ ход</strong>Реални EchoProfile въпроси + scoring резултат + запис към Memory.</div>
-            </div>
-          </div>
-
-          <div class="projectRow">
-            <div class="projectTop">
-              <div><b>AI Twin</b><br><span>Личен/бизнес Twin, поздрав по име, Memory, Work Twin, Future Twin, Voice/Avatar слоеве.</span></div>
-              <div class="percentBadge">45%</div>
-            </div>
-            <div class="progressTrack"><div class="progressFill" style="width:45%"></div></div>
-            <div class="projectMeta">
-              <div><strong>Създадено</strong>Mini Twin, Full Twin checkout/unlock, intro flow Личен/Бизнес + вход.</div>
-              <div><strong>Следващ ход</strong>Да вържем GPT API + Supabase Memory + реален персонален стил.</div>
-            </div>
-          </div>
-
-          <div class="projectRow">
-            <div class="projectTop">
-              <div><b>SoulMatch</b><br><span>Съвместимост между хора чрез EchoProfile, ценности, комуникация и red/green flags.</span></div>
-              <div class="percentBadge">25%</div>
-            </div>
-            <div class="progressTrack"><div class="progressFill" style="width:25%"></div></div>
-            <div class="projectMeta">
-              <div><strong>Създадено</strong>Концепция, логика за съвместимост и място в SoulFlame света.</div>
-              <div><strong>Следващ ход</strong>Match алгоритъм: 5-10 психологически категории + процент съвместимост.</div>
-            </div>
-          </div>
-
-          <div class="projectRow">
-            <div class="projectTop">
-              <div><b>Twins World</b><br><span>Свят от дигитални двойници, публични профили, AR EchoCards, Twin marketplace.</span></div>
-              <div class="percentBadge">15%</div>
-            </div>
-            <div class="progressTrack"><div class="progressFill" style="width:15%"></div></div>
-            <div class="projectMeta">
-              <div><strong>Създадено</strong>Име, структура и място като четвърти свят на SoulFlame.</div>
-              <div><strong>Следващ ход</strong>Публичен Twin профил + AR EchoCard demo.</div>
-            </div>
-          </div>
-
-          <div class="projectRow">
-            <div class="projectTop">
-              <div><b>DAVID</b><br><span>Главен AI агент и бъдеща операционна система над EchoProfile, Twin, SoulMatch и Twins World.</span></div>
-              <div class="percentBadge">10%</div>
-            </div>
-            <div class="progressTrack"><div class="progressFill" style="width:10%"></div></div>
-            <div class="projectMeta">
-              <div><strong>Създадено</strong>Роля, философия, архитектурна позиция и дългосрочна посока.</div>
-              <div><strong>Следващ ход</strong>DAVID Command Center: задачи, решения, памет и контрол над модулите.</div>
-            </div>
-          </div>
-        </div>
-
+        <div class="projectsBoard">${rows}</div>
         <p class="updateHint">Команда за бъдеще: когато кажеш "ъпдейтни проекта", сменяме процента, статуса и следващия ход.</p>
       </div>
-  `;
+    </section>`;
+}
 
-  if (html.includes("</style>")) html = html.replace("</style>", css + "\n  </style>");
-  if (html.includes("    </section>\n  </section>\n\n  <script>")) {
-    html = html.replace("    </section>\n  </section>\n\n  <script>", section + "\n    </section>\n  </section>\n\n  <script>");
-  } else if (html.includes("  <script>")) {
-    html = html.replace("  <script>", section + "\n  <script>");
+function cleanAndInject(html) {
+  if (html.includes("</style>")) html = html.replace("</style>", projectsCss() + "\n  </style>");
+
+  html = html.replace(/<section class="below">[\s\S]*?<\/section>\s*<\/section>\s*<script>/, projectsSection() + "\n  </section>\n\n  <script>");
+
+  if (!html.includes('id="soulflame-projects"') && html.includes("  <script>")) {
+    html = html.replace("  <script>", projectsSection() + "\n  <script>");
   }
+
   return html;
 }
 
 function readIndex() {
   const file = path.join(__dirname, "index.html");
-  if (fs.existsSync(file)) return injectProjectsBoard(fs.readFileSync(file, "utf8"));
+  if (fs.existsSync(file)) return cleanAndInject(fs.readFileSync(file, "utf8"));
   return "<!doctype html><html><body><h1>SoulFlame index.html missing</h1></body></html>";
 }
 
@@ -162,27 +125,10 @@ function makeFullReport(payload = {}) {
   const profile = twin.profile || "Future Architect + Quantum System Builder";
 
   return [
-    "FULL AI TWIN REPORT",
-    "",
-    "Name: " + name,
-    "Type: " + selectedType,
-    "Mode: " + mode,
-    "Profile: " + profile,
-    "",
-    "Core reading:",
-    name + " има Twin ядро, което може да се развива през EchoProfile, Memory, Future Twin, SoulMatch и DAVID.",
-    "",
-    "Strong signals:",
-    twin.mainTrait ? "- Main trait: " + twin.mainTrait : "- Main trait: vision",
-    twin.secondTrait ? "- Second trait: " + twin.secondTrait : "- Second trait: logic",
-    "",
-    "Next steps:",
-    "1. Попълни EchoProfile.",
-    "2. Добави Memory.",
-    "3. Активирай Work/Future режим.",
-    "4. Свържи SoulMatch.",
-    "5. После DAVID управлява системата.",
-    "",
+    "FULL AI TWIN REPORT", "", "Name: " + name, "Type: " + selectedType, "Mode: " + mode, "Profile: " + profile, "",
+    "Core reading:", name + " има Twin ядро, което може да се развива през EchoProfile, Memory, Future Twin, SoulMatch и DAVID.", "",
+    "Strong signals:", twin.mainTrait ? "- Main trait: " + twin.mainTrait : "- Main trait: vision", twin.secondTrait ? "- Second trait: " + twin.secondTrait : "- Second trait: logic", "",
+    "Next steps:", "1. Попълни EchoProfile.", "2. Добави Memory.", "3. Активирай Work/Future режим.", "4. Свържи SoulMatch.", "5. После DAVID управлява системата.", "",
     "Created by SoulFlame · " + APP_VERSION
   ].join("\n");
 }
@@ -190,9 +136,7 @@ function makeFullReport(payload = {}) {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
 
-  if (req.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")) {
-    return send(res, 200, readIndex());
-  }
+  if (req.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")) return send(res, 200, readIndex());
 
   if (req.method === "GET" && url.pathname === "/landing") {
     return send(res, 200, `<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SoulFlame Landing</title><style>body{margin:0;background:#050611;color:white;font-family:Arial,sans-serif;display:grid;place-items:center;min-height:100vh}main{width:min(900px,92vw);padding:40px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(255,255,255,.05)}h1{font-size:54px;margin:0 0 16px;background:linear-gradient(90deg,#00eaff,#7c3cff,#ff4ff3);-webkit-background-clip:text;color:transparent}p{color:#b9c3e8;line-height:1.6;font-size:18px}a{color:white}</style></head><body><main><h1>AI Twins by SoulFlame</h1><p>Личен или бизнес AI Twin, който започва с избор, вход, плавно създаване и Echo Chat.</p><p><a href="/">← Back to app</a></p></main></body></html>`);
@@ -202,10 +146,7 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, `<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SoulFlame Admin</title><style>body{margin:0;background:#050611;color:white;font-family:Arial,sans-serif;display:grid;place-items:center;min-height:100vh}main{width:min(900px,92vw);padding:40px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(255,255,255,.05)}h1{font-size:48px;margin:0 0 16px}p{color:#b9c3e8}code{background:#111;padding:4px 8px;border-radius:8px}</style></head><body><main><h1>SoulFlame Admin</h1><p>Version: <code>${APP_VERSION}</code></p><p>Owner: <code>${OWNER_EMAIL}</code></p><p>Admin panel placeholder. Следващ слой: профили, плащания, unlock codes, analytics.</p></main></body></html>`);
   }
 
-  if (req.method === "GET" && url.pathname === "/favicon.ico") {
-    res.writeHead(204);
-    return res.end();
-  }
+  if (req.method === "GET" && url.pathname === "/favicon.ico") { res.writeHead(204); return res.end(); }
 
   if (req.method === "POST" && url.pathname === "/api/event") {
     const payload = await readBody(req);
@@ -242,6 +183,4 @@ const server = http.createServer(async (req, res) => {
   return sendJson(res, 404, { ok: false, error: "Not found", path: url.pathname, version: APP_VERSION });
 });
 
-server.listen(PORT, () => {
-  console.log(`${APP_NAME} ${APP_VERSION} running on port ${PORT}`);
-});
+server.listen(PORT, () => console.log(`${APP_NAME} ${APP_VERSION} running on port ${PORT}`));
