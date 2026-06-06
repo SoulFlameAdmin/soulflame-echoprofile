@@ -1,1 +1,1 @@
-{"name":"soulflame-twins","version":"1.0.0","description":"AI Twins by SoulFlame V56","author":"SoulFlame","license":"MIT","scripts":{"start":"node server.js"}}
+{"name":"soulflame-twins","version":"1.0.2","description":"AI Twins by SoulFlame onboarding first","author":"SoulFlame","license":"MIT","scripts":{"start":"node app.js"}}
