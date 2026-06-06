@@ -985,6 +985,61 @@
       }
     }
   </style>
+<style id="bwChoiceScreenOnly">
+#choiceScreen,
+#choiceScreen * {
+  filter: grayscale(1) contrast(1.15) !important;
+}
+
+#choiceScreen {
+  background:#000 !important;
+  color:#fff !important;
+}
+
+#choiceScreen::before {
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px) !important;
+}
+
+#choiceScreen .onboardBrand h1,
+#choiceScreen h1,
+#choiceScreen h2,
+#choiceScreen h3 {
+  background:none !important;
+  -webkit-background-clip:initial !important;
+  background-clip:initial !important;
+  color:#fff !important;
+  text-shadow:none !important;
+}
+
+#choiceScreen p,
+#choiceScreen small {
+  color:#d0d0d0 !important;
+}
+
+#choiceScreen .soulLogo {
+  background:linear-gradient(135deg,#fff,#777,#111) !important;
+  box-shadow:0 0 34px rgba(255,255,255,.18) !important;
+}
+
+#choiceScreen .choiceBox,
+#choiceScreen .choiceBox:nth-child(2) {
+  background:
+    radial-gradient(circle at 85% 85%, rgba(255,255,255,.10), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  box-shadow:0 22px 70px rgba(0,0,0,.70) !important;
+}
+
+#choiceScreen .choiceBox::after {
+  background:rgba(255,255,255,.08) !important;
+}
+
+#choiceScreen .choiceBox:hover {
+  border-color:rgba(255,255,255,.35) !important;
+}
+</style>
 </head>
 
 <body>
@@ -1744,3 +1799,4 @@
   </script>
 </body>
 </html>
+
