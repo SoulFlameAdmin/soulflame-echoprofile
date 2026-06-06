@@ -5,14 +5,37 @@ const overlay = document.getElementById("overlay");
 const modulePreview = document.getElementById("modulePreview");
 const drawerHint = document.getElementById("drawerHint");
 const centerBrand = document.getElementById("centerBrand");
+const modelSelect = document.getElementById("modelSelect");
 
 function pageKey() {
+  const fromBody = document.body?.dataset?.page;
+  if (fromBody) return fromBody;
+
   const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   return file.replace(".html", "") || "index";
 }
 
 function storageKey() {
   return "sf_chat_" + pageKey();
+}
+
+function isFileMode() {
+  return location.protocol === "file:";
+}
+
+function getSelectedModel() {
+  if (modelSelect && modelSelect.value) return modelSelect.value;
+  return localStorage.getItem("sf_selected_model") || "gpt-4o-mini";
+}
+
+if (modelSelect) {
+  const savedModel = localStorage.getItem("sf_selected_model");
+  if (savedModel) modelSelect.value = savedModel;
+
+  modelSelect.addEventListener("change", () => {
+    localStorage.setItem("sf_selected_model", modelSelect.value);
+    addMessage("assistant", "Model switched to: " + modelSelect.value);
+  });
 }
 
 function updateCenterBrand() {
@@ -67,9 +90,17 @@ function addMessage(role, text) {
   chatBox.scrollTop = chatBox.scrollHeight;
   saveChat();
   updateCenterBrand();
+
+  return message;
 }
 
-function sendMessage() {
+function setMessageText(messageEl, text) {
+  const bubble = messageEl?.querySelector(".bubble");
+  if (bubble) bubble.textContent = text;
+  saveChat();
+}
+
+async function sendMessage() {
   if (!chatInput) return;
 
   const text = chatInput.value.trim();
@@ -78,9 +109,67 @@ function sendMessage() {
   addMessage("user", text);
   chatInput.value = "";
 
-  setTimeout(() => {
-    addMessage("assistant", demoReply(text));
-  }, 350);
+  const loading = addMessage("assistant", "Echo мисли...");
+
+  try {
+    const reply = await getAssistantReply(text);
+    setMessageText(loading, reply);
+  } catch (err) {
+    console.error(err);
+    setMessageText(
+      loading,
+      "API грешка или липсва OPENAI_API_KEY. На localhost/file режим работя като демо. На Vercel сложи OPENAI_API_KEY в Environment Variables."
+    );
+  }
+}
+
+async function getAssistantReply(text) {
+  const page = pageKey();
+
+  if (isFileMode()) {
+    return demoReply(text);
+  }
+
+  if (page !== "ai-twin") {
+    return demoReply(text);
+  }
+
+  const history = getChatHistoryForApi();
+
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      page,
+      model: getSelectedModel(),
+      message: text,
+      history
+    })
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.error || "API request failed");
+  }
+
+  return data.reply || demoReply(text);
+}
+
+function getChatHistoryForApi() {
+  const messages = [];
+
+  document.querySelectorAll(".message").forEach(m => {
+    const role = m.classList.contains("user") ? "user" : "assistant";
+    const text = m.querySelector(".bubble")?.innerText || "";
+    if (text && text !== "Echo мисли...") {
+      messages.push({ role, content: text });
+    }
+  });
+
+  return messages.slice(-12);
 }
 
 function demoReply(text) {
@@ -88,7 +177,7 @@ function demoReply(text) {
   const page = pageKey();
 
   if (page === "ai-twin") {
-    return "AI Twin демо: следващият слой е GPT API по модели + памет + EchoProfile контекст.";
+    return "AI Twin демо: GPT API endpoint вече е подготвен. Качи във Vercel, сложи OPENAI_API_KEY и този чат ще говори през избрания модел.";
   }
 
   if (page === "echoprofile") {
@@ -100,14 +189,18 @@ function demoReply(text) {
   }
 
   if (page === "memory") {
-    return "Memory демо: тук ще се пазят важните факти и стилът на човека.";
+    return "Memory демо: тук ще пазим важните факти и стила на човека.";
+  }
+
+  if (page === "soulmatch") {
+    return "SoulMatch демо: тук ще сравняваме EchoProfile между хора.";
   }
 
   if (t.includes("profile") || t.includes("profil") || t.includes("профил")) {
     return "EchoProfile е ядрото. Ще извадим психологически модел и от него ще се роди AI Twin.";
   }
 
-  return "Разбрах. Това е демо отговор. Следващият слой е GPT API за AI Twin.";
+  return "Разбрах. Това е демо отговор. Истинският GPT API е включен за AI Twin страницата след добавяне на OPENAI_API_KEY.";
 }
 
 function clearChat() {
@@ -129,10 +222,11 @@ function saveChat() {
   if (!chatBox) return;
 
   const messages = [];
+
   document.querySelectorAll(".message").forEach(m => {
     messages.push({
       role: m.classList.contains("user") ? "user" : "assistant",
-      text: m.querySelector(".bubble").innerText
+      text: m.querySelector(".bubble")?.innerText || ""
     });
   });
 

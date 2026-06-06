@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-page="ai-twin">
 
   <div class="app-bg"></div>
 
@@ -25,15 +25,35 @@
           <div class="center-logo">SF</div>
           <h1>AI Twins by SoulFlame</h1>
           <p>GPT Models • EchoProfile • Memory • Future Twin</p>
+
+          <div class="model-pill-row">
+  <span class="model-pill">GPT API Ready</span>
+  <span class="model-pill">Memory Layer Next</span>
+  <span class="model-pill">EchoProfile Context</span>
+</div>
         </div>
       </div>
 
       <div class="chat-box" id="chatBox">
         <div class="message assistant">
           <div class="avatar">E</div>
-          <div class="bubble">Здравей. Аз съм Echo — AI Twin слой на SoulFlame. Тук ще вкараме GPT API по модели, памет и стил.</div>
+          <div class="bubble">Здравей. Аз съм Echo — AI Twin слой на SoulFlame. Тук вече е подготвен GPT API слой по модели. Сложи OPENAI_API_KEY и пускаме.</div>
         </div>
       </div>
+
+      <div class="model-panel">
+  <div>
+    <strong>AI Model</strong>
+    <span>Избери модел за AI Twin разговора</span>
+  </div>
+
+  <select id="modelSelect">
+    <option value="gpt-4o-mini">gpt-4o-mini — fast/demo</option>
+    <option value="gpt-4.1-mini">gpt-4.1-mini — smart/balanced</option>
+    <option value="gpt-4.1">gpt-4.1 — stronger reasoning</option>
+    <option value="gpt-5-mini">gpt-5-mini — future/premium</option>
+  </select>
+</div>
 
       <div class="input-area">
         <input id="chatInput" type="text" placeholder="Напиши съобщение..." />
@@ -76,7 +96,7 @@
         <a class="option-card active" href="ai-twin.html">
           <span>👤</span>
           <h3>AI Twin</h3>
-          <p>Дигитален двойник</p>
+          <p>GPT двойник</p>
         </a>
 
         <a class="option-card " href="future-twin.html">
@@ -113,7 +133,7 @@
 
       <div class="module-preview" id="modulePreview">
         <h3>AI Twin</h3>
-        <p>Тук ще бъде AI Twin разговорът с GPT API по модели, памет и персонален стил.</p>
+        <p>AI Twin страницата е готова за GPT API: модел selector, chat endpoint, memory-ready структура и EchoProfile контекст.</p>
       </div>
 
       <button class="bottom-close-btn" onclick="toggleDrawer(false)">
