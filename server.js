@@ -4,7 +4,7 @@ const path = require("path");
 const crypto = require("crypto");
 
 const APP_NAME = "SoulFlame Twins";
-const APP_VERSION = "V60_RESTORE_LOGIN_FLOW";
+const APP_VERSION = "V61_PROJECTS_IN_DRAWER_METAVERSE_BOTTOM";
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const PORT = process.env.PORT || 3000;
 const PAYMENT_LINK_FULL_TWIN = process.env.PAYMENT_LINK_FULL_TWIN || "https://revolut.me/dimitarlambov02?currency=EUR&amount=20&note=Full%20AI%20Twin%20%2B%20your%20email";
@@ -24,22 +24,28 @@ function readBody(req) {
 }
 function makeId(prefix = "sf") { return prefix + "_" + crypto.randomBytes(8).toString("hex"); }
 
+const projects = [
+  ["AI Echo / EchoProfile",65,"Психологически профил, scoring, личностни, работни и емоционални сигнали.","Архитектура, начални въпроси, логика за Twin Core и връзка към SoulMatch.","Реални EchoProfile въпроси + scoring резултат + запис към Memory."],
+  ["AI Twin",45,"Личен/бизнес Twin, поздрав по име, Memory, Work Twin, Future Twin, Voice/Avatar слоеве.","Mini Twin, Full Twin checkout/unlock, intro flow Личен/Бизнес + вход.","Да вържем GPT API + Supabase Memory + реален персонален стил."],
+  ["SoulMatch",25,"Съвместимост между хора чрез EchoProfile, ценности, комуникация и red/green flags.","Концепция, логика за съвместимост и място в SoulFlame света.","Match алгоритъм: 5-10 психологически категории + процент съвместимост."],
+  ["Twins World",15,"Свят от дигитални двойници, публични профили, AR EchoCards, Twin marketplace.","Име, структура и място като четвърти свят на SoulFlame.","Публичен Twin профил + AR EchoCard demo."],
+  ["DAVID",10,"Главен AI агент и бъдеща операционна система над EchoProfile, Twin, SoulMatch и Twins World.","Роля, философия, архитектурна позиция и дългосрочна посока.","DAVID Command Center: задачи, решения, памет и контрол над модулите."]
+];
+
 function extraCss() {
   return `
-    .projectsBoard{display:grid;gap:16px;margin-top:18px}.projectRow{border:1px solid rgba(255,255,255,.13);background:rgba(0,0,0,.16);border-radius:22px;padding:18px;display:grid;gap:12px}.projectTop{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.projectTop b{font-size:18px;letter-spacing:-.4px}.projectTop span{color:var(--soft);font-size:13px;line-height:1.45}.percentBadge{color:#071017;background:linear-gradient(135deg,#23e6a8,#00eaff);padding:8px 11px;border-radius:999px;font-weight:950;white-space:nowrap}.progressTrack{height:12px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10)}.progressFill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));box-shadow:0 0 24px rgba(124,60,255,.28)}.projectMeta{display:grid;grid-template-columns:1fr 1fr;gap:10px}.projectMeta div{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.045);border-radius:16px;padding:12px;color:var(--soft);font-size:13px;line-height:1.45}.projectMeta strong{color:var(--text);display:block;margin-bottom:4px}.updateHint{color:var(--muted);font-size:14px;line-height:1.6;margin-top:10px}@media(max-width:720px){.projectTop,.projectMeta{grid-template-columns:1fr;display:grid}.percentBadge{width:max-content}}
+    .projectsDrawerBox{border:1px solid rgba(255,255,255,.13);background:rgba(0,0,0,.20);border-radius:24px;padding:16px;display:grid;gap:12px}.projectsDrawerBox h2{margin:0;font-size:24px;letter-spacing:-.8px}.projectsDrawerBox>p{color:var(--soft);line-height:1.5;margin:0}.drawerProject{border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045);border-radius:18px;padding:13px;display:grid;gap:9px}.drawerProjectTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.drawerProjectTop b{font-size:15px}.drawerProjectTop span{color:var(--soft);font-size:12px;line-height:1.35}.percentBadge{color:#071017;background:linear-gradient(135deg,#23e6a8,#00eaff);padding:7px 10px;border-radius:999px;font-weight:950;white-space:nowrap;font-size:12px}.progressTrack{height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10)}.progressFill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));box-shadow:0 0 24px rgba(124,60,255,.28)}.drawerProjectMeta{display:grid;grid-template-columns:1fr;gap:7px}.drawerProjectMeta div{border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.13);border-radius:13px;padding:9px;color:var(--soft);font-size:12px;line-height:1.4}.drawerProjectMeta strong{display:block;color:var(--text);margin-bottom:3px}.updateHint{color:var(--muted);font-size:12px;line-height:1.5;margin:0}
+    .metaverseBottom{display:grid;gap:16px}.metaHero{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:stretch}.metaBig{border:1px solid rgba(255,255,255,.13);background:radial-gradient(circle at 16% 8%,rgba(0,234,255,.12),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));border-radius:28px;padding:24px}.metaBig h2{font-size:clamp(34px,5vw,62px);line-height:.95;margin:0 0 12px;letter-spacing:-2px;background:linear-gradient(90deg,var(--cyan),#8bb7ff,var(--violet),var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}.metaBig p{color:var(--soft);line-height:1.65}.metaCards{display:grid;gap:12px}.metaCard{border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.16);border-radius:22px;padding:18px}.metaCard b{display:block;margin-bottom:6px}.metaCard span{color:var(--soft);font-size:14px;line-height:1.5}.metaChatPreview{display:grid;gap:10px;margin-top:16px}.metaBubble{width:min(82%,720px);border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:20px;padding:14px;color:var(--soft);line-height:1.5}.metaBubble.user{justify-self:end;background:linear-gradient(135deg,rgba(124,60,255,.35),rgba(0,234,255,.10));color:#eef5ff}.metaActionRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.metaActionRow button{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08);color:var(--text);border-radius:999px;padding:11px 14px;font-weight:950;cursor:pointer}.metaActionRow button.primary{border:0;background:linear-gradient(135deg,var(--violet),#3f8dff)}@media(max-width:900px){.metaHero{grid-template-columns:1fr}.drawerProjectTop{display:grid}.percentBadge{width:max-content}}
   `;
 }
 
-function projectsSection() {
-  const projects = [
-    ["AI Echo / EchoProfile",65,"Психологически профил, scoring, личностни, работни и емоционални сигнали.","Архитектура, начални въпроси, логика за Twin Core и връзка към SoulMatch.","Реални EchoProfile въпроси + scoring резултат + запис към Memory."],
-    ["AI Twin",45,"Личен/бизнес Twin, поздрав по име, Memory, Work Twin, Future Twin, Voice/Avatar слоеве.","Mini Twin, Full Twin checkout/unlock, intro flow Личен/Бизнес + вход.","Да вържем GPT API + Supabase Memory + реален персонален стил."],
-    ["SoulMatch",25,"Съвместимост между хора чрез EchoProfile, ценности, комуникация и red/green flags.","Концепция, логика за съвместимост и място в SoulFlame света.","Match алгоритъм: 5-10 психологически категории + процент съвместимост."],
-    ["Twins World",15,"Свят от дигитални двойници, публични профили, AR EchoCards, Twin marketplace.","Име, структура и място като четвърти свят на SoulFlame.","Публичен Twin профил + AR EchoCard demo."],
-    ["DAVID",10,"Главен AI агент и бъдеща операционна система над EchoProfile, Twin, SoulMatch и Twins World.","Роля, философия, архитектурна позиция и дългосрочна посока.","DAVID Command Center: задачи, решения, памет и контрол над модулите."]
-  ];
-  const rows = projects.map(([n,p,d,done,next]) => `<div class="projectRow"><div class="projectTop"><div><b>${n}</b><br><span>${d}</span></div><div class="percentBadge">${p}%</div></div><div class="progressTrack"><div class="progressFill" style="width:${p}%"></div></div><div class="projectMeta"><div><strong>Създадено</strong>${done}</div><div><strong>Следващ ход</strong>${next}</div></div></div>`).join("");
-  return `<section class="below"><div class="sectionCard" id="soulflame-projects"><h2>Проекти на SoulFlame</h2><p>Тук следим всички идеи и системи, които градим. Когато попиташ "до къде сме", този борд показва текущия процент, следващия ход и какво е създадено.</p><div class="projectsBoard">${rows}</div><p class="updateHint">Команда за бъдеще: когато кажеш "ъпдейтни проекта", сменяме процента, статуса и следващия ход.</p></div></section>`;
+function projectsDrawerBox() {
+  const rows = projects.map(([n,p,d,done,next]) => `<div class="drawerProject"><div class="drawerProjectTop"><div><b>${n}</b><br><span>${d}</span></div><div class="percentBadge">${p}%</div></div><div class="progressTrack"><div class="progressFill" style="width:${p}%"></div></div><div class="drawerProjectMeta"><div><strong>Създадено</strong>${done}</div><div><strong>Следващ ход</strong>${next}</div></div></div>`).join("");
+  return `<div class="projectsDrawerBox" id="soulflame-projects"><h2>Проекти на SoulFlame</h2><p>Тук следим идеите, процента, създаденото и следващия ход.</p>${rows}<p class="updateHint">Команда: "ъпдейтни проекта" → сменяме процента и статуса.</p></div>`;
+}
+
+function bottomMetaverseSoulMatch() {
+  return `<section class="below"><div class="sectionCard" id="metaverse-soulmatch"><div class="metaverseBottom"><div class="metaHero"><div class="metaBig"><h2>Metaverse / SoulMatch</h2><p>Това е социалният слой под чата: Twin свят като Facebook chat, където хора, профили и AI двойници ще се свързват чрез EchoProfile, SoulMatch и Memory.</p><div class="metaChatPreview"><div class="metaBubble">SoulFlame Metaverse: виждаш хора, Twin профили, стаи и съвместимост.</div><div class="metaBubble user">SoulMatch: намира подходящи хора по EchoProfile, ценности и поведение.</div><div class="metaBubble">AI Twin: помага в разговора, но само със съгласие и контрол.</div></div><div class="metaActionRow"><button class="primary" onclick="openDrawer && openDrawer()">Open SF Options</button><button onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to chat</button></div></div><div class="metaCards"><div class="metaCard"><b>Metaverse Rooms</b><span>EchoProfile Room, SoulMatch Room, AI Twin Lab, DAVID Command.</span></div><div class="metaCard"><b>SoulMatch Feed</b><span>Съвместимост, green/red flags, връзки, приятели, бъдещи matches.</span></div><div class="metaCard"><b>Facebook-like Chat</b><span>PC и телефон интерфейс: стаи, хора, профили, активен Twin panel.</span></div><div class="metaCard"><b>Следващ upgrade</b><span>Supabase profiles + real chat + публични Twin профили.</span></div></div></div></div></div></section>`;
 }
 
 function forceLoginScript() {
@@ -48,8 +54,10 @@ function forceLoginScript() {
 
 function cleanAndInject(html) {
   if (html.includes("</style>")) html = html.replace("</style>", extraCss() + "\n</style>");
-  html = html.replace(/<section class="below">[\s\S]*?<\/section>\s*<\/section>\s*<script>/, projectsSection() + "\n</section>\n\n<script>");
-  if (!html.includes('id="soulflame-projects"') && html.includes("<script>")) html = html.replace("<script>", projectsSection() + "\n<script>");
+  html = html.replace(/<section class="below">[\s\S]*?<\/section>\s*<\/section>\s*<script>/, bottomMetaverseSoulMatch() + "\n</section>\n\n<script>");
+  if (!html.includes('id="metaverse-soulmatch"') && html.includes("<script>")) html = html.replace("<script>", bottomMetaverseSoulMatch() + "\n<script>");
+  html = html.replace(/<div class="projectsDrawerBox" id="soulflame-projects">[\s\S]*?<\/div>\s*<\/div>\s*<p class="updateHint">[\s\S]*?<\/p>\s*<\/div>/, "");
+  if (!html.includes('class="projectsDrawerBox"') && html.includes('<div class="formCard" id="create">')) html = html.replace('<div class="formCard" id="create">', projectsDrawerBox() + '\n\n        <div class="formCard" id="create">');
   if (!html.includes('id="restoreLoginFlow"')) html = html.replace("</body>", forceLoginScript() + "\n</body>");
   return html;
 }
