@@ -4,7 +4,7 @@ const path = require("path");
 const crypto = require("crypto");
 
 const APP_NAME = "SoulFlame Twins";
-const APP_VERSION = "V65_COLOR_FLUID_CHOICE_SCREEN";
+const APP_VERSION = "V66_PHONE_CHOICE_SCREEN_FIX";
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const PORT = process.env.PORT || 3000;
 const PAYMENT_LINK_FULL_TWIN = process.env.PAYMENT_LINK_FULL_TWIN || "https://revolut.me/dimitarlambov02?currency=EUR&amount=20&note=Full%20AI%20Twin%20%2B%20your%20email";
@@ -99,6 +99,83 @@ function colorFluidChoiceCss() {
       text-shadow:0 0 28px rgba(0,234,255,.10) !important;
     }
     #choiceScreen .choiceBox p { color:#d7defc !important; }
+
+    @media (max-width: 720px) {
+      #choiceScreen {
+        min-height: 100svh !important;
+        place-items: start center !important;
+        padding: 28px 14px 18px !important;
+        overflow-y: auto !important;
+      }
+      #choiceScreen .onboardShell {
+        width: 100% !important;
+        max-width: 430px !important;
+        gap: 18px !important;
+      }
+      #choiceScreen .onboardBrand {
+        gap: 9px !important;
+      }
+      #choiceScreen .soulLogo {
+        width: 62px !important;
+        height: 62px !important;
+        border-radius: 22px !important;
+      }
+      #choiceScreen .onboardBrand h1 {
+        font-size: clamp(42px, 13vw, 58px) !important;
+        letter-spacing: -2px !important;
+        line-height: .92 !important;
+      }
+      #choiceScreen .onboardBrand p {
+        font-size: 16px !important;
+        line-height: 1.35 !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+      }
+      #choiceScreen .choiceGrid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        margin-top: 4px !important;
+      }
+      #choiceScreen .choiceBox {
+        min-height: 178px !important;
+        border-radius: 28px !important;
+        padding: 22px 22px 20px !important;
+      }
+      #choiceScreen .choiceBox small {
+        margin-bottom: 26px !important;
+        font-size: 12px !important;
+        letter-spacing: 1.8px !important;
+      }
+      #choiceScreen .choiceBox h2 {
+        font-size: clamp(34px, 10vw, 44px) !important;
+        letter-spacing: -1.5px !important;
+        margin-bottom: 9px !important;
+      }
+      #choiceScreen .choiceBox p {
+        font-size: 16px !important;
+        line-height: 1.45 !important;
+        max-width: 295px !important;
+      }
+      #choiceScreen .choiceBox::after {
+        width: 160px !important;
+        height: 160px !important;
+        right: -56px !important;
+        bottom: -60px !important;
+      }
+    }
+
+    @media (max-width: 380px) {
+      #choiceScreen { padding-top: 20px !important; }
+      #choiceScreen .onboardShell { gap: 14px !important; }
+      #choiceScreen .soulLogo { width: 54px !important; height: 54px !important; }
+      #choiceScreen .onboardBrand h1 { font-size: 40px !important; }
+      #choiceScreen .onboardBrand p { font-size: 14px !important; }
+      #choiceScreen .choiceBox { min-height: 160px !important; padding: 18px !important; }
+      #choiceScreen .choiceBox small { margin-bottom: 20px !important; font-size: 11px !important; }
+      #choiceScreen .choiceBox h2 { font-size: 34px !important; }
+      #choiceScreen .choiceBox p { font-size: 14.5px !important; }
+    }
+
     @keyframes sfTextFlow { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
     @keyframes sfCardFloat { 0%,100%{translate:0 0} 50%{translate:0 -7px} }
     @keyframes sfFloatSoft { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
