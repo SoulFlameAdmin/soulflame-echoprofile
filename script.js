@@ -279,3 +279,141 @@ if (chatInput) {
 }
 
 loadChat();
+
+// === SOULFLAME_PAGE_DESCRIPTION_PANEL_START ===
+
+function ensurePageDescriptionPanel() {
+  const inputArea = document.querySelector(".input-area");
+  const chatSection = document.querySelector(".chat-section");
+  const modulePreview = document.getElementById("modulePreview");
+
+  if (!inputArea || !chatSection) return;
+
+  let descBtn = document.getElementById("pageDescriptionBtn");
+  if (!descBtn) {
+    descBtn = document.createElement("button");
+    descBtn.id = "pageDescriptionBtn";
+    descBtn.className = "page-description-btn";
+    descBtn.type = "button";
+    descBtn.title = "Show page description";
+    descBtn.innerHTML = "↓";
+    descBtn.onclick = function() {
+      togglePageDescription();
+    };
+
+    inputArea.appendChild(descBtn);
+  }
+
+  let panel = document.getElementById("pageDescriptionPanel");
+  if (!panel) {
+    panel = document.createElement("section");
+    panel.id = "pageDescriptionPanel";
+    panel.className = "page-description-panel";
+
+    panel.innerHTML = `
+      <div class="page-description-glow"></div>
+
+      <div class="page-description-head">
+        <div>
+          <span class="page-description-label">PAGE INFO</span>
+          <h2 id="pageDescriptionTitle">SoulFlame</h2>
+        </div>
+
+        <button class="page-description-close" onclick="togglePageDescription(false)">×</button>
+      </div>
+
+      <p id="pageDescriptionText"></p>
+
+      <div class="page-description-actions">
+        <button onclick="toggleDrawer(true)">Open SF Options</button>
+        <button onclick="togglePageDescription(false)">Hide</button>
+      </div>
+    `;
+
+    chatSection.appendChild(panel);
+  }
+
+  syncPageDescriptionFromPreview();
+}
+
+function syncPageDescriptionFromPreview() {
+  const modulePreview = document.getElementById("modulePreview");
+  const titleEl = document.getElementById("pageDescriptionTitle");
+  const textEl = document.getElementById("pageDescriptionText");
+
+  if (!titleEl || !textEl) return;
+
+  const title =
+    modulePreview?.querySelector("h3")?.innerText?.trim() ||
+    document.querySelector(".center-brand-box h1")?.innerText?.trim() ||
+    document.title ||
+    "SoulFlame";
+
+  const text =
+    modulePreview?.querySelector("p")?.innerText?.trim() ||
+    "Това е страница от SoulFlame AI Echo системата. Избери модул от SF Options, за да преминеш към конкретна функция.";
+
+  titleEl.textContent = title;
+  textEl.textContent = text;
+}
+
+function togglePageDescription(forceState) {
+  const panel = document.getElementById("pageDescriptionPanel");
+  const btn = document.getElementById("pageDescriptionBtn");
+  const chatBox = document.getElementById("chatBox");
+
+  if (!panel) return;
+
+  syncPageDescriptionFromPreview();
+
+  const shouldOpen = typeof forceState === "boolean"
+    ? forceState
+    : !panel.classList.contains("open");
+
+  if (shouldOpen) {
+    panel.classList.add("open");
+    if (btn) {
+      btn.classList.add("open");
+      btn.innerHTML = "↑";
+      btn.title = "Hide page description";
+    }
+
+    setTimeout(() => {
+      panel.scrollIntoView({
+        behavior: "smooth",
+        block: "end"
+      });
+    }, 80);
+
+    if (chatBox) {
+      chatBox.scrollTo({
+        top: chatBox.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  } else {
+    panel.classList.remove("open");
+    if (btn) {
+      btn.classList.remove("open");
+      btn.innerHTML = "↓";
+      btn.title = "Show page description";
+    }
+  }
+}
+
+function openPageDescription() {
+  togglePageDescription(true);
+}
+
+window.addEventListener("load", function() {
+  ensurePageDescriptionPanel();
+});
+
+// keep it safe if script loaded before DOM is ready
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", ensurePageDescriptionPanel);
+} else {
+  ensurePageDescriptionPanel();
+}
+
+// === SOULFLAME_PAGE_DESCRIPTION_PANEL_END ===

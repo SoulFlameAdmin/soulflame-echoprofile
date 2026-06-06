@@ -684,3 +684,232 @@ body {
     min-height: 78px;
   }
 }
+
+
+/* === SOULFLAME_PAGE_DESCRIPTION_PANEL_CSS_START === */
+
+/* Extra arrow button next to send */
+.page-description-btn {
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
+    linear-gradient(135deg, rgba(139,92,246,0.34), rgba(34,211,238,0.22));
+  color: white;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.16),
+    0 12px 30px rgba(0,0,0,0.24),
+    0 0 24px rgba(34,211,238,0.10);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.page-description-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34,211,238,0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.20),
+    0 16px 36px rgba(0,0,0,0.30),
+    0 0 30px rgba(34,211,238,0.16);
+}
+
+.page-description-btn.open {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.02)),
+    linear-gradient(135deg, rgba(255,80,120,0.30), rgba(139,92,246,0.26));
+  border-color: rgba(255,120,160,0.34);
+}
+
+/* Animated description panel under chat */
+.page-description-panel {
+  position: absolute;
+  left: max(18px, 12vw);
+  right: max(18px, 12vw);
+  bottom: 124px;
+  z-index: 22;
+
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 26px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025)),
+    rgba(12, 12, 24, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  padding: 20px 22px;
+  color: white;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(34px) scale(0.985);
+  pointer-events: none;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 28px 90px rgba(0,0,0,0.46),
+    0 0 44px rgba(139,92,246,0.10);
+
+  transition:
+    opacity 0.34s ease,
+    transform 0.34s cubic-bezier(.22, .9, .22, 1);
+}
+
+.page-description-panel.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.page-description-glow {
+  position: absolute;
+  inset: auto -15% -60% -15%;
+  height: 160px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(139,92,246,0.22), transparent 44%),
+    radial-gradient(circle at 70% 30%, rgba(34,211,238,0.16), transparent 44%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.page-description-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.page-description-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: rgba(34,211,238,0.92);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.page-description-head h2 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.page-description-panel p {
+  position: relative;
+  z-index: 2;
+  margin: 12px 0 0;
+  max-width: 980px;
+  color: rgba(232,235,245,0.82);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.page-description-close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.07);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.page-description-actions {
+  position: relative;
+  z-index: 2;
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.page-description-actions button {
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.07);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.page-description-actions button:hover {
+  transform: translateY(-1px);
+  background: rgba(139,92,246,0.18);
+}
+
+/* when description is open, make center overlay less intrusive */
+.page-description-panel.open ~ .center-brand-overlay,
+.chat-section:has(.page-description-panel.open) .center-brand-overlay {
+  opacity: 0.22;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .page-description-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    font-size: 20px;
+  }
+
+  .page-description-panel {
+    left: 8px;
+    right: 8px;
+    bottom: 105px;
+    border-radius: 22px;
+    padding: 16px;
+    max-height: 44vh;
+    overflow-y: auto;
+  }
+
+  .page-description-head h2 {
+    font-size: 24px;
+  }
+
+  .page-description-panel p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .page-description-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+  }
+
+  .page-description-actions button {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 420px) {
+  .page-description-panel {
+    bottom: 101px;
+    max-height: 48vh;
+  }
+
+  .page-description-actions {
+    gap: 8px;
+  }
+}
+
+/* === SOULFLAME_PAGE_DESCRIPTION_PANEL_CSS_END === */
