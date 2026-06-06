@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const VERSION = 'V72_EXCLUSIVE_SCREEN_LAYERS';
+const VERSION = 'V73_EMOJI_OPTIONS_DRAWER';
 
 function send(res, status, body, type='text/html; charset=utf-8') {
   res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store' });
@@ -21,7 +21,7 @@ function readBody(req) {
 }
 
 function css() {
-  return `<style id="sf-v72-css">
+  return `<style id="sf-v73-css">
 html,body{margin:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:#000!important}
 .hidden{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
 #choiceScreen,#loginScreen,#createTwinScreen,#createdByScreen,#appScreen{position:fixed!important;inset:0!important;width:100vw!important;height:100svh!important;min-height:100svh!important;z-index:1!important;overflow:hidden!important}
@@ -44,20 +44,33 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
 #loginScreen .loginFields input{height:58px!important;border-radius:18px!important;padding:0 15px!important;background:rgba(0,0,0,.46)!important;border:1px solid rgba(0,234,255,.18)!important;color:#fff!important;outline:none!important}
 #loginScreen .loginBtn{height:58px!important;margin-top:14px!important;border-radius:18px!important;background:linear-gradient(135deg,#7c3cff,#3f8dff,#ff4ff3)!important;color:#fff!important;box-shadow:0 18px 46px rgba(124,60,255,.34)!important}
 #appScreen .screen{height:100svh!important;min-height:100svh!important;overflow:hidden!important}
+.drawer .bigLogoBlock{display:none!important}
+.drawer{max-width:100vw!important}
+.drawerBody{padding:14px!important}
+.optionGrid{display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
+.optionCard{display:grid!important;grid-template-columns:54px 1fr!important;align-items:center!important;gap:14px!important;min-height:92px!important;padding:16px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.028))!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 12px 34px rgba(0,0,0,.32)!important}
+.optionCard:hover{transform:translateY(-2px)!important;border-color:rgba(0,234,255,.28)!important}
+.optionIcon{width:52px!important;height:52px!important;border-radius:18px!important;display:grid!important;place-items:center!important;font-size:27px!important;background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.22),transparent 30%),linear-gradient(135deg,rgba(0,234,255,.32),rgba(124,60,255,.34),rgba(255,79,243,.24))!important;box-shadow:0 0 26px rgba(124,60,255,.22)!important}
+.optionText{display:grid!important;gap:5px!important;min-width:0!important}
+.optionText b{font-size:20px!important;line-height:1.05!important;color:#fff!important;letter-spacing:-.3px!important}
+.optionText span{font-size:14.5px!important;line-height:1.35!important;color:#bfc8e8!important}
+@media(max-width:520px){.drawer{width:100vw!important}.drawerHead{padding:18px!important}.optionCard{min-height:86px!important;padding:14px!important;border-radius:22px!important;grid-template-columns:50px 1fr!important}.optionIcon{width:48px!important;height:48px!important;font-size:25px!important}.optionText b{font-size:19px!important}.optionText span{font-size:14px!important}}
 </style>`;
 }
 
 function script() {
-  return `<script id="sf-v72-flow">
+  return `<script id="sf-v73-flow">
 (function(){
+  var emojiOptions=[['🧠','EchoProfile','личностни и работни сигнали'],['🤖','AI Twin','личен, работен, глас и аватар'],['🔮','Future Twin','ти след 1 година / 5 години'],['💾','Memory','лична памет и развитие'],['💘','SoulMatch','съвместимост и връзки'],['🪪','AR EchoCard','визитка с AI присъствие'],['⚙️','Settings','privacy, unlock, profile'],['🚀','Full Twin','20€ unlock report'],['🌐','Twins World','свят от дигитални двойници'],['🛸','DAVID','главен AI агент и OS']];
   function e(id){return document.getElementById(id)}
   function show(id){['choiceScreen','loginScreen','createTwinScreen','createdByScreen','appScreen'].forEach(function(x){var n=e(x);if(!n)return;if(x===id){n.classList.remove('hidden');n.style.display=(x==='appScreen'?'block':'grid');n.style.visibility='visible';n.style.opacity='1';n.style.pointerEvents='auto'}else{n.classList.add('hidden');n.style.display='none';n.style.visibility='hidden';n.style.opacity='0';n.style.pointerEvents='none'}});window.scrollTo(0,0)}
+  window.initOptions=function(){var grid=e('optionGrid');if(!grid)return;grid.innerHTML=emojiOptions.map(function(item){return '<div class="optionCard" onclick="optionClick(\''+item[1]+'\')"><div class="optionIcon">'+item[0]+'</div><div class="optionText"><b>'+item[1]+'</b><span>'+item[2]+'</span></div></div>'}).join('')};
   window.startTwinIntro=function(){
-    var p={type:window.selectedTwinType||'Личен',name:(e('loginName')&&e('loginName').value.trim())||'приятелю',contact:(e('loginContact')&&e('loginContact').value.trim())||'',version:'V72_EXCLUSIVE_SCREEN_LAYERS'};
+    var p={type:window.selectedTwinType||'Личен',name:(e('loginName')&&e('loginName').value.trim())||'приятелю',contact:(e('loginContact')&&e('loginContact').value.trim())||'',version:'V73_EMOJI_OPTIONS_DRAWER'};
     try{localStorage.setItem('soulflame_v56_profile',JSON.stringify(p))}catch(err){}
     show('createTwinScreen');
     setTimeout(function(){show('createdByScreen')},900);
-    setTimeout(function(){show('appScreen'); if(typeof bootChat==='function')bootChat(p)},1850);
+    setTimeout(function(){show('appScreen'); if(typeof bootChat==='function')bootChat(p); window.initOptions();},1850);
   };
   window.addEventListener('load',function(){
     setTimeout(function(){
@@ -66,6 +79,7 @@ function script() {
       var b=document.querySelector('#loginScreen .loginBtn');
       if(b){b.onclick=function(ev){ev.preventDefault();window.startTwinIntro();};}
       ['loginName','loginContact'].forEach(function(id){var i=e(id);if(i){i.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();window.startTwinIntro();}}}});
+      window.initOptions();
     },120);
   });
 })();
