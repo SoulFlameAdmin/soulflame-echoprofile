@@ -3,19 +3,19 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const PORT = process.env.PORT || 3000;
-const VERSION = 'V69_FIRST_PAGE_PHONE_PERFECT';
+const VERSION = 'V70_LOGIN_PHONE_PERFECT';
 function send(res, status, body, type='text/html; charset=utf-8') { res.writeHead(status, {'Content-Type':type,'Cache-Control':'no-store'}); res.end(body); }
 function json(res, status, data) { send(res, status, JSON.stringify(data,null,2), 'application/json; charset=utf-8'); }
 function readBody(req){ return new Promise(resolve=>{let b=''; req.on('data',c=>b+=c); req.on('end',()=>{try{resolve(b?JSON.parse(b):{})}catch{resolve({})}});}); }
 function id(p){ return p + '_' + crypto.randomBytes(8).toString('hex'); }
-function firstPageStyle(){ return `
-<style id="firstPagePhonePerfect">
-#choiceScreen,#choiceScreen *{filter:none!important}
+function uiStyle(){ return `
+<style id="sfPhonePerfectV70">
+#choiceScreen,#choiceScreen *,#loginScreen,#loginScreen *{filter:none!important}
 #choiceScreen{min-height:100svh!important;background:radial-gradient(circle at 16% 8%,rgba(124,60,255,.34),transparent 20rem),radial-gradient(circle at 92% 72%,rgba(0,234,255,.20),transparent 22rem),radial-gradient(circle at 50% 18%,rgba(255,79,243,.14),transparent 18rem),linear-gradient(135deg,#02030a,#070817 52%,#0d1434)!important;color:#fff!important;padding:24px 14px 18px!important;place-items:start center!important;overflow-y:auto!important}
 #choiceScreen::before{opacity:.42!important;background-size:38px 38px!important}
 #choiceScreen .onboardShell{width:100%!important;max-width:430px!important;gap:16px!important}
 #choiceScreen .onboardBrand{gap:9px!important;padding-top:2px!important}
-#choiceScreen .soulLogo{width:62px!important;height:62px!important;border-radius:22px!important;background:radial-gradient(circle at 30% 24%,#fff,transparent 15%),linear-gradient(135deg,#00eaff,#7c3cff,#ff4ff3)!important;box-shadow:0 0 44px rgba(124,60,255,.48),0 0 70px rgba(0,234,255,.16)!important;animation:firstLogo 4.8s ease-in-out infinite, hue 7s linear infinite!important}
+#choiceScreen .soulLogo{width:62px!important;height:62px!important;border-radius:22px!important;background:radial-gradient(circle at 30% 24%,#fff,transparent 15%),linear-gradient(135deg,#00eaff,#7c3cff,#ff4ff3)!important;box-shadow:0 0 44px rgba(124,60,255,.48),0 0 70px rgba(0,234,255,.16)!important;animation:firstLogo 4.8s ease-in-out infinite,hue 7s linear infinite!important}
 #choiceScreen .onboardBrand h1{font-size:clamp(42px,13vw,58px)!important;line-height:.9!important;letter-spacing:-2.4px!important;background:linear-gradient(90deg,#00eaff,#8bb7ff,#7c3cff,#ff4ff3,#00eaff)!important;background-size:240% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;animation:flowText 5.4s ease-in-out infinite,floatSoft 4.4s ease-in-out infinite!important;text-shadow:0 0 30px rgba(124,60,255,.18)!important}
 #choiceScreen .onboardBrand p{font-size:15.5px!important;line-height:1.34!important;color:#dbe4ff!important;max-width:320px!important;margin:0 auto!important}
 #choiceScreen .choiceGrid{grid-template-columns:1fr!important;gap:12px!important;margin-top:4px!important}
@@ -25,13 +25,23 @@ function firstPageStyle(){ return `
 #choiceScreen .choiceBox small{margin-bottom:24px!important;font-size:11.5px!important;letter-spacing:1.9px!important;background:linear-gradient(90deg,#00eaff,#8bb7ff,#ff4ff3,#00eaff)!important;background-size:220% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;animation:flowText 4.5s ease-in-out infinite!important}
 #choiceScreen .choiceBox h2{font-size:clamp(34px,10vw,43px)!important;line-height:.95!important;letter-spacing:-1.6px!important;margin:0 0 8px!important;color:#fff!important;text-shadow:0 0 24px rgba(0,234,255,.10)!important}
 #choiceScreen .choiceBox p{font-size:15.5px!important;line-height:1.45!important;color:#d7defc!important;max-width:292px!important}
-@media(max-width:380px){#choiceScreen{padding-top:18px!important}#choiceScreen .onboardShell{gap:13px!important}#choiceScreen .soulLogo{width:54px!important;height:54px!important}#choiceScreen .onboardBrand h1{font-size:39px!important}#choiceScreen .onboardBrand p{font-size:14px!important}#choiceScreen .choiceBox{min-height:154px!important;padding:18px!important;border-radius:25px!important}#choiceScreen .choiceBox small{margin-bottom:18px!important;font-size:10.5px!important}#choiceScreen .choiceBox h2{font-size:33px!important}#choiceScreen .choiceBox p{font-size:14px!important;line-height:1.4!important}}
+#loginScreen{min-height:100svh!important;background:radial-gradient(circle at 14% 8%,rgba(124,60,255,.34),transparent 18rem),radial-gradient(circle at 92% 74%,rgba(0,234,255,.20),transparent 20rem),linear-gradient(135deg,#02030a,#070817 52%,#0d1434)!important;padding:18px 14px!important;display:grid!important;place-items:center!important;overflow:hidden!important}
+#loginScreen::before{opacity:.36!important;background-size:38px 38px!important}
+#loginScreen .loginCard{width:min(390px,calc(100vw - 28px))!important;max-height:calc(100svh - 36px)!important;border-radius:30px!important;padding:24px 20px 22px!important;margin:0 auto!important;background:radial-gradient(circle at 18% 12%,rgba(124,60,255,.25),transparent 34%),radial-gradient(circle at 94% 88%,rgba(0,234,255,.17),transparent 35%),linear-gradient(180deg,rgba(255,255,255,.090),rgba(255,255,255,.030))!important;border:1px solid rgba(0,234,255,.23)!important;box-shadow:0 24px 78px rgba(0,0,0,.55),0 0 38px rgba(124,60,255,.13)!important;animation:cardIn .55s ease both!important}
+#loginScreen .soulLogo{width:58px!important;height:58px!important;border-radius:21px!important;margin:0 0 18px!important;background:radial-gradient(circle at 30% 24%,#fff,transparent 15%),linear-gradient(135deg,#00eaff,#7c3cff,#ff4ff3)!important;box-shadow:0 0 44px rgba(124,60,255,.48),0 0 70px rgba(0,234,255,.16)!important;animation:firstLogo 4.8s ease-in-out infinite,hue 7s linear infinite!important}
+#loginScreen .loginCard h2{font-size:clamp(38px,12vw,52px)!important;letter-spacing:-2px!important;line-height:.92!important;margin:0 0 9px!important;background:linear-gradient(90deg,#00eaff,#8bb7ff,#7c3cff,#ff4ff3,#00eaff)!important;background-size:240% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;animation:flowText 5.4s ease-in-out infinite!important}
+#loginScreen .loginCard p{font-size:15px!important;line-height:1.38!important;margin:0 0 18px!important;color:#dbe4ff!important;max-width:310px!important}
+#loginScreen .loginFields{gap:10px!important;display:grid!important}
+#loginScreen .loginFields input{height:58px!important;border-radius:18px!important;padding:0 15px!important;font-size:15.5px!important;background:rgba(0,0,0,.46)!important;border:1px solid rgba(0,234,255,.18)!important;color:#fff!important;outline:none!important}
+#loginScreen .loginFields input:focus{border-color:rgba(0,234,255,.52)!important;box-shadow:0 0 26px rgba(0,234,255,.11)!important}
+#loginScreen .loginBtn{height:58px!important;margin-top:14px!important;border-radius:18px!important;padding:0 16px!important;font-size:16px!important;background:linear-gradient(135deg,#7c3cff,#3f8dff,#ff4ff3)!important;color:#fff!important;box-shadow:0 18px 46px rgba(124,60,255,.34)!important}
+@media(max-width:380px){#choiceScreen{padding-top:18px!important}#choiceScreen .onboardShell{gap:13px!important}#choiceScreen .soulLogo{width:54px!important;height:54px!important}#choiceScreen .onboardBrand h1{font-size:39px!important}#choiceScreen .onboardBrand p{font-size:14px!important}#choiceScreen .choiceBox{min-height:154px!important;padding:18px!important;border-radius:25px!important}#choiceScreen .choiceBox small{margin-bottom:18px!important;font-size:10.5px!important}#choiceScreen .choiceBox h2{font-size:33px!important}#choiceScreen .choiceBox p{font-size:14px!important;line-height:1.4!important}#loginScreen{padding:12px!important}#loginScreen .loginCard{width:calc(100vw - 24px)!important;border-radius:26px!important;padding:20px 17px!important}#loginScreen .soulLogo{width:52px!important;height:52px!important;margin-bottom:14px!important}#loginScreen .loginCard h2{font-size:38px!important}#loginScreen .loginCard p{font-size:14px!important;margin-bottom:14px!important}#loginScreen .loginFields input,#loginScreen .loginBtn{height:54px!important}}
 @keyframes flowText{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.985);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}@keyframes cardFloat{0%,100%{translate:0 0}50%{translate:0 -6px}}@keyframes floatSoft{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes firstLogo{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-7px) rotate(2deg)}}@keyframes hue{0%{filter:hue-rotate(0)}100%{filter:hue-rotate(360deg)}}
 </style>`; }
 function index(){
   let html = fs.readFileSync(path.join(__dirname,'index.html'),'utf8');
   html = html.replace('window.addEventListener("load", bootIfLogged);', 'window.addEventListener("load", function(){ showOnly("choiceScreen"); });');
-  html = html.replace('</head>', firstPageStyle() + '\n</head>');
+  html = html.replace('</head>', uiStyle() + '\n</head>');
   return html;
 }
 const server = http.createServer(async (req,res)=>{
