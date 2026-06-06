@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>AI Twins by SoulFlame</title>
-  <meta name="description" content="Create your AI Twin by SoulFlame. EchoProfile, Future Twin, Memory, SoulMatch and Full AI Twin unlock.">
+  <meta name="description" content="AI Twins by SoulFlame — chat first, drawer options, Full AI Twin unlock.">
   <meta name="theme-color" content="#050611">
 
   <style>
@@ -14,7 +14,6 @@
       --bg2:#111a46;
       --panel:rgba(255,255,255,.065);
       --panel2:rgba(255,255,255,.045);
-      --panel3:rgba(0,0,0,.30);
       --line:rgba(255,255,255,.13);
       --text:#f8f7ff;
       --soft:#b9c3e8;
@@ -24,868 +23,684 @@
       --pink:#ff4ff3;
       --gold:#ffd166;
       --green:#23e6a8;
-      --red:#ff4d6d;
-      --shadow:0 28px 90px rgba(0,0,0,.42);
+      --headerH:74px;
       --radius:28px;
-      --headerH:68px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing:border-box; }
 
-    html {
-      min-height: 100%;
-      background: var(--bg0);
-      scroll-behavior: smooth;
+    html, body {
+      margin:0;
+      min-height:100%;
+      background:var(--bg0);
+      color:var(--text);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      overflow-x:hidden;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      color: var(--text);
       background:
-        radial-gradient(circle at 18% 8%, rgba(124,60,255,.28), transparent 34rem),
-        radial-gradient(circle at 80% 10%, rgba(0,234,255,.16), transparent 32rem),
-        radial-gradient(circle at 48% 92%, rgba(255,79,243,.10), transparent 34rem),
-        linear-gradient(135deg, var(--bg0), var(--bg1) 46%, var(--bg2));
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+        radial-gradient(circle at 16% 6%, rgba(124,60,255,.28), transparent 34rem),
+        radial-gradient(circle at 82% 8%, rgba(0,234,255,.16), transparent 32rem),
+        linear-gradient(135deg, var(--bg0), var(--bg1) 48%, var(--bg2));
+      -webkit-font-smoothing:antialiased;
     }
 
-    button,
-    input,
-    textarea,
-    select {
-      font: inherit;
-    }
-
-    a {
-      color: inherit;
-    }
+    button, input, textarea, select { font:inherit; }
+    a { color:inherit; text-decoration:none; }
 
     .screen {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      padding: 14px;
+      height:100dvh;
+      min-height:100dvh;
+      padding:14px;
+      display:grid;
+      grid-template-rows:var(--headerH) 1fr;
+      gap:14px;
+      overflow:hidden;
     }
 
     .topbar {
-      height: var(--headerH);
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid var(--line);
-      background: rgba(5,6,17,.78);
-      backdrop-filter: blur(18px);
-      border-radius: 24px;
-      padding: 10px 12px;
-      box-shadow: 0 16px 50px rgba(0,0,0,.24);
-      position: sticky;
-      top: 10px;
-      z-index: 30;
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:12px;
+      border:1px solid var(--line);
+      background:rgba(5,6,17,.82);
+      backdrop-filter:blur(18px);
+      border-radius:26px;
+      padding:10px 12px;
+      box-shadow:0 16px 50px rgba(0,0,0,.25);
+      min-width:0;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
     }
 
     .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 16px;
+      width:46px;
+      height:46px;
+      border-radius:17px;
       background:
         radial-gradient(circle at 30% 22%, #fff, transparent 15%),
         linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
-      box-shadow:
-        0 0 28px rgba(0,234,255,.25),
-        0 0 44px rgba(124,60,255,.28);
-      flex: 0 0 auto;
+      box-shadow:0 0 32px rgba(124,60,255,.32);
+      flex:0 0 auto;
     }
 
     .brandText {
-      display: grid;
-      line-height: 1.02;
+      display:grid;
+      line-height:1.02;
     }
 
     .brandText strong {
-      font-weight: 950;
-      letter-spacing: -.5px;
-      white-space: nowrap;
+      font-weight:950;
+      letter-spacing:-.6px;
+      white-space:nowrap;
     }
 
     .brandText span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
     }
 
     .centerTitle {
-      text-align: center;
-      font-weight: 950;
-      letter-spacing: -.8px;
-      font-size: clamp(18px, 2.2vw, 28px);
-      background: linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      text-align:center;
+      font-weight:950;
+      letter-spacing:-1px;
+      font-size:clamp(20px, 2.4vw, 34px);
+      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     .topActions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:8px;
     }
 
-    .pill,
-    .iconBtn,
-    .btn {
-      border: 1px solid rgba(255,255,255,.13);
-      color: var(--text);
-      background: rgba(255,255,255,.07);
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: 900;
-      text-decoration: none;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    .pill, .iconBtn, .btn {
+      border:1px solid rgba(255,255,255,.13);
+      color:var(--text);
+      background:rgba(255,255,255,.075);
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:950;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
     }
 
     .pill {
-      padding: 10px 12px;
-      font-size: 13px;
+      padding:11px 14px;
+      font-size:13px;
     }
 
     .iconBtn {
-      width: 44px;
-      height: 44px;
-      display: inline-grid;
-      place-items: center;
-      font-size: 20px;
+      width:48px;
+      height:48px;
+      display:inline-grid;
+      place-items:center;
+      font-size:22px;
     }
 
-    .pill:hover,
-    .iconBtn:hover,
-    .btn:hover {
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.105);
-      border-color: rgba(0,234,255,.28);
+    .pill:hover, .iconBtn:hover, .btn:hover {
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.11);
+      border-color:rgba(0,234,255,.28);
     }
 
-    .burger {
-      display: none;
-    }
-
-    .heroGrid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
-      gap: 14px;
-      padding-top: 14px;
-      min-height: 0;
-    }
-
-    .chatPanel,
-    .optionsPanel {
-      min-height: 0;
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 20% 10%, rgba(0,234,255,.08), transparent 32%),
-        linear-gradient(180deg, rgba(255,255,255,.082), rgba(255,255,255,.045));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
+    .chatOnly {
+      min-height:0;
+      height:100%;
+      display:grid;
     }
 
     .chatPanel {
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      height: calc(100dvh - var(--headerH) - 42px);
+      height:100%;
+      min-height:0;
+      width:100%;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(124,60,255,.14), transparent 34%),
+        radial-gradient(circle at 88% 0%, rgba(0,234,255,.08), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.076), rgba(255,255,255,.04));
+      border-radius:var(--radius);
+      box-shadow:0 28px 90px rgba(0,0,0,.42);
+      overflow:hidden;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
     }
 
     .panelHead {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 16px 18px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
-    }
-
-    .panelHeadTitle {
-      display: grid;
-      gap: 3px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:17px 20px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
     }
 
     .panelHeadTitle strong {
-      font-size: 17px;
-      letter-spacing: -.4px;
+      display:block;
+      font-size:18px;
+      letter-spacing:-.4px;
     }
 
     .panelHeadTitle span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:850;
     }
 
     .statusDot {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #bfffe9;
-      font-size: 12px;
-      font-weight: 950;
-      border: 1px solid rgba(35,230,168,.22);
-      background: rgba(35,230,168,.07);
-      padding: 8px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:#bfffe9;
+      font-size:12px;
+      font-weight:950;
+      border:1px solid rgba(35,230,168,.22);
+      background:rgba(35,230,168,.07);
+      padding:8px 10px;
+      border-radius:999px;
+      white-space:nowrap;
     }
 
-    .statusDot::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px var(--green);
+    .statusDot:before {
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 14px var(--green);
     }
 
     .messages {
-      overflow-y: auto;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,.20) transparent;
+      min-height:0;
+      overflow-y:auto;
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      scrollbar-width:thin;
+      scrollbar-color:rgba(255,255,255,.22) transparent;
     }
 
     .message {
-      width: min(82%, 760px);
-      padding: 14px 15px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 22px;
-      line-height: 1.55;
-      color: var(--soft);
-      white-space: pre-wrap;
-      animation: msgIn .22s ease both;
+      width:min(78%, 940px);
+      padding:15px 16px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      line-height:1.56;
+      color:var(--soft);
+      white-space:pre-wrap;
+      animation:msgIn .22s ease both;
     }
 
     @keyframes msgIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity:0; transform:translateY(6px); }
+      to { opacity:1; transform:translateY(0); }
     }
 
     .message.bot {
-      align-self: flex-start;
-      background: rgba(255,255,255,.065);
-      border-top-left-radius: 8px;
+      align-self:flex-start;
+      background:rgba(255,255,255,.064);
+      border-top-left-radius:8px;
     }
 
     .message.user {
-      align-self: flex-end;
-      background: linear-gradient(135deg, rgba(124,60,255,.34), rgba(0,234,255,.12));
-      border-color: rgba(0,234,255,.22);
-      border-top-right-radius: 8px;
-      color: #eef5ff;
+      align-self:flex-end;
+      background:linear-gradient(135deg, rgba(124,60,255,.36), rgba(0,234,255,.12));
+      border-color:rgba(0,234,255,.24);
+      border-top-right-radius:8px;
+      color:#eef5ff;
     }
 
     .quickActions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:11px;
     }
 
     .quickActions button {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 9px 11px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 900;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border-radius:999px;
+      padding:9px 11px;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:900;
     }
 
     .composerWrap {
-      padding: 14px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+      padding:16px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
     }
 
     .composer {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: end;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(0,0,0,.26);
-      border-radius: 24px;
-      padding: 10px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:end;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(0,0,0,.27);
+      border-radius:24px;
+      padding:10px;
+      width:min(1180px, 100%);
+      margin:0 auto;
     }
 
     .composer textarea {
-      width: 100%;
-      min-height: 44px;
-      max-height: 120px;
-      resize: none;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: var(--text);
-      padding: 11px 12px;
-      line-height: 1.35;
+      width:100%;
+      min-height:46px;
+      max-height:130px;
+      resize:none;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:var(--text);
+      padding:12px 13px;
+      line-height:1.35;
     }
 
     .sendBtn {
-      width: 46px;
-      height: 46px;
-      border: 0;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--violet), #3f8dff);
-      color: white;
-      cursor: pointer;
-      font-size: 20px;
-      font-weight: 950;
-      box-shadow: 0 12px 30px rgba(124,60,255,.24);
-    }
-
-    .optionsPanel {
-      height: calc(100dvh - var(--headerH) - 42px);
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    .optionsBody {
-      overflow-y: auto;
-      padding: 18px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-    }
-
-    .bigLogoBlock {
-      min-height: 130px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,.13);
-      background:
-        radial-gradient(circle at 50% 10%, rgba(255,255,255,.10), transparent 22%),
-        linear-gradient(135deg, rgba(0,234,255,.10), rgba(124,60,255,.16), rgba(255,79,243,.10));
-      border-radius: 24px;
-      padding: 18px;
-    }
-
-    .bigLogoBlock h1 {
-      margin: 0;
-      font-size: clamp(28px, 4vw, 54px);
-      letter-spacing: -2px;
-      line-height: .92;
-      background: linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .bigLogoBlock p {
-      margin: 10px 0 0;
-      color: var(--soft);
-      line-height: 1.45;
-    }
-
-    .optionGrid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .optionCard {
-      min-height: 112px;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.052);
-      border-radius: 22px;
-      padding: 15px;
-      cursor: pointer;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-
-    .optionCard:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.085);
-      border-color: rgba(0,234,255,.25);
-    }
-
-    .optionCard b {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 16px;
-    }
-
-    .optionCard span {
-      color: var(--soft);
-      font-size: 13px;
-      line-height: 1.42;
-      display: block;
-    }
-
-    .formCard {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(0,0,0,.18);
-      border-radius: 24px;
-      padding: 16px;
-    }
-
-    .formCard h2 {
-      margin: 0 0 10px;
-      letter-spacing: -.8px;
-      font-size: 24px;
-    }
-
-    .formGrid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .field {
-      display: grid;
-      gap: 6px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      border-radius: 16px;
-      padding: 13px 14px;
-      outline: 0;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: rgba(0,234,255,.42);
-      box-shadow: 0 0 0 4px rgba(0,234,255,.08);
-    }
-
-    .signalGrid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .signal {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.055);
-      color: var(--text);
-      border-radius: 16px;
-      padding: 10px 9px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 900;
-      text-align: center;
-      user-select: none;
-    }
-
-    .signal.active {
-      background: linear-gradient(135deg, rgba(124,60,255,.8), rgba(0,234,255,.42));
-      border-color: rgba(0,234,255,.35);
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .btn {
-      padding: 13px 14px;
-      border-radius: 18px;
-      text-align: center;
-    }
-
-    .btn.primary {
-      border: 0;
-      background: linear-gradient(135deg, var(--violet), #3f8dff);
-      box-shadow: 0 14px 36px rgba(124,60,255,.22);
-    }
-
-    .btn.gold {
-      border: 0;
-      background: linear-gradient(135deg, #ffb703, #ff4ff3);
-      box-shadow: 0 14px 36px rgba(255,79,243,.18);
-    }
-
-    .btn.green {
-      border: 0;
-      background: linear-gradient(135deg, #23e6a8, #00eaff);
-      color: #071017;
-    }
-
-    .unlockGrid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .paymentNote {
-      border: 1px solid rgba(255,209,102,.32);
-      background: rgba(255,209,102,.08);
-      color: #ffe7a8;
-      border-radius: 18px;
-      padding: 13px;
-      line-height: 1.5;
-      font-size: 13px;
-      margin-top: 12px;
-    }
-
-    .paymentNote code {
-      color: #fff4cb;
-      background: rgba(0,0,0,.25);
-      padding: 2px 6px;
-      border-radius: 8px;
+      width:48px;
+      height:48px;
+      border:0;
+      border-radius:17px;
+      background:linear-gradient(135deg, var(--violet), #3f8dff);
+      color:white;
+      cursor:pointer;
+      font-size:21px;
+      font-weight:950;
+      box-shadow:0 12px 30px rgba(124,60,255,.25);
     }
 
     .drawerOverlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.55);
-      z-index: 80;
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.58);
+      z-index:80;
     }
+
+    .drawerOverlay.open { display:block; }
 
     .drawer {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(420px, 92vw);
-      height: 100dvh;
+      position:fixed;
+      top:0;
+      right:0;
+      width:min(640px, 94vw);
+      height:100dvh;
       background:
         radial-gradient(circle at 20% 10%, rgba(0,234,255,.12), transparent 30%),
-        linear-gradient(180deg, rgba(12,15,38,.98), rgba(5,6,17,.98));
-      border-left: 1px solid rgba(255,255,255,.14);
-      z-index: 90;
-      transform: translateX(105%);
-      transition: transform .22s ease;
-      display: grid;
-      grid-template-rows: auto 1fr;
-      box-shadow: -20px 0 80px rgba(0,0,0,.45);
+        linear-gradient(180deg, rgba(12,15,38,.98), rgba(5,6,17,.985));
+      border-left:1px solid rgba(255,255,255,.14);
+      z-index:90;
+      transform:translateX(105%);
+      transition:transform .22s ease;
+      display:grid;
+      grid-template-rows:auto 1fr;
+      box-shadow:-20px 0 80px rgba(0,0,0,.45);
     }
 
-    .drawer.open {
-      transform: translateX(0);
-    }
-
-    .drawerOverlay.open {
-      display: block;
-    }
+    .drawer.open { transform:translateX(0); }
 
     .drawerHead {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px;
+      border-bottom:1px solid rgba(255,255,255,.12);
     }
 
     .drawerBody {
-      overflow-y: auto;
-      padding: 16px;
+      overflow-y:auto;
+      padding:16px;
+      display:grid;
+      gap:14px;
+      align-content:start;
     }
 
-    .below {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      padding: 42px 0 80px;
-      display: grid;
-      gap: 18px;
-    }
-
-    .sectionCard {
-      border: 1px solid var(--line);
+    .bigLogoBlock {
+      min-height:126px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      border:1px solid rgba(255,255,255,.13);
       background:
-        radial-gradient(circle at 20% 10%, rgba(0,234,255,.06), transparent 30%),
-        rgba(255,255,255,.045);
-      border-radius: 28px;
-      padding: clamp(22px, 4vw, 36px);
-      box-shadow: 0 20px 70px rgba(0,0,0,.24);
+        radial-gradient(circle at 50% 10%, rgba(255,255,255,.10), transparent 22%),
+        linear-gradient(135deg, rgba(0,234,255,.10), rgba(124,60,255,.16), rgba(255,79,243,.10));
+      border-radius:24px;
+      padding:18px;
     }
 
-    .sectionCard h2 {
-      margin: 0 0 12px;
-      font-size: clamp(28px, 5vw, 54px);
-      line-height: .95;
-      letter-spacing: -2px;
+    .bigLogoBlock h1 {
+      margin:0;
+      font-size:clamp(32px, 5vw, 60px);
+      letter-spacing:-2px;
+      line-height:.92;
+      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
 
-    .sectionCard p {
-      color: var(--soft);
-      line-height: 1.65;
-      font-size: 16px;
+    .bigLogoBlock p {
+      margin:10px 0 0;
+      color:var(--soft);
+      line-height:1.45;
     }
 
-    .three {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .optionGrid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
-    .mini {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(0,0,0,.16);
-      border-radius: 22px;
-      padding: 18px;
+    .optionCard {
+      min-height:108px;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.052);
+      border-radius:22px;
+      padding:15px;
+      cursor:pointer;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
     }
 
-    .mini b {
-      display: block;
-      margin-bottom: 8px;
+    .optionCard:hover {
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.085);
+      border-color:rgba(0,234,255,.25);
     }
 
-    .mini span {
-      color: var(--soft);
-      line-height: 1.5;
-      font-size: 14px;
+    .optionCard b {
+      display:block;
+      margin-bottom:7px;
+      font-size:16px;
+    }
+
+    .optionCard span {
+      color:var(--soft);
+      font-size:13px;
+      line-height:1.42;
+      display:block;
+    }
+
+    .formCard {
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(0,0,0,.18);
+      border-radius:24px;
+      padding:16px;
+    }
+
+    .formCard h2 {
+      margin:0 0 10px;
+      letter-spacing:-.8px;
+      font-size:24px;
+    }
+
+    .formGrid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .field { display:grid; gap:6px; }
+
+    label {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      border-radius:16px;
+      padding:13px 14px;
+      outline:0;
+    }
+
+    .signalGrid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .signal {
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.055);
+      color:var(--text);
+      border-radius:16px;
+      padding:10px 9px;
+      cursor:pointer;
+      font-size:13px;
+      font-weight:900;
+      text-align:center;
+      user-select:none;
+    }
+
+    .signal.active {
+      background:linear-gradient(135deg, rgba(124,60,255,.8), rgba(0,234,255,.42));
+      border-color:rgba(0,234,255,.35);
+    }
+
+    .actions {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .btn {
+      padding:13px 14px;
+      border-radius:18px;
+      text-align:center;
+    }
+
+    .btn.primary {
+      border:0;
+      background:linear-gradient(135deg, var(--violet), #3f8dff);
+    }
+
+    .btn.gold {
+      border:0;
+      background:linear-gradient(135deg, #ffb703, #ff4ff3);
+    }
+
+    .btn.green {
+      border:0;
+      background:linear-gradient(135deg, #23e6a8, #00eaff);
+      color:#071017;
+    }
+
+    .unlockGrid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .paymentNote {
+      border:1px solid rgba(255,209,102,.32);
+      background:rgba(255,209,102,.08);
+      color:#ffe7a8;
+      border-radius:18px;
+      padding:13px;
+      line-height:1.5;
+      font-size:13px;
+      margin-top:12px;
+    }
+
+    .paymentNote code {
+      color:#fff4cb;
+      background:rgba(0,0,0,.25);
+      padding:2px 6px;
+      border-radius:8px;
     }
 
     .apiBox {
-      margin-top: 12px;
-      white-space: pre-wrap;
-      max-height: 260px;
-      overflow: auto;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.28);
-      border-radius: 18px;
-      padding: 14px;
-      color: #dbe4ff;
-      font-family: Consolas, ui-monospace, monospace;
-      font-size: 12px;
+      margin-top:12px;
+      white-space:pre-wrap;
+      max-height:240px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.28);
+      border-radius:18px;
+      padding:14px;
+      color:#dbe4ff;
+      font-family:Consolas, ui-monospace, monospace;
+      font-size:12px;
     }
 
-    @media (max-width: 980px) {
-      :root {
-        --headerH:64px;
-      }
+    .below {
+      width:min(1180px, calc(100% - 28px));
+      margin:0 auto;
+      padding:42px 0 80px;
+      display:grid;
+      gap:18px;
+    }
 
-      html {
-        scroll-behavior: auto;
-      }
+    .sectionCard {
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.045);
+      border-radius:28px;
+      padding:clamp(22px, 4vw, 36px);
+      box-shadow:0 20px 70px rgba(0,0,0,.24);
+    }
+
+    .sectionCard h2 {
+      margin:0 0 12px;
+      font-size:clamp(28px, 5vw, 54px);
+      line-height:.95;
+      letter-spacing:-2px;
+    }
+
+    .sectionCard p {
+      color:var(--soft);
+      line-height:1.65;
+      font-size:16px;
+    }
+
+    .three {
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+    }
+
+    .mini {
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(0,0,0,.16);
+      border-radius:22px;
+      padding:18px;
+    }
+
+    .mini span {
+      color:var(--soft);
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    @media (max-width:980px) {
+      :root { --headerH:68px; }
 
       .screen {
-        min-height: 100dvh;
-        padding: 10px;
+        padding:10px;
+        gap:10px;
       }
 
       .topbar {
-        top: 8px;
-        border-radius: 20px;
-        grid-template-columns: auto 1fr auto;
-      }
-
-      .brandText span {
-        display: none;
-      }
-
-      .centerTitle {
-        font-size: 18px;
+        border-radius:22px;
       }
 
       .topActions .pill {
-        display: none;
-      }
-
-      .burger {
-        display: inline-grid;
-      }
-
-      .heroGrid {
-        display: block;
-        padding-top: 10px;
-      }
-
-      .chatPanel {
-        height: calc(100dvh - var(--headerH) - 30px);
-        border-radius: 24px;
-      }
-
-      .optionsPanel {
-        display: none;
-      }
-
-      .message {
-        width: min(92%, 760px);
-        font-size: 15px;
-      }
-
-      .panelHead {
-        padding: 13px 14px;
-      }
-
-      .statusDot {
-        display: none;
-      }
-
-      .messages {
-        padding: 14px;
-      }
-
-      .composerWrap {
-        padding: 10px;
-      }
-
-      .composer {
-        border-radius: 22px;
-      }
-
-      .composer textarea {
-        font-size: 16px;
-      }
-
-      .formGrid,
-      .actions,
-      .unlockGrid,
-      .three {
-        grid-template-columns: 1fr;
-      }
-
-      .signalGrid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .below {
-        width: calc(100% - 20px);
-        padding-top: 30px;
-      }
-
-      .sectionCard {
-        border-radius: 24px;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .brandText strong {
-        max-width: 92px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        display:none;
       }
 
       .centerTitle {
-        font-size: 16px;
+        font-size:17px;
+      }
+
+      .brandText span {
+        display:none;
+      }
+
+      .messages {
+        padding:14px;
+      }
+
+      .message {
+        width:min(92%, 760px);
+        font-size:15px;
+      }
+
+      .statusDot {
+        display:none;
+      }
+
+      .composerWrap {
+        padding:10px;
+      }
+
+      .composer textarea {
+        font-size:16px;
+      }
+
+      .three {
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:520px) {
+      .brandText strong {
+        max-width:94px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+
+      .centerTitle {
+        font-size:15px;
       }
 
       .logo {
-        width: 38px;
-        height: 38px;
-        border-radius: 14px;
+        width:40px;
+        height:40px;
+        border-radius:15px;
       }
 
-      .bigLogoBlock h1 {
-        font-size: 34px;
+      .drawer {
+        width:94vw;
+      }
+
+      .drawerBody {
+        padding:12px;
       }
 
       .optionGrid {
-        grid-template-columns: 1fr;
-      }
-    }
-      /* V54_FULL_SCREEN_CHAT_CLASSIC_DRAWER_CSS */
-    .drawerBodyHost {
-      display: grid;
-      gap: 14px;
-      min-height: 100%;
-    }
-
-    .drawerBodyHost > .optionsBody {
-      overflow: visible;
-      padding: 0;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-    }
-
-    .drawerBodyHost .bigLogoBlock {
-      min-height: 120px;
-    }
-
-    .drawerBodyHost .optionGrid {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .drawerBodyHost .formCard {
-      box-shadow: none;
-    }
-
-    .drawerBodyHost .apiBox {
-      max-height: 220px;
-    }
-
-    @media (max-width: 980px) {
-      .drawer {
-        width: min(560px, 94vw);
+        grid-template-columns:1fr;
       }
 
-      .drawerBody {
-        padding: 16px;
-      }
-
-      .drawerBodyHost .optionGrid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .drawerBodyHost .formGrid,
-      .drawerBodyHost .actions,
-      .drawerBodyHost .unlockGrid {
-        grid-template-columns: 1fr;
-      }
-
-      .drawerBodyHost .signalGrid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .drawer {
-        width: 94vw;
-      }
-
-      .drawerBody {
-        padding: 12px;
-      }
-
-      .drawerBodyHost .optionGrid {
-        grid-template-columns: 1fr;
-      }
-
-      .drawerBodyHost .bigLogoBlock h1 {
-        font-size: 32px;
+      .bigLogoBlock h1 {
+        font-size:32px;
       }
     }
   </style>
@@ -908,16 +723,16 @@
         <a class="pill" href="#how">How it works</a>
         <a class="pill" href="/landing">Landing</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
-        <button class="iconBtn burger" onclick="openDrawer()" aria-label="Open SF Options drawer">☰</button>
+        <button class="iconBtn" onclick="openDrawer()" aria-label="Open SF Options">☰</button>
       </div>
     </header>
 
-    <main class="heroGrid">
+    <main class="chatOnly">
       <section class="chatPanel" id="chat">
         <div class="panelHead">
           <div class="panelHeadTitle">
             <strong>Echo Chat</strong>
-            <span>GPT-like AI Twin interface · full screen chat · classic drawer</span>
+            <span>full screen chat · SF Options in drawer</span>
           </div>
           <div class="statusDot">Live MVP</div>
         </div>
@@ -931,107 +746,93 @@
           </div>
         </div>
       </section>
-
-      <aside class="optionsPanel" id="desktopOptions">
-        <div class="panelHead">
-          <div class="panelHeadTitle">
-            <strong>SF Options Drawer</strong>
-            <span>Classic SF drawer mode</span>
-          </div>
-          <div class="statusDot">Ready</div>
-        </div>
-
-        <div class="optionsBody">
-          <div class="bigLogoBlock">
-            <div>
-              <h1>AI Twins<br>by SoulFlame</h1>
-              <p>Chat-first interface. EchoProfile. Future Twin. Full AI Twin unlock.</p>
-            </div>
-          </div>
-
-          <div class="optionGrid" id="optionGridDesktop"></div>
-
-          <div class="formCard" id="create">
-            <h2>Create Mini Twin</h2>
-
-            <div class="formGrid">
-              <div class="field">
-                <label>Name</label>
-                <input id="name" placeholder="Dimitar / Client">
-              </div>
-
-              <div class="field">
-                <label>Contact</label>
-                <input id="contact" placeholder="email / Instagram / phone">
-              </div>
-
-              <div class="field">
-                <label>Age</label>
-                <select id="age">
-                  <option value="18-24">18-24</option>
-                  <option value="25-34" selected>25-34</option>
-                  <option value="35-44">35-44</option>
-                  <option value="45+">45+</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label>Mode</label>
-                <select id="mode">
-                  <option value="personal">Personal Twin</option>
-                  <option value="work">Work Twin</option>
-                  <option value="future">Future Twin</option>
-                  <option value="creator">Creator Twin</option>
-                </select>
-              </div>
-
-              <div class="field full">
-                <label>Goal</label>
-                <input id="goal" placeholder="What do you want your AI Twin to help you with?">
-              </div>
-            </div>
-
-            <div class="signalGrid" id="signals"></div>
-
-            <div class="actions">
-              <button class="btn primary" onclick="createMiniTwin()">Create Mini Twin</button>
-              <button class="btn gold" onclick="checkoutFullTwin()">Checkout Full Twin</button>
-            </div>
-
-            <div class="paymentNote">
-              Full AI Twin: <b>20 EUR</b> through Revolut.<br>
-              Note in Revolut: <code>Full AI Twin + your email</code>
-            </div>
-
-            <div class="apiBox" id="apiBox">Ready.</div>
-          </div>
-
-          <div class="formCard" id="unlock">
-            <h2>Unlock Full Twin</h2>
-            <p style="color:var(--soft);line-height:1.5;margin-top:0">Enter the code received after payment.</p>
-
-            <div class="unlockGrid">
-              <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
-              <button class="btn green" onclick="unlockFullTwin()">Unlock</button>
-            </div>
-
-            <div class="apiBox" id="fullReportBox">Full report will appear here.</div>
-          </div>
-        </div>
-      </aside>
     </main>
   </div>
 
   <div class="drawerOverlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 
-    <aside class="drawer" id="drawer">
+  <aside class="drawer" id="drawer">
     <div class="drawerHead">
       <strong>SF Options Drawer</strong>
       <button class="iconBtn" onclick="closeDrawer()">×</button>
     </div>
 
     <div class="drawerBody">
-      <div id="drawerBodyHost" class="drawerBodyHost"></div>
+      <div class="bigLogoBlock">
+        <div>
+          <h1>AI Twins<br>by SoulFlame</h1>
+          <p>EchoProfile. Future Twin. Full AI Twin unlock.</p>
+        </div>
+      </div>
+
+      <div class="optionGrid" id="optionGrid"></div>
+
+      <div class="formCard" id="create">
+        <h2>Create Mini Twin</h2>
+
+        <div class="formGrid">
+          <div class="field">
+            <label>Name</label>
+            <input id="name" placeholder="Dimitar / Client">
+          </div>
+
+          <div class="field">
+            <label>Contact</label>
+            <input id="contact" placeholder="email / Instagram / phone">
+          </div>
+
+          <div class="field">
+            <label>Age</label>
+            <select id="age">
+              <option value="18-24">18-24</option>
+              <option value="25-34" selected>25-34</option>
+              <option value="35-44">35-44</option>
+              <option value="45+">45+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Mode</label>
+            <select id="mode">
+              <option value="personal">Personal Twin</option>
+              <option value="work">Work Twin</option>
+              <option value="future">Future Twin</option>
+              <option value="creator">Creator Twin</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Goal</label>
+            <input id="goal" placeholder="What do you want your AI Twin to help with?">
+          </div>
+        </div>
+
+        <div class="signalGrid" id="signals"></div>
+
+        <div class="actions">
+          <button class="btn primary" onclick="createMiniTwin()">Create Mini Twin</button>
+          <button class="btn gold" onclick="checkoutFullTwin()">Checkout Full Twin</button>
+        </div>
+
+        <div class="paymentNote">
+          Full AI Twin: <b>20 EUR</b> through Revolut.<br>
+          Note in Revolut: <code>Full AI Twin + your email</code>
+        </div>
+
+        <div class="apiBox" id="apiBox">Ready.</div>
+      </div>
+
+      <div class="formCard" id="unlock">
+        <h2>Unlock Full Twin</h2>
+        <p style="color:var(--soft);line-height:1.5;margin-top:0">Enter the code received after payment.</p>
+
+        <div class="unlockGrid">
+          <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
+          <button class="btn green" onclick="unlockFullTwin()">Unlock</button>
+        </div>
+
+        <div class="apiBox" id="fullReportBox">Full report will appear here.</div>
+      </div>
     </div>
   </aside>
 
@@ -1039,24 +840,23 @@
     <div class="sectionCard" id="how">
       <h2>Presentation-ready SoulFlame flow</h2>
       <p>
-        Първият екран вече изглежда като GPT-style продукт: chat first, options 50/50 на PC,
-        burger menu на телефон и ясна посока към Mini Twin, Full Twin и unlock.
+        Първият екран вече е само чат. SF Options, Create Mini Twin, Checkout и Unlock са в чекмеджето.
       </p>
 
       <div class="three">
         <div class="mini">
-          <b>1. Chat first</b>
-          <span>Потребителят вижда разговора веднага, без да се губи в дълга страница.</span>
+          <b>1. Full screen chat</b><br>
+          <span>Потребителят вижда AI продукта веднага.</span>
         </div>
 
         <div class="mini">
-          <b>2. SF Options</b>
-          <span>EchoProfile, AI Twin, Future Twin, Memory, SoulMatch и AR EchoCard са в центъра.</span>
+          <b>2. Drawer options</b><br>
+          <span>Всички опции са прибрани в SF чекмеджето.</span>
         </div>
 
         <div class="mini">
-          <b>3. Full Twin</b>
-          <span>Checkout 20€ през Revolut, после unlock code и Full AI Twin Report.</span>
+          <b>3. Full Twin</b><br>
+          <span>Checkout 20€ през Revolut, после unlock code.</span>
         </div>
       </div>
     </div>
@@ -1065,31 +865,17 @@
       <h2>What is AI Twins by SoulFlame?</h2>
       <p>
         AI Twin е дигитален профил, който започва с EchoProfile и постепенно се развива към Future Twin,
-        Memory, SoulMatch и персонален AI асистент. Тази версия е направена за показване пред хора:
-        първо впечатление, ясен flow и директен продукт.
+        Memory, SoulMatch и персонален AI асистент.
       </p>
-    </div>
-
-    <div class="sectionCard">
-      <h2>Trust</h2>
-      <p>
-        SoulFlame AI Twin е продукт за самоанализ и креативна рефлексия. Не е медицинска, психологическа,
-        финансова или юридическа диагноза.
-      </p>
-      <div class="actions" style="max-width:520px">
-        <a class="btn" href="/privacy">Privacy</a>
-        <a class="btn" href="/terms">Terms</a>
-      </div>
     </div>
   </section>
 
   <script>
-    const version = "V54_FULL_SCREEN_CHAT_CLASSIC_DRAWER";
+    const version = "V55_HARD_CHAT_ONLY_SCREEN";
     const byId = id => document.getElementById(id);
 
     let selectedSignals = ["vision", "logic", "future"];
     let lastTwin = null;
-    let lastCheckout = null;
 
     const optionItems = [
       ["EchoProfile", "личностни и работни сигнали"],
@@ -1144,18 +930,15 @@
     }
 
     function initOptions() {
-      const html = optionItems.map(item => {
+      byId("optionGrid").innerHTML = optionItems.map(item => {
         return "<div class='optionCard' onclick='optionClick(\"" + item[0] + "\")'><b>" + item[0] + "</b><span>" + item[1] + "</span></div>";
       }).join("");
-
-      byId("optionGridDesktop").innerHTML = html;
-      byId("optionGridMobile").innerHTML = html;
     }
 
     function initSignals() {
       byId("signals").innerHTML = signalItems.map(item => {
         const active = selectedSignals.includes(item[0]) ? " active" : "";
-        return "<div class='signal" + active + "' data-signal='" + item[0] + "' onclick='toggleSignal(\"" + item[0] + "\")'>" + item[1] + "</div>";
+        return "<div class='signal" + active + "' onclick='toggleSignal(\"" + item[0] + "\")'>" + item[1] + "</div>";
       }).join("");
     }
 
@@ -1171,8 +954,6 @@
     }
 
     function optionClick(name) {
-      closeDrawer();
-
       const map = {
         "EchoProfile": "EchoProfile е стартът: въпроси, сигнали и scoring за Mini Twin.",
         "AI Twin": "AI Twin има Personal, Work, Future, Voice и Avatar посоки.",
@@ -1199,28 +980,29 @@
 
       if (lower.includes("price") || lower.includes("cena") || lower.includes("цена") || lower.includes("20")) {
         addMessage("bot", "Full AI Twin струва 20 EUR. Плащането е през Revolut. В бележката се пише: Full AI Twin + your email.", [
+          { label: "Open SF Options", onClick: openDrawer },
           { label: "Checkout Full Twin", onClick: checkoutFullTwin }
         ]);
         return;
       }
 
       if (lower.includes("code") || lower.includes("unlock") || lower.includes("код")) {
-        addMessage("bot", "Въведи unlock code в секцията Unlock Full Twin. Кодът изглежда така: ECHO-XXXX-XXXX.", [
-          { label: "Go to unlock", onClick: () => location.hash = "#unlock" }
+        addMessage("bot", "Отвори SF Options чекмеджето и въведи unlock code в секцията Unlock Full Twin.", [
+          { label: "Open SF Options", onClick: openDrawer }
         ]);
         return;
       }
 
       if (lower.includes("create") || lower.includes("twin") || lower.includes("създай")) {
-        addMessage("bot", "Попълни полетата вдясно и натисни Create Mini Twin. На телефон отвори burger менюто ☰.", [
-          { label: "Create Mini Twin", onClick: createMiniTwin }
+        addMessage("bot", "Отвори SF Options чекмеджето и попълни Create Mini Twin.", [
+          { label: "Open SF Options", onClick: openDrawer }
         ]);
         return;
       }
 
-      addMessage("bot", "Разбрах. Аз съм Echo интерфейсът на SoulFlame. Мога да те водя към Mini Twin, Full Twin, Future Twin, Memory и SoulMatch. За демо: натисни Create Mini Twin или Checkout Full Twin.", [
-        { label: "Create Mini Twin", onClick: createMiniTwin },
-        { label: "Checkout", onClick: checkoutFullTwin }
+      addMessage("bot", "Разбрах. Това е Echo Chat — първият екран е само AI разговор. Всички SF Options са в чекмеджето ☰.", [
+        { label: "Open SF Options", onClick: openDrawer },
+        { label: "Checkout Full Twin", onClick: checkoutFullTwin }
       ]);
     }
 
@@ -1317,8 +1099,9 @@
       loadLastTwin();
 
       if (!lastTwin) {
-        addMessage("bot", "Първо създай Mini Twin. След това checkout-ът ще знае за кой човек е Full Twin.", [
-          { label: "Create Mini Twin", onClick: createMiniTwin }
+        openDrawer();
+        addMessage("bot", "Първо създай Mini Twin в SF Options чекмеджето. После checkout-ът ще е готов.", [
+          { label: "Open SF Options", onClick: openDrawer }
         ]);
         return;
       }
@@ -1341,15 +1124,14 @@
         });
 
         const data = await res.json();
-        lastCheckout = data;
-        localStorage.setItem("soulflame_last_checkout", JSON.stringify(data));
         showJson("apiBox", data);
 
         if (data.paymentUrl) {
           addMessage("bot", "Checkout is ready.\n\nPay exactly 20 EUR through Revolut.\nNote: Full AI Twin + your email\n\nAfter payment you will receive unlock code.", [
             { label: "Open Revolut", onClick: () => window.open(data.paymentUrl, "_blank") },
-            { label: "Unlock Code", onClick: () => location.hash = "#unlock" }
+            { label: "Open SF Options", onClick: openDrawer }
           ]);
+
           window.open(data.paymentUrl, "_blank");
         } else {
           addMessage("bot", "Checkout created, but payment link is missing. Admin must check PAYMENT_LINK_FULL_TWIN.");
@@ -1398,33 +1180,21 @@
             code: data.code,
             twin: lastTwin,
             name: lastTwin && lastTwin.user ? lastTwin.user.name : "SoulFlame User",
-            source: "v52_unlock"
+            source: "v55_unlock"
           })
         });
 
         const reportData = await reportRes.json();
 
         showJson("fullReportBox", reportData.report || reportData);
-        addMessage("bot", "Full AI Twin unlocked.\n\nYour report is now visible in the Unlock panel.");
+        addMessage("bot", "Full AI Twin unlocked. Your report is visible in the SF Options drawer.");
       } catch (error) {
         showJson("fullReportBox", error.message);
         addMessage("bot", "Unlock error: " + error.message);
       }
     }
 
-    function mountOptionsForViewport() {
-      const optionsBody = document.querySelector(".optionsBody");
-      const drawerHost = byId("drawerBodyHost");
-
-      if (!optionsBody || !drawerHost) return;
-
-      if (optionsBody.parentElement !== drawerHost) {
-        drawerHost.appendChild(optionsBody);
-      }
-    }
-
     function openDrawer() {
-      mountOptionsForViewport();
       byId("drawer").classList.add("open");
       byId("drawerOverlay").classList.add("open");
     }
@@ -1443,13 +1213,11 @@
 
     initOptions();
     initSignals();
-    mountOptionsForViewport();
-    window.addEventListener("resize", mountOptionsForViewport);
 
-    addMessage("bot", "Welcome to AI Twins by SoulFlame.\n\nThis is the GPT-like presentation interface: chat on the screen, SF Options in the center, Mini Twin, Full Twin checkout and unlock flow.", [
-      { label: "Create Mini Twin", onClick: createMiniTwin },
-      { label: "Checkout Full Twin", onClick: checkoutFullTwin },
-      { label: "Open Menu", onClick: openDrawer }
+    addMessage("bot", "Welcome to AI Twins by SoulFlame.\n\nТова е финалният presentation mode: целият първи екран е Echo Chat. Всички SF Options са в чекмеджето ☰.", [
+      { label: "Open SF Options", onClick: openDrawer },
+      { label: "Create Mini Twin", onClick: openDrawer },
+      { label: "Checkout Full Twin", onClick: checkoutFullTwin }
     ]);
 
     try {
@@ -1457,7 +1225,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          type: "v52_ui_view",
+          type: "v55_chat_only_view",
           page: "/",
           referrer: document.referrer || "",
           payload: {
