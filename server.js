@@ -4,7 +4,7 @@ const path = require("path");
 const crypto = require("crypto");
 
 const APP_NAME = "SoulFlame Twins";
-const APP_VERSION = "V66_PHONE_CHOICE_SCREEN_FIX";
+const APP_VERSION = "V67_LOGIN_PHONE_POLISH";
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
 const PORT = process.env.PORT || 3000;
 const PAYMENT_LINK_FULL_TWIN = process.env.PAYMENT_LINK_FULL_TWIN || "https://revolut.me/dimitarlambov02?currency=EUR&amount=20&note=Full%20AI%20Twin%20%2B%20your%20email";
@@ -27,8 +27,8 @@ function makeId(prefix = "sf") { return prefix + "_" + crypto.randomBytes(8).toS
 function colorFluidChoiceCss() {
   return `
   <style id="colorFluidChoiceScreen">
-    #choiceScreen, #choiceScreen * { filter:none !important; }
-    #choiceScreen {
+    #choiceScreen, #choiceScreen *, #loginScreen, #loginScreen * { filter:none !important; }
+    #choiceScreen, #loginScreen {
       background:
         radial-gradient(circle at 18% 12%, rgba(124,60,255,.30), transparent 32rem),
         radial-gradient(circle at 84% 74%, rgba(0,234,255,.17), transparent 34rem),
@@ -36,14 +36,14 @@ function colorFluidChoiceCss() {
         #000 !important;
       color:var(--text) !important;
     }
-    #choiceScreen .soulLogo {
+    #choiceScreen .soulLogo, #loginScreen .soulLogo {
       background:
         radial-gradient(circle at 30% 24%, #fff, transparent 15%),
         linear-gradient(135deg, var(--cyan), var(--violet), var(--pink)) !important;
       box-shadow:0 0 54px rgba(124,60,255,.46), 0 0 88px rgba(0,234,255,.16) !important;
       animation:sfLogoFloat 4.8s ease-in-out infinite, sfLogoHue 7s linear infinite;
     }
-    #choiceScreen .onboardBrand h1 {
+    #choiceScreen .onboardBrand h1, #loginScreen .loginCard h2 {
       background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink), var(--cyan)) !important;
       background-size:240% 100% !important;
       -webkit-background-clip:text !important;
@@ -52,11 +52,8 @@ function colorFluidChoiceCss() {
       animation:sfTextFlow 5.8s ease-in-out infinite, sfFloatSoft 4.4s ease-in-out infinite;
       text-shadow:0 0 34px rgba(124,60,255,.20) !important;
     }
-    #choiceScreen .onboardBrand p {
-      color:#dbe4ff !important;
-      animation:sfFloatSoft 5.2s ease-in-out infinite;
-    }
-    #choiceScreen .choiceBox {
+    #choiceScreen .onboardBrand p, #loginScreen .loginCard p { color:#dbe4ff !important; animation:sfFloatSoft 5.2s ease-in-out infinite; }
+    #choiceScreen .choiceBox, #loginScreen .loginCard {
       background:
         radial-gradient(circle at 18% 12%, rgba(0,234,255,.20), transparent 36%),
         radial-gradient(circle at 92% 86%, rgba(124,60,255,.24), transparent 35%),
@@ -64,7 +61,7 @@ function colorFluidChoiceCss() {
       border:1px solid rgba(0,234,255,.22) !important;
       box-shadow:0 28px 90px rgba(0,0,0,.50), inset 0 0 0 1px rgba(255,255,255,.035) !important;
       transform-style:preserve-3d;
-      animation:cardFloat .72s ease forwards, sfCardFloat 6s ease-in-out infinite !important;
+      animation:sfCardFloat 6s ease-in-out infinite !important;
     }
     #choiceScreen .choiceBox:nth-child(2) {
       background:
@@ -72,20 +69,19 @@ function colorFluidChoiceCss() {
         radial-gradient(circle at 92% 86%, rgba(0,234,255,.18), transparent 35%),
         linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.030)) !important;
       border-color:rgba(255,79,243,.24) !important;
-      animation-delay:.16s, .9s !important;
+      animation-delay:.9s !important;
     }
-    #choiceScreen .choiceBox:hover {
-      transform:translateY(-10px) scale(1.018) !important;
+    #choiceScreen .choiceBox:hover, #loginScreen .loginCard:hover {
+      transform:translateY(-8px) scale(1.012) !important;
       border-color:rgba(0,234,255,.45) !important;
       box-shadow:0 34px 110px rgba(0,0,0,.58), 0 0 60px rgba(124,60,255,.20) !important;
     }
-    #choiceScreen .choiceBox::after {
+    #choiceScreen .choiceBox::after, #loginScreen .loginCard::after {
       background:linear-gradient(135deg, rgba(124,60,255,.22), rgba(0,234,255,.12), rgba(255,79,243,.18)) !important;
       filter:blur(5px) !important;
       animation:sfOrbDrift 7s ease-in-out infinite;
     }
     #choiceScreen .choiceBox small {
-      color:var(--cyan) !important;
       background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--pink), var(--cyan)) !important;
       background-size:220% 100% !important;
       -webkit-background-clip:text !important;
@@ -93,87 +89,95 @@ function colorFluidChoiceCss() {
       color:transparent !important;
       animation:sfTextFlow 4.5s ease-in-out infinite;
     }
-    #choiceScreen .choiceBox h2 {
-      color:#fff !important;
-      animation:sfFloatSoft 4.8s ease-in-out infinite;
-      text-shadow:0 0 28px rgba(0,234,255,.10) !important;
-    }
+    #choiceScreen .choiceBox h2 { color:#fff !important; animation:sfFloatSoft 4.8s ease-in-out infinite; text-shadow:0 0 28px rgba(0,234,255,.10) !important; }
     #choiceScreen .choiceBox p { color:#d7defc !important; }
 
+    #loginScreen .loginCard { position:relative !important; overflow:hidden !important; }
+    #loginScreen .loginCard h2 { margin-bottom:10px !important; }
+    #loginScreen .loginFields input {
+      background:rgba(0,0,0,.42) !important;
+      border:1px solid rgba(0,234,255,.18) !important;
+      color:#fff !important;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.025) !important;
+    }
+    #loginScreen .loginFields input:focus {
+      border-color:rgba(0,234,255,.50) !important;
+      box-shadow:0 0 28px rgba(0,234,255,.11), inset 0 0 0 1px rgba(255,255,255,.04) !important;
+    }
+    #loginScreen .loginBtn {
+      background:linear-gradient(135deg,var(--violet),#3f8dff,var(--pink)) !important;
+      box-shadow:0 18px 46px rgba(124,60,255,.34) !important;
+      color:white !important;
+    }
+
     @media (max-width: 720px) {
-      #choiceScreen {
-        min-height: 100svh !important;
-        place-items: start center !important;
-        padding: 28px 14px 18px !important;
-        overflow-y: auto !important;
+      #choiceScreen, #loginScreen { min-height:100svh !important; place-items:start center !important; padding:28px 14px 18px !important; overflow-y:auto !important; }
+      #choiceScreen .onboardShell { width:100% !important; max-width:430px !important; gap:18px !important; }
+      #choiceScreen .onboardBrand { gap:9px !important; }
+      #choiceScreen .soulLogo { width:62px !important; height:62px !important; border-radius:22px !important; }
+      #choiceScreen .onboardBrand h1 { font-size:clamp(42px,13vw,58px) !important; letter-spacing:-2px !important; line-height:.92 !important; }
+      #choiceScreen .onboardBrand p { font-size:16px !important; line-height:1.35 !important; max-width:320px !important; margin:0 auto !important; }
+      #choiceScreen .choiceGrid { grid-template-columns:1fr !important; gap:12px !important; margin-top:4px !important; }
+      #choiceScreen .choiceBox { min-height:178px !important; border-radius:28px !important; padding:22px 22px 20px !important; }
+      #choiceScreen .choiceBox small { margin-bottom:26px !important; font-size:12px !important; letter-spacing:1.8px !important; }
+      #choiceScreen .choiceBox h2 { font-size:clamp(34px,10vw,44px) !important; letter-spacing:-1.5px !important; margin-bottom:9px !important; }
+      #choiceScreen .choiceBox p { font-size:16px !important; line-height:1.45 !important; max-width:295px !important; }
+      #choiceScreen .choiceBox::after { width:160px !important; height:160px !important; right:-56px !important; bottom:-60px !important; }
+
+      #loginScreen { justify-content:center !important; align-items:center !important; padding:18px 14px !important; }
+      #loginScreen .loginCard {
+        width:min(390px, calc(100vw - 28px)) !important;
+        border-radius:30px !important;
+        padding:24px 20px 22px !important;
+        margin:0 auto !important;
       }
-      #choiceScreen .onboardShell {
-        width: 100% !important;
-        max-width: 430px !important;
-        gap: 18px !important;
+      #loginScreen .soulLogo {
+        width:58px !important;
+        height:58px !important;
+        border-radius:21px !important;
+        margin:0 auto 18px !important;
       }
-      #choiceScreen .onboardBrand {
-        gap: 9px !important;
+      #loginScreen .loginCard h2 {
+        font-size:clamp(38px,12vw,54px) !important;
+        text-align:center !important;
+        letter-spacing:-2px !important;
+        line-height:.92 !important;
       }
-      #choiceScreen .soulLogo {
-        width: 62px !important;
-        height: 62px !important;
-        border-radius: 22px !important;
+      #loginScreen .loginCard p {
+        text-align:center !important;
+        font-size:15px !important;
+        line-height:1.42 !important;
+        margin-bottom:18px !important;
       }
-      #choiceScreen .onboardBrand h1 {
-        font-size: clamp(42px, 13vw, 58px) !important;
-        letter-spacing: -2px !important;
-        line-height: .92 !important;
+      #loginScreen .loginFields { gap:10px !important; }
+      #loginScreen .loginFields input {
+        border-radius:18px !important;
+        padding:14px 15px !important;
+        font-size:15.5px !important;
       }
-      #choiceScreen .onboardBrand p {
-        font-size: 16px !important;
-        line-height: 1.35 !important;
-        max-width: 320px !important;
-        margin: 0 auto !important;
-      }
-      #choiceScreen .choiceGrid {
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        margin-top: 4px !important;
-      }
-      #choiceScreen .choiceBox {
-        min-height: 178px !important;
-        border-radius: 28px !important;
-        padding: 22px 22px 20px !important;
-      }
-      #choiceScreen .choiceBox small {
-        margin-bottom: 26px !important;
-        font-size: 12px !important;
-        letter-spacing: 1.8px !important;
-      }
-      #choiceScreen .choiceBox h2 {
-        font-size: clamp(34px, 10vw, 44px) !important;
-        letter-spacing: -1.5px !important;
-        margin-bottom: 9px !important;
-      }
-      #choiceScreen .choiceBox p {
-        font-size: 16px !important;
-        line-height: 1.45 !important;
-        max-width: 295px !important;
-      }
-      #choiceScreen .choiceBox::after {
-        width: 160px !important;
-        height: 160px !important;
-        right: -56px !important;
-        bottom: -60px !important;
+      #loginScreen .loginBtn {
+        margin-top:14px !important;
+        border-radius:18px !important;
+        padding:15px 16px !important;
+        font-size:16px !important;
       }
     }
 
     @media (max-width: 380px) {
-      #choiceScreen { padding-top: 20px !important; }
-      #choiceScreen .onboardShell { gap: 14px !important; }
-      #choiceScreen .soulLogo { width: 54px !important; height: 54px !important; }
-      #choiceScreen .onboardBrand h1 { font-size: 40px !important; }
-      #choiceScreen .onboardBrand p { font-size: 14px !important; }
-      #choiceScreen .choiceBox { min-height: 160px !important; padding: 18px !important; }
-      #choiceScreen .choiceBox small { margin-bottom: 20px !important; font-size: 11px !important; }
-      #choiceScreen .choiceBox h2 { font-size: 34px !important; }
-      #choiceScreen .choiceBox p { font-size: 14.5px !important; }
+      #choiceScreen { padding-top:20px !important; }
+      #choiceScreen .onboardShell { gap:14px !important; }
+      #choiceScreen .soulLogo { width:54px !important; height:54px !important; }
+      #choiceScreen .onboardBrand h1 { font-size:40px !important; }
+      #choiceScreen .onboardBrand p { font-size:14px !important; }
+      #choiceScreen .choiceBox { min-height:160px !important; padding:18px !important; }
+      #choiceScreen .choiceBox small { margin-bottom:20px !important; font-size:11px !important; }
+      #choiceScreen .choiceBox h2 { font-size:34px !important; }
+      #choiceScreen .choiceBox p { font-size:14.5px !important; }
+      #loginScreen .loginCard { padding:20px 17px !important; border-radius:26px !important; }
+      #loginScreen .soulLogo { width:52px !important; height:52px !important; margin-bottom:14px !important; }
+      #loginScreen .loginCard h2 { font-size:38px !important; }
+      #loginScreen .loginCard p { font-size:14px !important; margin-bottom:14px !important; }
+      #loginScreen .loginFields input { padding:13px 14px !important; }
     }
 
     @keyframes sfTextFlow { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
