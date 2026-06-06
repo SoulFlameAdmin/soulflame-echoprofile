@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const VERSION = 'V71_LOGIN_BUTTON_WORKS';
+const VERSION = 'V72_EXCLUSIVE_SCREEN_LAYERS';
 
 function send(res, status, body, type='text/html; charset=utf-8') {
   res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store' });
@@ -21,10 +21,15 @@ function readBody(req) {
 }
 
 function css() {
-  return `<style id="sf-v71-css">
+  return `<style id="sf-v72-css">
+html,body{margin:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:#000!important}
+.hidden{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+#choiceScreen,#loginScreen,#createTwinScreen,#createdByScreen,#appScreen{position:fixed!important;inset:0!important;width:100vw!important;height:100svh!important;min-height:100svh!important;z-index:1!important;overflow:hidden!important}
+#choiceScreen:not(.hidden),#loginScreen:not(.hidden),#createTwinScreen:not(.hidden),#createdByScreen:not(.hidden),#appScreen:not(.hidden){display:grid!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;z-index:10!important}
+#appScreen:not(.hidden){display:block!important;overflow:hidden!important}
 #choiceScreen,#choiceScreen *,#loginScreen,#loginScreen *{filter:none!important}
 #choiceScreen,#loginScreen{background:radial-gradient(circle at 14% 8%,rgba(124,60,255,.34),transparent 18rem),radial-gradient(circle at 92% 74%,rgba(0,234,255,.20),transparent 20rem),linear-gradient(135deg,#02030a,#070817 52%,#0d1434)!important;color:#fff!important}
-#choiceScreen{min-height:100svh!important;padding:24px 14px 18px!important;place-items:start center!important;overflow-y:auto!important}
+#choiceScreen{padding:24px 14px 18px!important;place-items:start center!important;overflow-y:auto!important}
 #choiceScreen .onboardShell{width:100%!important;max-width:430px!important;gap:16px!important}
 #choiceScreen .soulLogo,#loginScreen .soulLogo{background:radial-gradient(circle at 30% 24%,#fff,transparent 15%),linear-gradient(135deg,#00eaff,#7c3cff,#ff4ff3)!important;box-shadow:0 0 44px rgba(124,60,255,.48),0 0 70px rgba(0,234,255,.16)!important}
 #choiceScreen .onboardBrand h1,#loginScreen .loginCard h2{background:linear-gradient(90deg,#00eaff,#8bb7ff,#7c3cff,#ff4ff3,#00eaff)!important;background-size:240% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
@@ -34,20 +39,21 @@ function css() {
 #choiceScreen .choiceBox small{margin-bottom:24px!important;font-size:11.5px!important;letter-spacing:1.9px!important;color:#00eaff!important}
 #choiceScreen .choiceBox h2{font-size:clamp(34px,10vw,43px)!important;margin:0 0 8px!important;color:#fff!important}
 #choiceScreen .choiceBox p{font-size:15.5px!important;line-height:1.45!important;color:#d7defc!important;max-width:292px!important}
-#loginScreen{min-height:100svh!important;padding:18px 14px!important;display:grid!important;place-items:center!important;overflow:hidden!important}
+#loginScreen{padding:18px 14px!important;place-items:center!important;overflow:hidden!important}
 #loginScreen .loginCard{width:min(390px,calc(100vw - 28px))!important;border-radius:30px!important;padding:24px 20px 22px!important;margin:0 auto!important;background:radial-gradient(circle at 18% 12%,rgba(124,60,255,.25),transparent 34%),radial-gradient(circle at 94% 88%,rgba(0,234,255,.17),transparent 35%),linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03))!important;border:1px solid rgba(0,234,255,.23)!important;box-shadow:0 24px 78px rgba(0,0,0,.55),0 0 38px rgba(124,60,255,.13)!important}
 #loginScreen .loginFields input{height:58px!important;border-radius:18px!important;padding:0 15px!important;background:rgba(0,0,0,.46)!important;border:1px solid rgba(0,234,255,.18)!important;color:#fff!important;outline:none!important}
 #loginScreen .loginBtn{height:58px!important;margin-top:14px!important;border-radius:18px!important;background:linear-gradient(135deg,#7c3cff,#3f8dff,#ff4ff3)!important;color:#fff!important;box-shadow:0 18px 46px rgba(124,60,255,.34)!important}
+#appScreen .screen{height:100svh!important;min-height:100svh!important;overflow:hidden!important}
 </style>`;
 }
 
 function script() {
-  return `<script id="sf-v71-flow">
+  return `<script id="sf-v72-flow">
 (function(){
   function e(id){return document.getElementById(id)}
-  function show(id){['choiceScreen','loginScreen','createTwinScreen','createdByScreen','appScreen'].forEach(function(x){var n=e(x);if(!n)return;if(x===id){n.classList.remove('hidden');n.classList.add('fadeIn')}else{n.classList.add('hidden');n.classList.remove('fadeIn','fadeOut')}})}
+  function show(id){['choiceScreen','loginScreen','createTwinScreen','createdByScreen','appScreen'].forEach(function(x){var n=e(x);if(!n)return;if(x===id){n.classList.remove('hidden');n.style.display=(x==='appScreen'?'block':'grid');n.style.visibility='visible';n.style.opacity='1';n.style.pointerEvents='auto'}else{n.classList.add('hidden');n.style.display='none';n.style.visibility='hidden';n.style.opacity='0';n.style.pointerEvents='none'}});window.scrollTo(0,0)}
   window.startTwinIntro=function(){
-    var p={type:window.selectedTwinType||'Личен',name:(e('loginName')&&e('loginName').value.trim())||'приятелю',contact:(e('loginContact')&&e('loginContact').value.trim())||'',version:'V71_LOGIN_BUTTON_WORKS'};
+    var p={type:window.selectedTwinType||'Личен',name:(e('loginName')&&e('loginName').value.trim())||'приятелю',contact:(e('loginContact')&&e('loginContact').value.trim())||'',version:'V72_EXCLUSIVE_SCREEN_LAYERS'};
     try{localStorage.setItem('soulflame_v56_profile',JSON.stringify(p))}catch(err){}
     show('createTwinScreen');
     setTimeout(function(){show('createdByScreen')},900);
@@ -55,6 +61,7 @@ function script() {
   };
   window.addEventListener('load',function(){
     setTimeout(function(){
+      document.body.style.overflow='hidden';document.documentElement.style.overflow='hidden';
       show('choiceScreen');
       var b=document.querySelector('#loginScreen .loginBtn');
       if(b){b.onclick=function(ev){ev.preventDefault();window.startTwinIntro();};}
