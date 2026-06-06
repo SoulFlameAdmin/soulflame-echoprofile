@@ -816,7 +816,7 @@
         grid-template-columns: 1fr;
       }
     }
-      /* V53_RESTORE_CLASSIC_DRAWER_CSS */
+      /* V54_FULL_SCREEN_CHAT_CLASSIC_DRAWER_CSS */
     .drawerBodyHost {
       display: grid;
       gap: 14px;
@@ -908,7 +908,7 @@
         <a class="pill" href="#how">How it works</a>
         <a class="pill" href="/landing">Landing</a>
         <a class="pill" href="/admin" target="_blank">Admin</a>
-        <button class="iconBtn burger" onclick="openDrawer()" aria-label="Open menu">☰</button>
+        <button class="iconBtn burger" onclick="openDrawer()" aria-label="Open SF Options drawer">☰</button>
       </div>
     </header>
 
@@ -917,7 +917,7 @@
         <div class="panelHead">
           <div class="panelHeadTitle">
             <strong>Echo Chat</strong>
-            <span>GPT-like AI Twin interface · classic drawer restored</span>
+            <span>GPT-like AI Twin interface · full screen chat · classic drawer</span>
           </div>
           <div class="statusDot">Live MVP</div>
         </div>
@@ -935,8 +935,8 @@
       <aside class="optionsPanel" id="desktopOptions">
         <div class="panelHead">
           <div class="panelHeadTitle">
-            <strong>SF Options</strong>
-            <span>50/50 presentation mode</span>
+            <strong>SF Options Drawer</strong>
+            <span>Classic SF drawer mode</span>
           </div>
           <div class="statusDot">Ready</div>
         </div>
@@ -1026,7 +1026,7 @@
 
     <aside class="drawer" id="drawer">
     <div class="drawerHead">
-      <strong>SF Options</strong>
+      <strong>SF Options Drawer</strong>
       <button class="iconBtn" onclick="closeDrawer()">×</button>
     </div>
 
@@ -1084,7 +1084,7 @@
   </section>
 
   <script>
-    const version = "V53_RESTORE_CLASSIC_DRAWER";
+    const version = "V54_FULL_SCREEN_CHAT_CLASSIC_DRAWER";
     const byId = id => document.getElementById(id);
 
     let selectedSignals = ["vision", "logic", "future"];
@@ -1415,21 +1415,11 @@
     function mountOptionsForViewport() {
       const optionsBody = document.querySelector(".optionsBody");
       const drawerHost = byId("drawerBodyHost");
-      const desktopPanel = byId("desktopOptions");
 
-      if (!optionsBody || !drawerHost || !desktopPanel) return;
+      if (!optionsBody || !drawerHost) return;
 
-      if (window.innerWidth <= 980) {
-        if (optionsBody.parentElement !== drawerHost) {
-          drawerHost.appendChild(optionsBody);
-        }
-      } else {
-        if (optionsBody.parentElement !== desktopPanel) {
-          desktopPanel.appendChild(optionsBody);
-        }
-
-        byId("drawer").classList.remove("open");
-        byId("drawerOverlay").classList.remove("open");
+      if (optionsBody.parentElement !== drawerHost) {
+        drawerHost.appendChild(optionsBody);
       }
     }
 
