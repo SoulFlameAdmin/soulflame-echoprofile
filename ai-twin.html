@@ -1,149 +1,124 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>AI Twin by SoulFlame</title>
-
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Twin by SoulFlame</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Inter,Arial,sans-serif;background:#eef1f7;color:#202333}
+.page{min-height:100vh;display:grid;grid-template-columns:260px 1fr 430px;background:#eef1f7}
+.side{background:#fff;border-right:1px solid #dde2ee;padding:28px 24px;display:flex;flex-direction:column;gap:10px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:24px;cursor:pointer}
+.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#7c3cff,#7aa7ff)}
+.brand b{font-size:22px}
+.nav{display:grid;gap:6px}
+.nav button{border:0;background:transparent;text-align:left;padding:12px 14px;border-radius:10px;color:#607086;font-weight:800;font-size:16px}
+.nav button.active{background:#e8ddff;color:#5735b7}
+.nav hr{border:0;border-top:1px solid #edf0f6;margin:16px 0}
+.plan{margin-top:auto;border:1px solid #e2e6ef;border-radius:12px;padding:12px;color:#667085;background:#fff;display:flex;justify-content:space-between;font-size:13px}
+.main{padding:30px 28px;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.top h1{font-size:28px;margin:0}
+.topActions{display:flex;gap:12px}
+.topActions button{border:0;background:#fff;color:#252b3a;border-radius:999px;padding:12px 22px;font-weight:900}
+.videoCard{flex:1;border-radius:20px;background:#dfe4ed;padding:18px;display:flex}
+.stage{position:relative;flex:1;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 78% 2%,rgba(255,255,255,.75),transparent 18%),linear-gradient(90deg,#c6c8bb,#e7e3d7);display:grid;place-items:center}
+.human{width:310px;height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.head{position:relative;width:170px;height:205px}
+.hair{position:absolute;left:18px;top:4px;width:136px;height:62px;background:#1d1d20;border-radius:55% 55% 35% 35%;z-index:3}
+.face{position:absolute;left:27px;top:42px;width:118px;height:148px;border-radius:48%;background:linear-gradient(180deg,#f2c5a6,#d89c81)}
+.eye{position:absolute;top:58px;width:13px;height:8px;border-radius:50%;background:#151723}
+.eye.l{left:32px}.eye.r{right:32px}
+.nose{position:absolute;left:54px;top:76px;width:12px;height:28px;background:rgba(120,72,60,.25);border-radius:12px}
+.mouth{position:absolute;left:45px;bottom:30px;width:30px;height:8px;background:#7f1d1d;border-radius:0 0 30px 30px}
+.body{width:285px;height:265px;margin-top:-8px;border-radius:82px 82px 18px 18px;background:linear-gradient(135deg,#eeeeee,#bfc3ce)}
+.hang{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);border:0;background:#e60053;color:#fff;border-radius:999px;padding:13px 28px;font-weight:1000;font-size:17px}
+.chat{padding:30px 24px;display:flex;flex-direction:column;background:#eef1f7}
+.messages{flex:1;display:flex;flex-direction:column;gap:16px;overflow:auto}
+.bubble{padding:17px 19px;border-radius:17px;font-size:16px;line-height:1.55}
+.bubble.ai{background:#fff;color:#32384c}
+.bubble.user{align-self:flex-end;background:#7360d7;color:#fff;font-weight:800}
+.cameraBox{width:min(390px,94%);height:250px;border-radius:22px;margin:26px auto 12px;background:#101018;display:grid;place-items:center;color:white;font-weight:1000;font-size:38px;box-shadow:0 12px 30px rgba(24,31,56,.18)}
+.inputRow{display:grid;grid-template-columns:1fr 50px;gap:10px;padding:10px 12px;background:#fff;border-radius:999px}
+.inputRow input{border:0;outline:0;padding:0 12px;font-size:16px}
+.inputRow button{border:0;border-radius:50%;background:#7764dd;color:#fff;font-size:20px;font-weight:1000}
+@media(max-width:1050px){.page{grid-template-columns:1fr}.side{display:none}.main{min-height:650px}.chat{min-height:500px}}
+</style>
 </head>
-<body data-page="ai-twin">
+<body>
+<div class="page">
+  <aside class="side">
+    <div class="brand" onclick="location.href='/'"><div class="logo"></div><b>SoulFlame</b></div>
+    <nav class="nav">
+      <button onclick="location.href='/'">⌘ Dashboard</button>
+      <button class="active">☊ Realtime Talk</button>
+      <button>▻ Video</button>
+      <button>☼ Avatar</button>
+      <hr>
+      <button>◈ Projects</button>
+      <button>⚙ Profile</button>
+      <hr>
+      <button>▣ API Doc</button>
+      <button>? Support</button>
+    </nav>
+    <div class="plan"><span>AI Twin<br>Mode</span><b>Live</b></div>
+  </aside>
 
-  <div class="app-bg"></div>
-
-  <main class="chat-app">
-    <section class="chat-section">
-
-      <div class="floating-actions">
-        <button class="ghost-btn" onclick="clearChat()">Clear</button>
-        <button class="ghost-btn primary" onclick="toggleDrawer(true)">SF Options</button>
+  <main class="main">
+    <div class="top">
+      <h1>Realtime Talk</h1>
+      <div class="topActions">
+        <button>⌘ View Code</button>
+        <button>☰ Settings</button>
       </div>
-
-      <div class="center-brand-overlay" id="centerBrand">
-        <div class="center-brand-box">
-          <div class="center-logo">SF</div>
-          <h1>AI Twins by SoulFlame</h1>
-          <p>GPT Models • EchoProfile • Memory • Future Twin</p>
-
-          <div class="model-pill-row">
-  <span class="model-pill">GPT API Ready</span>
-  <span class="model-pill">Memory Layer Next</span>
-  <span class="model-pill">EchoProfile Context</span>
-</div>
+    </div>
+    <section class="videoCard">
+      <div class="stage">
+        <div class="human">
+          <div class="head">
+            <div class="hair"></div>
+            <div class="face">
+              <i class="eye l"></i><i class="eye r"></i><i class="nose"></i><i class="mouth"></i>
+            </div>
+          </div>
+          <div class="body"></div>
         </div>
+        <button class="hang" onclick="history.length>1?history.back():location.href='/'">⌁ Hang Up</button>
       </div>
-
-      <div class="chat-box" id="chatBox">
-        <div class="message assistant">
-          <div class="avatar">E</div>
-          <div class="bubble">Здравей. Аз съм Echo — AI Twin слой на SoulFlame. Тук вече е подготвен GPT API слой по модели. Сложи OPENAI_API_KEY и пускаме.</div>
-        </div>
-      </div>
-
-      <div class="model-panel">
-  <div>
-    <strong>AI Model</strong>
-    <span>Избери модел за AI Twin разговора</span>
-  </div>
-
-  <select id="modelSelect">
-    <option value="gpt-4o-mini">gpt-4o-mini — fast/demo</option>
-    <option value="gpt-4.1-mini">gpt-4.1-mini — smart/balanced</option>
-    <option value="gpt-4.1">gpt-4.1 — stronger reasoning</option>
-    <option value="gpt-5-mini">gpt-5-mini — future/premium</option>
-  </select>
-</div>
-
-      <div class="input-area">
-        <input id="chatInput" type="text" placeholder="Напиши съобщение..." />
-        <button onclick="sendMessage()">➤</button>
-      </div>
-
     </section>
   </main>
 
-  <section class="bottom-drawer" id="bottomDrawer">
-    <button class="drawer-handle" onclick="toggleDrawer()">
-      <span></span>
-      <strong>SF Options</strong>
-      <small id="drawerHint">плъзни / натисни</small>
-    </button>
-
-    <div class="drawer-content">
-      <div class="drawer-title">
-        <div>
-          <h2>SF Options</h2>
-          <p>Избери страница / модул</p>
-        </div>
-        <button class="close-drawer" onclick="toggleDrawer(false)">×</button>
-      </div>
-
-      <div class="option-grid">
-
-        <a class="option-card " href="index.html">
-          <span>🏠</span>
-          <h3>Home</h3>
-          <p>Главна страница</p>
-        </a>
-
-        <a class="option-card " href="echoprofile.html">
-          <span>🧠</span>
-          <h3>EchoProfile</h3>
-          <p>Психологически профил</p>
-        </a>
-
-        <a class="option-card active" href="ai-twin.html">
-          <span>👤</span>
-          <h3>AI Twin</h3>
-          <p>GPT двойник</p>
-        </a>
-
-        <a class="option-card " href="future-twin.html">
-          <span>🔮</span>
-          <h3>Future Twin</h3>
-          <p>Ти от бъдещето</p>
-        </a>
-
-        <a class="option-card " href="memory.html">
-          <span>💾</span>
-          <h3>Memory</h3>
-          <p>Лична памет</p>
-        </a>
-
-        <a class="option-card " href="soulmatch.html">
-          <span>❤️</span>
-          <h3>SoulMatch</h3>
-          <p>Съвместимост</p>
-        </a>
-
-        <a class="option-card " href="ar-echocard.html">
-          <span>🪪</span>
-          <h3>AR EchoCard</h3>
-          <p>AR визитка</p>
-        </a>
-
-        <a class="option-card " href="settings.html">
-          <span>⚙️</span>
-          <h3>Settings</h3>
-          <p>Privacy и API</p>
-        </a>
-
-      </div>
-
-      <div class="module-preview" id="modulePreview">
-        <h3>AI Twin</h3>
-        <p>AI Twin страницата е готова за GPT API: модел selector, chat endpoint, memory-ready структура и EchoProfile контекст.</p>
-      </div>
-
-      <button class="bottom-close-btn" onclick="toggleDrawer(false)">
-        Click to Close
-      </button>
+  <aside class="chat">
+    <div class="messages" id="messages">
+      <div class="bubble ai">Sure. I am your AI Twin by SoulFlame. I can talk, remember context, build your EchoProfile, and later connect to voice, avatar stream and GPT brain.</div>
+      <div class="bubble user">Hey, could you tell me a story?</div>
+      <div class="bubble ai">AI Twin страницата работи. Следващо: voice, avatar stream, memory и GestureEngine в test branch.</div>
     </div>
-  </section>
+    <div class="cameraBox">AI</div>
+    <div class="inputRow">
+      <input id="q" placeholder="Please enter your question...">
+      <button onclick="send()">➤</button>
+    </div>
+  </aside>
+</div>
 
-  <div class="overlay" id="overlay" onclick="toggleDrawer(false)"></div>
-
-  <script src="script.js"></script>
+<script>
+function send(){
+  const input=document.getElementById('q');
+  const text=input.value.trim();
+  if(!text)return;
+  const box=document.getElementById('messages');
+  box.insertAdjacentHTML('beforeend','<div class="bubble user"></div>');
+  box.lastChild.textContent=text;
+  input.value='';
+  setTimeout(()=>{
+    box.insertAdjacentHTML('beforeend','<div class="bubble ai">Разбрах. Това влиза като сигнал към AI Twin Core.</div>');
+    box.scrollTop=box.scrollHeight;
+  },250);
+}
+document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')send()});
+</script>
 </body>
 </html>
