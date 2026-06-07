@@ -3,15 +3,17 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const VERSION = 'V74_FORCE_EMOJI_OPTIONS';
+const VERSION = 'V75_FULL_SF_OPTIONS_MENU_FORCED_DEPLOY';
 
 function send(res, status, body, type='text/html; charset=utf-8') {
   res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store' });
   res.end(body);
 }
+
 function json(res, status, data) {
   send(res, status, JSON.stringify(data, null, 2), 'application/json; charset=utf-8');
 }
+
 function readBody(req) {
   return new Promise(resolve => {
     let b = '';
@@ -21,7 +23,7 @@ function readBody(req) {
 }
 
 function css() {
-  return `<style id="sf-v74-css">
+  return `<style id="sf-v75-css-forced">
 html,body{margin:0!important;width:100%!important;height:100%!important;overflow:hidden!important;background:#000!important}
 .hidden{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
 #choiceScreen,#loginScreen,#createTwinScreen,#createdByScreen,#appScreen{position:fixed!important;inset:0!important;width:100vw!important;height:100svh!important;min-height:100svh!important;z-index:1!important;overflow:hidden!important}
@@ -50,15 +52,33 @@ html,body{margin:0!important;width:100%!important;height:100%!important;overflow
 }
 
 function script() {
-  return `<script id="sf-v74-flow">
+  return `<script id="sf-v75-flow-forced">
 (function(){
-  var emojiOptions=[['🧠','EchoProfile','личностни и работни сигнали'],['🤖','AI Twin','личен, работен, глас и аватар'],['🔮','Future Twin','ти след 1 година / 5 години'],['💾','Memory','лична памет и развитие'],['💘','SoulMatch','съвместимост и връзки'],['🪪','AR EchoCard','визитка с AI присъствие'],['⚙️','Settings','privacy, unlock, profile'],['🚀','Full Twin','20€ unlock report'],['🌐','Twins World','свят от дигитални двойници'],['🛸','DAVID','главен AI агент и OS']];
+  var emojiOptions=[
+    ['🧠','EchoProfile','личностни и работни сигнали'],
+    ['🤖','AI Twin','личен, работен, глас и аватар'],
+    ['🔮','Future Twin','ти след 1 година / 5 години'],
+    ['💾','Memory','лична памет и развитие'],
+    ['💘','SoulMatch','съвместимост и връзки'],
+    ['🪪','AR EchoCard','визитка с AI присъствие'],
+    ['⚙️','Settings','privacy, unlock, profile'],
+    ['🚀','Full Twin','20€ unlock report'],
+    ['🌐','Twins World','свят от дигитални двойници'],
+    ['🛸','DAVID','главен AI агент и OS'],
+    ['📢','Ads Agency','реклами, клиенти и AI маркетинг'],
+    ['🅿️','ParkEyeRay','smart parking система и app'],
+    ['🕶️','AR','AR визитки, менюта и реални сцени'],
+    ['🩺','HealthWatch','здравен monitoring и AI сигнализация'],
+    ['🧠','BCI by SF','brain-computer interface концепция'],
+    ['🚀','Rocket Projects','космически и rocket идеи'],
+    ['🌌','OpenSFverse','отворена SoulFlame вселена']
+  ];
   function e(id){return document.getElementById(id)}
   function show(id){['choiceScreen','loginScreen','createTwinScreen','createdByScreen','appScreen'].forEach(function(x){var n=e(x);if(!n)return;if(x===id){n.classList.remove('hidden');n.style.display=(x==='appScreen'?'block':'grid');n.style.visibility='visible';n.style.opacity='1';n.style.pointerEvents='auto'}else{n.classList.add('hidden');n.style.display='none';n.style.visibility='hidden';n.style.opacity='0';n.style.pointerEvents='none'}});window.scrollTo(0,0)}
   function renderEmojiOptions(){var grid=e('optionGrid');if(!grid)return;grid.innerHTML=emojiOptions.map(function(item){return '<div class="optionCard" onclick="optionClick(\''+item[1]+'\')"><div class="optionIcon">'+item[0]+'</div><div class="optionText"><b>'+item[1]+'</b><span>'+item[2]+'</span></div></div>'}).join('')}
   window.initOptions=renderEmojiOptions;
-  window.openDrawer=(function(old){return function(){if(old)old();setTimeout(renderEmojiOptions,20);setTimeout(renderEmojiOptions,160)}})(window.openDrawer);
-  window.startTwinIntro=function(){var p={type:window.selectedTwinType||'Личен',name:(e('loginName')&&e('loginName').value.trim())||'приятелю',contact:(e('loginContact')&&e('loginContact').value.trim())||'',version:'V74_FORCE_EMOJI_OPTIONS'};try{localStorage.setItem('soulflame_v56_profile',JSON.stringify(p))}catch(err){}show('createTwinScreen');setTimeout(function(){show('createdByScreen')},900);setTimeout(function(){show('appScreen'); if(typeof bootChat==='function')bootChat(p); renderEmojiOptions();},1850)};
+  window.openDrawer=(function(old){return function(){if(old)old();setTimeout(renderEmojiOptions,20);setTimeout(renderEmojiOptions,160);setTimeout(renderEmojiOptions,400)}})(window.openDrawer);
+  window.startTwinIntro=function(){var p={type:window.selectedTwinType||'Личен',name:(e('loginName')&&e('loginName').value.trim())||'приятелю',contact:(e('loginContact')&&e('loginContact').value.trim())||'',version:'V75_FULL_SF_OPTIONS_MENU_FORCED_DEPLOY'};try{localStorage.setItem('soulflame_v56_profile',JSON.stringify(p))}catch(err){}show('createTwinScreen');setTimeout(function(){show('createdByScreen')},900);setTimeout(function(){show('appScreen'); if(typeof bootChat==='function')bootChat(p); renderEmojiOptions();},1850)};
   window.addEventListener('load',function(){setTimeout(function(){document.body.style.overflow='hidden';document.documentElement.style.overflow='hidden';show('choiceScreen');var b=document.querySelector('#loginScreen .loginBtn');if(b){b.onclick=function(ev){ev.preventDefault();window.startTwinIntro();};}['loginName','loginContact'].forEach(function(id){var i=e(id);if(i){i.onkeydown=function(ev){if(ev.key==='Enter'){ev.preventDefault();window.startTwinIntro();}}}});renderEmojiOptions();},120)});
 })();
 </script>`;
@@ -67,7 +87,36 @@ function script() {
 function index() {
   let html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
   html = html.replace(/<style id="bwChoiceScreenOnly">[\s\S]*?<\/style>/g, '');
-  html = html.replace(/function initOptions\(\) \{[\s\S]*?\n    \}/, 'function initOptions() { const grid = byId("optionGrid"); if (!grid) return; grid.innerHTML = ""; }');
+  html = html.replace(/const optionItems = \[[\s\S]*?\];\n\n    const signalItems/, `const optionItems = [
+      ['🧠','EchoProfile','личностни и работни сигнали'],
+      ['🤖','AI Twin','личен, работен, глас и аватар'],
+      ['🔮','Future Twin','ти след 1 година / 5 години'],
+      ['💾','Memory','лична памет и развитие'],
+      ['💘','SoulMatch','съвместимост и връзки'],
+      ['🪪','AR EchoCard','визитка с AI присъствие'],
+      ['⚙️','Settings','privacy, unlock, profile'],
+      ['🚀','Full Twin','20€ unlock report'],
+      ['🌐','Twins World','свят от дигитални двойници'],
+      ['🛸','DAVID','главен AI агент и OS'],
+      ['📢','Ads Agency','реклами, клиенти и AI маркетинг'],
+      ['🅿️','ParkEyeRay','smart parking система и app'],
+      ['🕶️','AR','AR визитки, менюта и реални сцени'],
+      ['🩺','HealthWatch','здравен monitoring и AI сигнализация'],
+      ['🧠','BCI by SF','brain-computer interface концепция'],
+      ['🚀','Rocket Projects','космически и rocket идеи'],
+      ['🌌','OpenSFverse','отворена SoulFlame вселена']
+    ];
+
+    const signalItems`);
+  html = html.replace(/function initOptions\(\) \{[\s\S]*?\n    \}\n\n    function initSignals/, `function initOptions() {
+      const grid = byId('optionGrid');
+      if (!grid) return;
+      grid.innerHTML = optionItems.map(item => {
+        return "<div class='optionCard' onclick='optionClick(\\\"" + item[1] + "\\\")'><div class='optionIcon'>" + item[0] + "</div><div class='optionText'><b>" + item[1] + "</b><span>" + item[2] + "</span></div></div>";
+      }).join('');
+    }
+
+    function initSignals`);
   html = html.replace('window.addEventListener("load", bootIfLogged);', 'window.addEventListener("load", function(){ showOnly("choiceScreen"); });');
   html = html.replace('</head>', css() + '\n</head>');
   html = html.replace('</body>', script() + '\n</body>');
