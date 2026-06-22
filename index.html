@@ -1376,7 +1376,7 @@
         name,
         contact,
         loggedAt:new Date().toISOString(),
-        version
+        version:"V77_SOULMATCH_MAIN_AFTER_LOGIN"
       };
 
       saveProfile(profile);
@@ -1388,12 +1388,8 @@
       }, 1200);
 
       setTimeout(() => {
-        fadeSwitch("createdByScreen", "appScreen", 430);
+        window.location.href = "/soulmatch";
       }, 2400);
-
-      setTimeout(() => {
-        bootChat(profile);
-      }, 3050);
     }
 
     function resetOnboarding() {
@@ -1452,8 +1448,7 @@
       const profile = getProfile();
 
       if (profile && profile.name) {
-        showOnly("appScreen");
-        setTimeout(() => bootChat(profile), 200);
+        window.location.href = "/soulmatch";
       } else {
         showOnly("choiceScreen");
       }
@@ -1799,4 +1794,6 @@
   </script>
 </body>
 </html>
+
+
 
