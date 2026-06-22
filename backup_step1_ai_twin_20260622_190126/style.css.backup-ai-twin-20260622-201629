@@ -588,37 +588,3 @@ button, input, textarea, select {
     padding: 18px;
   }
 }
-
-/* SF AI TWIN CSS FORCE START */
-body.sf-ai-twin-expanded .main,
-.app:has(#aitwin.active) .main,
-.main.ai-twin-expanded { grid-template-columns: minmax(0, 1fr) !important; }
-
-body.sf-ai-twin-expanded .left-panel,
-.app:has(#aitwin.active) .left-panel,
-.main.ai-twin-expanded > .left-panel {
-  display:none !important; visibility:hidden !important; width:0 !important; min-width:0 !important; max-width:0 !important;
-  padding:0 !important; margin:0 !important; border:0 !important; overflow:hidden !important; pointer-events:none !important;
-}
-
-body.sf-ai-twin-expanded #aitwin,
-.app:has(#aitwin.active) #aitwin,
-.main.ai-twin-expanded > #aitwin {
-  display:flex !important; flex-direction:column !important; width:100% !important; max-width:none !important; min-width:0 !important;
-  padding:30px 34px !important; overflow:hidden !important;
-}
-
-body.sf-ai-twin-expanded .ai-twin-shell,
-.app:has(#aitwin.active) .ai-twin-shell,
-.main.ai-twin-expanded .ai-twin-shell {
-  width:100% !important; max-width:none !important; height:calc(100vh - 165px) !important; min-height:650px !important;
-  display:flex !important; flex-direction:column !important; flex:1 1 auto !important;
-}
-
-body.sf-ai-twin-expanded .ai-twin-frame,
-.app:has(#aitwin.active) .ai-twin-frame,
-.main.ai-twin-expanded .ai-twin-frame {
-  width:100% !important; max-width:none !important; height:calc(100vh - 235px) !important; min-height:590px !important;
-  flex:1 1 auto !important; display:block !important;
-}
-/* SF AI TWIN CSS FORCE END */

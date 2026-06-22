@@ -149,3 +149,24 @@ function loadProfile() {
 }
 
 loadProfile();
+
+// SF AI TWIN JS FORCE START
+(function(){
+  function lockAiTwinLayout(force){
+    var ai=document.querySelector('#aitwin');
+    var main=document.querySelector('.main');
+    var btn=document.querySelector('.menu-btn[data-page="aitwin"]');
+    var isAi=!!force || !!(ai && ai.classList.contains('active')) || !!(btn && btn.classList.contains('active'));
+    document.body.classList.toggle('sf-ai-twin-expanded', isAi);
+    if(main) main.classList.toggle('ai-twin-expanded', isAi);
+  }
+  document.querySelectorAll('.menu-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var page=btn.dataset.page;
+      setTimeout(function(){ lockAiTwinLayout(page === 'aitwin'); }, 0);
+      setTimeout(function(){ lockAiTwinLayout(page === 'aitwin'); }, 100);
+    }, true);
+  });
+  lockAiTwinLayout(false);
+})();
+// SF AI TWIN JS FORCE END

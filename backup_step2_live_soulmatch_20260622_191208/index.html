@@ -4,7 +4,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🔥 SoulMatch</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=ai-twin-inline-20260622-201629" />
+<!-- SF AI TWIN INLINE FORCE STYLE START -->
+<style id="sf-ai-twin-inline-force-style">
+  /* REAL FIX: when AI Twin is active, remove Conversations and stretch AI Twin to the blue sidebar */
+  body.sf-ai-twin-expanded .main,
+  .app:has(#aitwin.active) .main,
+  .main.ai-twin-expanded {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body.sf-ai-twin-expanded .left-panel,
+  .app:has(#aitwin.active) .left-panel,
+  .main.ai-twin-expanded > .left-panel {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    flex: 0 0 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+  }
+
+  body.sf-ai-twin-expanded #aitwin,
+  .app:has(#aitwin.active) #aitwin,
+  .main.ai-twin-expanded > #aitwin {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 30px 34px !important;
+    overflow: hidden !important;
+  }
+
+  body.sf-ai-twin-expanded #aitwin .page-title,
+  .app:has(#aitwin.active) #aitwin .page-title {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  body.sf-ai-twin-expanded .ai-twin-shell,
+  .app:has(#aitwin.active) .ai-twin-shell,
+  .main.ai-twin-expanded .ai-twin-shell {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: calc(100vh - 165px) !important;
+    min-height: 650px !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 26px !important;
+  }
+
+  body.sf-ai-twin-expanded .ai-twin-frame,
+  .app:has(#aitwin.active) .ai-twin-frame,
+  .main.ai-twin-expanded .ai-twin-frame {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: calc(100vh - 235px) !important;
+    min-height: 590px !important;
+    flex: 1 1 auto !important;
+    display: block !important;
+    border: 0 !important;
+  }
+
+  @media (max-width: 1000px) {
+    body.sf-ai-twin-expanded #aitwin,
+    .app:has(#aitwin.active) #aitwin,
+    .main.ai-twin-expanded > #aitwin {
+      padding: 16px !important;
+    }
+
+    body.sf-ai-twin-expanded .ai-twin-shell,
+    .app:has(#aitwin.active) .ai-twin-shell,
+    .main.ai-twin-expanded .ai-twin-shell {
+      height: 78vh !important;
+      min-height: 520px !important;
+    }
+
+    body.sf-ai-twin-expanded .ai-twin-frame,
+    .app:has(#aitwin.active) .ai-twin-frame,
+    .main.ai-twin-expanded .ai-twin-frame {
+      height: 72vh !important;
+      min-height: 480px !important;
+    }
+  }
+</style>
+<!-- SF AI TWIN INLINE FORCE STYLE END -->
 </head>
 <body>
 
@@ -219,7 +314,74 @@
   </main>
 </div>
 
-<script src="app.js"></script>
+<script src="app.js?v=ai-twin-inline-20260622-201629"></script>
+<!-- SF AI TWIN INLINE FORCE SCRIPT START -->
+<script id="sf-ai-twin-inline-force-script">
+(function () {
+  function q(sel) { return document.querySelector(sel); }
+  function qa(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
+
+  function setPage(page) {
+    if (!page) return;
+
+    qa('.menu-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.page === page);
+    });
+
+    qa('.page').forEach(function (section) {
+      section.classList.toggle('active', section.id === page);
+    });
+
+    lockAiTwinLayout(page === 'aitwin');
+  }
+
+  function lockAiTwinLayout(force) {
+    var aiTwin = q('#aitwin');
+    var main = q('.main');
+    var aiBtn = q('.menu-btn[data-page="aitwin"]');
+    var isAi = !!force || !!(aiTwin && aiTwin.classList.contains('active')) || !!(aiBtn && aiBtn.classList.contains('active'));
+
+    document.body.classList.toggle('sf-ai-twin-expanded', isAi);
+    if (main) main.classList.toggle('ai-twin-expanded', isAi);
+
+    var leftPanel = q('.left-panel');
+    if (leftPanel) {
+      if (isAi) {
+        leftPanel.setAttribute('aria-hidden', 'true');
+      } else {
+        leftPanel.removeAttribute('aria-hidden');
+      }
+    }
+  }
+
+  function boot() {
+    qa('.menu-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var page = btn.dataset.page;
+        setPage(page);
+        setTimeout(function () { lockAiTwinLayout(page === 'aitwin'); }, 0);
+        setTimeout(function () { lockAiTwinLayout(page === 'aitwin'); }, 80);
+      }, true);
+    });
+
+    var aiTwin = q('#aitwin');
+    if (aiTwin && window.MutationObserver) {
+      new MutationObserver(function () { lockAiTwinLayout(false); }).observe(aiTwin, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
+
+    lockAiTwinLayout(false);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+<!-- SF AI TWIN INLINE FORCE SCRIPT END -->
 </body>
 </html>
-
