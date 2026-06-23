@@ -70,29 +70,29 @@
       "facebook": {
         "status": "connected_from_login",
         "handle": "",
-        "updatedAt": "2026-06-23T12:53:19.784Z"
+        "updatedAt": "2026-06-23T13:22:46.677Z"
       },
       "snapchat": {
         "status": "connected_from_login",
         "handle": "",
-        "updatedAt": "2026-06-23T12:53:19.803Z"
+        "updatedAt": "2026-06-23T13:22:46.697Z"
       },
       "instagram": {
         "status": "connected_from_login",
         "handle": "",
-        "updatedAt": "2026-06-23T12:53:19.817Z"
+        "updatedAt": "2026-06-23T13:22:46.711Z"
       },
       "github": {
         "status": "connected_from_login",
         "handle": "",
-        "updatedAt": "2026-06-23T12:53:19.946Z"
+        "updatedAt": "2026-06-23T13:22:46.725Z"
       },
       "google": {
         "status": "connected_from_login",
         "handle": "",
-        "updatedAt": "2026-06-23T12:53:19.962Z"
+        "updatedAt": "2026-06-23T13:22:46.740Z"
       }
     },
-    "updatedAt": "2026-06-23T12:53:19.963Z"
+    "updatedAt": "2026-06-23T13:22:46.740Z"
   }
 }

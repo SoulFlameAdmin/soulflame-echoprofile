@@ -1,26 +1,12 @@
 node_modules/
 .env
 .env.*
-_v*_backup*/
 *.zip
 *.log
-.DS_Store
-# SoulFlame safety
-node_modules/
-.env
-.env.*
+git-push-repair-log.txt
+_conflict_backup_*/
+_emergency_before_abort_*/
+_anchor_soulmatch_working_v102_*/
 _anchor_v101_mobile_ready_*/
 _v*_backup*/
-*.zip
-*.log
-.DS_Store
-
-# SoulFlame safety
-node_modules/
-.env
-.env.*
-_anchor_v101_mobile_ready_*/
-_v*_backup*/
-*.zip
-*.log
 .DS_Store
