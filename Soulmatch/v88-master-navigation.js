@@ -9,23 +9,11 @@
   }
 
   function clickSoulPage(page) {
-    const aliases = page === "messages" || page === "chat"
-      ? ["messages", "chat"]
-      : [page];
-
-    let btn = null;
-
-    for (const p of aliases) {
-      const buttons = qsa('.menu-btn[data-page="' + p + '"], .nav-item[data-page="' + p + '"], [data-page="' + p + '"]');
-      btn = buttons.find(b => !b.closest(".sf-v83-tree") && !b.closest(".sf-v82-tree"));
-      if (btn) break;
-    }
+    const buttons = qsa('.menu-btn[data-page="' + page + '"], .nav-item[data-page="' + page + '"]');
+    const btn = buttons.find(b => !b.closest(".sf-v83-tree") && !b.closest(".sf-v82-tree"));
 
     if (btn) {
       btn.click();
-    } else {
-      document.body.dataset.sfRequestedPage = page;
-      window.dispatchEvent(new CustomEvent("sf:v88:navigate", { detail: { page: page, aliases: aliases } }));
     }
 
     setTimeout(updateMode, 100);
@@ -40,7 +28,6 @@
     document.body.classList.remove("sf-v83-drawer-open");
     document.body.classList.remove("sf-v82-drawer-open");
     document.body.classList.remove("sf-sidebar-open");
-    document.body.classList.remove("sf-menu-open");
   }
 
   function sendToAiEcho(payload) {
@@ -51,8 +38,6 @@
 
       if (frame && frame.contentWindow) {
         frame.contentWindow.postMessage(payload, "*");
-      } else {
-        window.postMessage(payload, "*");
       }
     }, 360);
 
@@ -138,7 +123,7 @@
       <div class="sf-v83-root">SoulFlame\\</div>
 
       <div class="sf-v83-section">├─ SoulMatch\\</div>
-      <button class="sf-v83-line" data-v88-action="page" data-page="messages">│  ├─ 💬 Messages</button>
+      <button class="sf-v83-line" data-v88-action="page" data-page="chat">│  ├─ 💬 Messages</button>
       <button class="sf-v83-line" data-v88-action="page" data-page="matches">│  ├─ ❤️ Matches</button>
       <button class="sf-v83-line" data-v88-action="page" data-page="aitwin">│  ├─ 🤖 AI Twin</button>
       <button class="sf-v83-line" data-v88-action="page" data-page="profile">│  ├─ 🧍 Profile</button>
@@ -168,11 +153,7 @@
   }
 
   function updateMode() {
-    const aiActive = Boolean(
-      qs("#aitwin.page.active") ||
-      qs('.menu-btn.active[data-page="aitwin"], [data-page="aitwin"].active') ||
-      qs("#sfAiEchoFrame")
-    );
+    const aiActive = Boolean(qs("#aitwin.page.active") || qs('.menu-btn.active[data-page="aitwin"], [data-page="aitwin"].active'));
 
     document.body.classList.toggle("sf-v83-ai-active", aiActive);
     document.body.classList.toggle("sf-v82-ai-active", aiActive);

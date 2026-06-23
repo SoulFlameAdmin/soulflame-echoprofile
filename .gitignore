@@ -42,3 +42,13 @@ _final_admin_order_backup*/
 *.zip
 *.log
 .DS_Store
+
+# SoulFlame local safety
+node_modules/
+.env
+.env.*
+_v*_backup*/
+_final_admin_order_backup*/
+*.zip
+*.log
+.DS_Store

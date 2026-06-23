@@ -1,4 +1,4 @@
-/* SOULFLAME V88 SAFE FINAL MASTER NAVIGATION */
+/* SOULFLAME V88 MASTER NAVIGATION */
 
 .v86-user-block,
 .v87-user-block,
@@ -28,26 +28,4 @@
 .sf-v88-line-active {
   background: rgba(255,255,255,.18) !important;
   color: #ffffff !important;
-}
-
-.sf-v83-line {
-  width: 100%;
-  text-align: left;
-  border: 0;
-  cursor: pointer;
-}
-
-@media (max-width: 900px) {
-  .sf-v83-tree,
-  .sf-v82-tree {
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .sf-v83-line {
-    min-height: 42px;
-    font-size: 14px;
-    touch-action: manipulation;
-  }
 }

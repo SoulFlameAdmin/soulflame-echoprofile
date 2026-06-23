@@ -64,11 +64,11 @@
       openPanel(data.panel);
     }
 
-    if (data.type === "V88_USER_VIEW" || data.type === "V87_USER_VIEW") {
+    if (data.type === "V88_USER_VIEW") {
       openUser(data.view || "health");
     }
 
-    if (data.type === "V88_ADMIN_VIEW" || data.type === "V85_ADMIN_VIEW") {
+    if (data.type === "V88_ADMIN_VIEW") {
       openAdmin(data.view || "mine");
     }
   });
