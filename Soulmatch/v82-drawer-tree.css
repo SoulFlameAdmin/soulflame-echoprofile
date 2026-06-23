@@ -1,0 +1,327 @@
+/* ======================================================
+   SOULFLAME V82 - MOBILE DRAWER TREE
+   AI Twin fullscreen + CMD tree SoulMatch drawer
+   ====================================================== */
+
+html,
+body {
+  overflow-x: hidden !important;
+}
+
+/* Kill older overlays unless V82 drawer is open */
+.sf-v81-backdrop,
+.sf-v82-backdrop {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* AI Twin fullscreen host */
+body.sf-v82-ai-active {
+  overflow: hidden !important;
+}
+
+body.sf-v82-ai-active .app {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: #03050a !important;
+}
+
+body.sf-v82-ai-active .main {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: #03050a !important;
+}
+
+body.sf-v82-ai-active .left-panel,
+body.sf-v82-ai-active .mobile-header {
+  display: none !important;
+}
+
+body.sf-v82-ai-active #aitwin.page.active {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 9000 !important;
+  background: #03050a !important;
+  overflow: hidden !important;
+}
+
+body.sf-v82-ai-active #aitwin iframe,
+body.sf-v82-ai-active .sf-ai-echo-v82-frame,
+body.sf-v82-ai-active .sf-ai-echo-v81-frame,
+body.sf-v82-ai-active .sf-ai-echo-v80-frame,
+body.sf-v82-ai-active .sf-ai-twin-clean-frame {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  border: 0 !important;
+  background: #03050a !important;
+}
+
+/* Hide old SoulMatch sidebar during AI fullscreen */
+body.sf-v82-ai-active > .app > .sidebar,
+body.sf-v82-ai-active .app > .sidebar {
+  display: none !important;
+}
+
+/* V82 backdrop */
+body.sf-v82-ai-active.sf-v82-drawer-open .sf-v82-backdrop {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: rgba(0, 0, 0, 0.42) !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+/* Drawer shell */
+.sf-v82-drawer {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 360px !important;
+  max-width: 88vw !important;
+  height: 100vh !important;
+  z-index: 10020 !important;
+  transform: translateX(-110%) !important;
+  transition: transform 0.24s ease !important;
+  background:
+    radial-gradient(circle at 20% 8%, rgba(255,255,255,0.16), transparent 24%),
+    linear-gradient(180deg, #1557ff 0%, #0b3ec6 52%, #061a62 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 28px 0 90px rgba(0,0,0,0.42) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 22px 18px 26px !important;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace !important;
+}
+
+body.sf-v82-ai-active.sf-v82-drawer-open .sf-v82-drawer {
+  transform: translateX(0) !important;
+}
+
+.sf-v82-drawer-head {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-bottom: 20px !important;
+  font-family: Inter, system-ui, Arial, sans-serif !important;
+}
+
+.sf-v82-drawer-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+}
+
+.sf-v82-drawer-logo {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 15px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: rgba(255,255,255,0.15) !important;
+  flex: 0 0 auto !important;
+  font-size: 22px !important;
+}
+
+.sf-v82-drawer-brand strong {
+  display: block !important;
+  font-size: 21px !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+.sf-v82-drawer-brand small {
+  display: block !important;
+  color: rgba(255,255,255,0.72) !important;
+  margin-top: 4px !important;
+  font-size: 12px !important;
+}
+
+.sf-v82-close {
+  width: 42px !important;
+  height: 42px !important;
+  border: 1px solid rgba(255,255,255,0.16) !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,0.10) !important;
+  color: #ffffff !important;
+  font-weight: 950 !important;
+  font-size: 18px !important;
+  cursor: pointer !important;
+}
+
+/* CMD tree */
+.sf-v82-tree {
+  padding: 14px !important;
+  border-radius: 22px !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  background: rgba(0, 10, 45, 0.28) !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04) !important;
+}
+
+.sf-v82-tree-root {
+  color: #ffffff !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  margin-bottom: 10px !important;
+  letter-spacing: 0.02em !important;
+}
+
+.sf-v82-tree-line {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 34px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: rgba(255,255,255,0.86) !important;
+  text-align: left !important;
+  padding: 3px 6px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  cursor: pointer !important;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace !important;
+}
+
+.sf-v82-tree-line:hover {
+  background: rgba(255,255,255,0.12) !important;
+  color: #ffffff !important;
+}
+
+.sf-v82-tree-line.active {
+  background: rgba(255,255,255,0.18) !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+}
+
+.sf-v82-tree-section {
+  color: #dbe7ff !important;
+  font-weight: 950 !important;
+  margin: 12px 0 6px !important;
+  font-size: 13px !important;
+}
+
+.sf-v82-tree-muted {
+  opacity: 0.7 !important;
+}
+
+.sf-v82-drawer-footer {
+  margin-top: 18px !important;
+  padding: 14px !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,0.10) !important;
+  border: 1px solid rgba(255,255,255,0.13) !important;
+  font-family: Inter, system-ui, Arial, sans-serif !important;
+}
+
+.sf-v82-drawer-footer strong {
+  display: block !important;
+  font-size: 15px !important;
+  margin-bottom: 4px !important;
+}
+
+.sf-v82-drawer-footer p {
+  margin: 0 !important;
+  color: rgba(255,255,255,0.74) !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+}
+
+/* Left edge arrow toggle */
+.sf-v82-edge-toggle {
+  display: none !important;
+}
+
+body.sf-v82-ai-active .sf-v82-edge-toggle {
+  display: flex !important;
+  position: fixed !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10040 !important;
+  width: 42px !important;
+  height: 88px !important;
+  border: 0 !important;
+  border-radius: 0 18px 18px 0 !important;
+  background: linear-gradient(180deg, #1557ff, #073ec8) !important;
+  color: #ffffff !important;
+  box-shadow: 14px 0 40px rgba(0,0,0,0.26) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 24px !important;
+  font-weight: 950 !important;
+  cursor: pointer !important;
+}
+
+body.sf-v82-ai-active.sf-v82-drawer-open .sf-v82-edge-toggle {
+  left: min(360px, 88vw) !important;
+  border-radius: 0 18px 18px 0 !important;
+}
+
+/* Normal pages should not be blocked */
+body:not(.sf-v82-ai-active) .sf-v82-drawer,
+body:not(.sf-v82-ai-active) .sf-v82-edge-toggle,
+body:not(.sf-v82-ai-active) .sf-v82-backdrop {
+  display: none !important;
+}
+
+/* Mobile tuning */
+@media (max-width: 860px) {
+  .sf-v82-drawer {
+    width: min(88vw, 340px) !important;
+    padding: 18px 14px 22px !important;
+  }
+
+  body.sf-v82-ai-active .sf-v82-edge-toggle {
+    width: 38px !important;
+    height: 78px !important;
+    font-size: 22px !important;
+  }
+
+  body.sf-v82-ai-active.sf-v82-drawer-open .sf-v82-edge-toggle {
+    left: min(88vw, 340px) !important;
+  }
+
+  .sf-v82-tree-line {
+    min-height: 36px !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .sf-v82-drawer {
+    width: 90vw !important;
+  }
+
+  body.sf-v82-ai-active.sf-v82-drawer-open .sf-v82-edge-toggle {
+    left: 90vw !important;
+  }
+
+  .sf-v82-drawer-brand strong {
+    font-size: 18px !important;
+  }
+}

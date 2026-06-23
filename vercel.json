@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/soulmatch",
+      "destination": "/Soulmatch/index.html"
+    },
+    {
+      "source": "/soulmatch/",
+      "destination": "/Soulmatch/index.html"
+    },
+    {
+      "source": "/ai-twin",
+      "destination": "/ai-twin.html"
+    },
+    {
+      "source": "/echoprofile",
+      "destination": "/echoprofile.html"
+    },
+    {
+      "source": "/future-twin",
+      "destination": "/future-twin.html"
+    },
+    {
+      "source": "/memory",
+      "destination": "/memory.html"
+    },
+    {
+      "source": "/settings",
+      "destination": "/settings.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    }
+  ]
+}

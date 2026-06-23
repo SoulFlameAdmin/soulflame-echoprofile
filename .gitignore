@@ -12,3 +12,33 @@ exports
 *.log
 .DS_Store
 *.zip
+
+
+# SOULFLAME V78 SAFETY
+.env
+.env.*
+!.env.example
+private/
+secrets/
+keys/
+*.pem
+*.key
+node_modules/
+_v78_backup*/
+backup*/
+backups/
+*.zip
+*.7z
+*.rar
+data/*.local.json
+.vercel
+
+# SoulFlame local safety
+node_modules/
+.env
+.env.*
+_v*_backup*/
+_final_admin_order_backup*/
+*.zip
+*.log
+.DS_Store

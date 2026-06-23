@@ -1,0 +1,23 @@
+/* SoulFlame V80 AI Echo iframe inside SoulMatch */
+
+#aitwin {
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #030306 !important;
+}
+
+.sf-ai-echo-v80-frame {
+  display: block !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 760px !important;
+  border: 0 !important;
+  background: #030306 !important;
+}
+
+@media (max-width: 820px) {
+  .sf-ai-echo-v80-frame {
+    height: calc(100vh - 76px) !important;
+    min-height: 720px !important;
+  }
+}

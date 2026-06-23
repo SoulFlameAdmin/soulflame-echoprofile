@@ -1,0 +1,117 @@
+/* SOULFLAME V87 USER PANELS */
+
+.v87-card {
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 26px;
+  background: rgba(255,255,255,.06);
+  padding: 22px;
+  box-shadow: 0 28px 80px rgba(0,0,0,.28);
+}
+
+.v87-health-score {
+  font-size: 52px;
+  font-weight: 950;
+  letter-spacing: -2px;
+}
+
+.v87-health-bar {
+  width: 100%;
+  height: 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  margin-top: 12px;
+}
+
+.v87-health-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff5572, #ffd166, #37d998);
+  transition: width .35s ease;
+}
+
+.v87-twin-list {
+  display: grid;
+  gap: 12px;
+}
+
+.v87-twin-health-row {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 20px;
+  padding: 16px;
+  background: rgba(255,255,255,.045);
+}
+
+.v87-row-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.v87-row-head strong {
+  font-size: 17px;
+}
+
+.v87-row-head small {
+  color: rgba(255,255,255,.68);
+}
+
+.v87-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 10px;
+}
+
+.v87-mini {
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255,255,255,.04);
+}
+
+.v87-mini strong {
+  display: block;
+  font-size: 18px;
+}
+
+.v87-mini small {
+  color: rgba(255,255,255,.70);
+}
+
+.v87-json {
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 420px;
+  color: #dbe7ff;
+  line-height: 1.45;
+  font-size: 14px;
+}
+
+.v87-select {
+  width: 100%;
+  height: 54px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 18px;
+  background: rgba(255,255,255,.07);
+  color: #fff;
+  padding: 0 14px;
+  margin-bottom: 12px;
+}
+
+.v87-select option {
+  color: #000;
+}
+
+@media (max-width: 900px) {
+  .v87-mini-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .v87-health-score {
+    font-size: 40px;
+  }
+}

@@ -1,0 +1,158 @@
+/* ======================================================
+   SOULFLAME V81.1 HOTFIX
+   Fix broken global overlay + fullscreen AI Twin mode
+   ====================================================== */
+
+/* Kill broken grey overlay everywhere by default */
+.sf-v81-backdrop {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Never show backdrop outside AI Twin mode */
+body:not(.sf-ai-twin-host) .sf-v81-backdrop {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Show backdrop only when drawer is open inside AI Twin */
+body.sf-ai-twin-host.sf-sidebar-open .sf-v81-backdrop {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10000 !important;
+  background: rgba(0, 0, 0, 0.42) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* AI Twin true fullscreen host */
+body.sf-ai-twin-host {
+  overflow: hidden !important;
+}
+
+body.sf-ai-twin-host .app {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body.sf-ai-twin-host .main {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide SoulMatch panels while AI Twin owns the screen */
+body.sf-ai-twin-host .left-panel,
+body.sf-ai-twin-host .mobile-header {
+  display: none !important;
+}
+
+/* AI Twin section covers everything */
+body.sf-ai-twin-host #aitwin.page.active {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 9000 !important;
+  background: #03050a !important;
+  overflow: hidden !important;
+}
+
+body.sf-ai-twin-host #aitwin iframe,
+body.sf-ai-twin-host .sf-ai-echo-v81-frame,
+body.sf-ai-twin-host .sf-ai-echo-v80-frame,
+body.sf-ai-twin-host .sf-ai-twin-clean-frame {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  border: 0 !important;
+  background: #03050a !important;
+}
+
+/* SoulMatch sidebar becomes hidden drawer */
+body.sf-ai-twin-host .sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 320px !important;
+  max-width: 88vw !important;
+  height: 100vh !important;
+  z-index: 10020 !important;
+  transform: translateX(-110%) !important;
+  transition: transform 0.24s ease !important;
+  box-shadow: 24px 0 70px rgba(0,0,0,0.35) !important;
+  overflow-y: auto !important;
+}
+
+body.sf-ai-twin-host.sf-sidebar-open .sidebar {
+  transform: translateX(0) !important;
+}
+
+/* Keep normal SoulMatch pages clean */
+body:not(.sf-ai-twin-host) {
+  overflow: auto !important;
+}
+
+body:not(.sf-ai-twin-host) .app {
+  overflow: visible !important;
+}
+
+/* Mobile drawer */
+@media (max-width: 860px) {
+  body.sf-ai-twin-host .sidebar {
+    width: min(88vw, 340px) !important;
+    height: 100vh !important;
+    padding-bottom: 22px !important;
+  }
+
+  body.sf-ai-twin-host .sidebar > .brand,
+  body.sf-ai-twin-host .sidebar .premium,
+  body.sf-ai-twin-host .sidebar .mini-user {
+    display: flex !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu-btn {
+    min-height: 54px !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0 16px !important;
+    font-size: 16px !important;
+    text-align: left !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu-btn span {
+    display: inline !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu-btn b {
+    position: static !important;
+    margin-left: auto !important;
+  }
+}
