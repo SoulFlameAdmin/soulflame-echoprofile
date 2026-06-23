@@ -4,22 +4,22 @@
   <meta charset="UTF-8" />
   <base href="/Soulmatch/" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoulFlame SoulMatch V90</title>
+  <title>SoulFlame SoulMatch V91</title>
 
   <style>
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; font-family: Inter, system-ui, Segoe UI, Arial, sans-serif; background: #f5f8ff; color: #06112f; overflow: hidden; }
     button, input, select { font-family: inherit; }
     .shell { display: grid; grid-template-columns: 330px 430px minmax(0,1fr); height: 100vh; }
-    .sidebar { background: linear-gradient(180deg,#1857ff,#072fba); color: white; padding: 26px 22px; overflow-y: auto; }
-    .brand { font-size: 28px; font-weight: 950; margin-bottom: 26px; letter-spacing: -1px; }
-    .nav-title { margin: 24px 0 10px; opacity: .82; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
-    .nav-btn { width: 100%; min-height: 52px; border: 0; border-radius: 16px; background: transparent; color: white; display: flex; align-items: center; gap: 12px; padding: 0 16px; font-size: 16px; font-weight: 850; cursor: pointer; text-align: left; }
+    .sidebar { background: linear-gradient(180deg,#1857ff,#072fba); color: white; padding: 26px 22px; overflow-y: auto; transition:.25s; }
+    .brand { font-size: 34px; font-weight: 950; margin-bottom: 28px; letter-spacing: -1.5px; }
+    .nav-title { margin: 24px 0 10px; opacity: .86; font-size: 13px; font-weight: 950; text-transform: uppercase; letter-spacing: .12em; }
+    .nav-btn { width: 100%; min-height: 64px; border: 0; border-radius: 18px; background: transparent; color: white; display: flex; align-items: center; gap: 13px; padding: 0 20px; font-size: 20px; font-weight: 950; cursor: pointer; text-align: left; }
     .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,.18); }
-    .premium { margin-top: 24px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.10); padding: 18px; border-radius: 20px; }
-    .premium strong { display:block; font-size:18px; margin-bottom: 8px; }
+    .premium { margin-top: 28px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.10); padding: 22px; border-radius: 24px; }
+    .premium strong { display:block; font-size:22px; margin-bottom: 10px; }
     .premium p { margin: 0; opacity: .78; line-height: 1.4; }
-    .profile-mini { margin-top: 30px; display:flex; gap:12px; align-items:center; }
+    .profile-mini { margin-top: 32px; display:flex; gap:14px; align-items:center; }
     .avatar { width: 58px; height: 58px; border-radius: 22px; background: #ff4f3f; color:white; display:grid; place-items:center; font-weight:950; flex:0 0 auto; }
     .list-panel { background: white; border-right: 1px solid #e6ecfb; padding: 34px 26px; overflow-y: auto; }
     .list-panel h2 { margin: 0 0 28px; font-size: 25px; }
@@ -52,13 +52,24 @@
     #aitwin { overflow:hidden; }
     #sfAiEchoFrame { width:100%; height:100vh; border:0; display:block; background:#03050a; }
     .drawer-toggle { display:none; }
+
+    body.ai-mode .shell { display:block; height:100vh; }
+    body.ai-mode .list-panel { display:none; }
+    body.ai-mode .main { position:fixed; inset:0; z-index:10; }
+    body.ai-mode .page { height:100vh; }
+    body.ai-mode #aitwin.active { display:block; position:fixed; inset:0; z-index:10; background:#03050a; }
+    body.ai-mode .sidebar { position:fixed; z-index:80; inset:0 auto 0 0; width:86vw; max-width:390px; transform:translateX(-100%); box-shadow:24px 0 90px rgba(0,0,0,.35); }
+    body.ai-mode.drawer-open .sidebar { transform:translateX(0); }
+    body.ai-mode .drawer-toggle { display:grid; place-items:center; position:fixed; z-index:100; left:0; top:50%; transform:translateY(-50%); width:52px; height:98px; border:0; border-radius:0 22px 22px 0; background:#1857ff; color:white; font-size:30px; }
+    body.ai-mode.drawer-open .drawer-toggle { left:min(86vw,390px); }
+
     @media(max-width: 950px) {
       .shell { grid-template-columns: 1fr; }
-      .sidebar { position:fixed; z-index:50; inset:0 auto 0 0; width:86vw; max-width:360px; transform:translateX(-100%); transition:.25s; }
+      .sidebar { position:fixed; z-index:80; inset:0 auto 0 0; width:86vw; max-width:390px; transform:translateX(-100%); box-shadow:24px 0 90px rgba(0,0,0,.35); }
       body.drawer-open .sidebar { transform:translateX(0); }
       .list-panel { display:none; }
-      .drawer-toggle { display:grid; place-items:center; position:fixed; z-index:80; left:0; top:50%; transform:translateY(-50%); width:48px; height:90px; border:0; border-radius:0 20px 20px 0; background:#1857ff; color:white; font-size:28px; }
-      body.drawer-open .drawer-toggle { left:min(86vw,360px); }
+      .drawer-toggle { display:grid; place-items:center; position:fixed; z-index:100; left:0; top:50%; transform:translateY(-50%); width:52px; height:98px; border:0; border-radius:0 22px 22px 0; background:#1857ff; color:white; font-size:30px; }
+      body.drawer-open .drawer-toggle { left:min(86vw,390px); }
       .bubble { max-width: 92%; }
       .simple-page { padding: 24px; }
     }
@@ -73,26 +84,11 @@
       <div class="brand">SoulFlame</div>
 
       <div class="nav-title">SoulMatch</div>
-      <button class="nav-btn active" data-page="messages">💬 Messages</button>
-      <button class="nav-btn" data-page="matches">❤️ Matches</button>
-      <button class="nav-btn" data-page="aitwin">🤖 AI Twin</button>
-      <button class="nav-btn" data-page="profile">🧍 Profile</button>
-      <button class="nav-btn" data-page="daily">🔥 Daily</button>
-
-      <div class="nav-title">AI Echo</div>
-      <button class="nav-btn" data-echo-panel="profilePanel">👤 Profile</button>
-      <button class="nav-btn" data-echo-panel="echoPanel">🧠 EchoProfile</button>
-      <button class="nav-btn" data-echo-panel="chatPanel">💬 GPT Chat</button>
-
-      <div class="nav-title">User</div>
-      <button class="nav-btn" data-user-view="connectors">🧩 Connectors</button>
-      <button class="nav-btn" data-user-view="twinplus">🌐 Twin+ Network</button>
-      <button class="nav-btn" data-user-view="health">💚 AI Twin Health</button>
-
-      <div class="nav-title">ADMIN 🔒</div>
-      <button class="nav-btn" data-admin-view="mine">1. 👑 My Twin</button>
-      <button class="nav-btn" data-admin-view="all">2. 👥 All Twins / Connect Talk</button>
-      <button class="nav-btn" data-admin-view="network">3. 🌐 Network / Bugs / Payments</button>
+      <button class="nav-btn active" data-page="messages">Messages</button>
+      <button class="nav-btn" data-page="matches">Matches</button>
+      <button class="nav-btn" data-page="aitwin">AI Twin</button>
+      <button class="nav-btn" data-page="profile">Profile</button>
+      <button class="nav-btn" data-page="daily">Daily</button>
 
       <div class="premium">
         <strong>Premium soon</strong>
@@ -119,7 +115,7 @@
 
       <div class="conversation active">
         <div class="avatar">A</div>
-        <div><strong>Anna</strong><small>Your match is 94% 🔥</small></div>
+        <div><strong>Anna</strong><small>Your match is 94%</small></div>
       </div>
       <div class="conversation">
         <div class="avatar">M</div>
@@ -143,14 +139,14 @@
               <div class="avatar">S</div>
               <div>
                 <strong>SoulMatch Room</strong><br />
-                <small>Online • 92% inner match</small>
+                <small>Online - 92% inner match</small>
               </div>
             </div>
           </header>
 
           <div class="chat" id="chatArea">
-            <div class="bubble">Welcome to SoulMatch. The old broken text is removed. This screen is clean UTF-8.</div>
-            <div class="bubble me">All buttons now route to clean panels: AI Echo, User, Admin, Health and Twin+ Network.</div>
+            <div class="bubble">SoulMatch is clean now. This menu has only SoulMatch buttons.</div>
+            <div class="bubble me">User and Admin are inside AI Twin, not here.</div>
           </div>
 
           <form class="composer" id="composer">
@@ -170,7 +166,7 @@
       </section>
 
       <section class="page" id="aitwin">
-        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=900" title="AI Echo"></iframe>
+        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=910" title="AI Echo"></iframe>
       </section>
 
       <section class="page" id="profile">
@@ -198,58 +194,56 @@
     const pages = Array.from(document.querySelectorAll(".page"));
     const drawerToggle = document.getElementById("drawerToggle");
 
+    function setDrawer(open) {
+      document.body.classList.toggle("drawer-open", open);
+      drawerToggle.textContent = open ? "◀" : "▶";
+    }
+
     function closeDrawer() {
-      document.body.classList.remove("drawer-open");
-      drawerToggle.textContent = "▶";
+      setDrawer(false);
     }
 
     function openPage(id) {
       pages.forEach(p => p.classList.remove("active"));
       const page = document.getElementById(id);
       if (page) page.classList.add("active");
-      buttons.forEach(b => b.classList.remove("active"));
-      closeDrawer();
-    }
 
-    function postToEcho(payload) {
-      openPage("aitwin");
-      setTimeout(() => {
-        const frame = document.getElementById("sfAiEchoFrame");
-        if (frame && frame.contentWindow) frame.contentWindow.postMessage(payload, "*");
-      }, 250);
+      document.body.classList.toggle("ai-mode", id === "aitwin");
+
+      buttons.forEach(b => b.classList.remove("active"));
+      const active = buttons.find(b => b.dataset.page === id);
+      if (active) active.classList.add("active");
+
+      closeDrawer();
     }
 
     buttons.forEach(btn => {
       btn.addEventListener("click", () => {
-        buttons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-
         if (btn.dataset.page) {
           openPage(btn.dataset.page);
-          btn.classList.add("active");
-          return;
-        }
-
-        if (btn.dataset.echoPanel) {
-          postToEcho({ type: "V90_OPEN_PANEL", panel: btn.dataset.echoPanel });
-          return;
-        }
-
-        if (btn.dataset.userView) {
-          postToEcho({ type: "V90_USER_VIEW", view: btn.dataset.userView });
-          return;
-        }
-
-        if (btn.dataset.adminView) {
-          postToEcho({ type: "V90_ADMIN_VIEW", view: btn.dataset.adminView });
-          return;
         }
       });
     });
 
     drawerToggle.addEventListener("click", () => {
-      document.body.classList.toggle("drawer-open");
-      drawerToggle.textContent = document.body.classList.contains("drawer-open") ? "◀" : "▶";
+      setDrawer(!document.body.classList.contains("drawer-open"));
+    });
+
+    window.addEventListener("message", event => {
+      const data = event.data;
+      if (!data || typeof data !== "object") return;
+
+      if (data.type === "OPEN_SOULFLAME_DRAWER") {
+        setDrawer(true);
+      }
+
+      if (data.type === "CLOSE_SOULFLAME_DRAWER") {
+        setDrawer(false);
+      }
+
+      if (data.type === "EXIT_AI_TWIN") {
+        openPage("messages");
+      }
     });
 
     document.getElementById("composer").addEventListener("submit", e => {

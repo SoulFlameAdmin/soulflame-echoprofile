@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 app.use((req, res, next) => {
-  res.setHeader("X-SoulFlame-Version", "V90");
+  res.setHeader("X-SoulFlame-Version", "V91");
   next();
 });
 
@@ -351,7 +351,7 @@ function buildSystem() {
 
   return {
     ok: true,
-    version: "V90",
+    version: "V91",
     adminOrder: {
       one: "My Twin",
       two: "All Twins / Connect Talk",
@@ -428,7 +428,7 @@ app.get("/api/health", (req, res) => {
   const system = buildSystem();
   res.json({
     ok: true,
-    version: "V90",
+    version: "V91",
     openaiConfigured: system.infrastructure.openaiConfigured,
     supabaseConfigured: system.infrastructure.supabaseConfigured,
     localProfiles: system.infrastructure.localProfiles,
@@ -439,11 +439,11 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.get("/api/v90/health", (req, res) => {
+app.get("/api/v91/health", (req, res) => {
   const system = buildSystem();
   res.json({
     ok: true,
-    version: "V90",
+    version: "V91",
     globalHealth: system.globalHealth,
     infrastructure: system.infrastructure,
     twins: system.twins.map(t => ({
@@ -460,7 +460,7 @@ app.get("/api/v90/health", (req, res) => {
   });
 });
 
-app.get("/api/v90/system", (req, res) => {
+app.get("/api/v91/system", (req, res) => {
   if (!adminOk(req)) return res.status(401).json({ ok: false, error: "ADMIN locked" });
   res.json(buildSystem());
 });
@@ -483,7 +483,7 @@ app.post("/api/profile", (req, res) => {
     payload: saved
   });
 
-  res.json({ ok: true, version: "V90", saved });
+  res.json({ ok: true, version: "V91", saved });
 });
 
 app.post("/api/connectors", (req, res) => {
@@ -512,10 +512,10 @@ app.post("/api/connectors", (req, res) => {
   writeJson("data/connectors.local.json", store);
   appendJson("data/events.local.json", { type: "connector_update", payload: body });
 
-  res.json({ ok: true, version: "V90", connectorSystem: store[key] });
+  res.json({ ok: true, version: "V91", connectorSystem: store[key] });
 });
 
-app.post("/api/v90/payment", (req, res) => {
+app.post("/api/v91/payment", (req, res) => {
   if (!adminOk(req)) return res.status(401).json({ ok: false, error: "ADMIN locked" });
 
   const body = req.body || {};
@@ -533,14 +533,14 @@ app.post("/api/v90/payment", (req, res) => {
   });
 
   appendJson("data/events.local.json", {
-    type: "payment_update_v90",
+    type: "payment_update_v91",
     payload: payment
   });
 
-  res.json({ ok: true, version: "V90", payment, system: buildSystem() });
+  res.json({ ok: true, version: "V91", payment, system: buildSystem() });
 });
 
-app.post("/api/v90/connect", (req, res) => {
+app.post("/api/v91/connect", (req, res) => {
   if (!adminOk(req)) return res.status(401).json({ ok: false, error: "ADMIN locked" });
 
   const body = req.body || {};
@@ -559,11 +559,11 @@ app.post("/api/v90/connect", (req, res) => {
   });
 
   appendJson("data/events.local.json", {
-    type: "twin_connection_v90",
+    type: "twin_connection_v91",
     payload: connection
   });
 
-  res.json({ ok: true, version: "V90", connection, system: buildSystem() });
+  res.json({ ok: true, version: "V91", connection, system: buildSystem() });
 });
 
 app.post("/api/chat", async (req, res) => {
@@ -583,7 +583,7 @@ app.post("/api/chat", async (req, res) => {
   if (!process.env.OPENAI_API_KEY) {
     return res.json({
       ok: true,
-      version: "V90",
+      version: "V91",
       localFallback: true,
       reply: "Local Echo is working. Add OPENAI_API_KEY to enable real GPT answers."
     });
@@ -613,7 +613,7 @@ app.post("/api/chat", async (req, res) => {
 
     res.json({
       ok: true,
-      version: "V90",
+      version: "V91",
       reply: data.choices?.[0]?.message?.content || "No reply."
     });
   } catch (err) {
@@ -637,7 +637,7 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("SoulFlame V90 running: http://localhost:" + PORT);
+  console.log("SoulFlame V91 running: http://localhost:" + PORT);
   console.log("SoulMatch: http://localhost:" + PORT + "/soulmatch");
   console.log("AI Echo: http://localhost:" + PORT + "/ai-echo.html");
 });

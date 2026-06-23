@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoulFlame AI Echo V90</title>
+  <title>SoulFlame AI Echo V91</title>
 
   <style>
     * { box-sizing: border-box; }
@@ -19,6 +19,7 @@
     .tab { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.06); color:#fff; border-radius:999px; padding:12px 16px; font-weight:900; cursor:pointer; }
     .tab.active { background:linear-gradient(135deg,#2563ff,#7c3cff); border-color:transparent; }
     .tab.admin { background:rgba(255,80,120,.14); }
+    .burger { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.07); color:#fff; border-radius:16px; padding:12px 16px; font-weight:950; cursor:pointer; }
     .main { padding:28px; overflow:auto; }
     .panel { display:none; }
     .panel.active { display:block; }
@@ -60,7 +61,7 @@
         <div class="logo">AI</div>
         <div>
           <strong>AI Echo</strong>
-          <small>SoulFlame AI Twin</small>
+          <small>Full screen AI Twin center</small>
         </div>
       </div>
 
@@ -68,10 +69,9 @@
         <button class="tab active" data-panel="profilePanel">Profile</button>
         <button class="tab" data-panel="echoPanel">EchoProfile</button>
         <button class="tab" data-panel="chatPanel">GPT Chat</button>
-        <button class="tab" data-panel="connectorsPanel">Connectors</button>
-        <button class="tab" data-panel="twinPlusPanel">Twin+ Network</button>
-        <button class="tab" data-panel="healthPanel">AI Twin Health</button>
+        <button class="tab" data-panel="userPanel">User</button>
         <button class="tab admin" data-panel="adminPanel">ADMIN</button>
+        <button class="burger" id="openSoulFlame">SoulFlame Menu</button>
       </nav>
     </header>
 
@@ -80,7 +80,7 @@
         <div class="headline">
           <div>
             <h1>Profile</h1>
-            <p>Clean AI Twin profile screen. No broken Cyrillic text. UTF-8 is stable.</p>
+            <p>This is inside AI Twin. SoulMatch menu stays outside and opens only with the arrow or SoulFlame button.</p>
           </div>
         </div>
 
@@ -130,6 +130,35 @@
             <input id="chatInput" placeholder="Ask AI Echo..." />
             <button class="main-btn">Send</button>
           </form>
+        </div>
+      </section>
+
+      <section class="panel" id="userPanel">
+        <div class="headline">
+          <div>
+            <h1>User</h1>
+            <p>User tools are here, inside AI Twin: Connectors, Twin+ Network and AI Twin Health.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <h3>Connectors</h3>
+            <p class="muted">Only external connections.</p>
+            <button class="main-btn" data-panel-target="connectorsPanel">Open Connectors</button>
+          </div>
+
+          <div class="card">
+            <h3>Twin+ Network</h3>
+            <p class="muted">Add two Twins into conversation.</p>
+            <button class="main-btn" data-panel-target="twinPlusPanel">Open Twin+ Network</button>
+          </div>
+
+          <div class="card">
+            <h3>AI Twin Health</h3>
+            <p class="muted">Real health 0-100 for all AI Twins.</p>
+            <button class="main-btn" data-panel-target="healthPanel">Open Health</button>
+          </div>
         </div>
       </section>
 
@@ -205,7 +234,7 @@
         <div class="headline">
           <div>
             <h1>ADMIN System</h1>
-            <p>Admin center: My Twin, All Twins / Connect Talk, Network / Bugs / Payments.</p>
+            <p>Admin center inside AI Twin: My Twin, All Twins / Connect Talk, Network / Bugs / Payments.</p>
           </div>
           <button class="small-btn" id="refreshAdmin">Refresh Admin</button>
         </div>
@@ -262,6 +291,20 @@
       });
     });
 
+    qsa("[data-panel-target]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        openPanel(btn.dataset.panelTarget);
+        if (btn.dataset.panelTarget === "healthPanel") loadHealth();
+        if (btn.dataset.panelTarget === "twinPlusPanel") loadTwinPlus();
+      });
+    });
+
+    qs("#openSoulFlame").addEventListener("click", () => {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: "OPEN_SOULFLAME_DRAWER" }, "*");
+      }
+    });
+
     async function saveProfile() {
       const name = qs("#profileName").value.trim() || "Dimitar";
       const instagram = qs("#profileInstagram").value.trim() || "@stere0metal360";
@@ -279,7 +322,7 @@
           compatibility: 70,
           level: 7,
           score: { A: 0, AV: 0, S: 0, D: 0 },
-          summary: "Clean V90 profile."
+          summary: "Clean V91 profile."
         }
       };
 
@@ -360,7 +403,7 @@
     async function loadSystem() {
       const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
 
-      const res = await fetch("/api/v90/system", {
+      const res = await fetch("/api/v91/system", {
         headers: { "x-admin-pin": pin }
       });
 
@@ -376,7 +419,7 @@
     }
 
     async function loadHealth() {
-      const res = await fetch("/api/v90/health");
+      const res = await fetch("/api/v91/health");
       const data = await res.json().catch(() => ({}));
 
       const score = data.globalHealth ? data.globalHealth.score : 0;
@@ -392,12 +435,12 @@
         const row = document.createElement("div");
         row.className = "row";
         row.innerHTML =
-          "<div><b>" + (twin.isMine ? "👑 " : "") + (twin.name || "Unknown Twin") + "</b><br>" +
-          "<small>" + (twin.instagram || "-") + " • Health " + twin.health.score + "% • " + twin.health.label + "</small><br>" +
+          "<div><b>" + (twin.isMine ? "My Twin - " : "") + (twin.name || "Unknown Twin") + "</b><br>" +
+          "<small>" + (twin.instagram || "-") + " - Health " + twin.health.score + "% - " + twin.health.label + "</small><br>" +
           "<small>OpenAI: " + (twin.health.factors.openai ? "ON" : "OFF") +
-          " • Supabase: " + (twin.health.factors.supabase ? "ON" : "OFF") +
-          " • Memory: " + (twin.health.factors.memory ? "ON" : "OFF") +
-          " • Errors: " + twin.health.factors.errors + "</small></div>" +
+          " - Supabase: " + (twin.health.factors.supabase ? "ON" : "OFF") +
+          " - Memory: " + (twin.health.factors.memory ? "ON" : "OFF") +
+          " - Errors: " + twin.health.factors.errors + "</small></div>" +
           "<button class='small-btn'>Open</button>";
 
         row.querySelector("button").onclick = () => {
@@ -422,7 +465,7 @@
       b.innerHTML = "";
 
       twins.forEach(twin => {
-        const label = (twin.isMine ? "👑 " : "") + twin.name + " | " + (twin.instagram || "-") + " | Health " + (twin.health ? twin.health.score : 0) + "%";
+        const label = (twin.isMine ? "My Twin - " : "") + twin.name + " | " + (twin.instagram || "-") + " | Health " + (twin.health ? twin.health.score : 0) + "%";
 
         const oa = document.createElement("option");
         oa.value = twin.id;
@@ -462,7 +505,7 @@
 
       const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
 
-      const res = await fetch("/api/v90/connect", {
+      const res = await fetch("/api/v91/connect", {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-admin-pin": pin },
         body: JSON.stringify({
@@ -494,7 +537,7 @@
       const product = prompt("Paid for:", "Twin Talk / Twin+ connection");
       const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
 
-      const res = await fetch("/api/v90/payment", {
+      const res = await fetch("/api/v91/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-admin-pin": pin },
         body: JSON.stringify({
@@ -523,7 +566,7 @@
 
       const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
 
-      const res = await fetch("/api/v90/connect", {
+      const res = await fetch("/api/v91/connect", {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-admin-pin": pin },
         body: JSON.stringify({
@@ -547,14 +590,14 @@
       const row = document.createElement("div");
       row.className = "row";
 
-      const paid = twin.paid ? "✅ paid" : "❌ not paid";
+      const paid = twin.paid ? "paid" : "not paid";
       const total = twin.paymentStatus ? twin.paymentStatus.totalPaid : 0;
       const currency = twin.paymentStatus ? twin.paymentStatus.currency : "EUR";
 
       row.innerHTML =
-        "<div><b>" + (twin.isMine ? "👑 " : "") + (twin.name || "Unknown Twin") + "</b><br>" +
-        "<small>" + (twin.instagram || "-") + " • Level " + (twin.level || "-") + "/10 • " + (twin.echoType || "Not profiled") + "</small><br>" +
-        "<small>" + paid + " • " + total + " " + currency + " • Health " + (twin.health ? twin.health.score : 0) + "%</small></div>" +
+        "<div><b>" + (twin.isMine ? "My Twin - " : "") + (twin.name || "Unknown Twin") + "</b><br>" +
+        "<small>" + (twin.instagram || "-") + " - Level " + (twin.level || "-") + "/10 - " + (twin.echoType || "Not profiled") + "</small><br>" +
+        "<small>" + paid + " - " + total + " " + currency + " - Health " + (twin.health ? twin.health.score : 0) + "%</small></div>" +
         "<div class='row-actions'><button class='small-btn' data-act='open'>Open</button>" +
         (actions ? "<button class='small-btn' data-act='paid'>Mark Paid</button><button class='small-btn' data-act='connect'>Connect Talk</button>" : "") +
         "</div>";
@@ -639,11 +682,11 @@
       const data = event.data;
       if (!data || typeof data !== "object") return;
 
-      if (data.type === "V90_OPEN_PANEL") {
+      if (data.type === "V90_OPEN_PANEL" || data.type === "V91_OPEN_PANEL") {
         openPanel(data.panel);
       }
 
-      if (data.type === "V90_USER_VIEW") {
+      if (data.type === "V90_USER_VIEW" || data.type === "V91_USER_VIEW") {
         if (data.view === "connectors") {
           openPanel("connectorsPanel");
           renderConnectors();
@@ -660,7 +703,7 @@
         }
       }
 
-      if (data.type === "V90_ADMIN_VIEW") {
+      if (data.type === "V90_ADMIN_VIEW" || data.type === "V91_ADMIN_VIEW") {
         openPanel("adminPanel");
         loadAdmin(data.view || "mine");
       }

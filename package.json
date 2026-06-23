@@ -1,15 +1,11 @@
 {
-    "name":  "soulflame-twins",
-    "version":  "1.0.2",
-    "description":  "AI Twins by SoulFlame onboarding first",
-    "author":  "SoulFlame",
-    "license":  "MIT",
-    "scripts":  {
-                    "start":  "node app.js",
-                    "dev":  "node app.js",
-                    "check":  "node --check app.js"
-                },
-    "dependencies":  {
-                         "express":  "^4.18.3"
-                     }
+  "name": "soulflame-echo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

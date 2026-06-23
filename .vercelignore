@@ -2,7 +2,6 @@ node_modules
 .env
 .env.*
 _v*_backup*
-_v90_clean_backup*
 *.zip
 *.log
 .git
