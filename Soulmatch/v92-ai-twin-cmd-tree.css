@@ -1,0 +1,67 @@
+/* SOULFLAME V92 - AI TWIN CMD TREE INSIDE BLUE DRAWER */
+
+.v92-ai-cmd-tree {
+  display: none;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.18);
+}
+
+body.ai-mode .v92-ai-cmd-tree {
+  display: block;
+}
+
+.v92-tree-title {
+  margin: 20px 0 10px;
+  opacity: .9;
+  font-size: 13px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+}
+
+.v92-tree-line {
+  width: 100%;
+  min-height: 46px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  font-size: 16px;
+  font-weight: 900;
+  text-align: left;
+  cursor: pointer;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+
+.v92-tree-line:hover,
+.v92-tree-line.active {
+  background: rgba(255,255,255,.18);
+}
+
+.v92-tree-line.admin {
+  color: #ffe8a8;
+}
+
+.v92-tree-line.health {
+  color: #baffdc;
+}
+
+.v92-tree-line.system {
+  color: #b9d5ff;
+}
+
+body:not(.ai-mode) .v92-ai-cmd-tree {
+  display: none !important;
+}
+
+@media(max-width: 950px) {
+  .v92-tree-line {
+    min-height: 48px;
+    font-size: 15px;
+  }
+}

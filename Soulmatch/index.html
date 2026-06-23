@@ -74,10 +74,11 @@
       .simple-page { padding: 24px; }
     }
   </style>
+  <link rel="stylesheet" href="v92-ai-twin-cmd-tree.css?v=920" />
 </head>
 
 <body>
-  <button class="drawer-toggle" id="drawerToggle">▶</button>
+  <button class="drawer-toggle" id="drawerToggle">в–¶</button>
 
   <div class="shell">
     <aside class="sidebar">
@@ -166,7 +167,7 @@
       </section>
 
       <section class="page" id="aitwin">
-        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=910" title="AI Echo"></iframe>
+        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=920" title="AI Echo"></iframe>
       </section>
 
       <section class="page" id="profile">
@@ -196,7 +197,7 @@
 
     function setDrawer(open) {
       document.body.classList.toggle("drawer-open", open);
-      drawerToggle.textContent = open ? "◀" : "▶";
+      drawerToggle.textContent = open ? "в—Ђ" : "в–¶";
     }
 
     function closeDrawer() {
@@ -258,5 +259,6 @@
       document.getElementById("chatArea").appendChild(div);
     });
   </script>
+  <script src="v92-ai-twin-cmd-tree.js?v=920"></script>
 </body>
 </html>

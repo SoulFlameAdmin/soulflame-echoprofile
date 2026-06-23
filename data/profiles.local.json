@@ -643,5 +643,50 @@
       "answers": {},
       "echo": null
     }
+  },
+  {
+    "id": "sf_1782211329385_87689710ce028",
+    "createdAt": "2026-06-23T10:42:09.385Z",
+    "user": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360"
+    },
+    "name": "Dimitar",
+    "instagram": "@stere0metal360",
+    "twinType": "Personal AI Twin",
+    "echo": {
+      "echoType": "Deep Attachment Visionary",
+      "compatibility": 70,
+      "level": 7,
+      "score": {
+        "A": 0,
+        "AV": 0,
+        "S": 0,
+        "D": 0
+      },
+      "summary": "Clean V91 profile."
+    },
+    "answers": {},
+    "raw": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "twinType": "Personal AI Twin",
+      "user": {
+        "name": "Dimitar",
+        "instagram": "@stere0metal360"
+      },
+      "echo": {
+        "echoType": "Deep Attachment Visionary",
+        "compatibility": 70,
+        "level": 7,
+        "score": {
+          "A": 0,
+          "AV": 0,
+          "S": 0,
+          "D": 0
+        },
+        "summary": "Clean V91 profile."
+      }
+    }
   }
 ]
