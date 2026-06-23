@@ -5,3 +5,22 @@ _v*_backup*/
 *.zip
 *.log
 .DS_Store
+# SoulFlame safety
+node_modules/
+.env
+.env.*
+_anchor_v101_mobile_ready_*/
+_v*_backup*/
+*.zip
+*.log
+.DS_Store
+
+# SoulFlame safety
+node_modules/
+.env
+.env.*
+_anchor_v101_mobile_ready_*/
+_v*_backup*/
+*.zip
+*.log
+.DS_Store
