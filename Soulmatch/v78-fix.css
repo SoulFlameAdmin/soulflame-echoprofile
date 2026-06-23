@@ -1,0 +1,293 @@
+/* SOULFLAME V78.3 - clean layout fix */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body.v78-messages-mode .left-panel {
+  display: block !important;
+}
+
+body:not(.v78-messages-mode) .left-panel {
+  display: none !important;
+}
+
+body.v78-messages-mode .main {
+  grid-template-columns: 335px minmax(0, 1fr) !important;
+}
+
+body:not(.v78-messages-mode) .main {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body:not(.v78-messages-mode) .page.active {
+  grid-column: 1 !important;
+}
+
+.sf-v78-status {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 99999;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font: 700 12px/1.2 Arial, sans-serif;
+  background: rgba(12, 18, 35, 0.88);
+  color: #ffffff;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.22);
+  pointer-events: none;
+}
+
+@media (max-width: 1000px) {
+  body.v78-messages-mode .main,
+  body:not(.v78-messages-mode) .main {
+    grid-template-columns: 1fr !important;
+  }
+
+  body:not(.v78-messages-mode) .left-panel {
+    display: none !important;
+  }
+
+  .page.active {
+    grid-column: 1 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .sf-v78-status {
+    left: 12px;
+    right: 12px;
+    text-align: center;
+  }
+}
+/* SOULFLAME V78.4 - AI Echo iframe fix */
+
+.sf-ai-echo-shell {
+  width: 100%;
+  max-width: 1180px;
+  height: calc(100vh - 190px);
+  min-height: 620px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(15, 60, 160, 0.12);
+  box-shadow: 0 28px 80px rgba(20, 50, 120, 0.14);
+}
+
+.sf-ai-echo-top {
+  height: 72px;
+  padding: 0 18px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #0f46d9, #1768ff);
+  color: #ffffff;
+}
+
+.sf-ai-echo-top strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.sf-ai-echo-top span {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.sf-ai-echo-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sf-ai-echo-actions a,
+.sf-ai-echo-actions button {
+  border: 0;
+  border-radius: 14px;
+  padding: 11px 14px;
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sf-ai-echo-actions a:hover,
+.sf-ai-echo-actions button:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+.sf-ai-echo-frame {
+  display: block;
+  width: 100%;
+  height: calc(100% - 72px);
+  border: 0;
+  background: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .sf-ai-echo-shell {
+    height: calc(100vh - 160px);
+    min-height: 520px;
+    border-radius: 18px;
+  }
+
+  .sf-ai-echo-top {
+    height: auto;
+    min-height: 76px;
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px;
+  }
+
+  .sf-ai-echo-actions {
+    width: 100%;
+  }
+
+  .sf-ai-echo-actions a,
+  .sf-ai-echo-actions button {
+    flex: 1;
+    text-align: center;
+  }
+
+  .sf-ai-echo-frame {
+    height: calc(100% - 118px);
+  }
+}
+
+
+/* SOULFLAME V78.5 - AI Echo separated from SoulMatch */
+
+.sf-ai-echo-shell {
+  width: 100%;
+  max-width: 1180px;
+  height: calc(100vh - 190px);
+  min-height: 620px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(15, 60, 160, 0.12);
+  box-shadow: 0 28px 80px rgba(20, 50, 120, 0.14);
+}
+
+.sf-ai-echo-top {
+  height: 72px;
+  padding: 0 18px 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #0f46d9, #1768ff);
+  color: #ffffff;
+}
+
+.sf-ai-echo-top strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.sf-ai-echo-top span {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.sf-ai-echo-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sf-ai-echo-actions a,
+.sf-ai-echo-actions button {
+  border: 0;
+  border-radius: 14px;
+  padding: 11px 14px;
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sf-ai-echo-frame {
+  display: block;
+  width: 100%;
+  height: calc(100% - 72px);
+  border: 0;
+  background: #000;
+}
+
+@media (max-width: 900px) {
+  .sf-ai-echo-shell {
+    height: calc(100vh - 160px);
+    min-height: 520px;
+    border-radius: 18px;
+  }
+
+  .sf-ai-echo-top {
+    height: auto;
+    min-height: 76px;
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px;
+  }
+
+  .sf-ai-echo-actions {
+    width: 100%;
+  }
+
+  .sf-ai-echo-actions a,
+  .sf-ai-echo-actions button {
+    flex: 1;
+    text-align: center;
+  }
+
+  .sf-ai-echo-frame {
+    height: calc(100% - 118px);
+  }
+}
+
+
+/* SOULFLAME V78.7 - clean AI Twin only */
+
+#aitwin {
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #030303 !important;
+}
+
+.sf-ai-twin-clean-frame {
+  display: block !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 760px !important;
+  border: 0 !important;
+  background: #030303 !important;
+  border-radius: 0 !important;
+}
+
+body:not(.v78-messages-mode) .main {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body:not(.v78-messages-mode) .page.active {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@media (max-width: 900px) {
+  .sf-ai-twin-clean-frame {
+    height: calc(100vh - 0px) !important;
+    min-height: 700px !important;
+  }
+}
+

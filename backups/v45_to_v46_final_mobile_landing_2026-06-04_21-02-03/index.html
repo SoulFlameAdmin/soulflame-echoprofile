@@ -1,0 +1,2037 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>AI Twin by SoulFlame — Full Twin Unlock</title>
+  <meta name="description" content="Създай безплатен AI Twin и отключи Full AI Twin чрез код. EchoProfile, Future Twin message и личен AI план.">
+  <meta property="og:title" content="AI Twin by SoulFlame">
+  <meta property="og:description" content="Създай безплатен AI Twin и отключи Full AI Twin с код.">
+  <meta name="theme-color" content="#050611">
+
+  <style>
+    :root {
+      --bg0:#03040a;
+      --bg1:#080b1f;
+      --bg2:#111a46;
+      --text:#f8f7ff;
+      --soft:#b9c3e8;
+      --muted:#7f8ab4;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.078);
+      --glass2:rgba(255,255,255,.045);
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#23e6a8;
+      --red:#ff4d6d;
+      --shadow:0 28px 90px rgba(0,0,0,.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg0);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(124,60,255,.30), transparent 32rem),
+        radial-gradient(circle at 86% 12%, rgba(0,234,255,.18), transparent 30rem),
+        radial-gradient(circle at 50% 105%, rgba(255,79,243,.10), transparent 34rem),
+        linear-gradient(135deg, var(--bg0), var(--bg1) 46%, var(--bg2));
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 16%, rgba(0,0,0,.58), transparent 70%);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(6,8,20,.72);
+      border-radius: 24px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.22);
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -.5px;
+      white-space: nowrap;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 30% 22%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow: 0 0 34px rgba(124,60,255,.42);
+      flex: 0 0 auto;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0,234,255,.36);
+      background: rgba(0,234,255,.08);
+    }
+
+    .hero {
+      min-height: calc(100vh - 110px);
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 22px;
+      align-items: center;
+      padding: 44px 0 28px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.045)),
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.08), transparent 38%);
+      border-radius: 30px;
+      padding: clamp(22px, 4vw, 42px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .card.light {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.04)),
+        rgba(255,255,255,.035);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--soft);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 950;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 99px;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(46px, 7.8vw, 108px);
+      letter-spacing: -4px;
+      line-height: .88;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4vw, 50px);
+      letter-spacing: -1.6px;
+      line-height: 1;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    p {
+      margin: 0 0 15px;
+      color: var(--soft);
+      line-height: 1.65;
+      font-size: 17px;
+    }
+
+    .grad {
+      background: linear-gradient(90deg, var(--cyan), #5ca8ff, var(--violet), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .gold { color: var(--gold); }
+    .green { color: var(--green); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button, .btn {
+      border: 0;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--violet), #3f8dff);
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-weight: 950;
+      text-decoration: none;
+      font-size: 15px;
+      box-shadow: 0 16px 42px rgba(124,60,255,.24);
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+      transform: translateZ(0);
+    }
+
+    button:hover, .btn:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.1);
+      box-shadow: 0 20px 52px rgba(124,60,255,.30);
+    }
+
+    button.secondary, .btn.secondary {
+      background: rgba(255,255,255,.09);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    button.gold, .btn.gold {
+      background: linear-gradient(135deg, #ffb703, #ff4ff3);
+      box-shadow: 0 16px 45px rgba(255,79,243,.18);
+    }
+
+    .heroBullets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .heroBullet {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 13px;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .heroBullet b {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stage {
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    .device {
+      position: relative;
+      width: min(440px, 86vw);
+      aspect-ratio: 1 / 1.15;
+      transform-style: preserve-3d;
+      transition: transform .14s linear;
+    }
+
+    .halo {
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,234,255,.22), rgba(124,60,255,.10), transparent 64%);
+      opacity: .75;
+      animation: haloPulse 5.5s ease-in-out infinite;
+    }
+
+    .orb {
+      position: absolute;
+      inset: 14% 8% 20%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 24%, rgba(255,255,255,.95), transparent 10%),
+        radial-gradient(circle at 42% 42%, rgba(0,234,255,.72), transparent 24%),
+        radial-gradient(circle at 58% 56%, rgba(124,60,255,.60), transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255,79,243,.36), transparent 55%),
+        rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow:
+        inset 0 0 80px rgba(255,255,255,.07),
+        0 0 80px rgba(0,234,255,.20),
+        0 0 120px rgba(124,60,255,.28);
+      animation: levitate 5.8s ease-in-out infinite;
+      transform: translateZ(70px);
+    }
+
+    .orb::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 126%;
+      height: 30%;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateX(70deg) rotateZ(15deg);
+    }
+
+    .shadowOrb {
+      position: absolute;
+      left: 50%;
+      bottom: 5%;
+      width: 54%;
+      height: 12%;
+      transform: translateX(-50%) rotateX(72deg);
+      background: radial-gradient(ellipse, rgba(0,234,255,.28), rgba(124,60,255,.14), transparent 68%);
+      filter: blur(10px);
+      opacity: .72;
+      animation: shadowPulse 5.8s ease-in-out infinite;
+    }
+
+    .chip {
+      position: absolute;
+      z-index: 4;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(2,4,14,.58);
+      border-radius: 18px;
+      padding: 12px 14px;
+      color: #e7ecff;
+      box-shadow: 0 16px 45px rgba(0,0,0,.26);
+      font-weight: 950;
+      animation: chipFloat 5.4s ease-in-out infinite;
+      transform: translateZ(120px);
+      white-space: nowrap;
+    }
+
+    .chip small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .chip.c1 { top: 6%; left: 1%; }
+    .chip.c2 { top: 18%; right: 0; animation-delay: .7s; }
+    .chip.c3 { bottom: 18%; left: 0; animation-delay: 1.3s; }
+    .chip.c4 { bottom: 6%; right: 7%; animation-delay: 2s; }
+
+    @keyframes levitate {
+      0%,100% { transform: translateY(0) translateZ(70px) scale(1); }
+      50% { transform: translateY(-18px) translateZ(84px) scale(1.018); }
+    }
+
+    @keyframes haloPulse {
+      0%,100% { transform: scale(.96); opacity:.52; }
+      50% { transform: scale(1.07); opacity:.82; }
+    }
+
+    @keyframes shadowPulse {
+      0%,100% { opacity:.46; transform: translateX(-50%) rotateX(72deg) scale(.92); }
+      50% { opacity:.75; transform: translateX(-50%) rotateX(72deg) scale(1.1); }
+    }
+
+    @keyframes chipFloat {
+      0%,100% { translate:0 0; }
+      50% { translate:0 -10px; }
+    }
+
+    .section { padding: 30px 0; }
+
+    .grid3, .grid4, .pricingGrid, .fullGrid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid3 { grid-template-columns: repeat(3, 1fr); }
+    .grid4 { grid-template-columns: repeat(4, 1fr); }
+    .pricingGrid { grid-template-columns: repeat(3, 1fr); }
+    .fullGrid { grid-template-columns: repeat(2, 1fr); }
+
+    .mini, .priceCard, .stepCard, .fullBlock {
+      border: 1px solid var(--line);
+      background: var(--glass2);
+      border-radius: 24px;
+      padding: 18px;
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform .55s ease, opacity .55s ease;
+    }
+
+    .mini.show, .priceCard.show, .stepCard.show, .fullBlock.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mini strong, .stepCard strong, .fullBlock strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .stepNumber {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .priceCard.featured {
+      border-color: rgba(0,234,255,.38);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.10), transparent 34%),
+        rgba(255,255,255,.06);
+      box-shadow: 0 20px 70px rgba(0,234,255,.08);
+    }
+
+    .price {
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -1px;
+      margin: 10px 0;
+    }
+
+    .list {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .list span::before {
+      content: "✓ ";
+      color: var(--green);
+      font-weight: 950;
+    }
+
+    .appGrid {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.26);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 14px 15px;
+      outline: none;
+      font-size: 15px;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(0,234,255,.48);
+      box-shadow: 0 0 0 4px rgba(0,234,255,.07);
+    }
+
+    textarea {
+      min-height: 106px;
+      resize: vertical;
+    }
+
+    .signalGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .signal {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.24);
+      border-radius: 20px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .signal:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,234,255,.32);
+    }
+
+    .signal.active {
+      background: linear-gradient(135deg, rgba(124,60,255,.34), rgba(0,234,255,.12));
+      border-color: rgba(0,234,255,.44);
+    }
+
+    .signal b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .signal span {
+      display: block;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .result, .fullResult {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .result.show, .fullResult.show {
+      display: block;
+      animation: resultIn .42s ease both;
+    }
+
+    @keyframes resultIn {
+      from { opacity:0; transform:translateY(12px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    .resultHero, .fullHero {
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,234,255,.14), transparent 30%),
+        rgba(255,255,255,.045);
+      border-radius: 26px;
+      padding: 22px;
+      margin-bottom: 14px;
+    }
+
+    .fullHero {
+      border-color: rgba(255,209,102,.34);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,209,102,.14), transparent 30%),
+        radial-gradient(circle at 90% 5%, rgba(255,79,243,.14), transparent 35%),
+        rgba(255,255,255,.05);
+    }
+
+    .aiCard {
+      border: 1px solid rgba(0,234,255,.28);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.12), transparent 30%),
+        rgba(0,0,0,.22);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .resultTitle, .fullTitle {
+      font-size: clamp(28px, 4vw, 54px);
+      font-weight: 950;
+      letter-spacing: -2px;
+      margin: 8px 0 10px;
+      line-height: 1;
+    }
+
+    .scoreGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .score {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+      border-radius: 18px;
+      padding: 13px;
+      text-align: center;
+    }
+
+    .score b {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 3px;
+    }
+
+    .success, .errorBox {
+      display: none;
+      border-radius: 20px;
+      padding: 15px;
+      margin-top: 14px;
+    }
+
+    .success {
+      border: 1px solid rgba(37,224,163,.34);
+      background: rgba(37,224,163,.08);
+      color: #caffdf;
+    }
+
+    .errorBox {
+      border: 1px solid rgba(255,77,109,.34);
+      background: rgba(255,77,109,.08);
+      color: #ffd5dd;
+    }
+
+    .success.show, .errorBox.show {
+      display: block;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: 20px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    pre {
+      background: rgba(0,0,0,.34);
+      border: 1px solid var(--line);
+      color: #dbe4ff;
+      border-radius: 18px;
+      padding: 16px;
+      overflow: auto;
+      white-space: pre-wrap;
+      min-height: 120px;
+    }
+
+    #progress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .stickyCta {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 50;
+      transform: translateX(-50%) translateY(120px);
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(6,8,20,.82);
+      border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.34);
+    }
+
+    .stickyCta.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 30px 0 70px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      html { scroll-behavior: auto; }
+
+      .hero, .appGrid, .grid3, .grid4, .pricingGrid, .scoreGrid, .fullGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .signalGrid, .heroBullets {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        min-height: 450px;
+      }
+
+      .card {
+        border-radius: 25px;
+      }
+
+      h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        position: relative;
+        top: auto;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .stickyCta {
+        display: flex;
+        width: calc(100% - 28px);
+        justify-content: center;
+      }
+
+      .stickyCta .btn, .stickyCta button {
+        flex: 1;
+        padding: 12px 10px;
+        font-size: 13px;
+      }
+
+      .chip {
+        font-size: 12px;
+      }
+
+      .chip.c1 { left: 2%; }
+      .chip.c2 { right: 2%; }
+      .chip.c3 { left: 3%; }
+      .chip.c4 { right: 4%; }
+    }
+      /* V42_CHECKOUT_FLOW_CSS */
+    .checkoutPanel {
+      display: none;
+      border: 1px solid rgba(255,209,102,.35);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,209,102,.12), transparent 30%),
+        rgba(255,255,255,.045);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .checkoutPanel.show {
+      display: block;
+      animation: resultIn .42s ease both;
+    }
+
+    .checkoutGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .checkoutCard {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.20);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .checkoutCard strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .paymentIdBox {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--gold);
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      margin: 8px 0;
+    }
+
+    @media (max-width: 980px) {
+      .checkoutGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+      /* V46_FINAL_MOBILE_AD_LANDING_CSS */
+    .trustGrid,
+    .faqGrid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .trustGrid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .faqGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trustCard,
+    .faqCard {
+      border: 1px solid var(--line);
+      background: var(--glass2);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .trustCard strong,
+    .faqCard strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .legalLine {
+      border: 1px solid rgba(255,209,102,.28);
+      background: rgba(255,209,102,.08);
+      color: #ffe7a8;
+      border-radius: 20px;
+      padding: 16px;
+      margin-top: 16px;
+      line-height: 1.55;
+    }
+
+    .legalLinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .trustGrid,
+      .faqGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="progress"></div>
+
+  <div class="stickyCta" id="stickyCta">
+    <a class="btn" href="#create">Създай Twin</a>
+    <a class="btn secondary" href="#unlock">Отключи</a>
+  </div>
+
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>AI Twin by SoulFlame</div>
+      </div>
+
+      <div class="navlinks">
+        <a class="pill" href="#create">Create Twin</a>
+        <a class="pill" href="#unlock">Unlock Full</a>
+        <a class="pill" href="#pricing">Цени</a><a class="pill" href="#trust">Trust</a><a class="pill" href="#faq">FAQ</a>
+        <a class="pill" href="/test" target="_blank">Test</a>
+        <a class="pill" href="/admin" target="_blank">Admin</a><a class="pill adLandingLink" href="/landing" target="_blank">Ad Landing</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <div class="badge"><span class="dot"></span> V46 · Final Mobile + Ad Landing</div>
+
+        <h1>Създай и отключи своя <span class="grad">Full AI Twin</span></h1>
+
+        <p>
+          Първо създаваш безплатен Mini Twin. След това с unlock код отключваш Full AI Twin:
+          Future Twin послание, силни страни, рискове, 7-дневен план и следващ ход.
+        </p>
+
+        <p>
+          Това вече е завършен продукт flow: <span class="green">Free Twin → Request → Code → Full Twin Result</span>.
+        </p>
+
+        <div class="actions">
+          <a class="btn" href="#create">Създай AI Twin</a>
+          <a class="btn gold" href="#unlock">Отключи Full Twin</a>
+          <button class="secondary" onclick="checkHealth()">System Check</button>
+        </div>
+
+        <div class="heroBullets">
+          <div class="heroBullet"><b>Mini Twin</b>Безплатен старт</div>
+          <div class="heroBullet"><b>Unlock Code</b>Код от admin</div>
+          <div class="heroBullet"><b>Full Report</b>Красив резултат</div>
+        </div>
+
+        <details>
+          <summary>Live System Status</summary>
+          <pre id="healthBox">Ready.</pre>
+        </details>
+      </div>
+
+      <div class="card stage" id="core">
+        <div class="device" id="device">
+          <div class="halo"></div>
+          <div class="orb"></div>
+          <div class="shadowOrb"></div>
+
+          <div class="chip c1">Mini Twin<small>free signal</small></div>
+          <div class="chip c2">Unlock Code<small>admin generated</small></div>
+          <div class="chip c3">Full Echo<small>deep blueprint</small></div>
+          <div class="chip c4">Future Twin<small>next self</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="card light">
+        <h2>Как работи</h2>
+        <p>V41 добавя липсващата магия след плащане или admin код.</p>
+
+        <div class="grid3">
+          <div class="stepCard">
+            <div class="stepNumber">1</div>
+            <strong>Създай Mini Twin</strong>
+            <p>Попълваш име, контакт, цел и избираш вътрешни Twin сигнали.</p>
+          </div>
+
+          <div class="stepCard">
+            <div class="stepNumber">2</div>
+            <strong>Вземи unlock код</strong>
+            <p>Admin генерира код от dashboard или потвърждава плащане.</p>
+          </div>
+
+          <div class="stepCard">
+            <div class="stepNumber">3</div>
+            <strong>Отключи Full Twin</strong>
+            <p>Въвеждаш кода и получаваш Full AI Twin report на самата страница.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="create" class="section appGrid">
+      <div class="card light">
+        <h2>Твоят Mini Twin</h2>
+
+        <label>Име</label>
+        <input id="name" placeholder="Например: Димитър">
+
+        <label>Контакт</label>
+        <input id="contact" placeholder="email / телефон / Instagram">
+
+        <label>Възраст</label>
+        <select id="age">
+          <option>18-24</option>
+          <option selected>25-34</option>
+          <option>35-44</option>
+          <option>45+</option>
+        </select>
+
+        <label>Какво искаш да прави твоят AI Twin?</label>
+        <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
+
+        <div class="actions">
+          <button onclick="generateTwin()">Generate Mini Twin</button>
+          <button class="secondary" onclick="demoTwin()">Demo</button>
+          <button class="secondary" onclick="resetTwin()">Reset</button>
+        </div>
+      </div>
+
+      <div class="card light">
+        <h2>Twin Signals</h2>
+        <p>Избери вътрешните сигнали, които най-много приличат на теб.</p>
+
+        <div id="signals" class="signalGrid"></div>
+
+        <div id="successBox" class="success">
+          Mini AI Twin е записан успешно в SoulFlame cloud.
+        </div>
+
+        <div id="result" class="result">
+          <div class="resultHero">
+            <div class="badge"><span class="dot"></span> Mini Twin Activated</div>
+            <div id="resultTitle" class="resultTitle"></div>
+            <div id="resultText"></div>
+
+            <div class="aiCard" id="aiCard">
+              <h3>Mini AI Twin Card</h3>
+              <p id="aiCardText">Твоята AI карта ще се появи тук.</p>
+            </div>
+          </div>
+
+          <div id="scoreGrid" class="scoreGrid"></div>
+
+          <div class="mini show">
+            <h3>Следва: Full Twin</h3>
+            <p>
+              Checkout Full Twin, вземи unlock код и отключи дълбокия резултат долу.
+            </p>
+
+            <div class="actions">
+              <button class="gold" onclick="requestFullTwin()">Checkout Full AI Twin</button>
+              <a class="btn secondary" href="#unlock">Имам код</a>
+              <button class="secondary" onclick="copyTwin()">Копирай Mini резултата</button>
+            </div>
+          </div>
+
+          <details>
+            <summary>Advanced API response</summary>
+            <pre id="apiBox">Ready.</pre>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="checkout" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> Checkout Flow</div>
+        <h2>Плащане за Full AI Twin</h2>
+        <p>
+          След като заявиш Full AI Twin, системата създава payment request.
+          Ако има настроен payment link във Vercel Environment Variables, бутонът ще отвори директно плащане.
+        </p>
+
+        <div id="checkoutPanel" class="checkoutPanel">
+          <h3>Checkout created</h3>
+          <p id="checkoutText">Payment request created.</p>
+          <div id="paymentIdBox" class="paymentIdBox">paymentId: pending</div>
+
+          <div class="checkoutGrid">
+            <div class="checkoutCard">
+              <strong>1. Плати</strong>
+              <p>Отвори payment link и направи плащане.</p>
+              <div class="actions">
+                <a id="paymentLinkBtn" class="btn gold" href="#" target="_blank">Open Payment Link</a>
+              </div>
+            </div>
+
+            <div class="checkoutCard">
+              <strong>2. Вземи код</strong>
+              <p>След плащане admin потвърждава paymentId и генерира unlock code.</p>
+              <div class="actions">
+                <a class="btn secondary" href="#unlock">Имам код</a>
+                <button class="secondary" onclick="copyPaymentInfo()">Copy Payment Info</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <details>
+          <summary>Checkout API response</summary>
+          <pre id="checkoutApiBox">Ready.</pre>
+        </details>
+      </div>
+    </section>
+    <section id="unlock" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> Full AI Twin Unlock</div>
+        <h2>Отключи Full AI Twin</h2>
+        <p>
+          Въведи unlock кода, който си получил. След успешно отключване ще видиш Full Twin report тук.
+        </p>
+
+        <div class="appGrid">
+          <div>
+            <label>Unlock code</label>
+            <input id="unlockCode" placeholder="Например: ECHO-ABCD-1234">
+
+            <label>Име за Full Report</label>
+            <input id="unlockName" placeholder="Ще се попълни автоматично, ако имаш Mini Twin">
+
+            <div class="actions">
+              <button class="gold" onclick="unlockFullTwin()">Unlock Full Twin</button>
+              <button class="secondary" onclick="pasteDemoCode()">Demo code format</button>
+            </div>
+
+            <div id="unlockSuccess" class="success">Full AI Twin е отключен.</div>
+            <div id="unlockError" class="errorBox">Грешка при отключване.</div>
+
+            <details>
+              <summary>Unlock API response</summary>
+              <pre id="unlockApiBox">Ready.</pre>
+            </details>
+          </div>
+
+          <div>
+            <div id="fullResult" class="fullResult">
+              <div class="fullHero">
+                <div class="badge"><span class="dot"></span> Full Twin Activated</div>
+                <div id="fullTitle" class="fullTitle"></div>
+                <p id="futureMessage"></p>
+              </div>
+
+              <div class="fullGrid">
+                <div class="fullBlock show">
+                  <strong>1. Core Strength</strong>
+                  <p id="strengthText"></p>
+                </div>
+
+                <div class="fullBlock show">
+                  <strong>2. Hidden Risk</strong>
+                  <p id="riskText"></p>
+                </div>
+
+                <div class="fullBlock show">
+                  <strong>3. 7-Day Action Plan</strong>
+                  <p id="planText"></p>
+                </div>
+
+                <div class="fullBlock show">
+                  <strong>4. Next Move</strong>
+                  <p id="nextMoveText"></p>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button class="gold" onclick="copyFullReport()">Копирай Full Report</button>
+                <button class="secondary" onclick="saveFullReportAsProfile()">Запиши Full Report</button>
+              </div>
+            </div>
+
+            <div id="lockedPreview" class="aiCard">
+              <h3>Full Twin Preview</h3>
+              <p>
+                Тук ще се появи отключеният Full AI Twin: Future message, силни страни, рискове и план.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="card light">
+        <h2>Пакети</h2>
+        <p>Започваш безплатно. Отключваш Full Twin чрез код.</p>
+
+        <div class="pricingGrid">
+          <div class="priceCard">
+            <h3>Mini Twin</h3>
+            <div class="price">0€</div>
+            <p>Първи AI Twin seed.</p>
+            <div class="list">
+              <span>Основен AI профил</span>
+              <span>Twin signals</span>
+              <span>Cloud запис</span>
+            </div>
+            <div class="actions">
+              <a class="btn secondary" href="#create">Започни</a>
+            </div>
+          </div>
+
+          <div class="priceCard featured">
+            <h3>Full AI Twin</h3>
+            <div class="price">19€</div>
+            <p>Отключен Full Report.</p>
+            <div class="list">
+              <span>Future Twin message</span>
+              <span>Core Strength</span>
+              <span>Hidden Risk</span>
+              <span>7-Day Action Plan</span>
+              <span>Unlock code</span>
+            </div>
+            <div class="actions">
+              <a class="btn gold" href="#unlock">Отключи</a>
+            </div>
+          </div>
+
+          <div class="priceCard">
+            <h3>Deep Twin</h3>
+            <div class="price">49€</div>
+            <p>По-дълбок анализ за развитие.</p>
+            <div class="list">
+              <span>Поведенчески цикли</span>
+              <span>Силни страни</span>
+              <span>Рискове и блокажи</span>
+              <span>AI roadmap</span>
+            </div>
+            <div class="actions">
+              <a class="btn secondary" href="#create">Заяви</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trust" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> Trust Layer</div>
+        <h2>Сигурност и доверие</h2>
+        <p>
+          SoulFlame AI Twin е MVP, но вече има ясна структура: данни, privacy, disclaimer,
+          admin контрол и вътрешна analytics система.
+        </p>
+
+        <div class="trustGrid">
+          <div class="trustCard">
+            <strong>Privacy-first MVP</strong>
+            <p>Събираме само данните, които въвеждаш доброволно за AI Twin профила.</p>
+          </div>
+
+          <div class="trustCard">
+            <strong>Not medical advice</strong>
+            <p>AI Twin е за самоанализ и креативна рефлексия, не за диагноза.</p>
+          </div>
+
+          <div class="trustCard">
+            <strong>Admin control</strong>
+            <p>Профили, заявки, кодове и събития се виждат в admin dashboard.</p>
+          </div>
+
+          <div class="trustCard">
+            <strong>Analytics events</strong>
+            <p>Важни действия се записват като events, за да знаем какво работи.</p>
+          </div>
+        </div>
+
+        <div class="legalLine">
+          AI Twin не заменя психолог, лекар, юрист или финансов консултант.
+          Резултатите са за лична рефлексия и продуктово преживяване.
+        </div>
+
+        <div class="legalLinks">
+          <a class="btn secondary" href="/privacy" target="_blank">Privacy Policy</a>
+          <a class="btn secondary" href="/terms" target="_blank">Terms</a>
+          <a class="btn secondary" href="/disclaimer" target="_blank">Disclaimer</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="card light">
+        <div class="badge"><span class="dot"></span> FAQ</div>
+        <h2>Чести въпроси</h2>
+
+        <div class="faqGrid">
+          <div class="faqCard">
+            <strong>Какво е AI Twin?</strong>
+            <p>Дигитален профил, който започва от твоите сигнали, цел и поведенчески модел.</p>
+          </div>
+
+          <div class="faqCard">
+            <strong>Безплатен ли е?</strong>
+            <p>Mini Twin е безплатен. Full Twin се отключва с код след заявка или плащане.</p>
+          </div>
+
+          <div class="faqCard">
+            <strong>Къде отиват данните?</strong>
+            <p>Профилите и събитията се записват в Supabase backend на проекта.</p>
+          </div>
+
+          <div class="faqCard">
+            <strong>Това психологическа диагноза ли е?</strong>
+            <p>Не. Това е AI продукт за самоанализ, креативност и лична посока.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="footer">
+      SoulFlame Twins · V46 Final Mobile + Ad Landing · Vercel + Supabase
+    </div>
+  </div>
+
+  <script>
+    const signalDefs = [
+      { key: "vision", title: "Vision Engine", text: "Виждам възможности преди да станат очевидни.", score: 10 },
+      { key: "logic", title: "System Mind", text: "Подреждам хаос в структура, план и стратегия.", score: 10 },
+      { key: "emotion", title: "Emotional Radar", text: "Усещам хора, сигнали и скрити настроения.", score: 10 },
+      { key: "action", title: "Momentum Core", text: "Искам движение, скорост и реален резултат.", score: 10 },
+      { key: "social", title: "Influence Layer", text: "Влияя чрез думи, присъствие и идея.", score: 10 },
+      { key: "future", title: "Future Self", text: "Мисля за версията ми след 1, 3 или 5 години.", score: 10 },
+      { key: "deep", title: "Deep Mind", text: "Искам да видя подсъзнателните си модели.", score: 10 },
+      { key: "creator", title: "Creator Mode", text: "Искам да създавам системи.", score: 10 }
+    ];
+
+    const archetypes = {
+      vision: "Future Architect",
+      logic: "Quantum System Builder",
+      emotion: "Emotional Mirror",
+      action: "Momentum Engine",
+      social: "Influence Twin",
+      future: "Future Self Twin",
+      deep: "Subconscious Explorer",
+      creator: "Creator Twin"
+    };
+
+    const descriptions = {
+      vision: "Твоят AI Twin мисли напред: идеи, сценарии, възможности и бъдещи системи.",
+      logic: "Твоят AI Twin подрежда хаоса: планове, стъпки, логика и решения.",
+      emotion: "Твоят AI Twin разчита емоционални сигнали: реакции, хора и връзки.",
+      action: "Твоят AI Twin те бута към действие: скорост, фокус и изпълнение.",
+      social: "Твоят AI Twin усилва влиянието ти: комуникация, позициониране и присъствие.",
+      future: "Твоят AI Twin говори като бъдеща версия на теб: предупреждения, избори и посока.",
+      deep: "Твоят AI Twin анализира дълбоки модели: страхове, мотивация и повторения.",
+      creator: "Твоят AI Twin работи като създател: бизнес, системи, идеи и реализация."
+    };
+
+    const selected = {};
+    let lastTwin = null;
+    let lastFullReport = null;
+
+    const byId = id => document.getElementById(id);
+
+    async function trackEvent(type, payload = {}) {
+      try {
+        await fetch("/api/event", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type,
+            page: location.pathname,
+            referrer: document.referrer || "",
+            payload: Object.assign({}, payload, {
+              path: location.pathname,
+              hash: location.hash || "",
+              title: document.title,
+              time: new Date().toISOString()
+            })
+          })
+        });
+      } catch {}
+    }
+
+    function setupV43Analytics() {
+      trackEvent("page_view", {
+        url: location.href
+      });
+
+      document.addEventListener("click", event => {
+        const target = event.target.closest("a, button, .signal");
+        if (!target) return;
+
+        const section = target.closest("section");
+        const label =
+          (target.innerText || target.getAttribute("href") || target.id || target.className || "click")
+            .toString()
+            .trim()
+            .slice(0, 140);
+
+        trackEvent("ui_click", {
+          label,
+          href: target.getAttribute("href") || "",
+          section: section ? section.id || "" : ""
+        });
+      }, { passive: true });
+
+      const milestones = new Set();
+
+      window.addEventListener("scroll", () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+
+        const percent = Math.round((window.scrollY / max) * 100);
+        const marks = [25, 50, 75, 100];
+
+        marks.forEach(mark => {
+          if (percent >= mark && !milestones.has(mark)) {
+            milestones.add(mark);
+            trackEvent("scroll_depth", { percent: mark });
+          }
+        });
+      }, { passive: true });
+    }
+
+
+    function showJson(id, data) {
+      const el = byId(id);
+      if (!el) return;
+      el.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    function renderSignals() {
+      const box = byId("signals");
+      box.innerHTML = "";
+
+      signalDefs.forEach(signal => {
+        const div = document.createElement("div");
+        div.className = "signal";
+        div.dataset.key = signal.key;
+        div.innerHTML = "<b>" + signal.title + "</b><span>" + signal.text + "</span>";
+
+        div.addEventListener("click", () => {
+          selected[signal.key] = !selected[signal.key];
+          div.classList.toggle("active", Boolean(selected[signal.key]));
+        });
+
+        box.appendChild(div);
+      });
+    }
+
+    async function checkHealth() {
+      showJson("healthBox", "Checking /api/health...");
+
+      try {
+        const res = await fetch("/api/health");
+        const data = await res.json();
+        showJson("healthBox", data);
+      } catch (error) {
+        showJson("healthBox", error.message);
+      }
+    }
+
+    function demoTwin() {
+      byId("name").value = "Demo Full Twin";
+      byId("contact").value = "demo@soulflame.local";
+      byId("age").value = "25-34";
+      byId("goal").value = "Искам AI Twin, който ми помага да мисля по-ясно, да вземам решения и да развивам идеите си.";
+
+      ["vision", "logic", "future", "creator"].forEach(key => selected[key] = true);
+
+      document.querySelectorAll(".signal").forEach(el => {
+        el.classList.toggle("active", Boolean(selected[el.dataset.key]));
+      });
+
+      location.hash = "#create";
+    }
+
+    function buildScores() {
+      const scores = {};
+      signalDefs.forEach(signal => {
+        scores[signal.key] = selected[signal.key] ? signal.score : 2;
+      });
+      return scores;
+    }
+
+    function getTopSignals(scores) {
+      return Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    }
+
+    async function generateTwin() {
+      const name = byId("name").value.trim();
+      const contact = byId("contact").value.trim();
+      const age = byId("age").value;
+      const goal = byId("goal").value.trim();
+
+      if (!name) {
+        alert("Попълни име.");
+        return;
+      }
+
+      if (!contact) {
+        alert("Попълни контакт.");
+        return;
+      }
+
+      const activeSignals = Object.keys(selected).filter(key => selected[key]);
+
+      if (!activeSignals.length) {
+        alert("Избери поне един Twin Signal.");
+        return;
+      }
+
+      const scores = buildScores();
+      const top = getTopSignals(scores);
+      const mainKey = top[0][0];
+      const secondKey = top[1][0];
+
+      const profile = archetypes[mainKey] + " + " + archetypes[secondKey];
+      const report = descriptions[mainKey];
+
+      const fullReport =
+        "Full AI Twin за " + name + ": водещ слой " + archetypes[mainKey] +
+        ", втори слой " + archetypes[secondKey] +
+        ". Следва Future Twin message, личен план и deep Echo анализ.";
+
+      lastTwin = {
+        id: Date.now(),
+        user: { name, contact, age, goal },
+        mainTrait: mainKey,
+        secondTrait: secondKey,
+        profile,
+        scores,
+        report,
+        fullReport,
+        selectedSignals: activeSignals,
+        product: "AI Twin by SoulFlame",
+        version: "V46_FINAL_MOBILE_AD_LANDING",
+        createdAt: new Date().toISOString()
+      };
+
+      localStorage.setItem("soulflame_last_twin", JSON.stringify(lastTwin));
+
+      byId("unlockName").value = name;
+
+      byId("result").classList.add("show");
+      byId("resultTitle").textContent = profile;
+
+      byId("resultText").innerHTML =
+        "<p><strong>" + name + "</strong>, твоят Mini Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
+        "<p>" + report + "</p>" +
+        "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
+        "<p class='gold'>Mini Twin: active · Full Twin: locked</p>";
+
+      byId("aiCardText").innerHTML =
+        "<strong>" + profile + "</strong><br>" +
+        "Основна посока: " + report + "<br>" +
+        "Следващо ниво: Full AI Twin с unlock code.";
+
+      const grid = byId("scoreGrid");
+      grid.innerHTML = "";
+
+      top.slice(0, 4).forEach(([key, value]) => {
+        const div = document.createElement("div");
+        div.className = "score";
+        div.innerHTML = "<b>" + value + "</b><span>" + archetypes[key] + "</span>";
+        grid.appendChild(div);
+      });
+
+      await saveTwin(lastTwin);
+    }
+
+    async function saveTwin(twin) {
+      showJson("apiBox", "Saving Mini AI Twin to SoulFlame cloud...");
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(twin)
+        });
+
+        const data = await res.json();
+        showJson("apiBox", data);
+
+        if (data.ok) {
+          byId("successBox").classList.add("show");
+        }
+      } catch (error) {
+        showJson("apiBox", error.message);
+      }
+    }
+
+    let lastCheckout = null;
+
+    async function createCheckoutForFullTwin() {
+      if (!lastTwin) {
+        loadLastTwin();
+      }
+
+      if (!lastTwin) {
+        alert("Първо генерирай Mini Twin.");
+        return;
+      }
+
+      showJson("checkoutApiBox", "Creating checkout...");
+
+      try {
+        const res = await fetch("/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            offer: "Full AI Twin by SoulFlame",
+            amount: "19.00 EUR",
+            provider: "payment_link",
+            user: lastTwin.user,
+            profile: lastTwin.profile,
+            scores: lastTwin.scores,
+            rawTwin: lastTwin
+          })
+        });
+
+        const data = await res.json();
+        showJson("checkoutApiBox", data);
+
+        if (!data.ok) {
+          alert(data.error || "Checkout failed.");
+          return;
+        }
+
+        lastCheckout = data;
+        localStorage.setItem("soulflame_last_checkout", JSON.stringify(data));
+
+        renderCheckout(data);
+        location.hash = "#checkout";
+      } catch (error) {
+        showJson("checkoutApiBox", error.message);
+        alert(error.message);
+      }
+    }
+
+    function renderCheckout(data) {
+      const panel = byId("checkoutPanel");
+      const text = byId("checkoutText");
+      const paymentId = byId("paymentIdBox");
+      const btn = byId("paymentLinkBtn");
+
+      if (!panel) return;
+
+      panel.classList.add("show");
+
+      const id =
+        data.payment && data.payment.id
+          ? data.payment.id
+          : "pending";
+
+      paymentId.textContent = "paymentId: " + id;
+
+      if (data.paymentUrl) {
+        text.innerHTML =
+          "Payment link е активен. Плати, после admin потвърждава paymentId и получаваш unlock code.";
+        btn.href = data.paymentUrl;
+        btn.style.display = "inline-flex";
+      } else {
+        text.innerHTML =
+          "Payment request е създаден, но няма настроен payment link. Добави PAYMENT_LINK_FULL_TWIN във Vercel env или потвърди ръчно от admin.";
+        btn.href = "#";
+        btn.style.display = "none";
+      }
+    }
+
+    function copyPaymentInfo() {
+      if (!lastCheckout) {
+        try {
+          const saved = localStorage.getItem("soulflame_last_checkout");
+          if (saved) lastCheckout = JSON.parse(saved);
+        } catch {}
+      }
+
+      if (!lastCheckout) {
+        alert("Няма checkout info.");
+        return;
+      }
+
+      const id =
+        lastCheckout.payment && lastCheckout.payment.id
+          ? lastCheckout.payment.id
+          : "pending";
+
+      const text =
+        "SoulFlame Full AI Twin payment request\n" +
+        "paymentId: " + id + "\n" +
+        "offer: Full AI Twin by SoulFlame\n" +
+        "amount: 19.00 EUR\n" +
+        "paymentUrl: " + (lastCheckout.paymentUrl || "manual") + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("Payment info copied.");
+    }
+
+    function restoreCheckout() {
+      try {
+        const saved = localStorage.getItem("soulflame_last_checkout");
+        if (saved) {
+          lastCheckout = JSON.parse(saved);
+          renderCheckout(lastCheckout);
+        }
+      } catch {}
+    }
+
+    async function requestFullTwin() {
+      await createCheckoutForFullTwin();
+    }
+
+    function loadLastTwin() {
+      try {
+        const saved = localStorage.getItem("soulflame_last_twin");
+        if (saved) {
+          lastTwin = JSON.parse(saved);
+          if (lastTwin.user && lastTwin.user.name) {
+            byId("unlockName").value = lastTwin.user.name;
+          }
+        }
+      } catch {}
+    }
+
+    function makeFullReport(codeData) {
+      loadLastTwin();
+
+      const name =
+        byId("unlockName").value.trim() ||
+        (lastTwin && lastTwin.user && lastTwin.user.name) ||
+        "SoulFlame User";
+
+      const profile =
+        lastTwin && lastTwin.profile
+          ? lastTwin.profile
+          : "Future Architect + Quantum System Builder";
+
+      const mainTrait =
+        lastTwin && lastTwin.mainTrait
+          ? lastTwin.mainTrait
+          : "vision";
+
+      const secondTrait =
+        lastTwin && lastTwin.secondTrait
+          ? lastTwin.secondTrait
+          : "logic";
+
+      const mainName = archetypes[mainTrait] || "Future Architect";
+      const secondName = archetypes[secondTrait] || "Quantum System Builder";
+
+      const futureMessage =
+        name + ", твоят Future Twin казва: не чакай да станеш готов. Ти се изграждаш чрез действие. " +
+        "Следващата версия на теб не идва от мотивация, а от система, която повтаряш всеки ден.";
+
+      const strength =
+        "Твоята основна сила е комбинацията между " + mainName + " и " + secondName +
+        ". Това означава, че можеш да виждаш посока и да я превръщаш в структура.";
+
+      const risk =
+        "Скритият риск е да държиш прекалено много идеи отворени едновременно. Когато всичко е важно, мозъкът губи фокус. " +
+        "Твоят Full Twin трябва да те връща към 1 главен ход.";
+
+      const plan =
+        "Ден 1: избери една цел. Ден 2: напиши 3 стъпки. Ден 3: направи първата версия. " +
+        "Ден 4: покажи я на човек. Ден 5: вземи обратна връзка. Ден 6: подобри. Ден 7: публикувай или продай.";
+
+      const nextMove =
+        "Следващият ход е да превърнеш идеята в публичен резултат: страница, демо, пост или оферта. " +
+        "Не усъвършенствай скрито. Изкарвай навън.";
+
+      return {
+        name,
+        profile,
+        mainTrait,
+        secondTrait,
+        code: codeData,
+        futureMessage,
+        strength,
+        risk,
+        plan,
+        nextMove,
+        unlockedAt: new Date().toISOString(),
+        version: "V46_FINAL_MOBILE_AD_LANDING"
+      };
+    }
+
+    async function unlockFullTwin() {
+      const code = byId("unlockCode").value.trim().toUpperCase();
+
+      byId("unlockSuccess").classList.remove("show");
+      byId("unlockError").classList.remove("show");
+
+      if (!code) {
+        alert("Въведи unlock код.");
+        return;
+      }
+
+      showJson("unlockApiBox", "Unlocking Full AI Twin...");
+
+      try {
+        const res = await fetch("/api/unlock", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code,
+            user: lastTwin ? lastTwin.user : { name: byId("unlockName").value.trim() },
+            profileId: lastTwin ? lastTwin.id : null
+          })
+        });
+
+        const data = await res.json();
+        showJson("unlockApiBox", data);
+
+        if (!data.ok) {
+          byId("unlockError").textContent = data.error || "Unlock failed.";
+          byId("unlockError").classList.add("show");
+          return;
+        }
+
+        lastFullReport = makeFullReport(data.code);
+        localStorage.setItem("soulflame_last_full_report", JSON.stringify(lastFullReport));
+
+        renderFullReport(lastFullReport);
+
+        byId("unlockSuccess").classList.add("show");
+        byId("lockedPreview").style.display = "none";
+      } catch (error) {
+        showJson("unlockApiBox", error.message);
+        byId("unlockError").textContent = error.message;
+        byId("unlockError").classList.add("show");
+      }
+    }
+
+    function renderFullReport(report) {
+      byId("fullResult").classList.add("show");
+      byId("fullTitle").textContent = report.profile;
+      byId("futureMessage").textContent = report.futureMessage;
+      byId("strengthText").textContent = report.strength;
+      byId("riskText").textContent = report.risk;
+      byId("planText").textContent = report.plan;
+      byId("nextMoveText").textContent = report.nextMove;
+      location.hash = "#unlock";
+    }
+
+    function pasteDemoCode() {
+      byId("unlockCode").value = "ECHO-XXXX-XXXX";
+      alert("Това е само формат. Истински код се генерира от /admin.");
+    }
+
+    function copyTwin() {
+      if (!lastTwin) {
+        loadLastTwin();
+      }
+
+      if (!lastTwin) {
+        alert("Няма Mini Twin за копиране.");
+        return;
+      }
+
+      const text =
+        "AI Twin by SoulFlame\n" +
+        "Име: " + lastTwin.user.name + "\n" +
+        "Профил: " + lastTwin.profile + "\n" +
+        "Report: " + lastTwin.report + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("Mini Twin резултатът е копиран.");
+    }
+
+    function copyFullReport() {
+      if (!lastFullReport) {
+        try {
+          const saved = localStorage.getItem("soulflame_last_full_report");
+          if (saved) lastFullReport = JSON.parse(saved);
+        } catch {}
+      }
+
+      if (!lastFullReport) {
+        alert("Няма Full Report за копиране.");
+        return;
+      }
+
+      const text =
+        "FULL AI TWIN by SoulFlame\n\n" +
+        "Име: " + lastFullReport.name + "\n" +
+        "Профил: " + lastFullReport.profile + "\n\n" +
+        "Future Message:\n" + lastFullReport.futureMessage + "\n\n" +
+        "Core Strength:\n" + lastFullReport.strength + "\n\n" +
+        "Hidden Risk:\n" + lastFullReport.risk + "\n\n" +
+        "7-Day Plan:\n" + lastFullReport.plan + "\n\n" +
+        "Next Move:\n" + lastFullReport.nextMove + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("Full Report е копиран.");
+    }
+
+    async function saveFullReportAsProfile() {
+      if (!lastFullReport) {
+        alert("Първо отключи Full Twin.");
+        return;
+      }
+
+      const body = {
+        id: Date.now(),
+        user: {
+          name: lastFullReport.name,
+          contact: lastTwin && lastTwin.user ? lastTwin.user.contact : "",
+          goal: "Full AI Twin unlocked",
+          age: lastTwin && lastTwin.user ? lastTwin.user.age : ""
+        },
+        mainTrait: lastFullReport.mainTrait,
+        secondTrait: lastFullReport.secondTrait,
+        profile: lastFullReport.profile,
+        scores: lastTwin ? lastTwin.scores : {},
+        report: lastFullReport.futureMessage,
+        fullReport: JSON.stringify(lastFullReport, null, 2),
+        product: "Full AI Twin by SoulFlame",
+        version: "V46_FINAL_MOBILE_AD_LANDING",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+        showJson("unlockApiBox", data);
+
+        if (data.ok) {
+          alert("Full Report е записан.");
+        }
+      } catch (error) {
+        showJson("unlockApiBox", error.message);
+      }
+    }
+
+    function resetTwin() {
+      Object.keys(selected).forEach(key => delete selected[key]);
+      document.querySelectorAll(".signal").forEach(el => el.classList.remove("active"));
+      byId("result").classList.remove("show");
+      byId("successBox").classList.remove("show");
+      showJson("apiBox", "Ready.");
+      lastTwin = null;
+      localStorage.removeItem("soulflame_last_twin");
+    }
+
+    function setupReveal() {
+      const items = document.querySelectorAll(".mini, .priceCard, .stepCard, .fullBlock");
+
+      if (!("IntersectionObserver" in window)) {
+        items.forEach(el => el.classList.add("show"));
+        return;
+      }
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+
+      items.forEach(el => io.observe(el));
+    }
+
+    function setupLightParallax() {
+      const device = byId("device");
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!device || reduce || window.innerWidth < 980) return;
+
+      let tx = 0;
+      let ty = 0;
+      let cx = 0;
+      let cy = 0;
+      let ticking = false;
+
+      window.addEventListener("pointermove", event => {
+        const x = event.clientX / window.innerWidth - .5;
+        const y = event.clientY / window.innerHeight - .5;
+
+        tx = x * 10;
+        ty = y * -10;
+
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(loop);
+        }
+      }, { passive: true });
+
+      function loop() {
+        cx += (tx - cx) * .08;
+        cy += (ty - cy) * .08;
+
+        device.style.transform = "rotateY(" + cx.toFixed(2) + "deg) rotateX(" + cy.toFixed(2) + "deg)";
+
+        if (Math.abs(tx - cx) > .02 || Math.abs(ty - cy) > .02) {
+          requestAnimationFrame(loop);
+        } else {
+          ticking = false;
+        }
+      }
+    }
+
+    function setupProgressAndSticky() {
+      const progress = byId("progress");
+      const sticky = byId("stickyCta");
+      let ticking = false;
+
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+
+        requestAnimationFrame(() => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const value = max > 0 ? window.scrollY / max : 0;
+
+          if (progress) {
+            progress.style.transform = "scaleX(" + Math.max(0, Math.min(1, value)).toFixed(4) + ")";
+          }
+
+          if (sticky) {
+            sticky.classList.toggle("show", window.scrollY > 650);
+          }
+
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+
+    function restoreSaved() {
+      loadLastTwin();
+
+      try {
+        const savedFull = localStorage.getItem("soulflame_last_full_report");
+        if (savedFull) {
+          lastFullReport = JSON.parse(savedFull);
+        }
+      } catch {}
+    }
+
+    setupV43Analytics();
+    renderSignals();
+    setupReveal();
+    setupLightParallax();
+    setupProgressAndSticky();
+    restoreSaved();
+    restoreCheckout();
+    checkHealth();
+  </script>
+</body>
+</html>

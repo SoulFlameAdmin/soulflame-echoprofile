@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoulFlame AI Echo V91</title>
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin:0; min-height:100%; background:#050814; color:#fff; font-family:Inter,system-ui,Segoe UI,Arial,sans-serif; }
+    button, input, select { font-family:inherit; }
+    .app { min-height:100vh; display:grid; grid-template-rows:82px minmax(0,1fr); }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 22px; background:#070b16; border-bottom:1px solid rgba(255,255,255,.09); position:sticky; top:0; z-index:10; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .logo { width:46px; height:46px; border-radius:16px; background:rgba(255,255,255,.10); display:grid; place-items:center; font-weight:950; }
+    .brand strong { display:block; font-size:22px; }
+    .brand small { color:rgba(255,255,255,.65); }
+    .tabs { display:flex; gap:9px; flex-wrap:wrap; justify-content:flex-end; }
+    .tab { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.06); color:#fff; border-radius:999px; padding:12px 16px; font-weight:900; cursor:pointer; }
+    .tab.active { background:linear-gradient(135deg,#2563ff,#7c3cff); border-color:transparent; }
+    .tab.admin { background:rgba(255,80,120,.14); }
+    .burger { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.07); color:#fff; border-radius:16px; padding:12px 16px; font-weight:950; cursor:pointer; }
+    .main { padding:28px; overflow:auto; }
+    .panel { display:none; }
+    .panel.active { display:block; }
+    .headline { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:22px; }
+    .headline h1 { margin:0; font-size:48px; line-height:1; letter-spacing:-1.5px; }
+    .headline p { margin:10px 0 0; color:rgba(255,255,255,.68); line-height:1.55; max-width:900px; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .card { border:1px solid rgba(255,255,255,.11); background:rgba(255,255,255,.055); border-radius:26px; padding:22px; box-shadow:0 24px 70px rgba(0,0,0,.28); }
+    .card h3 { margin-top:0; }
+    .muted { color:rgba(255,255,255,.68); }
+    .field { width:100%; height:54px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.07); color:#fff; border-radius:18px; padding:0 16px; margin-bottom:12px; outline:none; }
+    select.field option { color:#000; }
+    .main-btn, .small-btn { border:0; border-radius:16px; background:#2563ff; color:#fff; font-weight:950; cursor:pointer; }
+    .main-btn { width:100%; min-height:54px; }
+    .small-btn { padding:11px 14px; }
+    .list { display:grid; gap:12px; }
+    .row { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.045); border-radius:20px; padding:16px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .row small { color:rgba(255,255,255,.65); }
+    .row-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    pre { white-space:pre-wrap; overflow:auto; max-height:470px; color:#dbe7ff; line-height:1.45; font-size:14px; }
+    .chatbox { height:calc(100vh - 230px); display:grid; grid-template-rows:minmax(0,1fr) 76px; border:1px solid rgba(255,255,255,.10); border-radius:26px; overflow:hidden; background:rgba(255,255,255,.045); }
+    .messages { padding:20px; overflow:auto; display:grid; gap:12px; align-content:start; }
+    .bubble { max-width:78%; padding:14px 16px; border-radius:18px; background:rgba(255,255,255,.08); line-height:1.45; }
+    .bubble.me { margin-left:auto; background:#2563ff; }
+    .composer { display:grid; grid-template-columns:minmax(0,1fr) 120px; gap:10px; padding:12px; border-top:1px solid rgba(255,255,255,.09); }
+    .composer input { height:52px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.07); color:#fff; padding:0 14px; }
+    .health-score { font-size:58px; font-weight:950; letter-spacing:-2px; }
+    .bar { height:18px; border-radius:999px; background:rgba(255,255,255,.10); overflow:hidden; margin-top:12px; }
+    .fill { height:100%; width:0%; background:linear-gradient(90deg,#ff5572,#ffd166,#37d998); }
+    @media(max-width:900px) { .topbar{align-items:flex-start;flex-direction:column}.grid2,.grid3{grid-template-columns:1fr}.headline{display:block}.headline h1{font-size:38px}.main{padding:20px 14px}.bubble{max-width:94%} }
+  </style>
+  <link rel="stylesheet" href="/v92-ai-twin-pages.css?v=920" />
+  <link rel="stylesheet" href="/v96-ai-twin-extra-pages.css?v=960" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">AI</div>
+        <div>
+          <strong>AI Echo</strong>
+          <small>Full screen AI Twin center</small>
+        </div>
+      </div>
+
+      <nav class="tabs">
+        <button class="tab active" data-panel="profilePanel">Profile</button>
+        <button class="tab" data-panel="echoPanel">EchoProfile</button>
+        <button class="tab" data-panel="chatPanel">GPT Chat</button>
+        <button class="tab" data-panel="userPanel">User</button>
+        <button class="tab admin" data-panel="adminPanel">ADMIN</button>
+        <button class="burger" id="openSoulFlame">SoulFlame Menu</button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section class="panel active" id="profilePanel">
+        <div class="headline">
+          <div>
+            <h1>Profile</h1>
+            <p>This is inside AI Twin. SoulMatch menu stays outside and opens only with the arrow or SoulFlame button.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Create / Save Twin</h3>
+            <input class="field" id="profileName" placeholder="Name" value="Dimitar" />
+            <input class="field" id="profileInstagram" placeholder="Instagram" value="@stere0metal360" />
+            <button class="main-btn" id="saveProfileBtn">Save Twin Profile</button>
+          </div>
+
+          <div class="card">
+            <h3>Profile output</h3>
+            <pre id="profileOutput">Ready.</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="echoPanel">
+        <div class="headline">
+          <div>
+            <h1>EchoProfile</h1>
+            <p>EchoProfile engine placeholder. The saved profile connects to health, admin and matching.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>EchoProfile status</h3>
+          <p class="muted">Next step: add questions and scoring here.</p>
+        </div>
+      </section>
+
+      <section class="panel" id="chatPanel">
+        <div class="headline">
+          <div>
+            <h1>GPT Chat</h1>
+            <p>Uses /api/chat. If OPENAI_API_KEY is missing, local fallback replies.</p>
+          </div>
+        </div>
+
+        <div class="chatbox">
+          <div class="messages" id="chatMessages">
+            <div class="bubble">AI Echo is ready.</div>
+          </div>
+
+          <form class="composer" id="chatForm">
+            <input id="chatInput" placeholder="Ask AI Echo..." />
+            <button class="main-btn">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="panel" id="userPanel">
+        <div class="headline">
+          <div>
+            <h1>User</h1>
+            <p>User tools are here, inside AI Twin: Connectors, Twin+ Network and AI Twin Health.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <h3>Connectors</h3>
+            <p class="muted">Only external connections.</p>
+            <button class="main-btn" data-panel-target="connectorsPanel">Open Connectors</button>
+          </div>
+
+          <div class="card">
+            <h3>Twin+ Network</h3>
+            <p class="muted">Add two Twins into conversation.</p>
+            <button class="main-btn" data-panel-target="twinPlusPanel">Open Twin+ Network</button>
+          </div>
+
+          <div class="card">
+            <h3>AI Twin Health</h3>
+            <p class="muted">Real health 0-100 for all AI Twins.</p>
+            <button class="main-btn" data-panel-target="healthPanel">Open Health</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="connectorsPanel">
+        <div class="headline">
+          <div>
+            <h1>Connectors</h1>
+            <p>Only connectors are here: Facebook, GitHub, Google, Instagram, Telegram, Snapchat.</p>
+          </div>
+        </div>
+
+        <div class="grid3" id="connectorsGrid"></div>
+
+        <div class="card" style="margin-top:18px;">
+          <h3>Connector output</h3>
+          <pre id="connectorsOutput">Ready.</pre>
+        </div>
+      </section>
+
+      <section class="panel" id="twinPlusPanel">
+        <div class="headline">
+          <div>
+            <h1>Twin+ Network</h1>
+            <p>Select two AI Twins and add them to a Twin+ conversation / talk connection.</p>
+          </div>
+          <button class="small-btn" id="refreshTwinPlus">Refresh</button>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Connect two Twins</h3>
+            <select class="field" id="twinA"></select>
+            <select class="field" id="twinB"></select>
+            <input class="field" id="connectReason" placeholder="Reason / topic" value="Twin Talk connection" />
+            <button class="main-btn" id="connectTwinsBtn">Connect 2 Twins</button>
+          </div>
+
+          <div class="card">
+            <h3>Twin+ output</h3>
+            <pre id="twinPlusOutput">Ready.</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="healthPanel">
+        <div class="headline">
+          <div>
+            <h1>AI Twin Health</h1>
+            <p>Real 0-100 health for all AI Twins: memory, EchoProfile, Supabase, OpenAI, connectors, Twin+, payments, events and errors.</p>
+          </div>
+          <button class="small-btn" id="refreshHealth">Refresh</button>
+        </div>
+
+        <div class="card">
+          <h3>Global Health</h3>
+          <div class="health-score" id="globalHealth">0%</div>
+          <div class="bar"><div class="fill" id="globalHealthFill"></div></div>
+          <p class="muted" id="globalHealthLabel">Loading...</p>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <h3>All Twin Health</h3>
+          <div class="list" id="healthList"></div>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <h3>Raw Health JSON</h3>
+          <pre id="healthOutput">Loading...</pre>
+        </div>
+      </section>
+
+      <section class="panel" id="adminPanel">
+        <div class="headline">
+          <div>
+            <h1>ADMIN System</h1>
+            <p>Admin center inside AI Twin: My Twin, All Twins / Connect Talk, Network / Bugs / Payments.</p>
+          </div>
+          <button class="small-btn" id="refreshAdmin">Refresh Admin</button>
+        </div>
+
+        <div class="tabs" style="justify-content:flex-start;margin-bottom:18px;">
+          <button class="tab active" data-admin-view="mine">1. My Twin</button>
+          <button class="tab" data-admin-view="all">2. All Twins / Connect Talk</button>
+          <button class="tab" data-admin-view="network">3. Network / Bugs / Payments</button>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Admin list</h3>
+            <div class="list" id="adminList"></div>
+          </div>
+
+          <div class="card">
+            <h3>Details</h3>
+            <pre id="adminDetails">Select item.</pre>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px;">
+          <h3>System raw</h3>
+          <pre id="adminRaw">Loading...</pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    let adminData = null;
+    let adminView = "mine";
+
+    function qs(s) { return document.querySelector(s); }
+    function qsa(s) { return Array.from(document.querySelectorAll(s)); }
+
+    function openPanel(id) {
+      qsa(".panel").forEach(p => p.classList.remove("active"));
+      const panel = qs("#" + id);
+      if (panel) panel.classList.add("active");
+
+      qsa(".topbar .tab[data-panel]").forEach(b => b.classList.remove("active"));
+      const btn = qs('.topbar .tab[data-panel="' + id + '"]');
+      if (btn) btn.classList.add("active");
+    }
+
+    qsa(".topbar .tab[data-panel]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        openPanel(btn.dataset.panel);
+        if (btn.dataset.panel === "healthPanel") loadHealth();
+        if (btn.dataset.panel === "twinPlusPanel") loadTwinPlus();
+        if (btn.dataset.panel === "adminPanel") loadAdmin(adminView);
+      });
+    });
+
+    qsa("[data-panel-target]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        openPanel(btn.dataset.panelTarget);
+        if (btn.dataset.panelTarget === "healthPanel") loadHealth();
+        if (btn.dataset.panelTarget === "twinPlusPanel") loadTwinPlus();
+      });
+    });
+
+    qs("#openSoulFlame").addEventListener("click", () => {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: "OPEN_SOULFLAME_DRAWER" }, "*");
+      }
+    });
+
+    async function saveProfile() {
+      const name = qs("#profileName").value.trim() || "Dimitar";
+      const instagram = qs("#profileInstagram").value.trim() || "@stere0metal360";
+
+      localStorage.setItem("sf_name", name);
+      localStorage.setItem("sf_instagram", instagram);
+
+      const body = {
+        name,
+        instagram,
+        twinType: "Personal AI Twin",
+        user: { name, instagram },
+        echo: {
+          echoType: "Deep Attachment Visionary",
+          compatibility: 70,
+          level: 7,
+          score: { A: 0, AV: 0, S: 0, D: 0 },
+          summary: "Clean V91 profile."
+        }
+      };
+
+      const res = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      qs("#profileOutput").textContent = JSON.stringify(data, null, 2);
+    }
+
+    qs("#saveProfileBtn").addEventListener("click", saveProfile);
+
+    async function sendChat(e) {
+      e.preventDefault();
+      const input = qs("#chatInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = "";
+
+      const me = document.createElement("div");
+      me.className = "bubble me";
+      me.textContent = text;
+      qs("#chatMessages").appendChild(me);
+
+      const bot = document.createElement("div");
+      bot.className = "bubble";
+      bot.textContent = "Thinking...";
+      qs("#chatMessages").appendChild(bot);
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      bot.textContent = data.reply || data.error || "No reply.";
+    }
+
+    qs("#chatForm").addEventListener("submit", sendChat);
+
+    function renderConnectors() {
+      const list = ["Facebook", "GitHub", "Google", "Instagram", "Telegram", "Snapchat"];
+      const grid = qs("#connectorsGrid");
+      grid.innerHTML = "";
+
+      list.forEach(name => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = "<h3>" + name + "</h3><p class='muted'>Status: prepared</p><button class='main-btn'>Connect " + name + "</button>";
+
+        card.querySelector("button").onclick = async () => {
+          const body = {
+            name: localStorage.getItem("sf_name") || "Dimitar",
+            instagram: localStorage.getItem("sf_instagram") || "@stere0metal360",
+            connector: name,
+            status: "prepared"
+          };
+
+          const res = await fetch("/api/connectors", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+
+          const data = await res.json().catch(() => ({}));
+          qs("#connectorsOutput").textContent = JSON.stringify(data, null, 2);
+        };
+
+        grid.appendChild(card);
+      });
+    }
+
+    async function loadSystem() {
+      const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
+
+      const res = await fetch("/api/v91/system", {
+        headers: { "x-admin-pin": pin }
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!data.ok) {
+        alert(data.error || "Admin locked");
+        return null;
+      }
+
+      adminData = data;
+      return data;
+    }
+
+    async function loadHealth() {
+      const res = await fetch("/api/v91/health");
+      const data = await res.json().catch(() => ({}));
+
+      const score = data.globalHealth ? data.globalHealth.score : 0;
+
+      qs("#globalHealth").textContent = score + "%";
+      qs("#globalHealthFill").style.width = score + "%";
+      qs("#globalHealthLabel").textContent = data.globalHealth ? data.globalHealth.label : "No data";
+
+      const list = qs("#healthList");
+      list.innerHTML = "";
+
+      (data.twins || []).forEach(twin => {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML =
+          "<div><b>" + (twin.isMine ? "My Twin - " : "") + (twin.name || "Unknown Twin") + "</b><br>" +
+          "<small>" + (twin.instagram || "-") + " - Health " + twin.health.score + "% - " + twin.health.label + "</small><br>" +
+          "<small>OpenAI: " + (twin.health.factors.openai ? "ON" : "OFF") +
+          " - Supabase: " + (twin.health.factors.supabase ? "ON" : "OFF") +
+          " - Memory: " + (twin.health.factors.memory ? "ON" : "OFF") +
+          " - Errors: " + twin.health.factors.errors + "</small></div>" +
+          "<button class='small-btn'>Open</button>";
+
+        row.querySelector("button").onclick = () => {
+          qs("#healthOutput").textContent = JSON.stringify(twin, null, 2);
+        };
+
+        list.appendChild(row);
+      });
+
+      qs("#healthOutput").textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function loadTwinPlus() {
+      const data = await loadSystem();
+      if (!data) return;
+
+      const twins = data.allTwinsOrdered || [];
+      const a = qs("#twinA");
+      const b = qs("#twinB");
+
+      a.innerHTML = "";
+      b.innerHTML = "";
+
+      twins.forEach(twin => {
+        const label = (twin.isMine ? "My Twin - " : "") + twin.name + " | " + (twin.instagram || "-") + " | Health " + (twin.health ? twin.health.score : 0) + "%";
+
+        const oa = document.createElement("option");
+        oa.value = twin.id;
+        oa.textContent = label;
+
+        const ob = document.createElement("option");
+        ob.value = twin.id;
+        ob.textContent = label;
+
+        a.appendChild(oa);
+        b.appendChild(ob);
+      });
+
+      if (twins.length > 1) b.selectedIndex = 1;
+
+      qs("#twinPlusOutput").textContent = JSON.stringify({
+        twins: data.allTwinsOrdered,
+        matchMatrix: data.matchMatrix,
+        connections: data.connections
+      }, null, 2);
+    }
+
+    async function connectTwins() {
+      const data = adminData || await loadSystem();
+      if (!data) return;
+
+      const aId = qs("#twinA").value;
+      const bId = qs("#twinB").value;
+
+      if (!aId || !bId || aId === bId) {
+        alert("Select two different Twins.");
+        return;
+      }
+
+      const a = data.allTwinsOrdered.find(t => t.id === aId);
+      const b = data.allTwinsOrdered.find(t => t.id === bId);
+
+      const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
+
+      const res = await fetch("/api/v91/connect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-pin": pin },
+        body: JSON.stringify({
+          fromTwinId: a.id,
+          fromName: a.name,
+          fromInstagram: a.instagram,
+          toTwinId: b.id,
+          toName: b.name,
+          toInstagram: b.instagram,
+          reason: qs("#connectReason").value || "Twin Talk connection",
+          status: "connected",
+          paymentStatus: "checking"
+        })
+      });
+
+      const result = await res.json().catch(() => ({}));
+      qs("#twinPlusOutput").textContent = JSON.stringify(result, null, 2);
+      await loadTwinPlus();
+    }
+
+    qs("#refreshTwinPlus").addEventListener("click", loadTwinPlus);
+    qs("#connectTwinsBtn").addEventListener("click", connectTwins);
+    qs("#refreshHealth").addEventListener("click", loadHealth);
+
+    async function markPaid(twin) {
+      const amount = prompt("Amount in EUR:", "9");
+      if (amount === null) return;
+
+      const product = prompt("Paid for:", "Twin Talk / Twin+ connection");
+      const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
+
+      const res = await fetch("/api/v91/payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-pin": pin },
+        body: JSON.stringify({
+          twinId: twin.id,
+          name: twin.name,
+          instagram: twin.instagram,
+          amount: Number(amount || 0),
+          currency: "EUR",
+          product: product || "Twin Talk",
+          paid: true,
+          status: "paid"
+        })
+      });
+
+      await res.json().catch(() => ({}));
+      await loadAdmin(adminView);
+    }
+
+    async function connectToMine(twin) {
+      const data = adminData || await loadSystem();
+      if (!data || !data.myTwin || !data.myTwin[0]) return alert("No My Twin found.");
+
+      const mine = data.myTwin[0];
+
+      if (mine.id === twin.id) return alert("Cannot connect same Twin.");
+
+      const pin = sessionStorage.getItem("sf_admin_pin") || "admin";
+
+      const res = await fetch("/api/v91/connect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-pin": pin },
+        body: JSON.stringify({
+          fromTwinId: mine.id,
+          fromName: mine.name,
+          fromInstagram: mine.instagram,
+          toTwinId: twin.id,
+          toName: twin.name,
+          toInstagram: twin.instagram,
+          reason: "Admin Connect Talk",
+          status: twin.paid ? "connected_paid" : "pending_payment",
+          paymentStatus: twin.paid ? "paid" : "not_paid"
+        })
+      });
+
+      await res.json().catch(() => ({}));
+      await loadAdmin(adminView);
+    }
+
+    function adminRow(twin, actions) {
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const paid = twin.paid ? "paid" : "not paid";
+      const total = twin.paymentStatus ? twin.paymentStatus.totalPaid : 0;
+      const currency = twin.paymentStatus ? twin.paymentStatus.currency : "EUR";
+
+      row.innerHTML =
+        "<div><b>" + (twin.isMine ? "My Twin - " : "") + (twin.name || "Unknown Twin") + "</b><br>" +
+        "<small>" + (twin.instagram || "-") + " - Level " + (twin.level || "-") + "/10 - " + (twin.echoType || "Not profiled") + "</small><br>" +
+        "<small>" + paid + " - " + total + " " + currency + " - Health " + (twin.health ? twin.health.score : 0) + "%</small></div>" +
+        "<div class='row-actions'><button class='small-btn' data-act='open'>Open</button>" +
+        (actions ? "<button class='small-btn' data-act='paid'>Mark Paid</button><button class='small-btn' data-act='connect'>Connect Talk</button>" : "") +
+        "</div>";
+
+      row.querySelector("[data-act='open']").onclick = () => {
+        qs("#adminDetails").textContent = JSON.stringify(twin, null, 2);
+      };
+
+      const paidBtn = row.querySelector("[data-act='paid']");
+      if (paidBtn) paidBtn.onclick = () => markPaid(twin);
+
+      const connectBtn = row.querySelector("[data-act='connect']");
+      if (connectBtn) connectBtn.onclick = () => connectToMine(twin);
+
+      return row;
+    }
+
+    async function loadAdmin(view) {
+      adminView = view || "mine";
+
+      qsa("[data-admin-view]").forEach(b => b.classList.remove("active"));
+      const active = qs("[data-admin-view='" + adminView + "']");
+      if (active) active.classList.add("active");
+
+      const data = await loadSystem();
+      if (!data) return;
+
+      const list = qs("#adminList");
+      list.innerHTML = "";
+
+      qs("#adminRaw").textContent = JSON.stringify({
+        view: adminView,
+        stats: data.stats,
+        globalHealth: data.globalHealth,
+        order: data.adminOrder
+      }, null, 2);
+
+      if (adminView === "mine") {
+        (data.myTwin || []).forEach(twin => list.appendChild(adminRow(twin, false)));
+        if (data.myTwin && data.myTwin[0]) qs("#adminDetails").textContent = JSON.stringify(data.myTwin[0], null, 2);
+        return;
+      }
+
+      if (adminView === "all") {
+        (data.allTwinsOrdered || []).forEach(twin => list.appendChild(adminRow(twin, true)));
+        if (data.allTwinsOrdered && data.allTwinsOrdered[0]) qs("#adminDetails").textContent = JSON.stringify(data.allTwinsOrdered[0], null, 2);
+        return;
+      }
+
+      if (adminView === "network") {
+        (data.allTwinsOrdered || []).forEach(twin => list.appendChild(adminRow(twin, true)));
+
+        const matrix = document.createElement("div");
+        matrix.className = "row";
+        matrix.innerHTML = "<div><b>Matching Matrix</b><br><small>Who matches with who.</small></div><button class='small-btn'>Open</button>";
+        matrix.querySelector("button").onclick = () => qs("#adminDetails").textContent = JSON.stringify(data.matchMatrix, null, 2);
+        list.appendChild(matrix);
+
+        const payments = document.createElement("div");
+        payments.className = "row";
+        payments.innerHTML = "<div><b>Payments</b><br><small>Who paid, for what, how much.</small></div><button class='small-btn'>Open</button>";
+        payments.querySelector("button").onclick = () => qs("#adminDetails").textContent = JSON.stringify(data.payments, null, 2);
+        list.appendChild(payments);
+
+        const connections = document.createElement("div");
+        connections.className = "row";
+        connections.innerHTML = "<div><b>Connections</b><br><small>Which Twin is connected with which Twin.</small></div><button class='small-btn'>Open</button>";
+        connections.querySelector("button").onclick = () => qs("#adminDetails").textContent = JSON.stringify(data.connections, null, 2);
+        list.appendChild(connections);
+
+        if (data.allTwinsOrdered && data.allTwinsOrdered[0]) qs("#adminDetails").textContent = JSON.stringify(data.allTwinsOrdered[0], null, 2);
+      }
+    }
+
+    qsa("[data-admin-view]").forEach(btn => {
+      btn.addEventListener("click", () => loadAdmin(btn.dataset.adminView));
+    });
+
+    qs("#refreshAdmin").addEventListener("click", () => loadAdmin(adminView));
+
+    window.addEventListener("message", event => {
+      const data = event.data;
+      if (!data || typeof data !== "object") return;
+
+      if (data.type === "V90_OPEN_PANEL" || data.type === "V91_OPEN_PANEL") {
+        openPanel(data.panel);
+      }
+
+      if (data.type === "V90_USER_VIEW" || data.type === "V91_USER_VIEW") {
+        if (data.view === "connectors") {
+          openPanel("connectorsPanel");
+          renderConnectors();
+        }
+
+        if (data.view === "twinplus") {
+          openPanel("twinPlusPanel");
+          loadTwinPlus();
+        }
+
+        if (data.view === "health") {
+          openPanel("healthPanel");
+          loadHealth();
+        }
+      }
+
+      if (data.type === "V90_ADMIN_VIEW" || data.type === "V91_ADMIN_VIEW") {
+        openPanel("adminPanel");
+        loadAdmin(data.view || "mine");
+      }
+    });
+
+    renderConnectors();
+  </script>
+<script src="/v92-ai-twin-pages.js?v=920"></script>
+<script src="/v96-ai-twin-extra-pages.js?v=960"></script>
+</body>
+</html>

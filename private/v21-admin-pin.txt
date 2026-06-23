@@ -1,0 +1,9 @@
+﻿V21 NEW ADMIN PIN
+
+SF-ADMIN-9XDDKC8R3ZBHYZT4LTSB
+
+ВАЖНО:
+- Това е новият Admin PIN.
+- Не го качвай онлайн.
+- Не го пращай на клиенти.
+- Ако го изгубиш, можеш да генерираш нов с generate-admin-pin-v21.ps1.

@@ -1,0 +1,13 @@
+﻿{
+  "name": "soulflame-echoprofile-v16",
+  "version": "1.0.0",
+  "description": "SoulFlame EchoProfile V16 Supabase Adapter",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "export:cloud": "node scripts/export-cloud-ready.js",
+    "backup": "powershell -ExecutionPolicy Bypass -File backup-data.ps1"
+  },
+  "author": "SoulFlame",
+  "license": "MIT"
+}

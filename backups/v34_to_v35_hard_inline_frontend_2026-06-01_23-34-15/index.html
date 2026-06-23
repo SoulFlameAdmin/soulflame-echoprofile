@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI Twin by SoulFlame — Levitation Twin</title>
+  <meta name="description" content="AI Twin by SoulFlame — създай своя дигитален двойник чрез EchoProfile, Future Twin и персонален AI сигнал.">
+  <meta property="og:title" content="AI Twin by SoulFlame">
+  <meta property="og:description" content="Срещни своя AI Twin — дигитална версия на теб, която започва от EchoProfile.">
+  <meta name="theme-color" content="#050611">
+
+  <style>
+    :root{
+      --bg0:#04050d;
+      --bg1:#090b1d;
+      --bg2:#10163a;
+      --glass:rgba(255,255,255,.085);
+      --glass2:rgba(255,255,255,.055);
+      --line:rgba(255,255,255,.16);
+      --text:#f7f7ff;
+      --muted:#aeb8d7;
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#25e0a3;
+      --red:#ff4d6d;
+      --shadow:0 30px 110px rgba(0,0,0,.46);
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 16% 8%, rgba(124,60,255,.36), transparent 34%),
+        radial-gradient(circle at 82% 14%, rgba(0,234,255,.22), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255,79,243,.13), transparent 36%),
+        linear-gradient(135deg,var(--bg0),var(--bg1) 46%,var(--bg2));
+      overflow-x:hidden;
+    }
+
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:52px 52px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.55), transparent 78%);
+      z-index:0;
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      width:min(1240px,100%);
+      margin:0 auto;
+      padding:24px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0 28px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:13px;
+      font-weight:950;
+      letter-spacing:-.6px;
+    }
+
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:17px;
+      background:
+        radial-gradient(circle at 30% 25%, #fff, transparent 22%),
+        linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));
+      box-shadow:0 0 45px rgba(124,60,255,.55);
+    }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 13px;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:850;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:22px;
+      align-items:stretch;
+      padding:12px 0 22px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.055));
+      backdrop-filter:blur(20px);
+      border-radius:32px;
+      padding:34px;
+      box-shadow:var(--shadow);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.23);
+      color:var(--muted);
+      padding:9px 13px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:900;
+      margin-bottom:18px;
+    }
+
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:99px;
+      background:var(--green);
+      box-shadow:0 0 18px var(--green);
+    }
+
+    h1{
+      margin:0 0 18px;
+      font-size:clamp(48px,7.6vw,104px);
+      line-height:.88;
+      letter-spacing:-4px;
+    }
+
+    h2{
+      margin:0 0 14px;
+      font-size:clamp(26px,3.5vw,46px);
+      letter-spacing:-1.5px;
+    }
+
+    h3{
+      margin:0 0 10px;
+      font-size:20px;
+    }
+
+    p{
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.6;
+      margin:0 0 15px;
+    }
+
+    .grad{
+      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .gold{
+      color:var(--gold);
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    button,.btn{
+      border:0;
+      cursor:pointer;
+      color:white;
+      background:linear-gradient(135deg,var(--violet),#4c8dff);
+      border-radius:17px;
+      padding:14px 18px;
+      font-weight:950;
+      text-decoration:none;
+      box-shadow:0 15px 42px rgba(124,60,255,.27);
+      font-size:15px;
+    }
+
+    button.secondary,.btn.secondary{
+      background:rgba(255,255,255,.09);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    button.gold,.btn.gold{
+      background:linear-gradient(135deg,#ffb703,#ff4ff3);
+    }
+
+    .levitationStage{
+      position:relative;
+      min-height:530px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+    }
+
+    .orb{
+      position:relative;
+      width:min(390px,88vw);
+      aspect-ratio:1/1;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,.92), transparent 10%),
+        radial-gradient(circle at 50% 45%, rgba(0,234,255,.85), transparent 0 20%, rgba(124,60,255,.58) 38%, rgba(255,79,243,.30) 58%, transparent 70%),
+        radial-gradient(circle, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:
+        0 0 80px rgba(0,234,255,.26),
+        0 0 140px rgba(124,60,255,.34),
+        inset 0 0 80px rgba(255,255,255,.08);
+      animation:floatOrb 5.6s ease-in-out infinite;
+    }
+
+    .orb:before,
+    .orb:after{
+      content:"";
+      position:absolute;
+      inset:11%;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      transform:rotateX(72deg) rotateZ(18deg);
+      box-shadow:0 0 42px rgba(0,234,255,.22);
+    }
+
+    .orb:after{
+      inset:22%;
+      transform:rotateX(68deg) rotateZ(-31deg);
+      border-color:rgba(255,79,243,.22);
+    }
+
+    .ring{
+      position:absolute;
+      width:min(520px,96vw);
+      height:130px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.16);
+      transform:rotateX(68deg);
+      box-shadow:0 0 55px rgba(0,234,255,.12);
+      animation:ringSpin 9s linear infinite;
+    }
+
+    .floatChip{
+      position:absolute;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.28);
+      backdrop-filter:blur(16px);
+      border-radius:18px;
+      padding:12px 14px;
+      font-weight:900;
+      color:#dbe4ff;
+      box-shadow:0 22px 60px rgba(0,0,0,.26);
+      animation:floatChip 4.8s ease-in-out infinite;
+    }
+
+    .chip1{top:40px;left:26px}
+    .chip2{right:28px;top:92px;animation-delay:.7s}
+    .chip3{left:52px;bottom:76px;animation-delay:1.3s}
+    .chip4{right:58px;bottom:48px;animation-delay:2s}
+
+    @keyframes floatOrb{
+      0%,100%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-22px) scale(1.025)}
+    }
+
+    @keyframes floatChip{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-13px)}
+    }
+
+    @keyframes ringSpin{
+      from{transform:rotateX(68deg) rotateZ(0)}
+      to{transform:rotateX(68deg) rotateZ(360deg)}
+    }
+
+    .section{
+      padding:18px 0;
+    }
+
+    .grid4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
+    .mini{
+      border:1px solid var(--line);
+      background:var(--glass2);
+      border-radius:24px;
+      padding:18px;
+    }
+
+    .mini strong{
+      display:block;
+      margin-bottom:8px;
+      font-size:17px;
+    }
+
+    .appGrid{
+      display:grid;
+      grid-template-columns:.78fr 1.22fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    label{
+      display:block;
+      margin:14px 0 7px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    input,textarea,select{
+      width:100%;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.27);
+      color:var(--text);
+      border-radius:16px;
+      padding:14px 15px;
+      outline:none;
+      font-size:15px;
+    }
+
+    textarea{
+      min-height:100px;
+      resize:vertical;
+    }
+
+    .signalGrid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .signal{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.24);
+      border-radius:18px;
+      padding:15px;
+      cursor:pointer;
+      transition:.18s;
+    }
+
+    .signal:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,234,255,.36);
+    }
+
+    .signal.active{
+      background:linear-gradient(135deg, rgba(124,60,255,.35), rgba(0,234,255,.14));
+      border-color:rgba(0,234,255,.46);
+      box-shadow:0 18px 55px rgba(0,234,255,.08);
+    }
+
+    .signal b{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .signal span{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .result{
+      display:none;
+      margin-top:16px;
+    }
+
+    .result.show{
+      display:block;
+    }
+
+    .resultHero{
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,234,255,.16), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(124,60,255,.22), transparent 36%),
+        rgba(255,255,255,.055);
+      border-radius:26px;
+      padding:22px;
+      margin-bottom:14px;
+    }
+
+    .resultTitle{
+      font-size:clamp(28px,4vw,52px);
+      font-weight:950;
+      letter-spacing:-1.8px;
+      margin:8px 0 10px;
+    }
+
+    .scoreGrid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin:14px 0;
+    }
+
+    .score{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      border-radius:18px;
+      padding:13px;
+      text-align:center;
+    }
+
+    .score b{
+      display:block;
+      font-size:24px;
+      margin-bottom:3px;
+    }
+
+    .success{
+      display:none;
+      border:1px solid rgba(37,224,163,.35);
+      background:rgba(37,224,163,.09);
+      color:#caffdf;
+      border-radius:20px;
+      padding:15px;
+      margin-top:14px;
+    }
+
+    .success.show{
+      display:block;
+    }
+
+    details{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.20);
+      border-radius:20px;
+      padding:14px;
+      margin-top:14px;
+    }
+
+    summary{
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    pre{
+      background:rgba(0,0,0,.36);
+      border:1px solid var(--line);
+      color:#dbe4ff;
+      border-radius:18px;
+      padding:16px;
+      overflow:auto;
+      white-space:pre-wrap;
+      min-height:120px;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      padding:28px 0 44px;
+    }
+
+    @media(max-width:960px){
+      .hero,.appGrid{grid-template-columns:1fr}
+      .grid4,.scoreGrid{grid-template-columns:1fr}
+      .signalGrid{grid-template-columns:1fr}
+      .card{padding:23px;border-radius:26px}
+      h1{letter-spacing:-2px}
+      .levitationStage{min-height:430px}
+      .nav{align-items:flex-start;flex-direction:column}
+      .navlinks{justify-content:flex-start}
+      .floatChip{font-size:12px}
+      .chip1{left:12px}
+      .chip2{right:12px}
+      .chip3{left:18px}
+      .chip4{right:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>AI Twin by SoulFlame</div>
+      </div>
+      <div class="navlinks">
+        <a class="pill" href="#create">Create Twin</a>
+        <a class="pill" href="/test" target="_blank">Test</a>
+        <a class="pill" href="/admin" target="_blank">Admin</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <div class="badge"><span class="dot"></span> V34 · Levitation AI Twin</div>
+        <h1>Създай своя <span class="grad">AI Twin</span></h1>
+        <p>
+          Не просто EchoProfile. Това е началото на твоя дигитален двойник —
+          версия на теб, която помни, анализира, симулира бъдещи избори и постепенно се превръща в личен AI съюзник.
+        </p>
+        <p>
+          SoulFlame Twin започва с вътрешен сигнал: визия, логика, емоция, действие и социална интуиция.
+          После отключва Future Twin, Full Echo и персонален AI път.
+        </p>
+        <div class="actions">
+          <a class="btn" href="#create">Активирай Twin Signal</a>
+          <button class="secondary" onclick="checkHealth()">Провери системата</button>
+          <button class="gold" onclick="demoTwin()">Демо Twin</button>
+        </div>
+
+        <details>
+          <summary>System Status</summary>
+          <pre id="healthBox">Ready.</pre>
+        </details>
+      </div>
+
+      <div class="card levitationStage">
+        <div class="ring"></div>
+        <div class="orb"></div>
+        <div class="floatChip chip1">EchoProfile Core</div>
+        <div class="floatChip chip2">Future Self Simulation</div>
+        <div class="floatChip chip3">Memory Layer</div>
+        <div class="floatChip chip4">AI Twin Signal</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid4">
+        <div class="mini">
+          <strong>1. Echo Signal</strong>
+          <p>Избираш вътрешните си модели и системата изгражда първичен психологически отпечатък.</p>
+        </div>
+        <div class="mini">
+          <strong>2. Digital Twin Seed</strong>
+          <p>Създава се първо ядро на твоя AI Twin — профил, цел, мотивация и стил.</p>
+        </div>
+        <div class="mini">
+          <strong>3. Future Twin</strong>
+          <p>Получаваш версия на себе си, която говори от бъдещето и те насочва.</p>
+        </div>
+        <div class="mini">
+          <strong>4. Full Echo</strong>
+          <p>Отключваш дълбок анализ, поведенчески цикли, рискове и next-step план.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="create" class="section appGrid">
+      <div class="card">
+        <h2>Твоят Twin Seed</h2>
+
+        <label>Име</label>
+        <input id="name" placeholder="Например: Димитър">
+
+        <label>Контакт</label>
+        <input id="contact" placeholder="email / телефон / Instagram">
+
+        <label>Възраст</label>
+        <select id="age">
+          <option>18-24</option>
+          <option selected>25-34</option>
+          <option>35-44</option>
+          <option>45+</option>
+        </select>
+
+        <label>Какво искаш да направи твоят AI Twin за теб?</label>
+        <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
+
+        <div class="actions">
+          <button onclick="generateTwin()">Generate AI Twin</button>
+          <button class="secondary" onclick="resetTwin()">Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Избери Twin Signals</h2>
+        <p>Натисни сигналите, които най-много приличат на теб.</p>
+
+        <div id="signals" class="signalGrid"></div>
+
+        <div id="successBox" class="success">
+          AI Twin seed е записан успешно в SoulFlame cloud.
+        </div>
+
+        <div id="result" class="result">
+          <div class="resultHero">
+            <div class="badge"><span class="dot"></span> AI Twin Activated</div>
+            <div id="resultTitle" class="resultTitle"></div>
+            <div id="resultText"></div>
+          </div>
+
+          <div id="scoreGrid" class="scoreGrid"></div>
+
+          <div class="mini">
+            <h3>Full Twin Upgrade</h3>
+            <p>
+              Full Twin може да включва персонален AI профил, Future Twin message,
+              deep Echo Blueprint и план за развитие.
+            </p>
+            <div class="actions">
+              <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
+              <button class="secondary" onclick="copyTwin()">Копирай резултата</button>
+            </div>
+          </div>
+
+          <details>
+            <summary>Advanced API response</summary>
+            <pre id="apiBox">Ready.</pre>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      SoulFlame Twins · V34 Top Levitation AI Twin · Vercel + Supabase
+    </div>
+  </div>
+
+  <script>
+    const signalDefs = [
+      {
+        key: "vision",
+        title: "Визионер",
+        text: "Виждам идеи преди да станат очевидни.",
+        score: 10
+      },
+      {
+        key: "logic",
+        title: "Архитект",
+        text: "Превръщам хаоса в план и система.",
+        score: 10
+      },
+      {
+        key: "emotion",
+        title: "Емоционален радар",
+        text: "Усещам хора, сигнали и скрити настроения.",
+        score: 10
+      },
+      {
+        key: "action",
+        title: "Двигател",
+        text: "Искам движение, скорост и реален резултат.",
+        score: 10
+      },
+      {
+        key: "social",
+        title: "Влияние",
+        text: "Мога да въздействам чрез думи, присъствие и идея.",
+        score: 10
+      },
+      {
+        key: "future",
+        title: "Future Self",
+        text: "Мисля за версията на себе си след 1, 3 или 5 години.",
+        score: 10
+      },
+      {
+        key: "deep",
+        title: "Deep Mind",
+        text: "Искам да разбера подсъзнателните си модели.",
+        score: 10
+      },
+      {
+        key: "leader",
+        title: "Създател",
+        text: "Не искам само да участвам. Искам да създавам системи.",
+        score: 10
+      }
+    ];
+
+    const selected = {};
+    let lastTwin = null;
+
+    const archetypes = {
+      vision: "Future Architect",
+      logic: "System Builder",
+      emotion: "Emotional Mirror",
+      action: "Momentum Engine",
+      social: "Influence Twin",
+      future: "Future Self Twin",
+      deep: "Subconscious Explorer",
+      leader: "Creator Twin"
+    };
+
+    const descriptions = {
+      vision: "Твоят AI Twin трябва да мисли напред — идеи, сценарии, възможности и бъдещи системи.",
+      logic: "Твоят AI Twin трябва да подрежда хаоса — планове, стъпки, структури и решения.",
+      emotion: "Твоят AI Twin трябва да разчита емоционални сигнали — вътрешни реакции, хора и връзки.",
+      action: "Твоят AI Twin трябва да те бута към действие — скорост, фокус и изпълнение.",
+      social: "Твоят AI Twin трябва да усилва влиянието ти — комуникация, позициониране и присъствие.",
+      future: "Твоят AI Twin трябва да говори като твоя бъдеща версия — предупреждения, избори и посока.",
+      deep: "Твоят AI Twin трябва да анализира дълбоки модели — страхове, мотивация и повторения.",
+      leader: "Твоят AI Twin трябва да работи като създател — бизнес, системи, идеи и реализация."
+    };
+
+    function showJson(id, data) {
+      document.getElementById(id).textContent =
+        typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    function renderSignals() {
+      const box = document.getElementById("signals");
+      box.innerHTML = "";
+
+      signalDefs.forEach(signal => {
+        const div = document.createElement("div");
+        div.className = "signal";
+        div.dataset.key = signal.key;
+        div.innerHTML = "<b>" + signal.title + "</b><span>" + signal.text + "</span>";
+
+        div.addEventListener("click", () => {
+          selected[signal.key] = !selected[signal.key];
+          div.classList.toggle("active", selected[signal.key]);
+        });
+
+        box.appendChild(div);
+      });
+    }
+
+    async function checkHealth() {
+      showJson("healthBox", "Checking /api/health...");
+
+      try {
+        const res = await fetch("/api/health");
+        const data = await res.json();
+        showJson("healthBox", data);
+      } catch (error) {
+        showJson("healthBox", error.message);
+      }
+    }
+
+    function demoTwin() {
+      document.getElementById("name").value = "Demo Twin";
+      document.getElementById("contact").value = "demo@soulflame.local";
+      document.getElementById("age").value = "25-34";
+      document.getElementById("goal").value = "Искам AI Twin, който ми помага да вземам по-смели решения и да развивам идеите си.";
+
+      ["vision", "logic", "future", "leader"].forEach(key => selected[key] = true);
+
+      document.querySelectorAll(".signal").forEach(el => {
+        el.classList.toggle("active", Boolean(selected[el.dataset.key]));
+      });
+
+      location.hash = "#create";
+    }
+
+    function buildScores() {
+      const scores = {
+        vision: 0,
+        logic: 0,
+        emotion: 0,
+        action: 0,
+        social: 0,
+        future: 0,
+        deep: 0,
+        leader: 0
+      };
+
+      signalDefs.forEach(signal => {
+        scores[signal.key] = selected[signal.key] ? signal.score : 2;
+      });
+
+      return scores;
+    }
+
+    function getTopSignals(scores) {
+      return Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    }
+
+    async function generateTwin() {
+      const name = document.getElementById("name").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const age = document.getElementById("age").value;
+      const goal = document.getElementById("goal").value.trim();
+
+      if (!name) {
+        alert("Попълни име.");
+        return;
+      }
+
+      if (!contact) {
+        alert("Попълни контакт.");
+        return;
+      }
+
+      const activeSignals = Object.keys(selected).filter(key => selected[key]);
+
+      if (!activeSignals.length) {
+        alert("Избери поне един Twin Signal.");
+        return;
+      }
+
+      const scores = buildScores();
+      const top = getTopSignals(scores);
+      const mainKey = top[0][0];
+      const secondKey = top[1][0];
+
+      const profile = archetypes[mainKey] + " + " + archetypes[secondKey];
+      const report = descriptions[mainKey];
+
+      const fullReport =
+        "Full AI Twin за " + name + ": водещ слой " + archetypes[mainKey] +
+        ", втори слой " + archetypes[secondKey] +
+        ". Следващата стъпка е Future Twin message, личен план и deep Echo анализ.";
+
+      lastTwin = {
+        id: Date.now(),
+        user: { name, contact, age, goal },
+        mainTrait: mainKey,
+        secondTrait: secondKey,
+        profile,
+        scores,
+        report,
+        fullReport,
+        selectedSignals: activeSignals,
+        product: "AI Twin by SoulFlame",
+        version: "V34_TOP_LEVITATION_AI_TWIN",
+        createdAt: new Date().toISOString()
+      };
+
+      document.getElementById("result").classList.add("show");
+      document.getElementById("resultTitle").textContent = profile;
+
+      document.getElementById("resultText").innerHTML =
+        "<p><strong>" + name + "</strong>, твоят AI Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
+        "<p>" + report + "</p>" +
+        "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
+        "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
+
+      const grid = document.getElementById("scoreGrid");
+      grid.innerHTML = "";
+
+      top.slice(0, 4).forEach(([key, value]) => {
+        const div = document.createElement("div");
+        div.className = "score";
+        div.innerHTML = "<b>" + value + "</b><span>" + archetypes[key] + "</span>";
+        grid.appendChild(div);
+      });
+
+      await saveTwin(lastTwin);
+    }
+
+    async function saveTwin(twin) {
+      showJson("apiBox", "Saving AI Twin seed to SoulFlame cloud...");
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(twin)
+        });
+
+        const data = await res.json();
+        showJson("apiBox", data);
+
+        if (data.ok) {
+          document.getElementById("successBox").classList.add("show");
+        }
+      } catch (error) {
+        showJson("apiBox", error.message);
+      }
+    }
+
+    async function requestFullTwin() {
+      if (!lastTwin) {
+        alert("Първо генерирай AI Twin.");
+        return;
+      }
+
+      showJson("apiBox", "Creating Full AI Twin request...");
+
+      try {
+        const res = await fetch("/api/payment-request", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            offer: "Full AI Twin by SoulFlame",
+            amount: "19.99 лв",
+            method: "manual",
+            user: lastTwin.user,
+            profile: lastTwin.profile,
+            scores: lastTwin.scores,
+            rawTwin: lastTwin
+          })
+        });
+
+        const data = await res.json();
+        showJson("apiBox", data);
+
+        if (data.ok) {
+          alert("Заявката за Full AI Twin е създадена.");
+        }
+      } catch (error) {
+        showJson("apiBox", error.message);
+      }
+    }
+
+    function copyTwin() {
+      if (!lastTwin) {
+        alert("Няма AI Twin за копиране.");
+        return;
+      }
+
+      const text =
+        "AI Twin by SoulFlame\n" +
+        "Име: " + lastTwin.user.name + "\n" +
+        "Профил: " + lastTwin.profile + "\n" +
+        "Report: " + lastTwin.report + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("AI Twin резултатът е копиран.");
+    }
+
+    function resetTwin() {
+      Object.keys(selected).forEach(key => delete selected[key]);
+      document.querySelectorAll(".signal").forEach(el => el.classList.remove("active"));
+      document.getElementById("result").classList.remove("show");
+      document.getElementById("successBox").classList.remove("show");
+      showJson("apiBox", "Ready.");
+      lastTwin = null;
+    }
+
+    renderSignals();
+    checkHealth();
+  </script>
+</body>
+</html>

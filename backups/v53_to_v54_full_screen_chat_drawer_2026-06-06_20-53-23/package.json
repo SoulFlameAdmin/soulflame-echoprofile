@@ -1,0 +1,10 @@
+{
+  "name": "soulflame-twins",
+  "version": "1.0.0",
+  "description": "AI Twins by SoulFlame V53 Restore Classic Drawer",
+  "author": "SoulFlame",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

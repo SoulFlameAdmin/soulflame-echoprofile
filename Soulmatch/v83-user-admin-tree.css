@@ -1,0 +1,25 @@
+/* SOULFLAME V83 USER + ADMIN CMD TREE */
+
+.sf-v83-backdrop{display:none!important}
+body.sf-v83-ai-active.sf-v83-drawer-open .sf-v83-backdrop{display:block!important;position:fixed!important;inset:0!important;z-index:10000!important;background:rgba(0,0,0,.44)!important;backdrop-filter:blur(5px)!important}
+body.sf-v83-ai-active{overflow:hidden!important}
+body.sf-v83-ai-active .app,body.sf-v83-ai-active .main{display:block!important;width:100vw!important;height:100vh!important;padding:0!important;margin:0!important;overflow:hidden!important;background:#03050a!important}
+body.sf-v83-ai-active .left-panel,body.sf-v83-ai-active .mobile-header,body.sf-v83-ai-active>.app>.sidebar,body.sf-v83-ai-active .app>.sidebar{display:none!important}
+body.sf-v83-ai-active #aitwin.page.active{display:block!important;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;padding:0!important;margin:0!important;z-index:9000!important;background:#03050a!important;overflow:hidden!important}
+body.sf-v83-ai-active #aitwin iframe,body.sf-v83-ai-active .sf-ai-echo-v83-frame{display:block!important;width:100vw!important;height:100vh!important;border:0!important;background:#03050a!important}
+
+.sf-v83-drawer{position:fixed!important;top:0!important;left:0!important;width:380px!important;max-width:90vw!important;height:100vh!important;z-index:10020!important;transform:translateX(-110%)!important;transition:transform .24s ease!important;background:linear-gradient(180deg,#1557ff,#0b3ec6 52%,#061a62)!important;color:#fff!important;box-shadow:28px 0 90px rgba(0,0,0,.42)!important;overflow:auto!important;padding:22px 18px!important;font-family:Consolas,"Cascadia Mono","Courier New",monospace!important}
+body.sf-v83-ai-active.sf-v83-drawer-open .sf-v83-drawer{transform:translateX(0)!important}
+.sf-v83-head{display:flex!important;align-items:center!important;justify-content:space-between!important;margin-bottom:18px!important;font-family:Inter,system-ui,Arial!important}
+.sf-v83-brand{display:flex!important;gap:12px!important;align-items:center!important}.sf-v83-logo{width:44px!important;height:44px!important;border-radius:15px!important;display:grid!important;place-items:center!important;background:rgba(255,255,255,.15)!important}.sf-v83-brand strong{display:block!important;font-size:21px!important;font-weight:950!important}.sf-v83-brand small{display:block!important;color:rgba(255,255,255,.72)!important;font-size:12px!important;margin-top:3px!important}
+.sf-v83-close{width:42px!important;height:42px!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:14px!important;background:rgba(255,255,255,.1)!important;color:#fff!important;font-size:18px!important;font-weight:950!important}
+.sf-v83-tree{padding:14px!important;border-radius:22px!important;border:1px solid rgba(255,255,255,.14)!important;background:rgba(0,10,45,.28)!important}
+.sf-v83-root{font-size:14px!important;font-weight:950!important;margin-bottom:10px!important}.sf-v83-section{font-weight:950!important;margin:12px 0 6px!important;color:#dbe7ff!important;font-size:13px!important}
+.sf-v83-line{display:flex!important;align-items:center!important;width:100%!important;min-height:34px!important;border:0!important;background:transparent!important;color:rgba(255,255,255,.86)!important;text-align:left!important;padding:3px 6px!important;border-radius:10px!important;font-size:13px!important;line-height:1.25!important;font-family:Consolas,"Cascadia Mono","Courier New",monospace!important}
+.sf-v83-line:hover,.sf-v83-line.active{background:rgba(255,255,255,.14)!important;color:#fff!important}
+.sf-v83-admin{color:#ffdae2!important}
+.sf-v83-edge{display:none!important}
+body.sf-v83-ai-active .sf-v83-edge{display:flex!important;position:fixed!important;left:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:10040!important;width:42px!important;height:88px!important;border:0!important;border-radius:0 18px 18px 0!important;background:linear-gradient(180deg,#1557ff,#073ec8)!important;color:#fff!important;box-shadow:14px 0 40px rgba(0,0,0,.26)!important;align-items:center!important;justify-content:center!important;font-size:24px!important;font-weight:950!important}
+body.sf-v83-ai-active.sf-v83-drawer-open .sf-v83-edge{left:min(380px,90vw)!important}
+body:not(.sf-v83-ai-active) .sf-v83-drawer,body:not(.sf-v83-ai-active) .sf-v83-edge,body:not(.sf-v83-ai-active) .sf-v83-backdrop{display:none!important}
+@media(max-width:860px){.sf-v83-drawer{width:90vw!important;padding:18px 14px!important}body.sf-v83-ai-active.sf-v83-drawer-open .sf-v83-edge{left:90vw!important}.sf-v83-line{font-size:12px!important;min-height:36px!important}}

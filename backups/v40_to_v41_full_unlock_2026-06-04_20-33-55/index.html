@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>AI Twin by SoulFlame — Създай своя дигитален двойник</title>
+  <meta name="description" content="Създай безплатен AI Twin чрез EchoProfile. Получи AI профил, Twin Seed и възможност за Full AI Twin анализ.">
+  <meta property="og:title" content="AI Twin by SoulFlame">
+  <meta property="og:description" content="Създай безплатен AI Twin — дигитална версия на теб, която започва с EchoProfile.">
+  <meta name="theme-color" content="#050611">
+
+  <style>
+    :root {
+      --bg0:#03040a;
+      --bg1:#080b1f;
+      --bg2:#111a46;
+      --text:#f8f7ff;
+      --soft:#b9c3e8;
+      --muted:#7f8ab4;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.078);
+      --glass2:rgba(255,255,255,.045);
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#23e6a8;
+      --red:#ff4d6d;
+      --shadow:0 28px 90px rgba(0,0,0,.42);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg0);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(124,60,255,.30), transparent 32rem),
+        radial-gradient(circle at 86% 12%, rgba(0,234,255,.18), transparent 30rem),
+        radial-gradient(circle at 50% 105%, rgba(255,79,243,.10), transparent 34rem),
+        linear-gradient(135deg, var(--bg0), var(--bg1) 46%, var(--bg2));
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 16%, rgba(0,0,0,.58), transparent 70%);
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1240px, 100%);
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(6,8,20,.72);
+      border-radius: 24px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.22);
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -.5px;
+      white-space: nowrap;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 30% 22%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow: 0 0 34px rgba(124,60,255,.42);
+      flex: 0 0 auto;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0,234,255,.36);
+      background: rgba(0,234,255,.08);
+    }
+
+    .hero {
+      min-height: calc(100vh - 110px);
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 22px;
+      align-items: center;
+      padding: 44px 0 28px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.045)),
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.08), transparent 38%);
+      border-radius: 30px;
+      padding: clamp(22px, 4vw, 42px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
+    }
+
+    .card.light {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.04)),
+        rgba(255,255,255,.035);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--soft);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 950;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 99px;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(46px, 7.8vw, 108px);
+      letter-spacing: -4px;
+      line-height: .88;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4vw, 50px);
+      letter-spacing: -1.6px;
+      line-height: 1;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    p {
+      margin: 0 0 15px;
+      color: var(--soft);
+      line-height: 1.65;
+      font-size: 17px;
+    }
+
+    .grad {
+      background: linear-gradient(90deg, var(--cyan), #5ca8ff, var(--violet), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .green {
+      color: var(--green);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button,
+    .btn {
+      border: 0;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--violet), #3f8dff);
+      border-radius: 18px;
+      padding: 14px 18px;
+      font-weight: 950;
+      text-decoration: none;
+      font-size: 15px;
+      box-shadow: 0 16px 42px rgba(124,60,255,.24);
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+      transform: translateZ(0);
+    }
+
+    button:hover,
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.1);
+      box-shadow: 0 20px 52px rgba(124,60,255,.30);
+    }
+
+    button.secondary,
+    .btn.secondary {
+      background: rgba(255,255,255,.09);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    button.gold,
+    .btn.gold {
+      background: linear-gradient(135deg, #ffb703, #ff4ff3);
+      box-shadow: 0 16px 45px rgba(255,79,243,.18);
+    }
+
+    .heroBullets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .heroBullet {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 13px;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .heroBullet b {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stage {
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    .device {
+      position: relative;
+      width: min(440px, 86vw);
+      aspect-ratio: 1 / 1.15;
+      transform-style: preserve-3d;
+      transition: transform .14s linear;
+    }
+
+    .halo {
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,234,255,.22), rgba(124,60,255,.10), transparent 64%);
+      opacity: .75;
+      animation: haloPulse 5.5s ease-in-out infinite;
+    }
+
+    .orb {
+      position: absolute;
+      inset: 14% 8% 20%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 34% 24%, rgba(255,255,255,.95), transparent 10%),
+        radial-gradient(circle at 42% 42%, rgba(0,234,255,.72), transparent 24%),
+        radial-gradient(circle at 58% 56%, rgba(124,60,255,.60), transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255,79,243,.36), transparent 55%),
+        rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow:
+        inset 0 0 80px rgba(255,255,255,.07),
+        0 0 80px rgba(0,234,255,.20),
+        0 0 120px rgba(124,60,255,.28);
+      animation: levitate 5.8s ease-in-out infinite;
+      transform: translateZ(70px);
+    }
+
+    .orb::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 126%;
+      height: 30%;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateX(70deg) rotateZ(15deg);
+    }
+
+    .shadowOrb {
+      position: absolute;
+      left: 50%;
+      bottom: 5%;
+      width: 54%;
+      height: 12%;
+      transform: translateX(-50%) rotateX(72deg);
+      background: radial-gradient(ellipse, rgba(0,234,255,.28), rgba(124,60,255,.14), transparent 68%);
+      filter: blur(10px);
+      opacity: .72;
+      animation: shadowPulse 5.8s ease-in-out infinite;
+    }
+
+    .chip {
+      position: absolute;
+      z-index: 4;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(2,4,14,.58);
+      border-radius: 18px;
+      padding: 12px 14px;
+      color: #e7ecff;
+      box-shadow: 0 16px 45px rgba(0,0,0,.26);
+      font-weight: 950;
+      animation: chipFloat 5.4s ease-in-out infinite;
+      transform: translateZ(120px);
+      white-space: nowrap;
+    }
+
+    .chip small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .chip.c1 { top: 6%; left: 1%; }
+    .chip.c2 { top: 18%; right: 0; animation-delay: .7s; }
+    .chip.c3 { bottom: 18%; left: 0; animation-delay: 1.3s; }
+    .chip.c4 { bottom: 6%; right: 7%; animation-delay: 2s; }
+
+    @keyframes levitate {
+      0%,100% { transform: translateY(0) translateZ(70px) scale(1); }
+      50% { transform: translateY(-18px) translateZ(84px) scale(1.018); }
+    }
+
+    @keyframes haloPulse {
+      0%,100% { transform: scale(.96); opacity:.52; }
+      50% { transform: scale(1.07); opacity:.82; }
+    }
+
+    @keyframes shadowPulse {
+      0%,100% { opacity:.46; transform: translateX(-50%) rotateX(72deg) scale(.92); }
+      50% { opacity:.75; transform: translateX(-50%) rotateX(72deg) scale(1.1); }
+    }
+
+    @keyframes chipFloat {
+      0%,100% { translate:0 0; }
+      50% { translate:0 -10px; }
+    }
+
+    .section {
+      padding: 30px 0;
+    }
+
+    .grid3,
+    .grid4,
+    .pricingGrid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .pricingGrid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mini,
+    .priceCard,
+    .stepCard {
+      border: 1px solid var(--line);
+      background: var(--glass2);
+      border-radius: 24px;
+      padding: 18px;
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform .55s ease, opacity .55s ease;
+    }
+
+    .mini.show,
+    .priceCard.show,
+    .stepCard.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .mini strong,
+    .stepCard strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .stepNumber {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .priceCard.featured {
+      border-color: rgba(0,234,255,.38);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.10), transparent 34%),
+        rgba(255,255,255,.06);
+      box-shadow: 0 20px 70px rgba(0,234,255,.08);
+    }
+
+    .price {
+      font-size: 34px;
+      font-weight: 950;
+      letter-spacing: -1px;
+      margin: 10px 0;
+    }
+
+    .list {
+      display: grid;
+      gap: 9px;
+      margin-top: 14px;
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .list span::before {
+      content: "✓ ";
+      color: var(--green);
+      font-weight: 950;
+    }
+
+    .appGrid {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.26);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 14px 15px;
+      outline: none;
+      font-size: 15px;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(0,234,255,.48);
+      box-shadow: 0 0 0 4px rgba(0,234,255,.07);
+    }
+
+    textarea {
+      min-height: 106px;
+      resize: vertical;
+    }
+
+    .signalGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .signal {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.24);
+      border-radius: 20px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .signal:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,234,255,.32);
+    }
+
+    .signal.active {
+      background: linear-gradient(135deg, rgba(124,60,255,.34), rgba(0,234,255,.12));
+      border-color: rgba(0,234,255,.44);
+    }
+
+    .signal b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    .signal span {
+      display: block;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .result {
+      display: none;
+      margin-top: 16px;
+    }
+
+    .result.show {
+      display: block;
+      animation: resultIn .42s ease both;
+    }
+
+    @keyframes resultIn {
+      from { opacity:0; transform:translateY(12px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    .resultHero {
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,234,255,.14), transparent 30%),
+        rgba(255,255,255,.045);
+      border-radius: 26px;
+      padding: 22px;
+      margin-bottom: 14px;
+    }
+
+    .aiCard {
+      border: 1px solid rgba(0,234,255,.28);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.12), transparent 30%),
+        rgba(0,0,0,.22);
+      border-radius: 24px;
+      padding: 18px;
+      margin-top: 14px;
+    }
+
+    .resultTitle {
+      font-size: clamp(28px, 4vw, 54px);
+      font-weight: 950;
+      letter-spacing: -2px;
+      margin: 8px 0 10px;
+      line-height: 1;
+    }
+
+    .scoreGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .score {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.055);
+      border-radius: 18px;
+      padding: 13px;
+      text-align: center;
+    }
+
+    .score b {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 3px;
+    }
+
+    .success {
+      display: none;
+      border: 1px solid rgba(37,224,163,.34);
+      background: rgba(37,224,163,.08);
+      color: #caffdf;
+      border-radius: 20px;
+      padding: 15px;
+      margin-top: 14px;
+    }
+
+    .success.show {
+      display: block;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      border-radius: 20px;
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 950;
+    }
+
+    pre {
+      background: rgba(0,0,0,.34);
+      border: 1px solid var(--line);
+      color: #dbe4ff;
+      border-radius: 18px;
+      padding: 16px;
+      overflow: auto;
+      white-space: pre-wrap;
+      min-height: 120px;
+    }
+
+    #progress {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--pink));
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .stickyCta {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 50;
+      transform: translateX(-50%) translateY(120px);
+      opacity: 0;
+      pointer-events: none;
+      display: none;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(6,8,20,.82);
+      border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.34);
+    }
+
+    .stickyCta.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 30px 0 70px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero,
+      .appGrid,
+      .grid3,
+      .grid4,
+      .pricingGrid,
+      .scoreGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .signalGrid {
+        grid-template-columns: 1fr;
+      }
+
+      .heroBullets {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        min-height: 450px;
+      }
+
+      .card {
+        border-radius: 25px;
+      }
+
+      h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        position: relative;
+        top: auto;
+      }
+
+      .navlinks {
+        justify-content: flex-start;
+      }
+
+      .stickyCta {
+        display: flex;
+        width: calc(100% - 28px);
+        justify-content: center;
+      }
+
+      .stickyCta .btn,
+      .stickyCta button {
+        flex: 1;
+        padding: 12px 10px;
+        font-size: 13px;
+      }
+
+      .chip {
+        font-size: 12px;
+      }
+
+      .chip.c1 { left: 2%; }
+      .chip.c2 { right: 2%; }
+      .chip.c3 { left: 3%; }
+      .chip.c4 { right: 4%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="progress"></div>
+
+  <div class="stickyCta" id="stickyCta">
+    <a class="btn" href="#create">Създай Twin</a>
+    <button class="secondary" onclick="demoTwin()">Демо</button>
+  </div>
+
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>AI Twin by SoulFlame</div>
+      </div>
+
+      <div class="navlinks">
+        <a class="pill" href="#create">Create Twin</a>
+        <a class="pill" href="#how">Как работи</a>
+        <a class="pill" href="#pricing">Цени</a>
+        <a class="pill" href="/test" target="_blank">Test</a>
+        <a class="pill" href="/admin" target="_blank">Admin</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <div class="badge"><span class="dot"></span> V39 · Product Conversion Upgrade</div>
+
+        <h1>Създай безплатен <span class="grad">AI Twin</span></h1>
+
+        <p>
+          Отговори чрез няколко вътрешни сигнала и получи първа версия на своя дигитален двойник —
+          AI профил, който показва как мислиш, как действаш и каква бъдеща версия можеш да развиеш.
+        </p>
+
+        <p>
+          Mini Twin е безплатен. Full AI Twin отключва дълбок Echo анализ, Future Twin послание и личен план.
+        </p>
+
+        <div class="actions">
+          <a class="btn" href="#create">Създай AI Twin безплатно</a>
+          <button class="secondary" onclick="checkHealth()">System Check</button>
+          <button class="gold" onclick="demoTwin()">Виж демо</button>
+        </div>
+
+        <div class="heroBullets">
+          <div class="heroBullet"><b>Безплатен старт</b>Mini AI Twin seed</div>
+          <div class="heroBullet"><b>Cloud запис</b>Supabase backend</div>
+          <div class="heroBullet"><b>Full upgrade</b>Дълбок AI профил</div>
+        </div>
+
+        <details>
+          <summary>Live System Status</summary>
+          <pre id="healthBox">Ready.</pre>
+        </details>
+      </div>
+
+      <div class="card stage" id="core">
+        <div class="device" id="device">
+          <div class="halo"></div>
+          <div class="orb"></div>
+          <div class="shadowOrb"></div>
+
+          <div class="chip c1">Echo Core<small>identity signal</small></div>
+          <div class="chip c2">Future Twin<small>simulation layer</small></div>
+          <div class="chip c3">Memory Map<small>behavior signal</small></div>
+          <div class="chip c4">SoulFlame Sync<small>cloud active</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="card light">
+        <h2>Как работи</h2>
+        <p>Процесът е кратък, ясен и направен да превръща любопитството в реален AI профил.</p>
+
+        <div class="grid3">
+          <div class="stepCard">
+            <div class="stepNumber">1</div>
+            <strong>Избираш сигнали</strong>
+            <p>Маркираш кои вътрешни модели те описват: визия, логика, емоция, действие, бъдеще.</p>
+          </div>
+
+          <div class="stepCard">
+            <div class="stepNumber">2</div>
+            <strong>Получаваш Twin Seed</strong>
+            <p>Системата генерира първия ти AI Twin профил и го записва в SoulFlame cloud.</p>
+          </div>
+
+          <div class="stepCard">
+            <div class="stepNumber">3</div>
+            <strong>Отключваш Full Twin</strong>
+            <p>Full версията добавя Future Twin послание, deep Echo Blueprint и личен план.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid4">
+        <div class="mini">
+          <strong>За самоанализ</strong>
+          <p>Разбираш кои модели управляват мисленето и реакциите ти.</p>
+        </div>
+
+        <div class="mini">
+          <strong>За бизнес</strong>
+          <p>Виждаш силните си страни като създател, лидер или стратег.</p>
+        </div>
+
+        <div class="mini">
+          <strong>За бъдещи решения</strong>
+          <p>Future Twin може да ти даде посока какъв човек градиш.</p>
+        </div>
+
+        <div class="mini">
+          <strong>За AI Echo</strong>
+          <p>Това е първа стъпка към персонален AI двойник.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="create" class="section appGrid">
+      <div class="card light">
+        <h2>Твоят Twin Seed</h2>
+
+        <label>Име</label>
+        <input id="name" placeholder="Например: Димитър">
+
+        <label>Контакт</label>
+        <input id="contact" placeholder="email / телефон / Instagram">
+
+        <label>Възраст</label>
+        <select id="age">
+          <option>18-24</option>
+          <option selected>25-34</option>
+          <option>35-44</option>
+          <option>45+</option>
+        </select>
+
+        <label>Какво искаш да прави твоят AI Twin?</label>
+        <textarea id="goal" placeholder="Например: да ме разбира, да ми помага с решения, бизнес, връзки, бъдещи избори..."></textarea>
+
+        <div class="actions">
+          <button onclick="generateTwin()">Generate AI Twin</button>
+          <button class="secondary" onclick="resetTwin()">Reset</button>
+        </div>
+      </div>
+
+      <div class="card light">
+        <h2>Twin Signals</h2>
+        <p>Избери вътрешните сигнали, които най-много приличат на теб.</p>
+
+        <div id="signals" class="signalGrid"></div>
+
+        <div id="successBox" class="success">
+          AI Twin seed е записан успешно в SoulFlame cloud.
+        </div>
+
+        <div id="result" class="result">
+          <div class="resultHero">
+            <div class="badge"><span class="dot"></span> AI Twin Activated</div>
+            <div id="resultTitle" class="resultTitle"></div>
+            <div id="resultText"></div>
+
+            <div class="aiCard" id="aiCard">
+              <h3>AI Twin Card</h3>
+              <p id="aiCardText">Твоята AI карта ще се появи тук.</p>
+            </div>
+          </div>
+
+          <div id="scoreGrid" class="scoreGrid"></div>
+
+          <div class="mini show">
+            <h3>Full Twin Upgrade</h3>
+            <p>
+              Full Twin отключва Future Twin message, deep Echo Blueprint,
+              личен план и AI mirror profile.
+            </p>
+
+            <div class="actions">
+              <button class="gold" onclick="requestFullTwin()">Заяви Full AI Twin</button>
+              <button class="secondary" onclick="copyTwin()">Копирай резултата</button>
+            </div>
+          </div>
+
+          <details>
+            <summary>Advanced API response</summary>
+            <pre id="apiBox">Ready.</pre>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section">
+      <div class="card light">
+        <h2>Пакети</h2>
+        <p>Започваш безплатно. Плащаш само ако искаш по-дълбока версия.</p>
+
+        <div class="pricingGrid">
+          <div class="priceCard">
+            <h3>Mini Twin</h3>
+            <div class="price">0€</div>
+            <p>Първи AI Twin seed.</p>
+            <div class="list">
+              <span>Основен AI профил</span>
+              <span>Twin signals</span>
+              <span>Cloud запис</span>
+            </div>
+            <div class="actions">
+              <a class="btn secondary" href="#create">Започни</a>
+            </div>
+          </div>
+
+          <div class="priceCard featured">
+            <h3>Full AI Twin</h3>
+            <div class="price">19€</div>
+            <p>Дълбок личен AI профил.</p>
+            <div class="list">
+              <span>Full Echo Blueprint</span>
+              <span>Future Twin message</span>
+              <span>Личен next-step план</span>
+              <span>Unlock code</span>
+            </div>
+            <div class="actions">
+              <a class="btn gold" href="#create">Отключи</a>
+            </div>
+          </div>
+
+          <div class="priceCard">
+            <h3>Deep Twin</h3>
+            <div class="price">49€</div>
+            <p>По-дълбок анализ за развитие.</p>
+            <div class="list">
+              <span>Поведенчески цикли</span>
+              <span>Силни страни</span>
+              <span>Рискове и блокажи</span>
+              <span>AI roadmap</span>
+            </div>
+            <div class="actions">
+              <a class="btn secondary" href="#create">Заяви</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      SoulFlame Twins · V39 Product Conversion Upgrade · Vercel + Supabase
+    </div>
+  </div>
+
+  <script>
+    const signalDefs = [
+      { key: "vision", title: "Vision Engine", text: "Виждам възможности преди да станат очевидни.", score: 10 },
+      { key: "logic", title: "System Mind", text: "Подреждам хаос в структура, план и стратегия.", score: 10 },
+      { key: "emotion", title: "Emotional Radar", text: "Усещам хора, сигнали и скрити настроения.", score: 10 },
+      { key: "action", title: "Momentum Core", text: "Искам движение, скорост и реален резултат.", score: 10 },
+      { key: "social", title: "Influence Layer", text: "Влияя чрез думи, присъствие и идея.", score: 10 },
+      { key: "future", title: "Future Self", text: "Мисля за версията ми след 1, 3 или 5 години.", score: 10 },
+      { key: "deep", title: "Deep Mind", text: "Искам да видя подсъзнателните си модели.", score: 10 },
+      { key: "creator", title: "Creator Mode", text: "Искам да създавам системи.", score: 10 }
+    ];
+
+    const archetypes = {
+      vision: "Future Architect",
+      logic: "Quantum System Builder",
+      emotion: "Emotional Mirror",
+      action: "Momentum Engine",
+      social: "Influence Twin",
+      future: "Future Self Twin",
+      deep: "Subconscious Explorer",
+      creator: "Creator Twin"
+    };
+
+    const descriptions = {
+      vision: "Твоят AI Twin мисли напред: идеи, сценарии, възможности и бъдещи системи.",
+      logic: "Твоят AI Twin подрежда хаоса: планове, стъпки, логика и решения.",
+      emotion: "Твоят AI Twin разчита емоционални сигнали: реакции, хора и връзки.",
+      action: "Твоят AI Twin те бута към действие: скорост, фокус и изпълнение.",
+      social: "Твоят AI Twin усилва влиянието ти: комуникация, позициониране и присъствие.",
+      future: "Твоят AI Twin говори като бъдеща версия на теб: предупреждения, избори и посока.",
+      deep: "Твоят AI Twin анализира дълбоки модели: страхове, мотивация и повторения.",
+      creator: "Твоят AI Twin работи като създател: бизнес, системи, идеи и реализация."
+    };
+
+    const selected = {};
+    let lastTwin = null;
+
+    function showJson(id, data) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    function renderSignals() {
+      const box = document.getElementById("signals");
+      box.innerHTML = "";
+
+      signalDefs.forEach(signal => {
+        const div = document.createElement("div");
+        div.className = "signal";
+        div.dataset.key = signal.key;
+        div.innerHTML = "<b>" + signal.title + "</b><span>" + signal.text + "</span>";
+
+        div.addEventListener("click", () => {
+          selected[signal.key] = !selected[signal.key];
+          div.classList.toggle("active", Boolean(selected[signal.key]));
+        });
+
+        box.appendChild(div);
+      });
+    }
+
+    async function checkHealth() {
+      showJson("healthBox", "Checking /api/health...");
+
+      try {
+        const res = await fetch("/api/health");
+        const data = await res.json();
+        showJson("healthBox", data);
+      } catch (error) {
+        showJson("healthBox", error.message);
+      }
+    }
+
+    function demoTwin() {
+      document.getElementById("name").value = "Demo Product Twin";
+      document.getElementById("contact").value = "demo@soulflame.local";
+      document.getElementById("age").value = "25-34";
+      document.getElementById("goal").value = "Искам AI Twin, който ми помага да мисля по-ясно, да вземам решения и да развивам идеите си.";
+
+      ["vision", "logic", "future", "creator"].forEach(key => selected[key] = true);
+
+      document.querySelectorAll(".signal").forEach(el => {
+        el.classList.toggle("active", Boolean(selected[el.dataset.key]));
+      });
+
+      location.hash = "#create";
+    }
+
+    function buildScores() {
+      const scores = {};
+      signalDefs.forEach(signal => {
+        scores[signal.key] = selected[signal.key] ? signal.score : 2;
+      });
+      return scores;
+    }
+
+    function getTopSignals(scores) {
+      return Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    }
+
+    async function generateTwin() {
+      const name = document.getElementById("name").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const age = document.getElementById("age").value;
+      const goal = document.getElementById("goal").value.trim();
+
+      if (!name) {
+        alert("Попълни име.");
+        return;
+      }
+
+      if (!contact) {
+        alert("Попълни контакт.");
+        return;
+      }
+
+      const activeSignals = Object.keys(selected).filter(key => selected[key]);
+
+      if (!activeSignals.length) {
+        alert("Избери поне един Twin Signal.");
+        return;
+      }
+
+      const scores = buildScores();
+      const top = getTopSignals(scores);
+      const mainKey = top[0][0];
+      const secondKey = top[1][0];
+
+      const profile = archetypes[mainKey] + " + " + archetypes[secondKey];
+      const report = descriptions[mainKey];
+
+      const fullReport =
+        "Full AI Twin за " + name + ": водещ слой " + archetypes[mainKey] +
+        ", втори слой " + archetypes[secondKey] +
+        ". Следва Future Twin message, личен план и deep Echo анализ.";
+
+      lastTwin = {
+        id: Date.now(),
+        user: { name, contact, age, goal },
+        mainTrait: mainKey,
+        secondTrait: secondKey,
+        profile,
+        scores,
+        report,
+        fullReport,
+        selectedSignals: activeSignals,
+        product: "AI Twin by SoulFlame",
+        version: "V39_PRODUCT_CONVERSION_UPGRADE",
+        createdAt: new Date().toISOString()
+      };
+
+      document.getElementById("result").classList.add("show");
+      document.getElementById("resultTitle").textContent = profile;
+
+      document.getElementById("resultText").innerHTML =
+        "<p><strong>" + name + "</strong>, твоят AI Twin започва като <strong class='grad'>" + archetypes[mainKey] + "</strong>.</p>" +
+        "<p>" + report + "</p>" +
+        "<p>Втори активен слой: <strong>" + archetypes[secondKey] + "</strong>.</p>" +
+        "<p class='gold'>Twin Seed: active · Cloud sync: pending</p>";
+
+      document.getElementById("aiCardText").innerHTML =
+        "<strong>" + profile + "</strong><br>" +
+        "Основна посока: " + report + "<br>" +
+        "Следващо ниво: Full AI Twin с Future message и личен план.";
+
+      const grid = document.getElementById("scoreGrid");
+      grid.innerHTML = "";
+
+      top.slice(0, 4).forEach(([key, value]) => {
+        const div = document.createElement("div");
+        div.className = "score";
+        div.innerHTML = "<b>" + value + "</b><span>" + archetypes[key] + "</span>";
+        grid.appendChild(div);
+      });
+
+      await saveTwin(lastTwin);
+    }
+
+    async function saveTwin(twin) {
+      showJson("apiBox", "Saving AI Twin seed to SoulFlame cloud...");
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(twin)
+        });
+
+        const data = await res.json();
+        showJson("apiBox", data);
+
+        if (data.ok) {
+          document.getElementById("successBox").classList.add("show");
+        }
+      } catch (error) {
+        showJson("apiBox", error.message);
+      }
+    }
+
+    async function requestFullTwin() {
+      if (!lastTwin) {
+        alert("Първо генерирай AI Twin.");
+        return;
+      }
+
+      showJson("apiBox", "Creating Full AI Twin request...");
+
+      try {
+        const res = await fetch("/api/payment-request", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            offer: "Full AI Twin by SoulFlame",
+            amount: "19.00 EUR",
+            method: "manual",
+            user: lastTwin.user,
+            profile: lastTwin.profile,
+            scores: lastTwin.scores,
+            rawTwin: lastTwin
+          })
+        });
+
+        const data = await res.json();
+        showJson("apiBox", data);
+
+        if (data.ok) {
+          alert("Заявката за Full AI Twin е създадена.");
+        }
+      } catch (error) {
+        showJson("apiBox", error.message);
+      }
+    }
+
+    function copyTwin() {
+      if (!lastTwin) {
+        alert("Няма AI Twin за копиране.");
+        return;
+      }
+
+      const text =
+        "AI Twin by SoulFlame\n" +
+        "Име: " + lastTwin.user.name + "\n" +
+        "Профил: " + lastTwin.profile + "\n" +
+        "Report: " + lastTwin.report + "\n";
+
+      navigator.clipboard.writeText(text);
+      alert("AI Twin резултатът е копиран.");
+    }
+
+    function resetTwin() {
+      Object.keys(selected).forEach(key => delete selected[key]);
+      document.querySelectorAll(".signal").forEach(el => el.classList.remove("active"));
+      document.getElementById("result").classList.remove("show");
+      document.getElementById("successBox").classList.remove("show");
+      showJson("apiBox", "Ready.");
+      lastTwin = null;
+    }
+
+    function setupReveal() {
+      const items = document.querySelectorAll(".mini, .priceCard, .stepCard");
+
+      if (!("IntersectionObserver" in window)) {
+        items.forEach(el => el.classList.add("show"));
+        return;
+      }
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+
+      items.forEach(el => io.observe(el));
+    }
+
+    function setupLightParallax() {
+      const device = document.getElementById("device");
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!device || reduce || window.innerWidth < 980) return;
+
+      let tx = 0;
+      let ty = 0;
+      let cx = 0;
+      let cy = 0;
+      let ticking = false;
+
+      window.addEventListener("pointermove", event => {
+        const x = event.clientX / window.innerWidth - .5;
+        const y = event.clientY / window.innerHeight - .5;
+
+        tx = x * 10;
+        ty = y * -10;
+
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(loop);
+        }
+      }, { passive: true });
+
+      function loop() {
+        cx += (tx - cx) * .08;
+        cy += (ty - cy) * .08;
+
+        device.style.transform = "rotateY(" + cx.toFixed(2) + "deg) rotateX(" + cy.toFixed(2) + "deg)";
+
+        if (Math.abs(tx - cx) > .02 || Math.abs(ty - cy) > .02) {
+          requestAnimationFrame(loop);
+        } else {
+          ticking = false;
+        }
+      }
+    }
+
+    function setupProgressAndSticky() {
+      const progress = document.getElementById("progress");
+      const sticky = document.getElementById("stickyCta");
+      let ticking = false;
+
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+
+        requestAnimationFrame(() => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          const value = max > 0 ? window.scrollY / max : 0;
+
+          if (progress) {
+            progress.style.transform = "scaleX(" + Math.max(0, Math.min(1, value)).toFixed(4) + ")";
+          }
+
+          if (sticky) {
+            sticky.classList.toggle("show", window.scrollY > 650);
+          }
+
+          ticking = false;
+        });
+      }, { passive: true });
+    }
+
+    renderSignals();
+    setupReveal();
+    setupLightParallax();
+    setupProgressAndSticky();
+    checkHealth();
+  </script>
+</body>
+</html>

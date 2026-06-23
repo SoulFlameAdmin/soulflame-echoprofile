@@ -1,0 +1,154 @@
+/* ======================================================
+   SOULFLAME V81 - FULLSCREEN AI TWIN HOST
+   SoulMatch sidebar becomes burger drawer in AI Twin
+   ====================================================== */
+
+html, body {
+  overflow-x: hidden !important;
+}
+
+/* AI Twin iframe full area */
+#aitwin {
+  padding: 0 !important;
+  background: #03050a !important;
+  overflow: hidden !important;
+  min-height: 100vh !important;
+}
+
+.sf-ai-echo-v81-frame {
+  display: block !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  border: 0 !important;
+  background: #03050a !important;
+}
+
+/* default desktop drawer animation */
+body.sf-ai-twin-host .app {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body.sf-ai-twin-host .main {
+  width: 100% !important;
+}
+
+body.sf-ai-twin-host .page.active {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+body.sf-ai-twin-host .sidebar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 320px !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  transform: translateX(-106%) !important;
+  transition: transform .24s ease !important;
+  box-shadow: 24px 0 70px rgba(0,0,0,.28) !important;
+}
+
+body.sf-ai-twin-host.sf-sidebar-open .sidebar {
+  transform: translateX(0) !important;
+}
+
+/* hide sticky host chrome while AI Twin owns top */
+body.sf-ai-twin-host .mobile-header {
+  display: none !important;
+}
+
+/* full width main when AI Twin active */
+body.sf-ai-twin-host .main {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  height: 100vh !important;
+}
+
+body.sf-ai-twin-host .left-panel {
+  display: none !important;
+}
+
+body.sf-ai-twin-host #aitwin.page.active {
+  display: block !important;
+  height: 100vh !important;
+}
+
+body.sf-ai-twin-host .sf-v81-backdrop {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body.sf-ai-twin-host.sf-sidebar-open .sf-v81-backdrop {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* backdrop */
+.sf-v81-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,.38) !important;
+  z-index: 9998 !important;
+  transition: opacity .22s ease !important;
+}
+
+/* mobile / tablet */
+@media (max-width: 860px) {
+  body.sf-ai-twin-host .app {
+    display: block !important;
+    padding-bottom: 0 !important;
+  }
+
+  body.sf-ai-twin-host .sidebar {
+    width: min(86vw, 340px) !important;
+    padding-bottom: 20px !important;
+    overflow-y: auto !important;
+    background: linear-gradient(180deg, #104ad8, #073dc8) !important;
+  }
+
+  body.sf-ai-twin-host .sidebar > .brand,
+  body.sf-ai-twin-host .sidebar .premium,
+  body.sf-ai-twin-host .sidebar .mini-user {
+    display: block !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu-btn,
+  body.sf-ai-twin-host .sidebar .nav-item {
+    min-height: 52px !important;
+    height: auto !important;
+    display: flex !important;
+    grid-template-rows: none !important;
+    place-items: center flex-start !important;
+    padding: 0 16px !important;
+    text-align: left !important;
+    font-size: 16px !important;
+    white-space: normal !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu-btn span,
+  body.sf-ai-twin-host .sidebar .nav-item span {
+    overflow: visible !important;
+    text-overflow: initial !important;
+    white-space: normal !important;
+  }
+
+  body.sf-ai-twin-host .sidebar .menu-btn b,
+  body.sf-ai-twin-host .sidebar .nav-item b {
+    position: static !important;
+    margin-left: auto !important;
+  }
+
+  body.sf-ai-twin-host #aitwin,
+  body.sf-ai-twin-host .sf-ai-echo-v81-frame {
+    height: 100vh !important;
+    min-height: 100vh !important;
+  }
+}

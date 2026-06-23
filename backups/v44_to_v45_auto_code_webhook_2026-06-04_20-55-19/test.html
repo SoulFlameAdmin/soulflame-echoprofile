@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SoulFlame Twins — Production Test</title>
+  <style>
+    body{
+      margin:0;
+      min-height:100vh;
+      background:linear-gradient(135deg,#05060d,#101327,#07111e);
+      color:white;
+      font-family:Arial,sans-serif;
+      padding:24px;
+    }
+    .wrap{width:min(1000px,100%);margin:0 auto}
+    .card{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:22px;
+      margin-bottom:16px;
+    }
+    button{
+      border:0;
+      cursor:pointer;
+      color:white;
+      background:linear-gradient(135deg,#7c3cff,#4c8dff);
+      border-radius:14px;
+      padding:13px 15px;
+      font-weight:900;
+      margin:6px 4px 0 0;
+    }
+    input{
+      border-radius:14px;
+      padding:13px 14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.28);
+      color:white;
+      width:min(420px,100%);
+    }
+    pre{
+      background:rgba(0,0,0,.35);
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      white-space:pre-wrap;
+      min-height:300px;
+    }
+    a{color:#8bdfff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Production Test — SoulFlame Twins</h1>
+      <p>Тества всички основни routes без да пипаш кода.</p>
+      <a href="/">Back to site</a>
+      <br><br>
+      <input id="pin" placeholder="Admin PIN за admin tests">
+      <br>
+      <button onclick="testHealth()">Health</button>
+      <button onclick="testProfile()">Profile Write</button>
+      <button onclick="testLead()">Lead Write</button>
+      <button onclick="testPayment()">Payment Request</button>
+      <button onclick="testAdminData()">Admin Data</button>
+      <button onclick="testAdminCode()">Admin Code</button>
+      <button onclick="runAll()">Run All Basic</button>
+    </div>
+
+    <div class="card">
+      <h2>Output</h2>
+      <pre id="out">Ready.</pre>
+    </div>
+  </div>
+
+  <script>
+    const out = document.getElementById("out");
+
+    function show(data){
+      out.textContent = typeof data === "string" ? data : JSON.stringify(data,null,2);
+    }
+
+    function pin(){
+      return document.getElementById("pin").value.trim();
+    }
+
+    async function call(url, options = {}){
+      const res = await fetch(url, options);
+      const text = await res.text();
+      try { return { status:res.status, data: JSON.parse(text) }; }
+      catch { return { status:res.status, data:text }; }
+    }
+
+    async function testHealth(){
+      show("Testing /api/health...");
+      show(await call("/api/health"));
+    }
+
+    async function testProfile(){
+      show("Testing /api/profile...");
+      const body = {
+        id: Date.now(),
+        user:{ name:"V30 Test Client", contact:"v30-test@soulflame.local", goal:"V30 route test", age:"25-34" },
+        mainTrait:"vision",
+        secondTrait:"logic",
+        profile:"V30 Production Test Profile",
+        scores:{ vision:10, logic:9, emotion:6, social:5, action:8 },
+        report:"V30 mini report",
+        fullReport:"V30 full report",
+        createdAt:new Date().toISOString()
+      };
+
+      show(await call("/api/profile", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify(body)
+      }));
+    }
+
+    async function testLead(){
+      show("Testing /api/lead...");
+      show(await call("/api/lead", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+          offer:"V30 Lead Test",
+          user:{ name:"V30 Lead", contact:"lead@soulflame.local" },
+          profile:"Lead route test",
+          scores:{ vision:1 }
+        })
+      }));
+    }
+
+    async function testPayment(){
+      show("Testing /api/payment-request...");
+      show(await call("/api/payment-request", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+          offer:"Full AI Echo",
+          amount:"19.99 лв",
+          method:"manual",
+          user:{ name:"V30 Payment", contact:"payment@soulflame.local" },
+          profile:"Payment route test",
+          scores:{ vision:1 }
+        })
+      }));
+    }
+
+    async function testAdminData(){
+      show("Testing /api/admin/data...");
+      show(await call("/api/admin/data", {
+        headers:{ "x-admin-pin":pin() }
+      }));
+    }
+
+    async function testAdminCode(){
+      show("Testing /api/admin/code...");
+      show(await call("/api/admin/code", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json", "x-admin-pin":pin() },
+        body:JSON.stringify({ offer:"Full AI Echo", note:"V30 test code" })
+      }));
+    }
+
+    async function runAll(){
+      const results = {};
+      results.health = await call("/api/health");
+      results.profile = await call("/api/profile", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+          id: Date.now(),
+          user:{ name:"V30 RunAll", contact:"runall@soulflame.local", goal:"Run all", age:"25-34" },
+          mainTrait:"vision",
+          secondTrait:"logic",
+          profile:"RunAll Profile",
+          scores:{ vision:10, logic:9 },
+          report:"RunAll mini",
+          fullReport:"RunAll full",
+          createdAt:new Date().toISOString()
+        })
+      });
+      results.lead = await call("/api/lead", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ offer:"RunAll Lead", user:{ name:"RunAll", contact:"runall@soulflame.local" } })
+      });
+      results.payment = await call("/api/payment-request", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ offer:"Full AI Echo", amount:"19.99 лв", method:"manual", user:{ name:"RunAll", contact:"runall@soulflame.local" } })
+      });
+      show(results);
+    }
+  </script>
+</body>
+</html>

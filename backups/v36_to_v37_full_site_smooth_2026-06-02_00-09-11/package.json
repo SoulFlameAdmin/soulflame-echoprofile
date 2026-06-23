@@ -1,0 +1,10 @@
+{
+  "name": "soulflame-twins",
+  "version": "1.0.0",
+  "description": "AI Twin by SoulFlame V36 Quantum Levitation Ultra Smooth",
+  "author": "SoulFlame",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,17 @@
+﻿{
+  "name": "soulflame-echoprofile-v21",
+  "version": "1.0.0",
+  "description": "SoulFlame EchoProfile V21 Admin Security Lock + Supabase Key Intake",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "env:audit": "node scripts/env-audit-v21.js",
+    "pin:generate": "node scripts/generate-admin-pin-v21.js",
+    "local:test": "node scripts/local-test-v21.js",
+    "mode:local": "powershell -ExecutionPolicy Bypass -File set-data-mode-local.ps1",
+    "mode:supabase": "powershell -ExecutionPolicy Bypass -File set-data-mode-supabase.ps1",
+    "supabase:check": "node scripts/supabase-check-v19.js"
+  },
+  "author": "SoulFlame",
+  "license": "MIT"
+}

@@ -1,0 +1,60 @@
+/* FINAL ADMIN ORDER */
+
+.final-admin-order-block {
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid rgba(255,255,255,.18) !important;
+}
+
+.final-admin-title {
+  margin: 12px 0 8px !important;
+  color: #ffdde5 !important;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace !important;
+  font-weight: 950 !important;
+  font-size: 13px !important;
+}
+
+.final-admin-btn {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 38px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  color: rgba(255,255,255,.9) !important;
+  text-align: left !important;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+}
+
+.final-admin-btn:hover,
+.final-admin-btn.active {
+  background: rgba(255,255,255,.16) !important;
+  color: #fff !important;
+}
+
+.final-admin-btn.mine {
+  color: #fff !important;
+  font-weight: 950 !important;
+}
+
+.final-admin-btn.errors {
+  color: #ffe8a8 !important;
+}
+
+/* Hide all older admin tree versions */
+.sf-v83-admin,
+.sf-v84-admin-tree,
+.sf-v841-admin-final,
+.sf-v842-admin-block,
+.sf-v843-admin-block,
+.sf-v84-admin-section,
+.sf-v84-admin-line,
+.sf-v841-admin-btn,
+.sf-v842-admin-btn,
+.sf-v843-admin-btn {
+  display: none !important;
+}

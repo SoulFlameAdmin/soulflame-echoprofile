@@ -1,0 +1,31 @@
+/* SOULFLAME V88 MASTER NAVIGATION */
+
+.v86-user-block,
+.v87-user-block,
+.v85-admin-block,
+.final-admin-order-block,
+.sf-v84-admin-tree,
+.sf-v841-admin-final,
+.sf-v842-admin-block,
+.sf-v843-admin-block,
+.sf-v83-admin {
+  display: none !important;
+}
+
+.sf-v88-master-active .sf-v83-tree,
+.sf-v88-master-active .sf-v82-tree {
+  padding-bottom: 18px !important;
+}
+
+.sf-v88-admin-line {
+  color: #ffe8a8 !important;
+}
+
+.sf-v88-health-line {
+  color: #baffdc !important;
+}
+
+.sf-v88-line-active {
+  background: rgba(255,255,255,.18) !important;
+  color: #ffffff !important;
+}

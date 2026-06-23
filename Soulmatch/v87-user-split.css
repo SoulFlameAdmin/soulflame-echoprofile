@@ -1,0 +1,47 @@
+/* SOULFLAME V87 USER SPLIT TREE */
+
+.v87-user-block {
+  margin-top: 12px !important;
+  padding-top: 10px !important;
+  border-top: 1px solid rgba(255,255,255,.14) !important;
+}
+
+.v87-user-title {
+  margin: 10px 0 7px !important;
+  color: #dbe7ff !important;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace !important;
+  font-weight: 950 !important;
+  font-size: 13px !important;
+}
+
+.v87-user-btn {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 38px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  padding: 4px 8px !important;
+  background: transparent !important;
+  color: rgba(255,255,255,.9) !important;
+  text-align: left !important;
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+}
+
+.v87-user-btn:hover,
+.v87-user-btn.active {
+  background: rgba(255,255,255,.16) !important;
+  color: #fff !important;
+}
+
+.v87-user-btn.health {
+  color: #baffdc !important;
+}
+
+.v86-user-block,
+.sf-v83-line[data-action="echo"][data-panel="userPanel"],
+.sf-v83-line[data-action="open"][data-url="/api/health"] {
+  display: none !important;
+}

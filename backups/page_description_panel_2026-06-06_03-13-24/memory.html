@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Memory | SoulFlame</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="memory">
+
+  <div class="app-bg"></div>
+
+  <main class="chat-app">
+    <section class="chat-section">
+
+      <div class="floating-actions">
+        <button class="ghost-btn" onclick="clearChat()">Clear</button>
+        <button class="ghost-btn primary" onclick="toggleDrawer(true)">SF Options</button>
+      </div>
+
+      <div class="center-brand-overlay" id="centerBrand">
+        <div class="center-brand-box">
+          <div class="center-logo">SF</div>
+          <h1>SoulFlame Memory</h1>
+          <p>Facts • Goals • Style • Emotional patterns</p>
+
+          
+        </div>
+      </div>
+
+      <div class="chat-box" id="chatBox">
+        <div class="message assistant">
+          <div class="avatar">E</div>
+          <div class="bubble">Това е Memory страницата. Тук ще се пазят важните факти, цели, страхове и стил на човека.</div>
+        </div>
+      </div>
+
+      
+
+      <div class="input-area">
+        <input id="chatInput" type="text" placeholder="Напиши съобщение..." />
+        <button onclick="sendMessage()">➤</button>
+      </div>
+
+    </section>
+  </main>
+
+  <section class="bottom-drawer" id="bottomDrawer">
+    <button class="drawer-handle" onclick="toggleDrawer()">
+      <span></span>
+      <strong>SF Options</strong>
+      <small id="drawerHint">плъзни / натисни</small>
+    </button>
+
+    <div class="drawer-content">
+      <div class="drawer-title">
+        <div>
+          <h2>SF Options</h2>
+          <p>Избери страница / модул</p>
+        </div>
+        <button class="close-drawer" onclick="toggleDrawer(false)">×</button>
+      </div>
+
+      <div class="option-grid">
+
+        <a class="option-card " href="index.html">
+          <span>🏠</span>
+          <h3>Home</h3>
+          <p>Главна страница</p>
+        </a>
+
+        <a class="option-card " href="echoprofile.html">
+          <span>🧠</span>
+          <h3>EchoProfile</h3>
+          <p>Психологически профил</p>
+        </a>
+
+        <a class="option-card " href="ai-twin.html">
+          <span>👤</span>
+          <h3>AI Twin</h3>
+          <p>GPT двойник</p>
+        </a>
+
+        <a class="option-card " href="future-twin.html">
+          <span>🔮</span>
+          <h3>Future Twin</h3>
+          <p>Ти от бъдещето</p>
+        </a>
+
+        <a class="option-card active" href="memory.html">
+          <span>💾</span>
+          <h3>Memory</h3>
+          <p>Лична памет</p>
+        </a>
+
+        <a class="option-card " href="soulmatch.html">
+          <span>❤️</span>
+          <h3>SoulMatch</h3>
+          <p>Съвместимост</p>
+        </a>
+
+        <a class="option-card " href="ar-echocard.html">
+          <span>🪪</span>
+          <h3>AR EchoCard</h3>
+          <p>AR визитка</p>
+        </a>
+
+        <a class="option-card " href="settings.html">
+          <span>⚙️</span>
+          <h3>Settings</h3>
+          <p>Privacy и API</p>
+        </a>
+
+      </div>
+
+      <div class="module-preview" id="modulePreview">
+        <h3>Memory</h3>
+        <p>Лична памет за AI Twin: факти, спомени, цели, стил и история.</p>
+      </div>
+
+      <button class="bottom-close-btn" onclick="toggleDrawer(false)">
+        Click to Close
+      </button>
+    </div>
+  </section>
+
+  <div class="overlay" id="overlay" onclick="toggleDrawer(false)"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>SoulFlame Admin — AI Twin Dashboard</title>
+  <meta name="theme-color" content="#050611">
+
+  <style>
+    :root {
+      --bg0:#03040a;
+      --bg1:#080b1f;
+      --bg2:#111a46;
+      --text:#f8f7ff;
+      --soft:#b9c3e8;
+      --muted:#7f8ab4;
+      --line:rgba(255,255,255,.14);
+      --glass:rgba(255,255,255,.078);
+      --glass2:rgba(255,255,255,.045);
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#23e6a8;
+      --red:#ff4d6d;
+      --shadow:0 28px 90px rgba(0,0,0,.42);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg0);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(124,60,255,.28), transparent 32rem),
+        radial-gradient(circle at 86% 12%, rgba(0,234,255,.16), transparent 30rem),
+        linear-gradient(135deg, var(--bg0), var(--bg1) 48%, var(--bg2));
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(6,8,20,.72);
+      border-radius: 24px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.24);
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 950;
+      letter-spacing: -.5px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 30% 22%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow: 0 0 34px rgba(124,60,255,.42);
+    }
+
+    .links {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    a, button {
+      border: 0;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--violet), #3f8dff);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 900;
+      font-size: 14px;
+      transition: transform .18s ease, filter .18s ease;
+    }
+
+    a:hover, button:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.1);
+    }
+
+    button.secondary, a.secondary {
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+    }
+
+    button.gold {
+      background: linear-gradient(135deg, #ffb703, #ff4ff3);
+    }
+
+    button.red {
+      background: linear-gradient(135deg, #ff4d6d, #7c3cff);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.045)),
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.08), transparent 38%);
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5vw, 70px);
+      line-height: .92;
+      letter-spacing: -2.5px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+      letter-spacing: -.8px;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    p {
+      margin: 0 0 12px;
+      color: var(--soft);
+      line-height: 1.55;
+    }
+
+    .grad {
+      background: linear-gradient(90deg, var(--cyan), #5ca8ff, var(--violet), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--soft);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 99px;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+
+    .pinBox {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.28);
+      color: var(--text);
+      border-radius: 14px;
+      padding: 13px 14px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus, textarea:focus {
+      border-color: rgba(0,234,255,.48);
+      box-shadow: 0 0 0 4px rgba(0,234,255,.07);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 20px;
+      padding: 16px;
+    }
+
+    .metric b {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, rgba(124,60,255,.9), rgba(0,234,255,.62));
+      border-color: rgba(0,234,255,.32);
+    }
+
+    .searchLine {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .tableWrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(0,0,0,.20);
+      max-height: 560px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: rgba(10,12,28,.95);
+      color: var(--soft);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    tr:hover td {
+      background: rgba(255,255,255,.035);
+    }
+
+    .tag {
+      display: inline-flex;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--soft);
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tag.green {
+      color: #caffdf;
+      border-color: rgba(35,230,168,.3);
+      background: rgba(35,230,168,.08);
+    }
+
+    .tag.gold {
+      color: #ffe7a8;
+      border-color: rgba(255,209,102,.3);
+      background: rgba(255,209,102,.08);
+    }
+
+    .tag.red {
+      color: #ffc1cc;
+      border-color: rgba(255,77,109,.3);
+      background: rgba(255,77,109,.08);
+    }
+
+    .mono {
+      font-family: Consolas, monospace;
+      color: #dbe4ff;
+    }
+
+    .raw {
+      min-height: 240px;
+      max-height: 520px;
+      overflow: auto;
+      background: rgba(0,0,0,.35);
+      border: 1px solid var(--line);
+      color: #dbe4ff;
+      border-radius: 18px;
+      padding: 16px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      padding: 24px 0 40px;
+    }
+
+    @media(max-width: 980px) {
+      .hero, .tools, .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .pinBox, .searchLine {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .links {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>SoulFlame Admin Pro</div>
+      </div>
+
+      <div class="links">
+        <a class="secondary" href="/" target="_blank">Site</a>
+        <a class="secondary" href="/test" target="_blank">Test</a>
+        <button class="secondary" onclick="loadAll()">Refresh</button>
+        <button class="secondary" onclick="exportJson()">Export JSON</button>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <div class="badge"><span class="dot"></span> V40 · Admin Dashboard Pro</div>
+        <h1>AI Twin <span class="grad">Control Room</span></h1>
+        <p>
+          Това е командният център за SoulFlame Twins: профили, leads, заявки, плащания,
+          unlock кодове и събития.
+        </p>
+
+        <div class="pinBox">
+          <input id="pin" placeholder="ECHO_ADMIN_PIN">
+          <button onclick="savePin()">Save PIN</button>
+          <button class="gold" onclick="loadAll()">Load Data</button>
+        </div>
+
+        <p class="small" style="margin-top:10px">
+          PIN се пази само локално в браузъра. Не го пращай публично.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>System Status</h2>
+        <p id="systemText">Ready.</p>
+        <div class="links">
+          <button onclick="health()">Health</button>
+          <button class="secondary" onclick="metricsOnly()">Metrics</button>
+          <button class="secondary" onclick="clearLocal()">Clear PIN</button>
+        </div>
+        <pre class="raw" id="statusBox">Ready.</pre>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><b id="mProfiles">0</b><span>Profiles</span></div>
+      <div class="metric"><b id="mLeads">0</b><span>Leads</span></div>
+      <div class="metric"><b id="mPayments">0</b><span>Payments</span></div>
+      <div class="metric"><b id="mCodes">0</b><span>Unlock Codes</span></div>
+      <div class="metric"><b id="mEvents">0</b><span>Events</span></div>
+    </section>
+
+    <section class="tools">
+      <div class="card">
+        <h2>Generate Unlock Code</h2>
+        <p>Създава код за Full AI Twin.</p>
+
+        <input id="codeOffer" value="Full AI Twin" placeholder="Offer">
+        <br><br>
+        <input id="codeNote" placeholder="Note / client / payment reference">
+        <br><br>
+        <button class="gold" onclick="generateCode()">Generate Code</button>
+
+        <pre class="raw" id="codeBox">Ready.</pre>
+      </div>
+
+      <div class="card">
+        <h2>Confirm Payment</h2>
+        <p>Въвеждаш paymentId и системата маркира плащането като paid + генерира код.</p>
+
+        <input id="paymentId" placeholder="paymentId например 1780...">
+        <br><br>
+        <button class="gold" onclick="confirmPayment()">Confirm Payment</button>
+
+        <pre class="raw" id="paymentBox">Ready.</pre>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="tabs">
+        <button class="tab active" data-tab="profiles" onclick="setTab('profiles')">Profiles</button>
+        <button class="tab" data-tab="leads" onclick="setTab('leads')">Leads</button>
+        <button class="tab" data-tab="payments" onclick="setTab('payments')">Payments</button>
+        <button class="tab" data-tab="unlock_codes" onclick="setTab('unlock_codes')">Codes</button>
+        <button class="tab" data-tab="events" onclick="setTab('events')">Events</button>
+      </div>
+
+      <div class="searchLine">
+        <input id="search" placeholder="Search name / contact / profile / code..." oninput="renderTable()">
+        <button class="secondary" onclick="copyVisible()">Copy Visible</button>
+        <button class="secondary" onclick="loadAll()">Refresh</button>
+      </div>
+
+      <div class="tableWrap">
+        <table>
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>Raw Data</h2>
+      <pre class="raw" id="rawBox">No data loaded.</pre>
+    </section>
+
+    <div class="footer">
+      SoulFlame Twins · V40 Admin Dashboard Pro · Vercel + Supabase
+    </div>
+  </div>
+
+  <script>
+    let state = {
+      tab: "profiles",
+      data: {
+        profiles: [],
+        leads: [],
+        payments: [],
+        unlock_codes: [],
+        events: [],
+        admin_logs: []
+      },
+      lastRaw: null
+    };
+
+    const byId = id => document.getElementById(id);
+
+    function show(id, data) {
+      byId(id).textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    function getPin() {
+      return byId("pin").value.trim();
+    }
+
+    function savePin() {
+      localStorage.setItem("soulflame_admin_pin", getPin());
+      show("statusBox", "PIN saved locally.");
+    }
+
+    function clearLocal() {
+      localStorage.removeItem("soulflame_admin_pin");
+      byId("pin").value = "";
+      show("statusBox", "Local PIN cleared.");
+    }
+
+    function loadPin() {
+      byId("pin").value = localStorage.getItem("soulflame_admin_pin") || "";
+    }
+
+    async function api(url, options = {}) {
+      const headers = Object.assign({}, options.headers || {});
+
+      if (getPin()) headers["x-admin-pin"] = getPin();
+
+      const res = await fetch(url, Object.assign({}, options, { headers }));
+      const text = await res.text();
+
+      try {
+        return { status: res.status, data: JSON.parse(text) };
+      } catch {
+        return { status: res.status, data: text };
+      }
+    }
+
+    async function health() {
+      show("statusBox", "Checking health...");
+      const result = await api("/api/health");
+      show("statusBox", result.data);
+
+      if (result.data && result.data.version) {
+        byId("systemText").textContent = "Live: " + result.data.version + " · " + result.data.activeDataMode;
+      }
+    }
+
+    async function metricsOnly() {
+      show("statusBox", "Loading metrics...");
+      const result = await api("/api/admin/metrics");
+      show("statusBox", result.data);
+    }
+
+    async function loadAll() {
+      show("rawBox", "Loading admin data...");
+
+      const result = await api("/api/admin/data");
+
+      if (!result.data || !result.data.ok) {
+        show("rawBox", result.data || result);
+        return;
+      }
+
+      state.lastRaw = result.data;
+      state.data.profiles = asArray(result.data.profiles);
+      state.data.leads = asArray(result.data.leads);
+      state.data.payments = asArray(result.data.payments);
+      state.data.unlock_codes = asArray(result.data.unlock_codes);
+      state.data.events = asArray(result.data.events);
+      state.data.admin_logs = asArray(result.data.admin_logs);
+
+      updateMetrics(result.data.metrics || {});
+      show("rawBox", result.data);
+      renderTable();
+    }
+
+    function asArray(value) {
+      return Array.isArray(value) ? value : [];
+    }
+
+    function updateMetrics(metrics) {
+      byId("mProfiles").textContent = metrics.profiles || state.data.profiles.length || 0;
+      byId("mLeads").textContent = metrics.leads || state.data.leads.length || 0;
+      byId("mPayments").textContent = metrics.payments || state.data.payments.length || 0;
+      byId("mCodes").textContent = metrics.unlock_codes || state.data.unlock_codes.length || 0;
+      byId("mEvents").textContent = metrics.events || state.data.events.length || 0;
+    }
+
+    function setTab(tab) {
+      state.tab = tab;
+
+      document.querySelectorAll(".tab").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.tab === tab);
+      });
+
+      renderTable();
+    }
+
+    function getRows() {
+      const rows = state.data[state.tab] || [];
+      const q = byId("search").value.trim().toLowerCase();
+
+      if (!q) return rows;
+
+      return rows.filter(row => JSON.stringify(row).toLowerCase().includes(q));
+    }
+
+    function columnsFor(tab) {
+      if (tab === "profiles") return ["id", "created_at", "name", "contact", "profile", "main_trait", "second_trait"];
+      if (tab === "leads") return ["id", "created_at", "offer", "name", "contact", "profile"];
+      if (tab === "payments") return ["id", "created_at", "status", "offer", "amount", "name", "contact", "code"];
+      if (tab === "unlock_codes") return ["id", "created_at", "code", "status", "offer", "payment_id", "profile_id"];
+      if (tab === "events") return ["id", "created_at", "type", "payload"];
+      return ["id", "created_at"];
+    }
+
+    function renderTable() {
+      const rows = getRows();
+      const cols = columnsFor(state.tab);
+
+      byId("thead").innerHTML =
+        "<tr>" + cols.map(c => "<th>" + escapeHtml(c) + "</th>").join("") + "<th>Actions</th></tr>";
+
+      byId("tbody").innerHTML = rows.map(row => {
+        const tds = cols.map(col => "<td>" + formatCell(col, row[col]) + "</td>").join("");
+        return "<tr>" + tds + "<td>" + actionButtons(row) + "</td></tr>";
+      }).join("") || "<tr><td colspan='" + (cols.length + 1) + "'>No rows.</td></tr>";
+    }
+
+    function formatCell(col, value) {
+      if (value === null || value === undefined) return "";
+
+      if (col === "status") {
+        const cls = value === "paid" || value === "unused" ? "green" : value === "pending" ? "gold" : "red";
+        return "<span class='tag " + cls + "'>" + escapeHtml(String(value)) + "</span>";
+      }
+
+      if (col === "code") return "<span class='mono'>" + escapeHtml(String(value)) + "</span>";
+
+      if (typeof value === "object") {
+        return "<span class='small'>" + escapeHtml(JSON.stringify(value).slice(0, 180)) + "</span>";
+      }
+
+      const text = String(value);
+      return escapeHtml(text.length > 120 ? text.slice(0, 120) + "..." : text);
+    }
+
+    function actionButtons(row) {
+      const encoded = encodeURIComponent(JSON.stringify(row));
+
+      let html = "<button class='secondary' onclick='viewRow(\"" + encoded + "\")'>View</button>";
+
+      if (row.code) {
+        html += " <button class='secondary' onclick='copyText(\"" + escapeAttr(row.code) + "\")'>Copy Code</button>";
+      }
+
+      if (state.tab === "payments" && row.id) {
+        html += " <button class='gold' onclick='confirmPaymentId(\"" + escapeAttr(row.id) + "\")'>Confirm</button>";
+      }
+
+      return html;
+    }
+
+    function viewRow(encoded) {
+      const row = JSON.parse(decodeURIComponent(encoded));
+      show("rawBox", row);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text);
+      show("statusBox", "Copied: " + text);
+    }
+
+    function copyVisible() {
+      const rows = getRows();
+      navigator.clipboard.writeText(JSON.stringify(rows, null, 2));
+      show("statusBox", "Visible rows copied: " + rows.length);
+    }
+
+    function exportJson() {
+      const data = state.lastRaw || state.data;
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "soulflame-admin-export-" + Date.now() + ".json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function generateCode() {
+      show("codeBox", "Generating code...");
+
+      const body = {
+        offer: byId("codeOffer").value.trim() || "Full AI Twin",
+        note: byId("codeNote").value.trim()
+      };
+
+      const result = await api("/api/admin/code", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      show("codeBox", result.data);
+
+      if (result.data && result.data.code) {
+        navigator.clipboard.writeText(result.data.code);
+      }
+
+      await loadAll();
+    }
+
+    async function confirmPayment() {
+      const paymentId = byId("paymentId").value.trim();
+
+      if (!paymentId) {
+        alert("Въведи paymentId.");
+        return;
+      }
+
+      await confirmPaymentId(paymentId);
+    }
+
+    async function confirmPaymentId(paymentId) {
+      show("paymentBox", "Confirming payment " + paymentId + "...");
+
+      const result = await api("/api/admin/payment-confirm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ paymentId: Number(paymentId) })
+      });
+
+      show("paymentBox", result.data);
+
+      if (result.data && result.data.deliveryText) {
+        navigator.clipboard.writeText(result.data.deliveryText);
+      }
+
+      await loadAll();
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return String(value)
+        .replaceAll("\\", "\\\\")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    loadPin();
+    health();
+  </script>
+</body>
+</html>

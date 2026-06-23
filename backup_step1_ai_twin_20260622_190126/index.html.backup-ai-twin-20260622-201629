@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥 SoulMatch</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🔥</div>
+      <span>SoulMatch</span>
+    </div>
+
+    <nav class="menu">
+      <button class="menu-btn active" data-page="chat">💬 <span>Messages</span><b>3</b></button>
+      <button class="menu-btn" data-page="matches">❤️ <span>Matches</span></button>
+      <button class="menu-btn" data-page="test">🧠 <span>Echo Test</span></button>
+      <button class="menu-btn" data-page="profile">👤 <span>Profile</span></button>
+      <button class="menu-btn" data-page="daily">🔥 <span>Daily</span></button>
+    </nav>
+
+    <div class="premium">
+      <h4>👑 Premium soon</h4>
+      <p>Deep matching, AI Twin, private rooms, advanced profile.</p>
+    </div>
+
+    <div class="mini-user">
+      <div class="avatar">D</div>
+      <div>
+        <strong id="miniName">Dimitar</strong>
+        <small>Your profile</small>
+      </div>
+    </div>
+  </aside>
+
+  <header class="mobile-header">
+    <div class="brand">
+      <div class="brand-icon">🔥</div>
+      <span>SoulMatch</span>
+    </div>
+    <button id="openMenu">☰</button>
+  </header>
+
+  <main class="main">
+
+    <section class="left-panel">
+      <div class="left-head">
+        <h2>Conversations</h2>
+        <button>✎</button>
+      </div>
+
+      <input class="search" placeholder="Search conversations..." />
+
+      <div class="tabs">
+        <button class="active">All</button>
+        <button>Unread</button>
+        <button>Favorites</button>
+      </div>
+
+      <div class="conversation-list" id="conversationList"></div>
+    </section>
+
+    <section class="page chat-page active" id="chat">
+      <div class="chat-top">
+        <div class="chat-person">
+          <div class="avatar fire">🔥</div>
+          <div>
+            <h3 id="chatTitle">SoulMatch Room</h3>
+            <small>Online · 92% inner match</small>
+          </div>
+        </div>
+
+        <div class="chat-actions">
+          <button>🔍</button>
+          <button>📞</button>
+          <button>🎥</button>
+          <button>⋮</button>
+        </div>
+      </div>
+
+      <div class="chat-body" id="chatBody">
+        <div class="msg other">
+          <div class="avatar small">A</div>
+          <div>
+            <div class="bubble">Здрасти 👋 Това е демо чатът на SoulMatch.</div>
+            <span>10:42</span>
+          </div>
+        </div>
+
+        <div class="msg me">
+          <div>
+            <div class="bubble">Идеята е хората да се събират по характер, ценности и вътрешно съвпадение 🔥</div>
+            <span>10:43</span>
+          </div>
+        </div>
+
+        <div class="image-group">
+          <div class="img img1"></div>
+          <div class="img img2"></div>
+          <div class="img img3"></div>
+        </div>
+
+        <div class="msg other">
+          <div class="avatar small">M</div>
+          <div>
+            <div class="bubble">Можем да добавим тест, профили, процент съвпадение и заявки за приятелство.</div>
+            <span>10:45</span>
+          </div>
+        </div>
+
+        <div class="msg me">
+          <div>
+            <div class="bubble">Да. Първо MVP, после Supabase backend.</div>
+            <span>10:46</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="composer" id="messageForm">
+        <input id="messageInput" placeholder="Type a message..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </section>
+
+    <section class="page" id="matches">
+      <div class="page-title">
+        <h2>🔥 Soul Matches</h2>
+        <p>Хора, подредени според характер, ценности, емоционален стил и вътрешна близост.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="big-avatar">A</div>
+          <h3>Anna</h3>
+          <strong>94% match</strong>
+          <p>Дълбока комуникация, емпатия и близки ценности.</p>
+          <button>Send request</button>
+        </div>
+
+        <div class="card">
+          <div class="big-avatar">M</div>
+          <h3>Mira</h3>
+          <strong>88% match</strong>
+          <p>Интуитивна, спокойна, търси истинска връзка.</p>
+          <button>Send request</button>
+        </div>
+
+        <div class="card">
+          <div class="big-avatar">V</div>
+          <h3>Victoria</h3>
+          <strong>81% match</strong>
+          <p>Амбициозна, емоционално зряла, ориентирана към развитие.</p>
+          <button>Send request</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="test">
+      <div class="page-title">
+        <h2>🧠 Echo Test</h2>
+        <p>Начален тест за изграждане на Echo Profile и процент съвпадение.</p>
+      </div>
+
+      <div class="form-box">
+        <label>1. Важно ли е човекът да те разбира дълбоко?</label>
+        <select>
+          <option>Да</option>
+          <option>Не</option>
+          <option>Понякога</option>
+        </select>
+
+        <label>2. Предпочиташ ли спокойна връзка пред постоянна драма?</label>
+        <select>
+          <option>Да</option>
+          <option>Не</option>
+          <option>Зависи</option>
+        </select>
+
+        <label>3. Важно ли е човекът да има близки ценности?</label>
+        <select>
+          <option>Да</option>
+          <option>Не</option>
+          <option>Не знам</option>
+        </select>
+
+        <label>4. Би ли избрал вътрешна съвместимост пред външност?</label>
+        <select>
+          <option>Да</option>
+          <option>Не</option>
+          <option>И двете</option>
+        </select>
+
+        <button onclick="calculateEcho()">Calculate Echo Profile</button>
+        <div class="result" id="echoResult"></div>
+      </div>
+    </section>
+
+    <section class="page" id="profile">
+      <div class="page-title">
+        <h2>👤 Profile</h2>
+        <p>Профилът се пази локално в браузъра. После ще се върже към Supabase.</p>
+      </div>
+
+      <div class="form-box">
+        <input id="nameInput" placeholder="Име" />
+        <input id="ageInput" placeholder="Години" />
+        <input id="cityInput" placeholder="Град" />
+        <textarea id="bioInput" placeholder="Кратко описание за теб..."></textarea>
+        <button onclick="saveProfile()">Save profile</button>
+        <div class="result" id="profileResult"></div>
+      </div>
+    </section>
+
+    <section class="page" id="daily">
+      <div class="page-title">
+        <h2>🔥 Daily Questions</h2>
+        <p>Всеки ден платформата дава 2–5 въпроса, за да направи профила по-точен.</p>
+      </div>
+
+      <div class="daily-list">
+        <div>1. Какво те кара да се чувстваш истински разбран?</div>
+        <div>2. Как реагираш, когато някой се отдръпне?</div>
+        <div>3. Какво е по-важно за теб — страст или спокойствие?</div>
+        <div>4. Какво не би простил във връзка?</div>
+        <div>5. Как изглежда човекът, който пасва на вътрешното ти Аз?</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+    "version":  "V102_SOULMATCH_WORKING_LOCK",
+    "createdAt":  "2026-06-23T16:25:42.2956584+03:00",
+    "rule":  "This is the working SoulMatch CSS/UI state shown in screenshot. Do not rebase main before this is safely pushed.",
+    "design":  {
+                   "leftPanel":  "blue SoulMatch sidebar",
+                   "status":  "works locally",
+                   "middlePanel":  "Conversations",
+                   "rightPanel":  "SoulMatch Room chat"
+               },
+    "hashes":  {
+                   "appJs":  "C63E9B29D3695D6B60C5220EF06783E40EDCCB8530BAC16FAD75372F17130FA4",
+                   "soulmatchIndex":  "24625941A558A9C2B1D1CBD26DB3241D60EAC24374A8325CDD62F360B612E7EA",
+                   "rootIndex":  "3BA1C2FEA43FA0E1EF5369B38E09206204FD82366D6CB195170F28FDE1180971",
+                   "soulmatchApp":  "586427104B4479C632BAAB5AD19DFEE01240685FF80CB957214B970295469855",
+                   "soulmatchCss":  "71E366F808C7036A6E171774C34EDBDCE3230743E34EB7EB16154A2F85E62706"
+               },
+    "anchorDir":  "E:\\SoulFlame_EchoProfile_MVP\\_anchor_soulmatch_working_v102_20260623_162540"
+}

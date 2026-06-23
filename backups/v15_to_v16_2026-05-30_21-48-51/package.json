@@ -1,0 +1,12 @@
+﻿{
+  "name": "soulflame-echoprofile-v15",
+  "version": "1.0.0",
+  "description": "SoulFlame EchoProfile V15 Real Product Engine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "backup": "powershell -ExecutionPolicy Bypass -File backup-data.ps1"
+  },
+  "author": "SoulFlame",
+  "license": "MIT"
+}

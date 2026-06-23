@@ -1,540 +1,231 @@
-﻿const http = require("http");
+const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const { createDataAdapter } = require("./core/database-engine");
 
-function loadEnv() {
-  const envPath = path.join(__dirname, ".env");
-
-  if (!fs.existsSync(envPath)) return;
-
-  const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-
-    const eqIndex = trimmed.indexOf("=");
-    if (eqIndex === -1) continue;
-
-    const key = trimmed.slice(0, eqIndex).trim();
-    const value = trimmed.slice(eqIndex + 1).trim();
-
-    if (!process.env[key]) process.env[key] = value;
-  }
-}
-
-loadEnv();
-
-const PORT = Number(process.env.PORT || 3000);
-const ROOT = __dirname;
-const DATA_DIR = path.join(ROOT, process.env.DATA_DIR || "data");
-const ADMIN_PIN = process.env.ECHO_ADMIN_PIN || "ECHO-ADMIN-999";
+const APP_NAME = "SoulFlame Twins";
+const APP_VERSION = "V67_LOGIN_PHONE_POLISH";
 const OWNER_EMAIL = process.env.OWNER_EMAIL || "stere0metal360@gmail.com";
-const APP_MODE = process.env.APP_MODE || "local";
-const DATA_MODE = process.env.DATA_MODE || "local";
-const APP_VERSION = process.env.APP_VERSION || "V17_DEPLOY_PREP_BUSINESS_HARDENING";
-const SERVER_STARTED_AT = Date.now();
-const DEFAULT_ADMIN_PIN = "ECHO-ADMIN-999";
+const PORT = process.env.PORT || 3000;
+const PAYMENT_LINK_FULL_TWIN = process.env.PAYMENT_LINK_FULL_TWIN || "https://revolut.me/dimitarlambov02?currency=EUR&amount=20&note=Full%20AI%20Twin%20%2B%20your%20email";
+const UNLOCK_CODES = (process.env.UNLOCK_CODES || "ECHO-2026-FULL,ECHO-FULL-TWIN,ECHO-MITKO-20").split(",").map(x => x.trim().toUpperCase()).filter(Boolean);
 
-const dbEngine = createDataAdapter({
-  dataMode: DATA_MODE,
-  dataDir: DATA_DIR,
-  supabaseUrl: process.env.SUPABASE_URL || "",
-  supabaseAnonKey: process.env.SUPABASE_ANON_KEY || "",
-  supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || ""
-});
-
-const db = dbEngine.adapter;
-const ACTIVE_DATA_MODE = dbEngine.activeMode;
-const CLOUD_WARNINGS = dbEngine.warnings || [];
-
-function now() {
-  return new Date().toISOString();
+function send(res, status, body, type = "text/html; charset=utf-8") {
+  res.writeHead(status, { "Content-Type": type, "Cache-Control": "no-store" });
+  res.end(body);
 }
-
-async function event(type, payload = {}) {
-  await db.push("events", {
-    id: Date.now() + Math.floor(Math.random() * 999),
-    type,
-    payload,
-    createdAt: now()
-  });
-}
-
-function sendJSON(res, status, data) {
-  res.writeHead(status, {
-    "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, x-admin-pin"
-  });
-
-  res.end(JSON.stringify(data, null, 2));
-}
-
-function isAdmin(req) {
-  return String(req.headers["x-admin-pin"] || "").trim() === ADMIN_PIN;
-}
-
-function requireAdmin(req, res) {
-  if (!isAdmin(req)) {
-    sendJSON(res, 401, {
-      ok: false,
-      error: "Admin PIN required"
-    });
-
-    return false;
-  }
-
-  return true;
-}
-
-function parseBody(req) {
-  return new Promise((resolve, reject) => {
+function sendJson(res, status, data) { send(res, status, JSON.stringify(data, null, 2), "application/json; charset=utf-8"); }
+function readBody(req) {
+  return new Promise(resolve => {
     let body = "";
-
-    req.on("data", chunk => {
-      body += chunk.toString();
-
-      if (body.length > 2000000) {
-        reject(new Error("Body too large"));
-        req.destroy();
-      }
-    });
-
-    req.on("end", () => {
-      try {
-        resolve(body ? JSON.parse(body) : {});
-      } catch {
-        reject(new Error("Invalid JSON"));
-      }
-    });
+    req.on("data", c => { body += c; if (body.length > 1e6) req.destroy(); });
+    req.on("end", () => { try { resolve(body ? JSON.parse(body) : {}); } catch { resolve({}); } });
   });
 }
+function makeId(prefix = "sf") { return prefix + "_" + crypto.randomBytes(8).toString("hex"); }
 
-function getMime(filePath) {
-  const ext = path.extname(filePath).toLowerCase();
+function colorFluidChoiceCss() {
+  return `
+  <style id="colorFluidChoiceScreen">
+    #choiceScreen, #choiceScreen *, #loginScreen, #loginScreen * { filter:none !important; }
+    #choiceScreen, #loginScreen {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(124,60,255,.30), transparent 32rem),
+        radial-gradient(circle at 84% 74%, rgba(0,234,255,.17), transparent 34rem),
+        radial-gradient(circle at 52% 18%, rgba(255,79,243,.12), transparent 28rem),
+        #000 !important;
+      color:var(--text) !important;
+    }
+    #choiceScreen .soulLogo, #loginScreen .soulLogo {
+      background:
+        radial-gradient(circle at 30% 24%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink)) !important;
+      box-shadow:0 0 54px rgba(124,60,255,.46), 0 0 88px rgba(0,234,255,.16) !important;
+      animation:sfLogoFloat 4.8s ease-in-out infinite, sfLogoHue 7s linear infinite;
+    }
+    #choiceScreen .onboardBrand h1, #loginScreen .loginCard h2 {
+      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink), var(--cyan)) !important;
+      background-size:240% 100% !important;
+      -webkit-background-clip:text !important;
+      background-clip:text !important;
+      color:transparent !important;
+      animation:sfTextFlow 5.8s ease-in-out infinite, sfFloatSoft 4.4s ease-in-out infinite;
+      text-shadow:0 0 34px rgba(124,60,255,.20) !important;
+    }
+    #choiceScreen .onboardBrand p, #loginScreen .loginCard p { color:#dbe4ff !important; animation:sfFloatSoft 5.2s ease-in-out infinite; }
+    #choiceScreen .choiceBox, #loginScreen .loginCard {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(0,234,255,.20), transparent 36%),
+        radial-gradient(circle at 92% 86%, rgba(124,60,255,.24), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.030)) !important;
+      border:1px solid rgba(0,234,255,.22) !important;
+      box-shadow:0 28px 90px rgba(0,0,0,.50), inset 0 0 0 1px rgba(255,255,255,.035) !important;
+      transform-style:preserve-3d;
+      animation:sfCardFloat 6s ease-in-out infinite !important;
+    }
+    #choiceScreen .choiceBox:nth-child(2) {
+      background:
+        radial-gradient(circle at 18% 12%, rgba(255,79,243,.22), transparent 36%),
+        radial-gradient(circle at 92% 86%, rgba(0,234,255,.18), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.030)) !important;
+      border-color:rgba(255,79,243,.24) !important;
+      animation-delay:.9s !important;
+    }
+    #choiceScreen .choiceBox:hover, #loginScreen .loginCard:hover {
+      transform:translateY(-8px) scale(1.012) !important;
+      border-color:rgba(0,234,255,.45) !important;
+      box-shadow:0 34px 110px rgba(0,0,0,.58), 0 0 60px rgba(124,60,255,.20) !important;
+    }
+    #choiceScreen .choiceBox::after, #loginScreen .loginCard::after {
+      background:linear-gradient(135deg, rgba(124,60,255,.22), rgba(0,234,255,.12), rgba(255,79,243,.18)) !important;
+      filter:blur(5px) !important;
+      animation:sfOrbDrift 7s ease-in-out infinite;
+    }
+    #choiceScreen .choiceBox small {
+      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--pink), var(--cyan)) !important;
+      background-size:220% 100% !important;
+      -webkit-background-clip:text !important;
+      background-clip:text !important;
+      color:transparent !important;
+      animation:sfTextFlow 4.5s ease-in-out infinite;
+    }
+    #choiceScreen .choiceBox h2 { color:#fff !important; animation:sfFloatSoft 4.8s ease-in-out infinite; text-shadow:0 0 28px rgba(0,234,255,.10) !important; }
+    #choiceScreen .choiceBox p { color:#d7defc !important; }
 
-  const types = {
-    ".html": "text/html; charset=utf-8",
-    ".css": "text/css; charset=utf-8",
-    ".js": "application/javascript; charset=utf-8",
-    ".json": "application/json; charset=utf-8",
-    ".png": "image/png",
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".svg": "image/svg+xml",
-    ".ico": "image/x-icon"
-  };
-
-  return types[ext] || "application/octet-stream";
-}
-
-function serveStatic(req, res) {
-  let requested = decodeURIComponent(req.url.split("?")[0]);
-
-  if (requested === "/") requested = "/index.html";
-
-  const safePath = path.normalize(requested).replace(/^(\.\.[\/\\])+/, "");
-  const filePath = path.join(ROOT, safePath);
-
-  if (!filePath.startsWith(ROOT)) {
-    res.writeHead(403);
-    res.end("Forbidden");
-    return;
-  }
-
-  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-    res.writeHead(404);
-    res.end("Not found");
-    return;
-  }
-
-  res.writeHead(200, { "Content-Type": getMime(filePath) });
-  fs.createReadStream(filePath).pipe(res);
-}
-
-function makeUnlockCode() {
-  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-  function part(length) {
-    let value = "";
-
-    for (let i = 0; i < length; i++) {
-      value += alphabet[crypto.randomInt(0, alphabet.length)];
+    #loginScreen .loginCard { position:relative !important; overflow:hidden !important; }
+    #loginScreen .loginCard h2 { margin-bottom:10px !important; }
+    #loginScreen .loginFields input {
+      background:rgba(0,0,0,.42) !important;
+      border:1px solid rgba(0,234,255,.18) !important;
+      color:#fff !important;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.025) !important;
+    }
+    #loginScreen .loginFields input:focus {
+      border-color:rgba(0,234,255,.50) !important;
+      box-shadow:0 0 28px rgba(0,234,255,.11), inset 0 0 0 1px rgba(255,255,255,.04) !important;
+    }
+    #loginScreen .loginBtn {
+      background:linear-gradient(135deg,var(--violet),#3f8dff,var(--pink)) !important;
+      box-shadow:0 18px 46px rgba(124,60,255,.34) !important;
+      color:white !important;
     }
 
-    return value;
-  }
+    @media (max-width: 720px) {
+      #choiceScreen, #loginScreen { min-height:100svh !important; place-items:start center !important; padding:28px 14px 18px !important; overflow-y:auto !important; }
+      #choiceScreen .onboardShell { width:100% !important; max-width:430px !important; gap:18px !important; }
+      #choiceScreen .onboardBrand { gap:9px !important; }
+      #choiceScreen .soulLogo { width:62px !important; height:62px !important; border-radius:22px !important; }
+      #choiceScreen .onboardBrand h1 { font-size:clamp(42px,13vw,58px) !important; letter-spacing:-2px !important; line-height:.92 !important; }
+      #choiceScreen .onboardBrand p { font-size:16px !important; line-height:1.35 !important; max-width:320px !important; margin:0 auto !important; }
+      #choiceScreen .choiceGrid { grid-template-columns:1fr !important; gap:12px !important; margin-top:4px !important; }
+      #choiceScreen .choiceBox { min-height:178px !important; border-radius:28px !important; padding:22px 22px 20px !important; }
+      #choiceScreen .choiceBox small { margin-bottom:26px !important; font-size:12px !important; letter-spacing:1.8px !important; }
+      #choiceScreen .choiceBox h2 { font-size:clamp(34px,10vw,44px) !important; letter-spacing:-1.5px !important; margin-bottom:9px !important; }
+      #choiceScreen .choiceBox p { font-size:16px !important; line-height:1.45 !important; max-width:295px !important; }
+      #choiceScreen .choiceBox::after { width:160px !important; height:160px !important; right:-56px !important; bottom:-60px !important; }
 
-  return `ECHO-${part(4)}-${part(4)}`;
-}
-
-async function generateUniqueCode() {
-  const codes = await db.read("codes");
-  let code = makeUnlockCode();
-
-  while (codes.some(item => item.code === code)) {
-    code = makeUnlockCode();
-  }
-
-  return code;
-}
-
-async function calculateMetrics() {
-  const data = await db.all();
-
-  const paidPayments = data.payments.filter(p => p.status === "paid");
-  const pendingPayments = data.payments.filter(p => p.status === "pending");
-  const usedCodes = data.codes.filter(c => c.status === "used");
-  const unusedCodes = data.codes.filter(c => c.status === "unused");
-
-  const estimatedRevenue = paidPayments.reduce((sum, p) => {
-    const amount = String(p.amount || "0").replace(",", ".").match(/\d+(\.\d+)?/);
-    return sum + (amount ? Number(amount[0]) : 0);
-  }, 0);
-
-  return {
-    profiles: data.profiles.length,
-    leads: data.leads.length,
-    payments: data.payments.length,
-    paidPayments: paidPayments.length,
-    pendingPayments: pendingPayments.length,
-    codes: data.codes.length,
-    usedCodes: usedCodes.length,
-    unusedCodes: unusedCodes.length,
-    estimatedRevenue: `${estimatedRevenue.toFixed(2)} лв`,
-    events: data.events.length
-  };
-}
-
-async function getAdminData() {
-  return {
-    ...(await db.all()),
-    metrics: await calculateMetrics(),
-    system: {
-      version: APP_VERSION,
-      requestedDataMode: DATA_MODE,
-      activeDataMode: ACTIVE_DATA_MODE,
-      warnings: CLOUD_WARNINGS
+      #loginScreen { justify-content:center !important; align-items:center !important; padding:18px 14px !important; }
+      #loginScreen .loginCard {
+        width:min(390px, calc(100vw - 28px)) !important;
+        border-radius:30px !important;
+        padding:24px 20px 22px !important;
+        margin:0 auto !important;
+      }
+      #loginScreen .soulLogo {
+        width:58px !important;
+        height:58px !important;
+        border-radius:21px !important;
+        margin:0 auto 18px !important;
+      }
+      #loginScreen .loginCard h2 {
+        font-size:clamp(38px,12vw,54px) !important;
+        text-align:center !important;
+        letter-spacing:-2px !important;
+        line-height:.92 !important;
+      }
+      #loginScreen .loginCard p {
+        text-align:center !important;
+        font-size:15px !important;
+        line-height:1.42 !important;
+        margin-bottom:18px !important;
+      }
+      #loginScreen .loginFields { gap:10px !important; }
+      #loginScreen .loginFields input {
+        border-radius:18px !important;
+        padding:14px 15px !important;
+        font-size:15.5px !important;
+      }
+      #loginScreen .loginBtn {
+        margin-top:14px !important;
+        border-radius:18px !important;
+        padding:15px 16px !important;
+        font-size:16px !important;
+      }
     }
-  };
+
+    @media (max-width: 380px) {
+      #choiceScreen { padding-top:20px !important; }
+      #choiceScreen .onboardShell { gap:14px !important; }
+      #choiceScreen .soulLogo { width:54px !important; height:54px !important; }
+      #choiceScreen .onboardBrand h1 { font-size:40px !important; }
+      #choiceScreen .onboardBrand p { font-size:14px !important; }
+      #choiceScreen .choiceBox { min-height:160px !important; padding:18px !important; }
+      #choiceScreen .choiceBox small { margin-bottom:20px !important; font-size:11px !important; }
+      #choiceScreen .choiceBox h2 { font-size:34px !important; }
+      #choiceScreen .choiceBox p { font-size:14.5px !important; }
+      #loginScreen .loginCard { padding:20px 17px !important; border-radius:26px !important; }
+      #loginScreen .soulLogo { width:52px !important; height:52px !important; margin-bottom:14px !important; }
+      #loginScreen .loginCard h2 { font-size:38px !important; }
+      #loginScreen .loginCard p { font-size:14px !important; margin-bottom:14px !important; }
+      #loginScreen .loginFields input { padding:13px 14px !important; }
+    }
+
+    @keyframes sfTextFlow { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    @keyframes sfCardFloat { 0%,100%{translate:0 0} 50%{translate:0 -7px} }
+    @keyframes sfFloatSoft { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+    @keyframes sfLogoFloat { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-8px) rotate(2deg)} }
+    @keyframes sfLogoHue { 0%{filter:hue-rotate(0deg)} 100%{filter:hue-rotate(360deg)} }
+    @keyframes sfOrbDrift { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-18px,-14px) scale(1.08)} }
+  </style>`;
 }
 
-async function handleCreateCode(body) {
-  const code = await generateUniqueCode();
+function cleanAndInject(html) {
+  html = html.replace(/<style id="bwChoiceScreenOnly">[\s\S]*?<\/style>/g, "");
+  html = html.replace(/<style id="forceBlackWhiteSoulFlame">[\s\S]*?<\/style>/g, "");
+  html = html.replace(/<style id="soulflameBlackWhiteTheme">[\s\S]*?<\/style>/g, "");
+  html = html.replace(/<style id="colorFluidChoiceScreen">[\s\S]*?<\/style>/g, "");
+  if (html.includes("</head>")) html = html.replace("</head>", colorFluidChoiceCss() + "\n</head>");
+  return html;
+}
 
-  const newCode = {
-    id: Date.now(),
-    code,
-    status: "unused",
-    offer: body.offer || "Full AI Echo",
-    note: body.note || "",
-    deliveryText: `Здравей! Твоят Full Echo код е: ${code}. Влез в EchoProfile, въведи кода в полето за Full Echo и отключи пълния анализ.`,
-    createdAt: now(),
-    usedAt: null,
-    usedBy: null,
-    profileId: null,
-    paymentId: body.paymentId || null
-  };
+function readIndex() {
+  const file = path.join(__dirname, "index.html");
+  if (fs.existsSync(file)) return cleanAndInject(fs.readFileSync(file, "utf8"));
+  return "<!doctype html><html><body><h1>SoulFlame index.html missing</h1></body></html>";
+}
 
-  await db.push("codes", newCode);
-  await event("code_generated", { code, offer: newCode.offer });
+function soulmatchPage() {
+  return `<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SoulMatch Metaverse</title><style>body{margin:0;background:#050611;color:white;font-family:Arial,sans-serif;padding:24px}main{width:min(1120px,94vw);margin:auto;display:grid;gap:18px}.hero,.card{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.055);border-radius:28px;padding:28px}h1{font-size:clamp(42px,8vw,86px);margin:0;background:linear-gradient(90deg,#00eaff,#7c3cff,#ff4ff3);-webkit-background-clip:text;color:transparent}p{color:#b9c3e8;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}a{color:white}.btn{display:inline-flex;border-radius:999px;padding:12px 16px;background:linear-gradient(135deg,#7c3cff,#3f8dff);text-decoration:none;font-weight:900}@media(max-width:800px){.grid{grid-template-columns:1fr}}</style></head><body><main><a class="btn" href="/">← Back</a><section class="hero"><h1>SoulMatch by SoulFlame</h1><p>Социална страница като Facebook/Instagram за AI Twin профили, match проценти и Twin разговори.</p></section><section class="grid"><div class="card"><h2>EchoProfile Match</h2><p>Личност, ценности, комуникация.</p></div><div class="card"><h2>Metaverse Chat</h2><p>Стаи, хора, профили и feed.</p></div><div class="card"><h2>AI Twin Panel</h2><p>Асистент със съгласие и контрол.</p></div></section></main></body></html>`;
+}
 
-  return newCode;
+function makeFullReport(payload = {}) {
+  const twin = payload.twin || {}, user = twin.user || {};
+  const name = payload.name || user.name || "SoulFlame User";
+  return ["FULL AI TWIN REPORT","","Name: "+name,"","Created by SoulFlame · "+APP_VERSION].join("\n");
 }
 
 const server = http.createServer(async (req, res) => {
-  try {
-    if (req.method === "OPTIONS") {
-      sendJSON(res, 200, { ok: true });
-      return;
-    }
-
-    if (req.method === "GET" && req.url.startsWith("/api/health")) {
-      sendJSON(res, 200, {
-        ok: true,
-        app: "SoulFlame EchoProfile",
-        version: APP_VERSION,
-        appMode: APP_MODE,
-        requestedDataMode: DATA_MODE,
-        activeDataMode: ACTIVE_DATA_MODE,
-        warnings: CLOUD_WARNINGS,
-        ownerEmail: OWNER_EMAIL,
-        uptimeSeconds: Math.round((Date.now() - SERVER_STARTED_AT) / 1000),
-        adminSecurityWarning: ADMIN_PIN === DEFAULT_ADMIN_PIN ? "Change default admin PIN before going online." : null,
-        time: now()
-      });
-      return;
-    }
-
-    if (req.method === "GET" && req.url.startsWith("/api/public-config")) {
-      sendJSON(res, 200, {
-        ok: true,
-        version: APP_VERSION,
-        ownerEmail: OWNER_EMAIL,
-        uptimeSeconds: Math.round((Date.now() - SERVER_STARTED_AT) / 1000),
-        adminSecurityWarning: ADMIN_PIN === DEFAULT_ADMIN_PIN ? "Change default admin PIN before going online." : null,
-        appMode: APP_MODE,
-        requestedDataMode: DATA_MODE,
-        activeDataMode: ACTIVE_DATA_MODE,
-        warnings: CLOUD_WARNINGS,
-        products: {
-          mini: "Mini Echo",
-          full: "Full AI Echo",
-          deep: "Deep Echo Blueprint"
-        },
-        prices: {
-          mini: "0 лв",
-          full: "19.99 лв",
-          deep: "49 лв"
-        }
-      });
-      return;
-    }
-
-    if (req.method === "GET" && (req.url.startsWith("/api/data") || req.url.startsWith("/api/admin/data"))) {
-      if (!requireAdmin(req, res)) return;
-      sendJSON(res, 200, await getAdminData());
-      return;
-    }
-
-    if (req.method === "GET" && req.url.startsWith("/api/admin/metrics")) {
-      if (!requireAdmin(req, res)) return;
-      sendJSON(res, 200, {
-        ok: true,
-        metrics: await calculateMetrics(),
-        system: {
-          requestedDataMode: DATA_MODE,
-          activeDataMode: ACTIVE_DATA_MODE,
-          warnings: CLOUD_WARNINGS
-        }
-      });
-      return;
-    }
-
-    if (req.method === "GET" && req.url.startsWith("/api/admin/export")) {
-      if (!requireAdmin(req, res)) return;
-      sendJSON(res, 200, {
-        ok: true,
-        exportedAt: now(),
-        data: await getAdminData()
-      });
-      return;
-    }
-
-    if (req.method === "POST" && req.url.startsWith("/api/profile")) {
-      const profile = await parseBody(req);
-
-      const saved = {
-        ...profile,
-        serverSavedAt: now()
-      };
-
-      const profiles = await db.push("profiles", saved);
-      await event("profile_created", { profileId: saved.id, name: saved.user?.name });
-
-      sendJSON(res, 200, {
-        ok: true,
-        saved: "profile",
-        total: profiles.length
-      });
-      return;
-    }
-
-    if (req.method === "POST" && req.url.startsWith("/api/lead")) {
-      const lead = await parseBody(req);
-
-      const saved = {
-        ...lead,
-        serverSavedAt: now()
-      };
-
-      const leads = await db.push("leads", saved);
-      await event("lead_created", { offer: saved.offer, name: saved.user?.name });
-
-      sendJSON(res, 200, {
-        ok: true,
-        saved: "lead",
-        total: leads.length
-      });
-      return;
-    }
-
-    if (req.method === "POST" && (req.url.startsWith("/api/code") || req.url.startsWith("/api/admin/code"))) {
-      if (!requireAdmin(req, res)) return;
-
-      const body = await parseBody(req);
-      const newCode = await handleCreateCode(body);
-
-      sendJSON(res, 200, {
-        ok: true,
-        code: newCode
-      });
-      return;
-    }
-
-    if (req.method === "POST" && req.url.startsWith("/api/unlock")) {
-      const body = await parseBody(req);
-      const submittedCode = String(body.code || "").trim().toUpperCase();
-      const codes = await db.read("codes");
-
-      const found = codes.find(item => item.code === submittedCode);
-
-      if (!found) {
-        sendJSON(res, 404, { ok: false, error: "Кодът не съществува." });
-        return;
-      }
-
-      if (found.status === "used") {
-        sendJSON(res, 409, { ok: false, error: "Този код вече е използван.", code: found });
-        return;
-      }
-
-      found.status = "used";
-      found.usedAt = now();
-      found.usedBy = body.user || null;
-      found.profileId = body.profileId || null;
-
-      await db.write("codes", codes);
-      await event("code_used", { code: found.code, profileId: found.profileId });
-
-      sendJSON(res, 200, {
-        ok: true,
-        unlocked: true,
-        code: found
-      });
-      return;
-    }
-
-    if (req.method === "POST" && req.url.startsWith("/api/payment-request")) {
-      const body = await parseBody(req);
-
-      const payment = {
-        id: Date.now(),
-        status: "pending",
-        flow: ["pending"],
-        offer: body.offer || "Full AI Echo",
-        amount: body.amount || "19.99 лв",
-        method: body.method || "manual",
-        user: body.user || null,
-        profile: body.profile || null,
-        scores: body.scores || null,
-        code: null,
-        clientInstructions: "След заявката изпрати плащане по уговорения начин. След потвърждение ще получиш еднократен код за Full Echo.",
-        createdAt: now(),
-        paidAt: null,
-        confirmedAt: null
-      };
-
-      const payments = await db.push("payments", payment);
-      await event("payment_requested", { paymentId: payment.id, offer: payment.offer });
-
-      sendJSON(res, 200, {
-        ok: true,
-        payment,
-        total: payments.length
-      });
-      return;
-    }
-
-    if (req.method === "POST" && (req.url.startsWith("/api/payment-confirm") || req.url.startsWith("/api/admin/payment-confirm"))) {
-      if (!requireAdmin(req, res)) return;
-
-      const body = await parseBody(req);
-      const paymentId = Number(body.paymentId);
-
-      const payments = await db.read("payments");
-      const payment = payments.find(item => Number(item.id) === paymentId);
-
-      if (!payment) {
-        sendJSON(res, 404, { ok: false, error: "Плащането не е намерено." });
-        return;
-      }
-
-      if (payment.status === "paid" && payment.code) {
-        const codes = await db.read("codes");
-        sendJSON(res, 200, {
-          ok: true,
-          payment,
-          code: codes.find(item => item.code === payment.code) || null
-        });
-        return;
-      }
-
-      const newCode = await handleCreateCode({
-        offer: payment.offer || "Full AI Echo",
-        note: `Generated from payment ${payment.id}`,
-        paymentId: payment.id
-      });
-
-      newCode.deliveryText = `Здравей! Плащането е потвърдено. Твоят Full Echo код е: ${newCode.code}. Въведи го в EchoProfile, за да отключиш пълния анализ.`;
-
-      const codes = await db.read("codes");
-      const codeIndex = codes.findIndex(item => item.code === newCode.code);
-      if (codeIndex >= 0) {
-        codes[codeIndex] = newCode;
-        await db.write("codes", codes);
-      }
-
-      payment.status = "paid";
-      payment.flow = ["pending", "paid", "code_generated"];
-      payment.code = newCode.code;
-      payment.deliveryText = newCode.deliveryText;
-      payment.paidAt = now();
-      payment.confirmedAt = now();
-
-      await db.write("payments", payments);
-      await event("payment_confirmed", { paymentId: payment.id, code: newCode.code });
-
-      sendJSON(res, 200, {
-        ok: true,
-        payment,
-        code: newCode
-      });
-      return;
-    }
-
-    if (req.method === "DELETE" && (req.url.startsWith("/api/data") || req.url.startsWith("/api/admin/data"))) {
-      if (!requireAdmin(req, res)) return;
-
-      await db.clear();
-      await event("data_cleared", { by: "admin" });
-
-      sendJSON(res, 200, {
-        ok: true,
-        cleared: true
-      });
-      return;
-    }
-
-    serveStatic(req, res);
-  } catch (error) {
-    sendJSON(res, 500, {
-      ok: false,
-      error: error.message,
-      activeDataMode: ACTIVE_DATA_MODE,
-      warnings: CLOUD_WARNINGS
-    });
-  }
+  const url = new URL(req.url, "http://localhost");
+  if (req.method === "GET" && (url.pathname === "/" || url.pathname === "/index.html")) return send(res, 200, readIndex());
+  if (req.method === "GET" && url.pathname === "/soulmatch") return send(res, 200, soulmatchPage());
+  if (req.method === "GET" && url.pathname === "/landing") return send(res, 200, `<!doctype html><html><head><title>SoulFlame Landing</title></head><body style="margin:0;background:#050611;color:white;font-family:Arial;display:grid;place-items:center;min-height:100vh"><main><h1>AI Twins by SoulFlame</h1><p>Landing page.</p><a href="/" style="color:white">Back</a></main></body></html>`);
+  if (req.method === "GET" && url.pathname === "/admin") return send(res, 200, `<!doctype html><html><body style="margin:0;background:#050611;color:white;font-family:Arial;display:grid;place-items:center;min-height:100vh"><main><h1>SoulFlame Admin</h1><p>${APP_VERSION}</p></main></body></html>`);
+  if (req.method === "GET" && url.pathname === "/favicon.ico") { res.writeHead(204); return res.end(); }
+  if (req.method === "POST" && url.pathname === "/api/event") return sendJson(res, 200, { ok:true, version:APP_VERSION });
+  if (req.method === "POST" && url.pathname === "/api/profile") { const payload = await readBody(req); return sendJson(res, 200, { ok:true, id:makeId("profile"), saved:true, version:APP_VERSION, received:payload }); }
+  if (req.method === "POST" && url.pathname === "/api/checkout") return sendJson(res, 200, { ok:true, checkoutId:makeId("checkout"), amount:"20.00 EUR", paymentUrl:PAYMENT_LINK_FULL_TWIN, version:APP_VERSION });
+  if (req.method === "POST" && url.pathname === "/api/unlock") { const payload = await readBody(req); const code = String(payload.code || "").trim().toUpperCase(); return sendJson(res, 200, { ok:UNLOCK_CODES.includes(code), code, unlocked:UNLOCK_CODES.includes(code), version:APP_VERSION }); }
+  if (req.method === "POST" && url.pathname === "/api/full-report") { const payload = await readBody(req); return sendJson(res, 200, { ok:true, reportId:makeId("report"), report:makeFullReport(payload), version:APP_VERSION }); }
+  return sendJson(res, 404, { ok:false, error:"Not found", path:url.pathname, version:APP_VERSION });
 });
-
-server.listen(PORT, () => {
-  console.log("");
-  console.log("SoulFlame EchoProfile V17 Deploy Prep + Business Hardening is running.");
-  console.log("Open: http://localhost:" + PORT);
-  console.log("Requested Data Mode: " + DATA_MODE);
-  console.log("Active Data Mode: " + ACTIVE_DATA_MODE);
-  console.log("Owner Email: " + OWNER_EMAIL);
-  console.log("Admin PIN: " + ADMIN_PIN);
-  if (CLOUD_WARNINGS.length) {
-    console.log("Warnings:");
-    CLOUD_WARNINGS.forEach(w => console.log("- " + w));
-  }
-  console.log("");
-});
-
-
-
+server.listen(PORT, () => console.log(`${APP_NAME} ${APP_VERSION} running on port ${PORT}`));
