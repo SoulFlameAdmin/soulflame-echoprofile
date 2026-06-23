@@ -31,5 +31,68 @@
       }
     },
     "updatedAt": "2026-06-23T07:52:04.884Z"
+  },
+  "@stere0metal360": {
+    "key": "@stere0metal360",
+    "name": "Dimitar",
+    "instagram": "@stere0metal360",
+    "connectors": {
+      "Facebook": {
+        "status": "prepared",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:04:32.526Z"
+      },
+      "Instagram": {
+        "status": "prepared",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:04:34.278Z"
+      },
+      "GitHub": {
+        "status": "prepared",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:04:35.232Z"
+      },
+      "Telegram": {
+        "status": "prepared",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:04:36.115Z"
+      },
+      "Google": {
+        "status": "prepared",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:04:36.932Z"
+      },
+      "Snapchat": {
+        "status": "prepared",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:04:37.893Z"
+      },
+      "facebook": {
+        "status": "connected_from_login",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:53:19.784Z"
+      },
+      "snapchat": {
+        "status": "connected_from_login",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:53:19.803Z"
+      },
+      "instagram": {
+        "status": "connected_from_login",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:53:19.817Z"
+      },
+      "github": {
+        "status": "connected_from_login",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:53:19.946Z"
+      },
+      "google": {
+        "status": "connected_from_login",
+        "handle": "",
+        "updatedAt": "2026-06-23T12:53:19.962Z"
+      }
+    },
+    "updatedAt": "2026-06-23T12:53:19.963Z"
   }
 }

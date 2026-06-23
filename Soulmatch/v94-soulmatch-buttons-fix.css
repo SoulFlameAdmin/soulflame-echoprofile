@@ -1,0 +1,59 @@
+/* SOULFLAME V94 - SOULMATCH PANEL BUTTONS FIX */
+
+.sidebar {
+  pointer-events: auto !important;
+}
+
+.sidebar .nav-btn,
+.sidebar button[data-page] {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  position: relative !important;
+  z-index: 999 !important;
+}
+
+.page {
+  display: none !important;
+}
+
+.page.active {
+  display: block !important;
+}
+
+body:not(.ai-mode) #aitwin {
+  display: none !important;
+}
+
+body.ai-mode #aitwin.active {
+  display: block !important;
+}
+
+body.ai-mode .main {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10 !important;
+}
+
+body.ai-mode #sfAiEchoFrame {
+  width: 100vw !important;
+  height: 100vh !important;
+  border: 0 !important;
+}
+
+body:not(.ai-mode) .main {
+  position: relative !important;
+}
+
+body:not(.ai-mode) .sidebar {
+  transform: none !important;
+}
+
+@media (max-width: 950px) {
+  body:not(.drawer-open) .sidebar {
+    transform: translateX(-100%) !important;
+  }
+
+  body.drawer-open .sidebar {
+    transform: translateX(0) !important;
+  }
+}

@@ -397,5 +397,211 @@
         }
       }
     }
+  },
+  {
+    "id": "sf_1782215941489_a953d8c422753",
+    "createdAt": "2026-06-23T11:59:01.489Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "Facebook",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782216266366_18bd5b66451e7",
+    "createdAt": "2026-06-23T12:04:26.366Z",
+    "type": "chat_message",
+    "payload": {
+      "message": "hi",
+      "profile": {}
+    }
+  },
+  {
+    "id": "sf_1782216272528_a7d9239ea6b65",
+    "createdAt": "2026-06-23T12:04:32.528Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "Facebook",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782216274281_5dc14fc54ad14",
+    "createdAt": "2026-06-23T12:04:34.281Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "Instagram",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782216275234_704b1b14a614a",
+    "createdAt": "2026-06-23T12:04:35.234Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "GitHub",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782216276117_fa7041aff4074",
+    "createdAt": "2026-06-23T12:04:36.117Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "Telegram",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782216276934_ad51b84ed54fa",
+    "createdAt": "2026-06-23T12:04:36.934Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "Google",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782216277895_95dc1785fb8bb",
+    "createdAt": "2026-06-23T12:04:37.895Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar",
+      "instagram": "@stere0metal360",
+      "connector": "Snapchat",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782217066420_2ed8c5bc57643",
+    "createdAt": "2026-06-23T12:17:46.420Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "facebook",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782217066436_687207f0437e",
+    "createdAt": "2026-06-23T12:17:46.436Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "snapchat",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782217066449_59be6c3e291a7",
+    "createdAt": "2026-06-23T12:17:46.449Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "instagram",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782217066463_b665030f52e06",
+    "createdAt": "2026-06-23T12:17:46.463Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "github",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782217066476_0c5ef9c70bc26",
+    "createdAt": "2026-06-23T12:17:46.476Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "google",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782219199787_9d2e9c4e2a773",
+    "createdAt": "2026-06-23T12:53:19.787Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "facebook",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782219199806_4656e1ae4d997",
+    "createdAt": "2026-06-23T12:53:19.806Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "snapchat",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782219199820_c86ce82629f0d",
+    "createdAt": "2026-06-23T12:53:19.820Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "instagram",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782219199948_dd058ea67f8",
+    "createdAt": "2026-06-23T12:53:19.948Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "github",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
+  },
+  {
+    "id": "sf_1782219199965_bf866555de12a",
+    "createdAt": "2026-06-23T12:53:19.965Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "Dimitar2",
+      "instagram": "@stere0metal360",
+      "connector": "google",
+      "status": "connected_from_login",
+      "source": "login_screen"
+    }
   }
 ]

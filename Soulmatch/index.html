@@ -4,92 +4,430 @@
   <meta charset="UTF-8" />
   <base href="/Soulmatch/" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoulFlame SoulMatch V91</title>
+  <title>SoulFlame SoulMatch V95</title>
 
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; font-family: Inter, system-ui, Segoe UI, Arial, sans-serif; background: #f5f8ff; color: #06112f; overflow: hidden; }
-    button, input, select { font-family: inherit; }
-    .shell { display: grid; grid-template-columns: 330px 430px minmax(0,1fr); height: 100vh; }
-    .sidebar { background: linear-gradient(180deg,#1857ff,#072fba); color: white; padding: 26px 22px; overflow-y: auto; transition:.25s; }
-    .brand { font-size: 34px; font-weight: 950; margin-bottom: 28px; letter-spacing: -1.5px; }
-    .nav-title { margin: 24px 0 10px; opacity: .86; font-size: 13px; font-weight: 950; text-transform: uppercase; letter-spacing: .12em; }
-    .nav-btn { width: 100%; min-height: 64px; border: 0; border-radius: 18px; background: transparent; color: white; display: flex; align-items: center; gap: 13px; padding: 0 20px; font-size: 20px; font-weight: 950; cursor: pointer; text-align: left; }
-    .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,.18); }
-    .premium { margin-top: 28px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.10); padding: 22px; border-radius: 24px; }
-    .premium strong { display:block; font-size:22px; margin-bottom: 10px; }
-    .premium p { margin: 0; opacity: .78; line-height: 1.4; }
-    .profile-mini { margin-top: 32px; display:flex; gap:14px; align-items:center; }
-    .avatar { width: 58px; height: 58px; border-radius: 22px; background: #ff4f3f; color:white; display:grid; place-items:center; font-weight:950; flex:0 0 auto; }
-    .list-panel { background: white; border-right: 1px solid #e6ecfb; padding: 34px 26px; overflow-y: auto; }
-    .list-panel h2 { margin: 0 0 28px; font-size: 25px; }
-    .search { width: 100%; height: 58px; border: 1px solid #dce5f6; border-radius: 18px; padding: 0 18px; font-size: 15px; outline: none; }
-    .filters { display:flex; gap:10px; margin: 18px 0 26px; }
-    .filter { border:0; border-radius: 999px; padding: 12px 18px; font-weight: 850; background:#f0f4ff; }
-    .filter.active { background:#1857ff; color:white; }
-    .conversation { display:flex; align-items:center; gap:14px; padding:16px; border-radius:20px; cursor:pointer; margin-bottom:10px; }
-    .conversation.active, .conversation:hover { background:#eef4ff; }
-    .conversation .avatar { width:54px; height:54px; border-radius:22px; }
-    .conversation strong { display:block; margin-bottom:5px; }
-    .conversation small { color:#68779d; }
-    .main { background:#f5f8ff; min-width:0; position:relative; overflow:hidden; }
-    .page { display:none; height:100vh; overflow:auto; }
-    .page.active { display:block; }
-    .room { height:100vh; display:grid; grid-template-rows:88px minmax(0,1fr) 82px; }
-    .room-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 28px; border-bottom:1px solid #e1e8f7; background:#fff; }
-    .room-title { display:flex; align-items:center; gap:14px; }
-    .room-title .avatar { width:58px; height:58px; }
-    .chat { overflow:auto; padding:32px; display:grid; gap:18px; align-content:start; }
-    .bubble { max-width: 70%; padding: 18px 22px; border-radius: 22px; line-height:1.55; background:#eaf1ff; }
-    .bubble.me { margin-left:auto; background:#1857ff; color:#fff; }
-    .composer { display:grid; grid-template-columns: minmax(0,1fr) 120px; gap:12px; padding:14px 24px; border-top:1px solid #e1e8f7; background:white; }
-    .composer input { height:54px; border:1px solid #dce5f6; border-radius:18px; padding:0 18px; font-size:15px; }
-    .composer button { border:0; border-radius:18px; background:#1857ff; color:white; font-weight:950; }
-    .simple-page { padding: 40px; }
-    .simple-card { max-width: 900px; background:white; border:1px solid #e1e8f7; border-radius:28px; padding:28px; box-shadow:0 20px 70px rgba(20,40,80,.08); }
-    .simple-card h1 { margin-top:0; font-size:42px; letter-spacing:-1.5px; }
-    .simple-card p { color:#627092; line-height:1.6; }
-    #aitwin { overflow:hidden; }
-    #sfAiEchoFrame { width:100%; height:100vh; border:0; display:block; background:#03050a; }
-    .drawer-toggle { display:none; }
 
-    body.ai-mode .shell { display:block; height:100vh; }
-    body.ai-mode .list-panel { display:none; }
-    body.ai-mode .main { position:fixed; inset:0; z-index:10; }
-    body.ai-mode .page { height:100vh; }
-    body.ai-mode #aitwin.active { display:block; position:fixed; inset:0; z-index:10; background:#03050a; }
-    body.ai-mode .sidebar { position:fixed; z-index:80; inset:0 auto 0 0; width:86vw; max-width:390px; transform:translateX(-100%); box-shadow:24px 0 90px rgba(0,0,0,.35); }
-    body.ai-mode.drawer-open .sidebar { transform:translateX(0); }
-    body.ai-mode .drawer-toggle { display:grid; place-items:center; position:fixed; z-index:100; left:0; top:50%; transform:translateY(-50%); width:52px; height:98px; border:0; border-radius:0 22px 22px 0; background:#1857ff; color:white; font-size:30px; }
-    body.ai-mode.drawer-open .drawer-toggle { left:min(86vw,390px); }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Inter, system-ui, Segoe UI, Arial, sans-serif;
+      background: #f5f8ff;
+      color: #06112f;
+      overflow: hidden;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 330px 430px minmax(0, 1fr);
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, #1857ff, #072fba);
+      color: white;
+      padding: 26px 22px;
+      overflow-y: auto;
+      transition: transform .25s ease;
+      z-index: 50;
+    }
+
+    .brand {
+      font-size: 34px;
+      font-weight: 950;
+      margin-bottom: 28px;
+      letter-spacing: -1.5px;
+    }
+
+    .nav-title {
+      margin: 24px 0 10px;
+      opacity: .86;
+      font-size: 13px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .nav-btn {
+      width: 100%;
+      min-height: 64px;
+      border: 0;
+      border-radius: 18px;
+      background: transparent;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 0 20px;
+      font-size: 20px;
+      font-weight: 950;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: rgba(255,255,255,.18);
+    }
+
+    .premium {
+      margin-top: 28px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.10);
+      padding: 22px;
+      border-radius: 24px;
+    }
+
+    .premium strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .premium p {
+      margin: 0;
+      opacity: .78;
+      line-height: 1.4;
+    }
+
+    .profile-mini {
+      margin-top: 32px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 22px;
+      background: #ff4f3f;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 950;
+      flex: 0 0 auto;
+    }
+
+    .list-panel {
+      background: white;
+      border-right: 1px solid #e6ecfb;
+      padding: 34px 26px;
+      overflow-y: auto;
+    }
+
+    .list-panel h2 {
+      margin: 0 0 28px;
+      font-size: 25px;
+    }
+
+    .search {
+      width: 100%;
+      height: 58px;
+      border: 1px solid #dce5f6;
+      border-radius: 18px;
+      padding: 0 18px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin: 18px 0 26px;
+    }
+
+    .filter {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 850;
+      background: #f0f4ff;
+      cursor: pointer;
+    }
+
+    .filter.active {
+      background: #1857ff;
+      color: white;
+    }
+
+    .conversation {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .conversation.active,
+    .conversation:hover {
+      background: #eef4ff;
+    }
+
+    .conversation .avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 22px;
+    }
+
+    .conversation strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .conversation small {
+      color: #68779d;
+    }
+
+    .main {
+      background: #f5f8ff;
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page {
+      display: none;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .room {
+      height: 100vh;
+      display: grid;
+      grid-template-rows: 88px minmax(0,1fr) 82px;
+    }
+
+    .room-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 28px;
+      border-bottom: 1px solid #e1e8f7;
+      background: #fff;
+    }
+
+    .room-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .chat {
+      overflow: auto;
+      padding: 32px;
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .bubble {
+      max-width: 70%;
+      padding: 18px 22px;
+      border-radius: 22px;
+      line-height: 1.55;
+      background: #eaf1ff;
+    }
+
+    .bubble.me {
+      margin-left: auto;
+      background: #1857ff;
+      color: #fff;
+    }
+
+    .composer {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 120px;
+      gap: 12px;
+      padding: 14px 24px;
+      border-top: 1px solid #e1e8f7;
+      background: white;
+    }
+
+    .composer input {
+      height: 54px;
+      border: 1px solid #dce5f6;
+      border-radius: 18px;
+      padding: 0 18px;
+      font-size: 15px;
+    }
+
+    .composer button {
+      border: 0;
+      border-radius: 18px;
+      background: #1857ff;
+      color: white;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .simple-page {
+      padding: 40px;
+    }
+
+    .simple-card {
+      max-width: 900px;
+      background: white;
+      border: 1px solid #e1e8f7;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 20px 70px rgba(20,40,80,.08);
+    }
+
+    .simple-card h1 {
+      margin-top: 0;
+      font-size: 42px;
+      letter-spacing: -1.5px;
+    }
+
+    .simple-card p {
+      color: #627092;
+      line-height: 1.6;
+    }
+
+    #aitwin {
+      overflow: hidden;
+    }
+
+    #sfAiEchoFrame {
+      width: 100%;
+      height: 100vh;
+      border: 0;
+      display: block;
+      background: #03050a;
+    }
+
+    .drawer-toggle {
+      display: none;
+      place-items: center;
+      position: fixed;
+      z-index: 200;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 98px;
+      border: 0;
+      border-radius: 0 22px 22px 0;
+      background: #1857ff;
+      color: white;
+      font-size: 34px;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    body.ai-mode .shell {
+      display: block;
+      height: 100vh;
+    }
+
+    body.ai-mode .list-panel {
+      display: none;
+    }
+
+    body.ai-mode .main {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+    }
+
+    body.ai-mode #aitwin.active {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: #03050a;
+    }
+
+    body.ai-mode .sidebar {
+      position: fixed;
+      z-index: 80;
+      inset: 0 auto 0 0;
+      width: 86vw;
+      max-width: 390px;
+      transform: translateX(-100%);
+      box-shadow: 24px 0 90px rgba(0,0,0,.35);
+    }
+
+    body.ai-mode.drawer-open .sidebar {
+      transform: translateX(0);
+    }
+
+    body.ai-mode .drawer-toggle {
+      display: grid;
+    }
+
+    body.ai-mode.drawer-open .drawer-toggle {
+      left: min(86vw,390px);
+    }
 
     @media(max-width: 950px) {
-      .shell { grid-template-columns: 1fr; }
-      .sidebar { position:fixed; z-index:80; inset:0 auto 0 0; width:86vw; max-width:390px; transform:translateX(-100%); box-shadow:24px 0 90px rgba(0,0,0,.35); }
-      body.drawer-open .sidebar { transform:translateX(0); }
-      .list-panel { display:none; }
-      .drawer-toggle { display:grid; place-items:center; position:fixed; z-index:100; left:0; top:50%; transform:translateY(-50%); width:52px; height:98px; border:0; border-radius:0 22px 22px 0; background:#1857ff; color:white; font-size:30px; }
-      body.drawer-open .drawer-toggle { left:min(86vw,390px); }
-      .bubble { max-width: 92%; }
-      .simple-page { padding: 24px; }
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: fixed;
+        z-index: 80;
+        inset: 0 auto 0 0;
+        width: 86vw;
+        max-width: 390px;
+        transform: translateX(-100%);
+        box-shadow: 24px 0 90px rgba(0,0,0,.35);
+      }
+
+      body.drawer-open .sidebar {
+        transform: translateX(0);
+      }
+
+      .list-panel {
+        display: none;
+      }
+
+      .drawer-toggle {
+        display: grid;
+      }
+
+      body.drawer-open .drawer-toggle {
+        left: min(86vw,390px);
+      }
+
+      .bubble {
+        max-width: 92%;
+      }
     }
   </style>
-  <link rel="stylesheet" href="v92-ai-twin-cmd-tree.css?v=920" />
+  <link rel="stylesheet" href="v96-ai-twin-cmd-tree.css?v=960" />
+  <link rel="stylesheet" href="v98-safe-arrow-only.css?v=980" />
 </head>
 
 <body>
-  <button class="drawer-toggle" id="drawerToggle">в–¶</button>
+  <button class="drawer-toggle" id="drawerToggle" type="button">Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р В РІР‚С™Р РЋРЎв„ўР В Р’В Р Р†Р вЂљРІвЂћСћР В РІР‚в„ўР вЂ™Р’В¶</button>
 
   <div class="shell">
     <aside class="sidebar">
       <div class="brand">SoulFlame</div>
 
       <div class="nav-title">SoulMatch</div>
-      <button class="nav-btn active" data-page="messages">Messages</button>
-      <button class="nav-btn" data-page="matches">Matches</button>
-      <button class="nav-btn" data-page="aitwin">AI Twin</button>
-      <button class="nav-btn" data-page="profile">Profile</button>
-      <button class="nav-btn" data-page="daily">Daily</button>
+      <button class="nav-btn active" type="button" data-page="messages">Messages</button>
+      <button class="nav-btn" type="button" data-page="matches">Matches</button>
+      <button class="nav-btn" type="button" data-page="aitwin">AI Twin</button>
+      <button class="nav-btn" type="button" data-page="profile">Profile</button>
+      <button class="nav-btn" type="button" data-page="daily">Daily</button>
 
       <div class="premium">
         <strong>Premium soon</strong>
@@ -108,24 +446,28 @@
     <section class="list-panel">
       <h2>Conversations</h2>
       <input class="search" placeholder="Search conversations..." />
+
       <div class="filters">
-        <button class="filter active">All</button>
-        <button class="filter">Unread</button>
-        <button class="filter">Favorites</button>
+        <button class="filter active" type="button">All</button>
+        <button class="filter" type="button">Unread</button>
+        <button class="filter" type="button">Favorites</button>
       </div>
 
       <div class="conversation active">
         <div class="avatar">A</div>
         <div><strong>Anna</strong><small>Your match is 94%</small></div>
       </div>
+
       <div class="conversation">
         <div class="avatar">M</div>
         <div><strong>Mira</strong><small>Echo test is ready</small></div>
       </div>
+
       <div class="conversation">
         <div class="avatar">V</div>
         <div><strong>Victoria</strong><small>Looks interesting!</small></div>
       </div>
+
       <div class="conversation">
         <div class="avatar">S</div>
         <div><strong>SoulMatch AI</strong><small>Daily question is ready</small></div>
@@ -146,13 +488,13 @@
           </header>
 
           <div class="chat" id="chatArea">
-            <div class="bubble">SoulMatch is clean now. This menu has only SoulMatch buttons.</div>
-            <div class="bubble me">User and Admin are inside AI Twin, not here.</div>
+            <div class="bubble">SoulMatch buttons are now hard-reset.</div>
+            <div class="bubble me">Messages, Matches, AI Twin, Profile and Daily must work now.</div>
           </div>
 
           <form class="composer" id="composer">
             <input id="messageInput" placeholder="Type a message..." />
-            <button>Send</button>
+            <button type="submit">Send</button>
           </form>
         </div>
       </section>
@@ -161,20 +503,20 @@
         <div class="simple-page">
           <div class="simple-card">
             <h1>Matches</h1>
-            <p>Here will be the matching system between profiles and AI Twins.</p>
+            <p>Matching page is working.</p>
           </div>
         </div>
       </section>
 
       <section class="page" id="aitwin">
-        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=920" title="AI Echo"></iframe>
+        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=950" title="AI Echo"></iframe>
       </section>
 
       <section class="page" id="profile">
         <div class="simple-page">
           <div class="simple-card">
             <h1>Profile</h1>
-            <p>User profile, EchoProfile score, preferences and identity data.</p>
+            <p>Profile page is working.</p>
           </div>
         </div>
       </section>
@@ -183,7 +525,7 @@
         <div class="simple-page">
           <div class="simple-card">
             <h1>Daily</h1>
-            <p>Daily questions, prompts, matches and AI Twin growth.</p>
+            <p>Daily page is working.</p>
           </div>
         </div>
       </section>
@@ -191,74 +533,120 @@
   </div>
 
   <script>
-    const buttons = Array.from(document.querySelectorAll(".nav-btn"));
-    const pages = Array.from(document.querySelectorAll(".page"));
-    const drawerToggle = document.getElementById("drawerToggle");
+    (function () {
+      const pageIds = ["messages", "matches", "aitwin", "profile", "daily"];
+      const buttons = Array.from(document.querySelectorAll(".nav-btn[data-page]"));
+      const pages = Array.from(document.querySelectorAll(".page"));
+      const toggle = document.getElementById("drawerToggle");
 
-    function setDrawer(open) {
-      document.body.classList.toggle("drawer-open", open);
-      drawerToggle.textContent = open ? "в—Ђ" : "в–¶";
-    }
+      function setArrow() {
+        const open = document.body.classList.contains("drawer-open");
+        toggle.textContent = open ? "Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р В РІР‚С™Р РЋРЎС™Р В Р’В Р вЂ™Р’В Р В Р вЂ Р В РІР‚С™Р РЋРІвЂћСћ" : "Р В Р’В Р вЂ™Р’В Р В Р’В Р Р†Р вЂљР’В Р В Р’В Р В РІР‚В Р В Р’В Р Р†Р вЂљРЎв„ўР В Р вЂ Р В РІР‚С™Р РЋРЎв„ўР В Р’В Р Р†Р вЂљРІвЂћСћР В РІР‚в„ўР вЂ™Р’В¶";
+      }
 
-    function closeDrawer() {
-      setDrawer(false);
-    }
+      function setDrawer(open) {
+        document.body.classList.toggle("drawer-open", !!open);
+        setArrow();
+      }
 
-    function openPage(id) {
-      pages.forEach(p => p.classList.remove("active"));
-      const page = document.getElementById(id);
-      if (page) page.classList.add("active");
+      function openPage(pageId) {
+        if (!pageIds.includes(pageId)) pageId = "messages";
 
-      document.body.classList.toggle("ai-mode", id === "aitwin");
+        pages.forEach(page => {
+          page.classList.toggle("active", page.id === pageId);
+        });
 
-      buttons.forEach(b => b.classList.remove("active"));
-      const active = buttons.find(b => b.dataset.page === id);
-      if (active) active.classList.add("active");
+        buttons.forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.page === pageId);
+        });
 
-      closeDrawer();
-    }
+        const isAi = pageId === "aitwin";
+        document.body.classList.toggle("ai-mode", isAi);
 
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        if (btn.dataset.page) {
+        if (isAi) {
+          const frame = document.getElementById("sfAiEchoFrame");
+          if (frame && !frame.getAttribute("src")) {
+            frame.setAttribute("src", "/ai-echo.html?v=950");
+          }
+        }
+
+        setDrawer(false);
+
+        try {
+          const url = new URL(window.location.href);
+          url.searchParams.set("page", pageId);
+          url.searchParams.set("v", "950");
+          window.history.replaceState({}, "", url.toString());
+        } catch (err) {}
+      }
+
+      buttons.forEach(btn => {
+        btn.onclick = function (event) {
+          event.preventDefault();
+          event.stopPropagation();
           openPage(btn.dataset.page);
+        };
+      });
+
+      toggle.onclick = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        setDrawer(!document.body.classList.contains("drawer-open"));
+      };
+
+      document.getElementById("composer").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const input = document.getElementById("messageInput");
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        input.value = "";
+
+        const div = document.createElement("div");
+        div.className = "bubble me";
+        div.textContent = text;
+
+        document.getElementById("chatArea").appendChild(div);
+      });
+
+      window.addEventListener("message", function (event) {
+        const data = event.data;
+
+        if (!data || typeof data !== "object") return;
+
+        if (data.type === "OPEN_SOULFLAME_DRAWER") {
+          setDrawer(true);
+        }
+
+        if (data.type === "CLOSE_SOULFLAME_DRAWER") {
+          setDrawer(false);
+        }
+
+        if (data.type === "EXIT_AI_TWIN") {
+          openPage("messages");
         }
       });
-    });
 
-    drawerToggle.addEventListener("click", () => {
-      setDrawer(!document.body.classList.contains("drawer-open"));
-    });
+      try {
+        const url = new URL(window.location.href);
+        const page = url.searchParams.get("page");
 
-    window.addEventListener("message", event => {
-      const data = event.data;
-      if (!data || typeof data !== "object") return;
-
-      if (data.type === "OPEN_SOULFLAME_DRAWER") {
-        setDrawer(true);
-      }
-
-      if (data.type === "CLOSE_SOULFLAME_DRAWER") {
-        setDrawer(false);
-      }
-
-      if (data.type === "EXIT_AI_TWIN") {
+        if (pageIds.includes(page)) {
+          openPage(page);
+        } else {
+          openPage("messages");
+        }
+      } catch (err) {
         openPage("messages");
       }
-    });
 
-    document.getElementById("composer").addEventListener("submit", e => {
-      e.preventDefault();
-      const input = document.getElementById("messageInput");
-      const text = input.value.trim();
-      if (!text) return;
-      input.value = "";
-      const div = document.createElement("div");
-      div.className = "bubble me";
-      div.textContent = text;
-      document.getElementById("chatArea").appendChild(div);
-    });
+      window.SoulFlameV95 = { openPage, setDrawer };
+    })();
   </script>
-  <script src="v92-ai-twin-cmd-tree.js?v=920"></script>
+  <script src="v96-ai-twin-cmd-tree.js?v=960"></script>
+  <script src="v99-profile-auth-logout.js?v=990"></script>
+  <script src="v100-login-connectors.js?v=1000"></script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+/* SOULFLAME V93 - ONE CLEAN ARROW */
+
+.drawer-toggle {
+  font-size: 0 !important;
+  line-height: 1 !important;
+  overflow: hidden !important;
+}
+
+.drawer-toggle::before {
+  content: "▶" !important;
+  display: block !important;
+  font-size: 34px !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  color: #ffffff !important;
+}
+
+body.drawer-open .drawer-toggle::before {
+  content: "◀" !important;
+}
+
+/* if old patches created extra arrow buttons, hide all except the real first one */
+.drawer-toggle.v93-duplicate-arrow {
+  display: none !important;
+}

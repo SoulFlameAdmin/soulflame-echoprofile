@@ -1,0 +1,45 @@
+/* SOULFLAME V97 - PURE CSS TRIANGLE ARROW ONLY */
+
+#drawerToggle,
+.drawer-toggle {
+  font-size: 0 !important;
+  color: transparent !important;
+  text-indent: -9999px !important;
+  overflow: hidden !important;
+  line-height: 0 !important;
+}
+
+#drawerToggle *,
+.drawer-toggle * {
+  display: none !important;
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+#drawerToggle::before,
+.drawer-toggle::before {
+  content: "" !important;
+  display: block !important;
+  width: 0 !important;
+  height: 0 !important;
+  text-indent: 0 !important;
+  margin: auto !important;
+
+  border-top: 16px solid transparent !important;
+  border-bottom: 16px solid transparent !important;
+  border-left: 22px solid #ffffff !important;
+  border-right: 0 solid transparent !important;
+}
+
+/* When drawer is open: arrow points left */
+body.drawer-open #drawerToggle::before,
+body.drawer-open .drawer-toggle::before {
+  border-left: 0 solid transparent !important;
+  border-right: 22px solid #ffffff !important;
+}
+
+/* Hide duplicate arrow buttons if old scripts created more */
+.drawer-toggle.v97-duplicate-arrow,
+#drawerToggle.v97-duplicate-arrow {
+  display: none !important;
+}

@@ -1,0 +1,42 @@
+/* SOULFLAME V98 SAFE ARROW ONLY - NO JS */
+
+#drawerToggle,
+.drawer-toggle {
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  text-shadow: none !important;
+  overflow: hidden !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+#drawerToggle::before,
+.drawer-toggle::before {
+  content: "" !important;
+  display: block !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: auto !important;
+
+  border-top: 16px solid transparent !important;
+  border-bottom: 16px solid transparent !important;
+  border-left: 22px solid #ffffff !important;
+  border-right: 0 solid transparent !important;
+}
+
+/* менюто е отворено => стрелката сочи наляво */
+body.drawer-open #drawerToggle::before,
+body.drawer-open .drawer-toggle::before {
+  border-left: 0 solid transparent !important;
+  border-right: 22px solid #ffffff !important;
+}
+
+/* бутоните да не се блокират */
+.sidebar,
+.sidebar .nav-btn,
+.sidebar button,
+.page,
+.main {
+  pointer-events: auto !important;
+}
