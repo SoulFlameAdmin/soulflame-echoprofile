@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Безплатен AI Twin — SoulFlame</title>
+  <meta name="description" content="Създай безплатен AI Twin за 60 секунди. Отключи Full AI Twin с Future message и личен план.">
+  <meta property="og:title" content="Създай безплатен AI Twin">
+  <meta property="og:description" content="Твоят дигитален двойник започва с EchoProfile.">
+  <meta name="theme-color" content="#050611">
+
+  <style>
+    :root {
+      --bg0:#03040a;
+      --bg1:#080b1f;
+      --bg2:#111a46;
+      --text:#f8f7ff;
+      --soft:#b9c3e8;
+      --muted:#7f8ab4;
+      --line:rgba(255,255,255,.14);
+      --cyan:#00eaff;
+      --violet:#7c3cff;
+      --pink:#ff4ff3;
+      --gold:#ffd166;
+      --green:#23e6a8;
+      --red:#ff4d6d;
+      --shadow:0 26px 80px rgba(0,0,0,.42);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg0);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(124,60,255,.30), transparent 30rem),
+        radial-gradient(circle at 85% 10%, rgba(0,234,255,.18), transparent 28rem),
+        linear-gradient(135deg, var(--bg0), var(--bg1) 46%, var(--bg2));
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      width: min(980px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: rgba(6,8,20,.72);
+      border-radius: 22px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 950;
+      letter-spacing: -.4px;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 15px;
+      background:
+        radial-gradient(circle at 30% 22%, #fff, transparent 15%),
+        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
+      box-shadow: 0 0 30px rgba(124,60,255,.42);
+      flex: 0 0 auto;
+    }
+
+    .pill {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 900;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+    }
+
+    .hero {
+      min-height: calc(100vh - 86px);
+      display: grid;
+      align-items: center;
+      padding: 22px 0 80px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.090), rgba(255,255,255,.045)),
+        radial-gradient(circle at 20% 10%, rgba(0,234,255,.09), transparent 38%);
+      border-radius: 30px;
+      padding: clamp(24px, 6vw, 54px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--soft);
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 950;
+      margin-bottom: 18px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 99px;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(46px, 10vw, 112px);
+      letter-spacing: -4px;
+      line-height: .88;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 5vw, 48px);
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+
+    p {
+      margin: 0 0 15px;
+      color: var(--soft);
+      line-height: 1.62;
+      font-size: 18px;
+    }
+
+    .grad {
+      background: linear-gradient(90deg, var(--cyan), #5ca8ff, var(--violet), var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 0;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, var(--violet), #3f8dff);
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 950;
+      text-decoration: none;
+      font-size: 16px;
+      box-shadow: 0 16px 42px rgba(124,60,255,.24);
+    }
+
+    .btn.gold {
+      background: linear-gradient(135deg, #ffb703, #ff4ff3);
+      box-shadow: 0 16px 45px rgba(255,79,243,.18);
+    }
+
+    .proof {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .proof div {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      border-radius: 18px;
+      padding: 13px;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .proof b {
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .sticky {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      z-index: 20;
+      transform: translateX(-50%);
+      width: min(720px, calc(100% - 24px));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(6,8,20,.86);
+      border-radius: 22px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.34);
+    }
+
+    .note {
+      border: 1px solid rgba(255,209,102,.28);
+      background: rgba(255,209,102,.08);
+      color: #ffe7a8;
+      border-radius: 18px;
+      padding: 14px;
+      margin-top: 18px;
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      padding: 28px 0 88px;
+    }
+
+    @media (max-width: 780px) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .wrap {
+        padding: 14px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 12px 0 90px;
+      }
+
+      .card {
+        border-radius: 24px;
+        padding: 22px;
+      }
+
+      h1 {
+        letter-spacing: -2.3px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .actions,
+      .proof,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        padding: 14px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>AI Twin by SoulFlame</div>
+      </div>
+
+      <a class="pill" href="/">Full Site</a>
+    </nav>
+
+    <main class="hero">
+      <section class="card">
+        <div class="badge"><span class="dot"></span> Free Mini Twin · Full Twin Unlock</div>
+
+        <h1>Създай безплатен <span class="grad">AI Twin</span> за 60 секунди</h1>
+
+        <p>
+          Отговори с няколко вътрешни сигнала и получи първа версия на своя дигитален двойник.
+          После можеш да отключиш Full AI Twin с Future message и личен 7-дневен план.
+        </p>
+
+        <p class="gold">
+          Не е просто тест. Това е първият слой към твоя персонален AI профил.
+        </p>
+
+        <div class="actions">
+          <a class="btn gold" href="/#create">Създай AI Twin</a>
+          <a class="btn" href="/#unlock">Имам unlock code</a>
+        </div>
+
+        <div class="proof">
+          <div><b>Mini Twin</b>Безплатен старт</div>
+          <div><b>Full Twin</b>Future message + план</div>
+          <div><b>Cloud</b>Профил + unlock flow</div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <strong>1. Избираш сигнали</strong>
+            <p>Визия, логика, емоция, действие, бъдеще.</p>
+          </div>
+
+          <div class="step">
+            <strong>2. Получаваш Twin</strong>
+            <p>Системата създава първия ти AI profile.</p>
+          </div>
+
+          <div class="step">
+            <strong>3. Отключваш Full</strong>
+            <p>С код получаваш по-дълбок Full Report.</p>
+          </div>
+        </div>
+
+        <div class="note">
+          SoulFlame AI Twin е продукт за самоанализ и креативна рефлексия. Не е медицинска или психологическа диагноза.
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      SoulFlame Twins · V46 Final Mobile + Ad Landing ·
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/disclaimer">Disclaimer</a>
+    </footer>
+  </div>
+
+  <div class="sticky">
+    <a class="btn gold" href="/#create">Създай безплатно</a>
+    <a class="btn" href="/#unlock">Отключи Full</a>
+  </div>
+
+  <script>
+    try {
+      fetch("/api/event", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "landing_view",
+          page: "/landing",
+          referrer: document.referrer || "",
+          payload: {
+            url: location.href,
+            time: new Date().toISOString(),
+            source: "v46_ad_landing"
+          }
+        })
+      });
+    } catch {}
+  </script>
+</body>
+</html>

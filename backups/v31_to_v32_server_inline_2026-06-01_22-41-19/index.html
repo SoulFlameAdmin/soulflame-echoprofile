@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SoulFlame Twins — EchoProfile</title>
+  <meta name="description" content="Открий своя EchoProfile — кратък AI психологически профил от SoulFlame Twins.">
+  <meta property="og:title" content="SoulFlame Twins — EchoProfile">
+  <meta property="og:description" content="Кратък AI профил, който показва твоя водещ вътрешен модел.">
+  <meta name="theme-color" content="#080914">
+
+  <style>
+    :root{
+      --bg0:#050611;
+      --bg1:#101327;
+      --bg2:#07111e;
+      --card:rgba(255,255,255,.085);
+      --card2:rgba(0,0,0,.32);
+      --line:rgba(255,255,255,.16);
+      --text:#f7f7ff;
+      --muted:#aab3d0;
+      --accent:#7c3cff;
+      --accent2:#00eaff;
+      --pink:#ff5cf7;
+      --good:#22d18b;
+      --bad:#ff4d6d;
+      --warn:#ffd166;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(124,60,255,.38), transparent 35%),
+        radial-gradient(circle at 86% 18%, rgba(0,234,255,.24), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(255,92,247,.12), transparent 35%),
+        linear-gradient(135deg,var(--bg0),var(--bg1) 55%,var(--bg2));
+      overflow-x:hidden;
+    }
+
+    .wrap{
+      width:min(1220px,100%);
+      margin:0 auto;
+      padding:24px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 0 22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:-.4px;
+    }
+
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius:15px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent),var(--pink));
+      box-shadow:0 0 42px rgba(124,60,255,.46);
+    }
+
+    .navlinks{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.07);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 13px;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:22px;
+      align-items:stretch;
+      padding:22px 0 18px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background:var(--card);
+      backdrop-filter:blur(18px);
+      border-radius:30px;
+      box-shadow:0 22px 80px rgba(0,0,0,.34);
+      padding:32px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.24);
+      color:var(--muted);
+      padding:9px 13px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:99px;
+      background:var(--good);
+      box-shadow:0 0 18px var(--good);
+    }
+
+    h1{
+      margin:0 0 18px;
+      font-size:clamp(44px,7vw,92px);
+      line-height:.92;
+      letter-spacing:-3px;
+    }
+
+    h2{
+      margin:0 0 14px;
+      font-size:clamp(26px,3.4vw,42px);
+      letter-spacing:-1.4px;
+    }
+
+    h3{margin:0 0 10px;font-size:20px}
+
+    .grad{
+      background:linear-gradient(90deg,var(--accent2),var(--accent),var(--pink));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    p{
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.6;
+      margin:0 0 15px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    button,.btn{
+      border:0;
+      cursor:pointer;
+      color:white;
+      background:linear-gradient(135deg,var(--accent),#4c8dff);
+      border-radius:16px;
+      padding:14px 18px;
+      font-weight:900;
+      text-decoration:none;
+      box-shadow:0 14px 36px rgba(124,60,255,.24);
+    }
+
+    button.secondary,.btn.secondary{
+      background:rgba(255,255,255,.09);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    button.warn{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+    button:disabled{opacity:.55;cursor:not-allowed}
+
+    .statusBox{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      min-height:120px;
+      font-family:Consolas,monospace;
+      font-size:13px;
+      color:#cbd5ff;
+      overflow:auto;
+      white-space:pre-wrap;
+    }
+
+    .systemHuman{display:grid;gap:12px;margin-top:12px}
+
+    .systemItem{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.055);
+      border-radius:16px;
+      padding:12px;
+      color:var(--muted);
+    }
+
+    .systemItem b{color:var(--text)}
+
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .miniCard{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      border-radius:22px;
+      padding:16px;
+    }
+
+    .miniCard strong{display:block;margin-bottom:8px}
+    .section{padding:18px 0}
+
+    .appGrid{
+      display:grid;
+      grid-template-columns:.75fr 1.25fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    label{
+      display:block;
+      margin:14px 0 7px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    input,textarea,select{
+      width:100%;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      border-radius:16px;
+      padding:14px 15px;
+      outline:none;
+      font-size:15px;
+    }
+
+    textarea{resize:vertical;min-height:92px}
+
+    .questions{display:grid;gap:12px;margin-top:14px}
+
+    .question{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.22);
+      border-radius:18px;
+      padding:15px;
+    }
+
+    .qTop{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:flex-start;
+      margin-bottom:12px;
+    }
+
+    .qText{font-weight:800;line-height:1.35}
+
+    .qTag{
+      color:var(--muted);
+      font-size:12px;
+      border:1px solid var(--line);
+      padding:5px 8px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .choice{display:flex;gap:10px;flex-wrap:wrap}
+
+    .choice button{
+      padding:10px 13px;
+      border-radius:12px;
+      background:rgba(255,255,255,.09);
+      border:1px solid var(--line);
+      box-shadow:none;
+    }
+
+    .choice button.active{
+      background:linear-gradient(135deg,var(--accent),#4c8dff);
+      border-color:transparent;
+    }
+
+    .progress{
+      height:12px;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      border-radius:999px;
+      overflow:hidden;
+      margin:12px 0 4px;
+    }
+
+    .bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg,var(--accent2),var(--accent),var(--pink));
+      transition:.25s;
+    }
+
+    .result{display:none;margin-top:16px}
+    .result.show{display:block}
+
+    .resultHero{
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,234,255,.16), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(124,60,255,.18), transparent 34%),
+        rgba(255,255,255,.06);
+      border-radius:24px;
+      padding:20px;
+      margin-bottom:16px;
+    }
+
+    .resultTitle{
+      font-size:clamp(26px,4vw,48px);
+      font-weight:900;
+      letter-spacing:-1.4px;
+      margin:6px 0 12px;
+    }
+
+    .scoreGrid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+      margin:14px 0;
+    }
+
+    .score{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      border-radius:16px;
+      padding:12px;
+      text-align:center;
+    }
+
+    .score b{display:block;font-size:22px;margin-bottom:3px}
+
+    .locked{
+      border:1px solid rgba(255,209,102,.28);
+      background:rgba(255,209,102,.08);
+      border-radius:20px;
+      padding:16px;
+      margin-top:14px;
+    }
+
+    .success{
+      border:1px solid rgba(34,209,139,.28);
+      background:rgba(34,209,139,.08);
+      border-radius:20px;
+      padding:14px;
+      margin-top:14px;
+      color:#caffdf;
+      display:none;
+    }
+
+    .success.show{display:block}
+
+    details{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.20);
+      border-radius:20px;
+      padding:14px;
+      margin-top:14px;
+    }
+
+    summary{cursor:pointer;font-weight:900}
+
+    .footer{
+      color:var(--muted);
+      font-size:13px;
+      padding:24px 0 40px;
+      text-align:center;
+    }
+
+    @media(max-width:920px){
+      .hero,.appGrid{grid-template-columns:1fr}
+      .flow,.scoreGrid{grid-template-columns:1fr}
+      .card{padding:22px;border-radius:24px}
+      h1{letter-spacing:-2px}
+      .nav{align-items:flex-start; flex-direction:column}
+      .navlinks{justify-content:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo"></div>
+        <div>SoulFlame Twins</div>
+      </div>
+      <div class="navlinks">
+        <a class="pill" href="#start">Започни</a>
+        <a class="pill" href="#system">Статус</a>
+        <a class="pill" href="/test" target="_blank">Test</a>
+        <a class="pill" href="/admin" target="_blank">Admin</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="card">
+        <div class="badge"><span class="dot"></span> EchoProfile · Production V30</div>
+        <h1>Разбери своя <span class="grad">вътрешен модел</span></h1>
+        <p>
+          Отговори на 12 кратки въпроса и получи Mini EchoProfile — твоя водещ начин на мислене,
+          действие и усещане.
+        </p>
+        <p>
+          SoulFlame Twins вече работи като публична cloud система: сайт, Vercel API и Supabase база.
+        </p>
+        <div class="actions">
+          <a class="btn" href="#start">Започни EchoProfile</a>
+          <button class="secondary" onclick="fillDemo()">Демо попълване</button>
+        </div>
+      </div>
+
+      <div id="system" class="card">
+        <h2>Системата е онлайн</h2>
+        <p>Frontend, API и Supabase cloud са свързани.</p>
+
+        <div class="systemHuman">
+          <div class="systemItem"><span>Сайт</span><b id="siteState">Online</b></div>
+          <div class="systemItem"><span>API</span><b id="apiState">Проверявам...</b></div>
+          <div class="systemItem"><span>Database</span><b id="dbState">Проверявам...</b></div>
+        </div>
+
+        <details>
+          <summary>Advanced system log</summary>
+          <div id="systemStatus" class="statusBox">Зареждам /api/health...</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="flow">
+        <div class="miniCard"><strong>1. Отговаряш</strong><p>12 Да/Не въпроса.</p></div>
+        <div class="miniCard"><strong>2. Получаваш профил</strong><p>Mini Echo резултат.</p></div>
+        <div class="miniCard"><strong>3. Запис в cloud</strong><p>Резултатът се пази в Supabase.</p></div>
+        <div class="miniCard"><strong>4. Full Echo</strong><p>Може да заявиш пълен анализ.</p></div>
+      </div>
+    </section>
+
+    <section id="start" class="section appGrid">
+      <div class="card">
+        <h2>Твоите данни</h2>
+
+        <label>Име</label>
+        <input id="name" placeholder="Например: Димитър">
+
+        <label>Контакт</label>
+        <input id="contact" placeholder="email / телефон / Instagram">
+
+        <label>Възраст</label>
+        <select id="age">
+          <option>18-24</option>
+          <option selected>25-34</option>
+          <option>35-44</option>
+          <option>45+</option>
+        </select>
+
+        <label>Какво искаш да разбереш?</label>
+        <textarea id="goal" placeholder="Например: искам да разбера силните си страни, защо реагирам така, какъв тип човек съм..."></textarea>
+
+        <div class="progress">
+          <div id="progressBar" class="bar"></div>
+        </div>
+        <p id="progressText">0/12 въпроса</p>
+
+        <button onclick="calculateEcho()">Генерирай Mini Echo</button>
+
+        <details>
+          <summary>Имам Full Echo код</summary>
+          <label>Код</label>
+          <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
+          <button style="margin-top:10px" onclick="unlockFullEcho()">Отключи Full Echo</button>
+        </details>
+      </div>
+
+      <div class="card">
+        <h2>Echo Questions</h2>
+        <p>Отговори интуитивно. Първият импулс често е най-точен.</p>
+        <div id="questions" class="questions"></div>
+
+        <div id="result" class="result">
+          <div id="successBox" class="success">Профилът е запазен успешно в SoulFlame cloud.</div>
+
+          <div class="resultHero">
+            <div class="badge"><span class="dot"></span> Mini EchoProfile</div>
+            <div id="resultTitle" class="resultTitle"></div>
+            <div id="resultText"></div>
+          </div>
+
+          <div id="scoreGrid" class="scoreGrid"></div>
+
+          <div class="locked">
+            <h3>Full Echo Blueprint</h3>
+            <p>
+              Пълният анализ може да включва дълбок профил, поведенчески цикли,
+              емоционални тригери, силни страни, рискове и next-step план.
+            </p>
+            <div class="actions">
+              <button class="warn" onclick="requestPayment()">Заяви Full Echo</button>
+              <button class="secondary" onclick="copyResult()">Копирай резултата</button>
+              <button class="secondary" onclick="sendLead()">Изпрати интерес</button>
+            </div>
+          </div>
+
+          <details>
+            <summary>Advanced API response</summary>
+            <div id="saveStatus" class="statusBox">Резултатът още не е записан.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      SoulFlame Twins · EchoProfile V30 · Vercel + Supabase
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      { text:"Често ли усещаш, че виждаш идеи преди другите да ги разберат?", trait:"vision" },
+      { text:"Когато има хаос, търсиш ли веднага структура и система?", trait:"logic" },
+      { text:"Попиваш ли емоциите на хората около теб?", trait:"emotion" },
+      { text:"Предпочиташ ли да действаш бързо, вместо да чакаш перфектния момент?", trait:"action" },
+      { text:"Лесно ли усещаш какво иска другият човек, дори да не го казва?", trait:"social" },
+      { text:"Имаш ли усещане, че си създаден за нещо по-голямо от нормалния живот?", trait:"vision" },
+      { text:"Дразни ли те, когато нещо няма ясна логика?", trait:"logic" },
+      { text:"Понякога преживяваш ли нещата прекалено дълбоко?", trait:"emotion" },
+      { text:"Когато искаш нещо, трудно ли стоиш на едно място?", trait:"action" },
+      { text:"Можеш ли да влияеш на хората с думи, тон или присъствие?", trait:"social" },
+      { text:"Често ли мислиш за бъдещи системи, бизнеси или технологии?", trait:"vision" },
+      { text:"Обичаш ли да превръщаш идеите в план, стъпки и структура?", trait:"logic" }
+    ];
+
+    const answers = {};
+    let lastProfile = null;
+
+    const traitNames = {
+      vision: "Визионер",
+      logic: "Архитект",
+      emotion: "Емпат",
+      action: "Двигател",
+      social: "Влияещ"
+    };
+
+    const traitDescriptions = {
+      vision: "Ти виждаш посоки преди да са очевидни. Водещата ти сила е бъдещето — идеи, възможности, нови системи и развитие.",
+      logic: "Ти превръщаш хаоса в структура. Водещата ти сила е подреждането — план, логика, стратегия и контрол.",
+      emotion: "Ти усещаш дълбоко. Водещата ти сила е емоционалната чувствителност — разбираш нюанси, които другите пропускат.",
+      action: "Ти си движение. Водещата ти сила е импулсът към действие — не чакаш прекалено дълго, а натискаш напред.",
+      social: "Ти четеш хората. Водещата ти сила е социалната интуиция — усещаш намерения, тон и скрити сигнали."
+    };
+
+    function showJson(el, data){
+      document.getElementById(el).textContent = typeof data === "string" ? data : JSON.stringify(data,null,2);
+    }
+
+    function saveDraft(){
+      const draft = {
+        name: document.getElementById("name").value,
+        contact: document.getElementById("contact").value,
+        age: document.getElementById("age").value,
+        goal: document.getElementById("goal").value,
+        answers
+      };
+      localStorage.setItem("soulflame_echo_draft", JSON.stringify(draft));
+    }
+
+    function loadDraft(){
+      try{
+        const raw = localStorage.getItem("soulflame_echo_draft");
+        if (!raw) return;
+        const draft = JSON.parse(raw);
+
+        document.getElementById("name").value = draft.name || "";
+        document.getElementById("contact").value = draft.contact || "";
+        document.getElementById("age").value = draft.age || "25-34";
+        document.getElementById("goal").value = draft.goal || "";
+
+        if (draft.answers) Object.assign(answers, draft.answers);
+      }catch{}
+    }
+
+    function renderQuestions(){
+      const box = document.getElementById("questions");
+      box.innerHTML = "";
+
+      questions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `
+          <div class="qTop">
+            <div class="qText">${index + 1}. ${q.text}</div>
+            <div class="qTag">${traitNames[q.trait]}</div>
+          </div>
+          <div class="choice">
+            <button type="button" data-value="yes">Да</button>
+            <button type="button" data-value="no">Не</button>
+          </div>
+        `;
+
+        div.querySelectorAll("button").forEach(btn => {
+          btn.addEventListener("click", () => {
+            answers[index] = btn.dataset.value;
+            div.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            updateProgress();
+            saveDraft();
+          });
+
+          if (answers[index] === btn.dataset.value) btn.classList.add("active");
+        });
+
+        box.appendChild(div);
+      });
+    }
+
+    function updateProgress(){
+      const answered = Object.keys(answers).length;
+      const total = questions.length;
+      const percent = Math.round((answered / total) * 100);
+      document.getElementById("progressBar").style.width = percent + "%";
+      document.getElementById("progressText").textContent = `${answered}/${total} въпроса`;
+    }
+
+    async function checkHealth(){
+      showJson("systemStatus", "Проверявам /api/health...");
+
+      try{
+        const res = await fetch("/api/health");
+        const data = await res.json();
+
+        showJson("systemStatus", data);
+
+        document.getElementById("apiState").textContent = data.ok ? "Online" : "Problem";
+        document.getElementById("dbState").textContent = data.activeDataMode === "supabase" ? "Supabase" : "Missing env";
+      }catch(error){
+        document.getElementById("apiState").textContent = "Problem";
+        document.getElementById("dbState").textContent = "Unknown";
+        showJson("systemStatus", "Health error: " + error.message);
+      }
+    }
+
+    function fillDemo(){
+      document.getElementById("name").value = "Demo Client";
+      document.getElementById("contact").value = "demo@soulflame.local";
+      document.getElementById("age").value = "25-34";
+      document.getElementById("goal").value = "Искам да разбера водещия си вътрешен модел.";
+
+      questions.forEach((q, index) => {
+        answers[index] = index % 3 === 1 ? "no" : "yes";
+      });
+
+      renderQuestions();
+      updateProgress();
+      saveDraft();
+      location.hash = "#start";
+    }
+
+    function calculateScores(){
+      const scores = { vision:0, logic:0, emotion:0, action:0, social:0 };
+
+      questions.forEach((q, index) => {
+        if (answers[index] === "yes") scores[q.trait] += 10;
+        if (answers[index] === "no") scores[q.trait] += 2;
+      });
+
+      return scores;
+    }
+
+    function topTraits(scores){
+      return Object.entries(scores).sort((a,b) => b[1] - a[1]);
+    }
+
+    async function calculateEcho(){
+      const answered = Object.keys(answers).length;
+
+      if (answered < questions.length){
+        alert("Отговори на всички въпроси, за да генерираш EchoProfile.");
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const age = document.getElementById("age").value;
+      const goal = document.getElementById("goal").value.trim();
+
+      if (!name){
+        alert("Попълни име.");
+        return;
+      }
+
+      if (!contact){
+        alert("Попълни контакт.");
+        return;
+      }
+
+      const scores = calculateScores();
+      const sorted = topTraits(scores);
+      const mainTrait = sorted[0][0];
+      const secondTrait = sorted[1][0];
+
+      const profile = `${traitNames[mainTrait]} + ${traitNames[secondTrait]}`;
+      const report = traitDescriptions[mainTrait];
+
+      const fullReport =
+        `Пълен Echo Blueprint за ${name}: основен модел ${traitNames[mainTrait]}, втори модел ${traitNames[secondTrait]}. ` +
+        `Следващата стъпка е да се анализират поведенчески цикли, емоционални тригери, мотивация и социален стил.`;
+
+      lastProfile = {
+        id: Date.now(),
+        user: { name, contact, age, goal },
+        mainTrait,
+        secondTrait,
+        profile,
+        scores,
+        report,
+        fullReport,
+        answers,
+        createdAt: new Date().toISOString()
+      };
+
+      document.getElementById("result").classList.add("show");
+      document.getElementById("resultTitle").textContent = profile;
+      document.getElementById("resultText").innerHTML = `
+        <p><strong>${name}</strong>, твоят водещ модел е <strong class="grad">${traitNames[mainTrait]}</strong>.</p>
+        <p>${report}</p>
+        <p>Втори активен слой: <strong>${traitNames[secondTrait]}</strong>.</p>
+      `;
+
+      const scoreGrid = document.getElementById("scoreGrid");
+      scoreGrid.innerHTML = "";
+
+      Object.entries(scores).forEach(([key,value]) => {
+        const div = document.createElement("div");
+        div.className = "score";
+        div.innerHTML = `<b>${value}</b><span>${traitNames[key]}</span>`;
+        scoreGrid.appendChild(div);
+      });
+
+      await saveProfile(lastProfile);
+    }
+
+    async function saveProfile(profile){
+      showJson("saveStatus", "Записвам профила в SoulFlame cloud...");
+
+      try{
+        const res = await fetch("/api/profile", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify(profile)
+        });
+
+        const data = await res.json();
+        showJson("saveStatus", data);
+
+        if (data.ok) document.getElementById("successBox").classList.add("show");
+      }catch(error){
+        showJson("saveStatus", "Profile save error: " + error.message);
+      }
+    }
+
+    async function sendLead(){
+      if (!lastProfile){
+        alert("Първо генерирай Mini Echo.");
+        return;
+      }
+
+      showJson("saveStatus", "Записвам интерес...");
+
+      try{
+        const res = await fetch("/api/lead", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            offer:"EchoProfile Lead",
+            user:lastProfile.user,
+            profile:lastProfile.profile,
+            scores:lastProfile.scores
+          })
+        });
+
+        const data = await res.json();
+        showJson("saveStatus", data);
+      }catch(error){
+        showJson("saveStatus", "Lead error: " + error.message);
+      }
+    }
+
+    async function requestPayment(){
+      if (!lastProfile){
+        alert("Първо генерирай Mini Echo.");
+        return;
+      }
+
+      showJson("saveStatus", "Създавам заявка за Full Echo...");
+
+      try{
+        const res = await fetch("/api/payment-request", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            offer:"Full AI Echo",
+            amount:"19.99 лв",
+            method:"manual",
+            user:lastProfile.user,
+            profile:lastProfile.profile,
+            scores:lastProfile.scores
+          })
+        });
+
+        const data = await res.json();
+        showJson("saveStatus", data);
+
+        if (data.ok) alert("Заявката е създадена. След потвърждение се издава unlock code.");
+      }catch(error){
+        showJson("saveStatus", "Payment request error: " + error.message);
+      }
+    }
+
+    async function unlockFullEcho(){
+      const code = document.getElementById("unlockCode").value.trim();
+
+      if (!code){
+        alert("Въведи unlock code.");
+        return;
+      }
+
+      showJson("saveStatus", "Проверявам unlock code...");
+
+      try{
+        const res = await fetch("/api/unlock", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            code,
+            user:lastProfile ? lastProfile.user : {},
+            profileId:lastProfile ? lastProfile.id : null
+          })
+        });
+
+        const data = await res.json();
+        showJson("saveStatus", data);
+
+        if (data.ok && data.unlocked && lastProfile){
+          document.getElementById("resultText").innerHTML += `
+            <div class="locked">
+              <h3>Full Echo отключен</h3>
+              <p>${lastProfile.fullReport}</p>
+            </div>
+          `;
+        }
+      }catch(error){
+        showJson("saveStatus", "Unlock error: " + error.message);
+      }
+    }
+
+    function copyResult(){
+      if (!lastProfile){
+        alert("Няма резултат за копиране.");
+        return;
+      }
+
+      const text =
+        `SoulFlame EchoProfile\n` +
+        `Име: ${lastProfile.user.name}\n` +
+        `Профил: ${lastProfile.profile}\n` +
+        `Mini Echo: ${lastProfile.report}\n`;
+
+      navigator.clipboard.writeText(text);
+      alert("Резултатът е копиран.");
+    }
+
+    ["name","contact","age","goal"].forEach(id => {
+      document.addEventListener("input", event => {
+        if (event.target && event.target.id === id) saveDraft();
+      });
+    });
+
+    loadDraft();
+    renderQuestions();
+    updateProgress();
+    checkHealth();
+  </script>
+</body>
+</html>

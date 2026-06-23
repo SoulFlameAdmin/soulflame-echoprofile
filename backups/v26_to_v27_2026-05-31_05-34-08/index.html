@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SoulFlame Twins</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(124,60,255,.38), transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(0,240,255,.25), transparent 30%),
+        linear-gradient(135deg, #05060d, #101327, #070812);
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 24px;
+    }
+    .card {
+      width: min(980px, 100%);
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 22px 80px rgba(0,0,0,.35);
+    }
+    h1 {
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: .92;
+      margin: 0 0 18px;
+      letter-spacing: -2px;
+    }
+    .grad {
+      background: linear-gradient(90deg,#00f0ff,#7c3cff,#ff5cf7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    p {
+      color: #aab3d0;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    a, button {
+      display: inline-block;
+      margin: 8px 8px 0 0;
+      border: 0;
+      border-radius: 16px;
+      padding: 14px 18px;
+      color: white;
+      background: linear-gradient(135deg,#7c3cff,#4c8dff);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    pre {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.35);
+      color: #aab3d0;
+      white-space: pre-wrap;
+      overflow: auto;
+      min-height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>SoulFlame <span class="grad">Twins</span></h1>
+    <p>Production frontend is online. Vercel API is connected to Supabase cloud.</p>
+
+    <a href="/api/health" target="_blank">API Health</a>
+    <button class="secondary" onclick="testWrite()">Test Supabase Write</button>
+
+    <pre id="out">Loading health...</pre>
+  </main>
+
+  <script>
+    const out = document.getElementById("out");
+
+    async function testWrite() {
+      out.textContent = "Sending profile to /api/profile...";
+
+      const body = {
+        id: Date.now(),
+        user: {
+          name: "Hard Root Test Client",
+          contact: "hard-root@soulflame.local",
+          goal: "Hard root frontend production test",
+          age: "25-34"
+        },
+        mainTrait: "vision",
+        secondTrait: "logic",
+        profile: "Hard root Supabase test profile",
+        scores: { vision:10, logic:9, emotion:6, social:5, action:8 },
+        report: "Hard root Mini Echo test.",
+        fullReport: "Hard root Full Echo test.",
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        const res = await fetch("/api/profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        out.textContent = e.message;
+      }
+    }
+
+    fetch("/api/health")
+      .then(r => r.json())
+      .then(d => out.textContent = JSON.stringify(d, null, 2))
+      .catch(e => out.textContent = e.message);
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "soulflame-twins",
+  "version": "1.0.0",
+  "description": "AI Twin by SoulFlame V44 Email Delivery Client Message Flow",
+  "author": "SoulFlame",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

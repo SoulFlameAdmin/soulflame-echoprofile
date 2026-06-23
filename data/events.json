@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1780165870378,
+    "type": "code_generated",
+    "payload": {
+      "code": "ECHO-L4PS-D9SE",
+      "offer": "Full AI Echo - 19.99 лв"
+    },
+    "createdAt": "2026-05-30T18:31:09.585Z"
+  },
+  {
+    "id": 1780165877043,
+    "type": "code_generated",
+    "payload": {
+      "code": "ECHO-AH2D-RDD2",
+      "offer": "Full AI Echo - 19.99 лв"
+    },
+    "createdAt": "2026-05-30T18:31:16.256Z"
+  },
+  {
+    "id": 1780180694420,
+    "type": "profile_created",
+    "payload": {
+      "profileId": 1780180693586,
+      "name": "j"
+    },
+    "createdAt": "2026-05-30T22:38:14.088Z"
+  },
+  {
+    "id": 1780181125045,
+    "type": "profile_created",
+    "payload": {
+      "profileId": 1780181124466,
+      "name": "m"
+    },
+    "createdAt": "2026-05-30T22:45:24.475Z"
+  },
+  {
+    "id": 1780181176462,
+    "type": "payment_requested",
+    "payload": {
+      "paymentId": 1780181175678,
+      "offer": "Full AI Echo - 19.99 лв"
+    },
+    "createdAt": "2026-05-30T22:46:15.680Z"
+  },
+  {
+    "id": 1780181176385,
+    "type": "lead_created",
+    "payload": {
+      "offer": "Full AI Echo - 19.99 лв",
+      "name": "m"
+    },
+    "createdAt": "2026-05-30T22:46:15.690Z"
+  },
+  {
+    "id": 1780181227617,
+    "type": "profile_created",
+    "payload": {
+      "profileId": 1780181227578,
+      "name": "m"
+    },
+    "createdAt": "2026-05-30T22:47:07.572Z"
+  },
+  {
+    "id": 1780181244303,
+    "type": "code_used",
+    "payload": {
+      "code": "ECHO-AH2D-RDD2",
+      "profileId": 1780181227578
+    },
+    "createdAt": "2026-05-30T22:47:23.812Z"
+  }
+]

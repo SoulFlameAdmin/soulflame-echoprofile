@@ -1,235 +1,268 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-  <meta charset="UTF-8">
-  <base href="/Soulmatch/">
+  <meta charset="UTF-8" />
+  <base href="/Soulmatch/" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>РЎР‚РЎСџРІР‚СњРўС’ SoulMatch</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="v78-fix.css" />
-  <link rel="stylesheet" href="v79-responsive.css" />
-  <link rel="stylesheet" href="v80-ai-echo.css" />
-  <link rel="stylesheet" href="v81-fullscreen-ai.css" />
-  <link rel="stylesheet" href="v81-hotfix.css?v=811" />
-  <link rel="stylesheet" href="v82-drawer-tree.css?v=820" />
-  <link rel="stylesheet" href="v83-user-admin-tree.css?v=830" />
-  <link rel="stylesheet" href="final-admin-order.css?v=final" />
-  <link rel="stylesheet" href="v85-admin-network.css?v=850" />
-  <link rel="stylesheet" href="v87-user-split.css?v=870" />
-  <link rel="stylesheet" href="v88-master-navigation.css?v=880" />
-  <link rel="stylesheet" href="v89-final-buttons-utf8.css?v=890" />
+  <title>SoulFlame SoulMatch V90</title>
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; font-family: Inter, system-ui, Segoe UI, Arial, sans-serif; background: #f5f8ff; color: #06112f; overflow: hidden; }
+    button, input, select { font-family: inherit; }
+    .shell { display: grid; grid-template-columns: 330px 430px minmax(0,1fr); height: 100vh; }
+    .sidebar { background: linear-gradient(180deg,#1857ff,#072fba); color: white; padding: 26px 22px; overflow-y: auto; }
+    .brand { font-size: 28px; font-weight: 950; margin-bottom: 26px; letter-spacing: -1px; }
+    .nav-title { margin: 24px 0 10px; opacity: .82; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
+    .nav-btn { width: 100%; min-height: 52px; border: 0; border-radius: 16px; background: transparent; color: white; display: flex; align-items: center; gap: 12px; padding: 0 16px; font-size: 16px; font-weight: 850; cursor: pointer; text-align: left; }
+    .nav-btn:hover, .nav-btn.active { background: rgba(255,255,255,.18); }
+    .premium { margin-top: 24px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.10); padding: 18px; border-radius: 20px; }
+    .premium strong { display:block; font-size:18px; margin-bottom: 8px; }
+    .premium p { margin: 0; opacity: .78; line-height: 1.4; }
+    .profile-mini { margin-top: 30px; display:flex; gap:12px; align-items:center; }
+    .avatar { width: 58px; height: 58px; border-radius: 22px; background: #ff4f3f; color:white; display:grid; place-items:center; font-weight:950; flex:0 0 auto; }
+    .list-panel { background: white; border-right: 1px solid #e6ecfb; padding: 34px 26px; overflow-y: auto; }
+    .list-panel h2 { margin: 0 0 28px; font-size: 25px; }
+    .search { width: 100%; height: 58px; border: 1px solid #dce5f6; border-radius: 18px; padding: 0 18px; font-size: 15px; outline: none; }
+    .filters { display:flex; gap:10px; margin: 18px 0 26px; }
+    .filter { border:0; border-radius: 999px; padding: 12px 18px; font-weight: 850; background:#f0f4ff; }
+    .filter.active { background:#1857ff; color:white; }
+    .conversation { display:flex; align-items:center; gap:14px; padding:16px; border-radius:20px; cursor:pointer; margin-bottom:10px; }
+    .conversation.active, .conversation:hover { background:#eef4ff; }
+    .conversation .avatar { width:54px; height:54px; border-radius:22px; }
+    .conversation strong { display:block; margin-bottom:5px; }
+    .conversation small { color:#68779d; }
+    .main { background:#f5f8ff; min-width:0; position:relative; overflow:hidden; }
+    .page { display:none; height:100vh; overflow:auto; }
+    .page.active { display:block; }
+    .room { height:100vh; display:grid; grid-template-rows:88px minmax(0,1fr) 82px; }
+    .room-head { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 28px; border-bottom:1px solid #e1e8f7; background:#fff; }
+    .room-title { display:flex; align-items:center; gap:14px; }
+    .room-title .avatar { width:58px; height:58px; }
+    .chat { overflow:auto; padding:32px; display:grid; gap:18px; align-content:start; }
+    .bubble { max-width: 70%; padding: 18px 22px; border-radius: 22px; line-height:1.55; background:#eaf1ff; }
+    .bubble.me { margin-left:auto; background:#1857ff; color:#fff; }
+    .composer { display:grid; grid-template-columns: minmax(0,1fr) 120px; gap:12px; padding:14px 24px; border-top:1px solid #e1e8f7; background:white; }
+    .composer input { height:54px; border:1px solid #dce5f6; border-radius:18px; padding:0 18px; font-size:15px; }
+    .composer button { border:0; border-radius:18px; background:#1857ff; color:white; font-weight:950; }
+    .simple-page { padding: 40px; }
+    .simple-card { max-width: 900px; background:white; border:1px solid #e1e8f7; border-radius:28px; padding:28px; box-shadow:0 20px 70px rgba(20,40,80,.08); }
+    .simple-card h1 { margin-top:0; font-size:42px; letter-spacing:-1.5px; }
+    .simple-card p { color:#627092; line-height:1.6; }
+    #aitwin { overflow:hidden; }
+    #sfAiEchoFrame { width:100%; height:100vh; border:0; display:block; background:#03050a; }
+    .drawer-toggle { display:none; }
+    @media(max-width: 950px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position:fixed; z-index:50; inset:0 auto 0 0; width:86vw; max-width:360px; transform:translateX(-100%); transition:.25s; }
+      body.drawer-open .sidebar { transform:translateX(0); }
+      .list-panel { display:none; }
+      .drawer-toggle { display:grid; place-items:center; position:fixed; z-index:80; left:0; top:50%; transform:translateY(-50%); width:48px; height:90px; border:0; border-radius:0 20px 20px 0; background:#1857ff; color:white; font-size:28px; }
+      body.drawer-open .drawer-toggle { left:min(86vw,360px); }
+      .bubble { max-width: 92%; }
+      .simple-page { padding: 24px; }
+    }
+  </style>
 </head>
+
 <body>
+  <button class="drawer-toggle" id="drawerToggle">▶</button>
 
-<div class="app">
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">SoulFlame</div>
 
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-icon">РЎР‚РЎСџРІР‚СњРўС’</div>
-      <span>SoulMatch</span>
-    </div>
+      <div class="nav-title">SoulMatch</div>
+      <button class="nav-btn active" data-page="messages">💬 Messages</button>
+      <button class="nav-btn" data-page="matches">❤️ Matches</button>
+      <button class="nav-btn" data-page="aitwin">🤖 AI Twin</button>
+      <button class="nav-btn" data-page="profile">🧍 Profile</button>
+      <button class="nav-btn" data-page="daily">🔥 Daily</button>
 
-    <nav class="menu">
-      <button class="menu-btn active" data-page="chat">РЎР‚РЎСџРІР‚в„ўР’В¬ <span>Messages</span><b>3</b></button>
-      <button class="menu-btn" data-page="matches">Р Р†РЎСљР’В¤Р С—РЎвЂР РЏ <span>Matches</span></button>
-      <button class="menu-btn" data-page="aitwin">РЎР‚РЎСџР’В¤РІР‚вЂњ <span>AI Twin</span></button>
-      <button class="menu-btn" data-page="profile">РЎР‚РЎСџРІР‚ВР’В¤ <span>Profile</span></button>
-      <button class="menu-btn" data-page="daily">РЎР‚РЎСџРІР‚СњРўС’ <span>Daily</span></button>
-    </nav>
+      <div class="nav-title">AI Echo</div>
+      <button class="nav-btn" data-echo-panel="profilePanel">👤 Profile</button>
+      <button class="nav-btn" data-echo-panel="echoPanel">🧠 EchoProfile</button>
+      <button class="nav-btn" data-echo-panel="chatPanel">💬 GPT Chat</button>
 
-    <div class="premium">
-      <h4>РЎР‚РЎСџРІР‚ВРІР‚В Premium soon</h4>
-      <p>Deep matching, AI Twin, private rooms, advanced profile.</p>
-    </div>
+      <div class="nav-title">User</div>
+      <button class="nav-btn" data-user-view="connectors">🧩 Connectors</button>
+      <button class="nav-btn" data-user-view="twinplus">🌐 Twin+ Network</button>
+      <button class="nav-btn" data-user-view="health">💚 AI Twin Health</button>
 
-    <div class="mini-user">
-      <div class="avatar">D</div>
-      <div>
-        <strong id="miniName">Dimitar</strong>
-        <small>Your profile</small>
-      </div>
-    </div>
-  </aside>
+      <div class="nav-title">ADMIN 🔒</div>
+      <button class="nav-btn" data-admin-view="mine">1. 👑 My Twin</button>
+      <button class="nav-btn" data-admin-view="all">2. 👥 All Twins / Connect Talk</button>
+      <button class="nav-btn" data-admin-view="network">3. 🌐 Network / Bugs / Payments</button>
 
-  <header class="mobile-header">
-  <meta charset="UTF-8">
-  <base href="/Soulmatch/">
-    <div class="brand">
-      <div class="brand-icon">РЎР‚РЎСџРІР‚СњРўС’</div>
-      <span>SoulMatch</span>
-    </div>
-    <button id="openMenu">Р Р†Р’ВР’В°</button>
-  </header>
-
-  <main class="main">
-
-    <section class="left-panel">
-      <div class="left-head">
-        <h2>Conversations</h2>
-        <button>Р Р†РЎС™Р вЂ№</button>
+      <div class="premium">
+        <strong>Premium soon</strong>
+        <p>Deep matching, AI Twin, private rooms, advanced profile.</p>
       </div>
 
+      <div class="profile-mini">
+        <div class="avatar">D</div>
+        <div>
+          <strong>Dimitar</strong><br />
+          <small>Your profile</small>
+        </div>
+      </div>
+    </aside>
+
+    <section class="list-panel">
+      <h2>Conversations</h2>
       <input class="search" placeholder="Search conversations..." />
-
-      <div class="tabs">
-        <button class="active">All</button>
-        <button>Unread</button>
-        <button>Favorites</button>
+      <div class="filters">
+        <button class="filter active">All</button>
+        <button class="filter">Unread</button>
+        <button class="filter">Favorites</button>
       </div>
 
-      <div class="conversation-list" id="conversationList"></div>
-    </section>
-
-    <section class="page chat-page active" id="chat">
-      <div class="chat-top">
-        <div class="chat-person">
-          <div class="avatar fire">РЎР‚РЎСџРІР‚СњРўС’</div>
-          <div>
-            <h3 id="chatTitle">SoulMatch Room</h3>
-            <small>Online Р вЂ™Р’В· 92% inner match</small>
-          </div>
-        </div>
-
-        <div class="chat-actions">
-          <button>РЎР‚РЎСџРІР‚СњР РЉ</button>
-          <button>РЎР‚РЎСџРІР‚СљРЎвЂє</button>
-          <button>РЎР‚РЎСџР вЂ№РўС’</button>
-          <button>Р Р†РІР‚в„–Р’В®</button>
-        </div>
+      <div class="conversation active">
+        <div class="avatar">A</div>
+        <div><strong>Anna</strong><small>Your match is 94% 🔥</small></div>
       </div>
-
-      <div class="chat-body" id="chatBody">
-        <div class="msg other">
-          <div class="avatar small">A</div>
-          <div>
-            <div class="bubble">Р В РІР‚вЂќР В РўвЂР РЋР вЂљР В Р’В°Р РЋР С“Р РЋРІР‚С™Р В РЎвЂ РЎР‚РЎСџРІР‚ВРІР‚в„– Р В РЎС›Р В РЎвЂўР В Р вЂ Р В Р’В° Р В Р’Вµ Р В РўвЂР В Р’ВµР В РЎВР В РЎвЂў Р РЋРІР‚РЋР В Р’В°Р РЋРІР‚С™Р РЋР вЂ°Р РЋРІР‚С™ Р В Р вЂ¦Р В Р’В° SoulMatch.</div>
-            <span>10:42</span>
-          </div>
-        </div>
-
-        <div class="msg me">
-          <div>
-            <div class="bubble">Р В Р’ВР В РўвЂР В Р’ВµР РЋР РЏР РЋРІР‚С™Р В Р’В° Р В Р’Вµ Р РЋРІР‚В¦Р В РЎвЂўР РЋР вЂљР В Р’В°Р РЋРІР‚С™Р В Р’В° Р В РўвЂР В Р’В° Р РЋР С“Р В Р’Вµ Р РЋР С“Р РЋР вЂ°Р В Р’В±Р В РЎвЂР РЋР вЂљР В Р’В°Р РЋРІР‚С™ Р В РЎвЂ”Р В РЎвЂў Р РЋРІР‚В¦Р В Р’В°Р РЋР вЂљР В Р’В°Р В РЎвЂќР РЋРІР‚С™Р В Р’ВµР РЋР вЂљ, Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В РЎвЂ Р В РЎвЂ Р В Р вЂ Р РЋР вЂ°Р РЋРІР‚С™Р РЋР вЂљР В Р’ВµР РЋРІвЂљВ¬Р В Р вЂ¦Р В РЎвЂў Р РЋР С“Р РЋР вЂ°Р В Р вЂ Р В РЎвЂ”Р В Р’В°Р В РўвЂР В Р’ВµР В Р вЂ¦Р В РЎвЂР В Р’Вµ РЎР‚РЎСџРІР‚СњРўС’</div>
-            <span>10:43</span>
-          </div>
-        </div>
-
-        <div class="image-group">
-          <div class="img img1"></div>
-          <div class="img img2"></div>
-          <div class="img img3"></div>
-        </div>
-
-        <div class="msg other">
-          <div class="avatar small">M</div>
-          <div>
-            <div class="bubble">Р В РЎС™Р В РЎвЂўР В Р’В¶Р В Р’ВµР В РЎВ Р В РўвЂР В Р’В° Р В РўвЂР В РЎвЂўР В Р’В±Р В Р’В°Р В Р вЂ Р В РЎвЂР В РЎВ Р РЋРІР‚С™Р В Р’ВµР РЋР С“Р РЋРІР‚С™, Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋРІР‚С›Р В РЎвЂР В Р’В»Р В РЎвЂ, Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р РЋРІР‚С™ Р РЋР С“Р РЋР вЂ°Р В Р вЂ Р В РЎвЂ”Р В Р’В°Р В РўвЂР В Р’ВµР В Р вЂ¦Р В РЎвЂР В Р’Вµ Р В РЎвЂ Р В Р’В·Р В Р’В°Р РЋР РЏР В Р вЂ Р В РЎвЂќР В РЎвЂ Р В Р’В·Р В Р’В° Р В РЎвЂ”Р РЋР вЂљР В РЎвЂР РЋР РЏР РЋРІР‚С™Р В Р’ВµР В Р’В»Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂў.</div>
-            <span>10:45</span>
-          </div>
-        </div>
-
-        <div class="msg me">
-          <div>
-            <div class="bubble">Р В РІР‚СњР В Р’В°. Р В РЎСџР РЋР вЂ°Р РЋР вЂљР В Р вЂ Р В РЎвЂў MVP, Р В РЎвЂ”Р В РЎвЂўР РЋР С“Р В Р’В»Р В Р’Вµ Supabase backend.</div>
-            <span>10:46</span>
-          </div>
-        </div>
+      <div class="conversation">
+        <div class="avatar">M</div>
+        <div><strong>Mira</strong><small>Echo test is ready</small></div>
       </div>
-
-      <form class="composer" id="messageForm">
-        <input id="messageInput" placeholder="Type a message..." autocomplete="off" />
-        <button type="submit">Send</button>
-      </form>
-    </section>
-
-    <section class="page" id="matches">
-      <div class="page-title">
-        <h2>РЎР‚РЎСџРІР‚СњРўС’ Soul Matches</h2>
-        <p>Р В РўС’Р В РЎвЂўР РЋР вЂљР В Р’В°, Р В РЎвЂ”Р В РЎвЂўР В РўвЂР РЋР вЂљР В Р’ВµР В РўвЂР В Р’ВµР В Р вЂ¦Р В РЎвЂ Р РЋР С“Р В РЎвЂ”Р В РЎвЂўР РЋР вЂљР В Р’ВµР В РўвЂ Р РЋРІР‚В¦Р В Р’В°Р РЋР вЂљР В Р’В°Р В РЎвЂќР РЋРІР‚С™Р В Р’ВµР РЋР вЂљ, Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В РЎвЂ, Р В Р’ВµР В РЎВР В РЎвЂўР РЋРІР‚В Р В РЎвЂР В РЎвЂўР В Р вЂ¦Р В Р’В°Р В Р’В»Р В Р’ВµР В Р вЂ¦ Р РЋР С“Р РЋРІР‚С™Р В РЎвЂР В Р’В» Р В РЎвЂ Р В Р вЂ Р РЋР вЂ°Р РЋРІР‚С™Р РЋР вЂљР В Р’ВµР РЋРІвЂљВ¬Р В Р вЂ¦Р В Р’В° Р В Р’В±Р В Р’В»Р В РЎвЂР В Р’В·Р В РЎвЂўР РЋР С“Р РЋРІР‚С™.</p>
+      <div class="conversation">
+        <div class="avatar">V</div>
+        <div><strong>Victoria</strong><small>Looks interesting!</small></div>
       </div>
-
-      <div class="cards">
-        <div class="card">
-          <div class="big-avatar">A</div>
-          <h3>Anna</h3>
-          <strong>94% match</strong>
-          <p>Р В РІР‚СњР РЋР вЂ°Р В Р’В»Р В Р’В±Р В РЎвЂўР В РЎвЂќР В Р’В° Р В РЎвЂќР В РЎвЂўР В РЎВР РЋРЎвЂњР В Р вЂ¦Р В РЎвЂР В РЎвЂќР В Р’В°Р РЋРІР‚В Р В РЎвЂР РЋР РЏ, Р В Р’ВµР В РЎВР В РЎвЂ”Р В Р’В°Р РЋРІР‚С™Р В РЎвЂР РЋР РЏ Р В РЎвЂ Р В Р’В±Р В Р’В»Р В РЎвЂР В Р’В·Р В РЎвЂќР В РЎвЂ Р РЋРІР‚В Р В Р’ВµР В Р вЂ¦Р В Р вЂ¦Р В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В РЎвЂ.</p>
-          <button>Send request</button>
-        </div>
-
-        <div class="card">
-          <div class="big-avatar">M</div>
-          <h3>Mira</h3>
-          <strong>88% match</strong>
-          <p>Р В Р’ВР В Р вЂ¦Р РЋРІР‚С™Р РЋРЎвЂњР В РЎвЂР РЋРІР‚С™Р В РЎвЂР В Р вЂ Р В Р вЂ¦Р В Р’В°, Р РЋР С“Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В РЎвЂўР В РІвЂћвЂ“Р В Р вЂ¦Р В Р’В°, Р РЋРІР‚С™Р РЋР вЂ°Р РЋР вЂљР РЋР С“Р В РЎвЂ Р В РЎвЂР РЋР С“Р РЋРІР‚С™Р В РЎвЂР В Р вЂ¦Р РЋР С“Р В РЎвЂќР В Р’В° Р В Р вЂ Р РЋР вЂљР РЋР вЂ°Р В Р’В·Р В РЎвЂќР В Р’В°.</p>
-          <button>Send request</button>
-        </div>
-
-        <div class="card">
-          <div class="big-avatar">V</div>
-          <h3>Victoria</h3>
-          <strong>81% match</strong>
-          <p>Р В РЎвЂ™Р В РЎВР В Р’В±Р В РЎвЂР РЋРІР‚В Р В РЎвЂР В РЎвЂўР В Р’В·Р В Р вЂ¦Р В Р’В°, Р В Р’ВµР В РЎВР В РЎвЂўР РЋРІР‚В Р В РЎвЂР В РЎвЂўР В Р вЂ¦Р В Р’В°Р В Р’В»Р В Р вЂ¦Р В РЎвЂў Р В Р’В·Р РЋР вЂљР РЋР РЏР В Р’В»Р В Р’В°, Р В РЎвЂўР РЋР вЂљР В РЎвЂР В Р’ВµР В Р вЂ¦Р РЋРІР‚С™Р В РЎвЂР РЋР вЂљР В Р’В°Р В Р вЂ¦Р В Р’В° Р В РЎвЂќР РЋР вЂ°Р В РЎВ Р РЋР вЂљР В Р’В°Р В Р’В·Р В Р вЂ Р В РЎвЂР РЋРІР‚С™Р В РЎвЂР В Р’Вµ.</p>
-          <button>Send request</button>
-        </div>
+      <div class="conversation">
+        <div class="avatar">S</div>
+        <div><strong>SoulMatch AI</strong><small>Daily question is ready</small></div>
       </div>
     </section>
 
-    <section class="page content-page" id="aitwin">
-  <iframe
-    id="sfAiEchoFrame"
-    class="sf-ai-echo-v83-frame"
-    src="/ai-echo.html?v=890"
-    title="SoulFlame AI Echo">
-  </iframe>
-</section>
+    <main class="main">
+      <section class="page active" id="messages">
+        <div class="room">
+          <header class="room-head">
+            <div class="room-title">
+              <div class="avatar">S</div>
+              <div>
+                <strong>SoulMatch Room</strong><br />
+                <small>Online • 92% inner match</small>
+              </div>
+            </div>
+          </header>
 
-    <section class="page" id="profile">
-      <div class="page-title">
-        <h2>РЎР‚РЎСџРІР‚ВР’В¤ Profile</h2>
-        <p>Р В РЎСџР РЋР вЂљР В РЎвЂўР РЋРІР‚С›Р В РЎвЂР В Р’В»Р РЋР вЂ°Р РЋРІР‚С™ Р РЋР С“Р В Р’Вµ Р В РЎвЂ”Р В Р’В°Р В Р’В·Р В РЎвЂ Р В Р’В»Р В РЎвЂўР В РЎвЂќР В Р’В°Р В Р’В»Р В Р вЂ¦Р В РЎвЂў Р В Р вЂ  Р В Р’В±Р РЋР вЂљР В Р’В°Р РЋРЎвЂњР В Р’В·Р РЋР вЂ°Р РЋР вЂљР В Р’В°. Р В РЎСџР В РЎвЂўР РЋР С“Р В Р’В»Р В Р’Вµ Р РЋРІР‚В°Р В Р’Вµ Р РЋР С“Р В Р’Вµ Р В Р вЂ Р РЋР вЂ°Р РЋР вЂљР В Р’В¶Р В Р’Вµ Р В РЎвЂќР РЋР вЂ°Р В РЎВ Supabase.</p>
-      </div>
+          <div class="chat" id="chatArea">
+            <div class="bubble">Welcome to SoulMatch. The old broken text is removed. This screen is clean UTF-8.</div>
+            <div class="bubble me">All buttons now route to clean panels: AI Echo, User, Admin, Health and Twin+ Network.</div>
+          </div>
 
-      <div class="form-box">
-        <input id="nameInput" placeholder="Р В Р’ВР В РЎВР В Р’Вµ" />
-        <input id="ageInput" placeholder="Р В РІР‚СљР В РЎвЂўР В РўвЂР В РЎвЂР В Р вЂ¦Р В РЎвЂ" />
-        <input id="cityInput" placeholder="Р В РІР‚СљР РЋР вЂљР В Р’В°Р В РўвЂ" />
-        <textarea id="bioInput" placeholder="Р В РЎв„ўР РЋР вЂљР В Р’В°Р РЋРІР‚С™Р В РЎвЂќР В РЎвЂў Р В РЎвЂўР В РЎвЂ”Р В РЎвЂР РЋР С“Р В Р’В°Р В Р вЂ¦Р В РЎвЂР В Р’Вµ Р В Р’В·Р В Р’В° Р РЋРІР‚С™Р В Р’ВµР В Р’В±..."></textarea>
-        <button onclick="saveProfile()">Save profile</button>
-        <div class="result" id="profileResult"></div>
-      </div>
-    </section>
+          <form class="composer" id="composer">
+            <input id="messageInput" placeholder="Type a message..." />
+            <button>Send</button>
+          </form>
+        </div>
+      </section>
 
-    <section class="page" id="daily">
-      <div class="page-title">
-        <h2>РЎР‚РЎСџРІР‚СњРўС’ Daily Questions</h2>
-        <p>Р В РІР‚в„ўР РЋР С“Р В Р’ВµР В РЎвЂќР В РЎвЂ Р В РўвЂР В Р’ВµР В Р вЂ¦ Р В РЎвЂ”Р В Р’В»Р В Р’В°Р РЋРІР‚С™Р РЋРІР‚С›Р В РЎвЂўР РЋР вЂљР В РЎВР В Р’В°Р РЋРІР‚С™Р В Р’В° Р В РўвЂР В Р’В°Р В Р вЂ Р В Р’В° 2Р Р†Р вЂљРІР‚Сљ5 Р В Р вЂ Р РЋР вЂ°Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋР С“Р В Р’В°, Р В Р’В·Р В Р’В° Р В РўвЂР В Р’В° Р В Р вЂ¦Р В Р’В°Р В РЎвЂ”Р РЋР вЂљР В Р’В°Р В Р вЂ Р В РЎвЂ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋРІР‚С›Р В РЎвЂР В Р’В»Р В Р’В° Р В РЎвЂ”Р В РЎвЂў-Р РЋРІР‚С™Р В РЎвЂўР РЋРІР‚РЋР В Р’ВµР В Р вЂ¦.</p>
-      </div>
+      <section class="page" id="matches">
+        <div class="simple-page">
+          <div class="simple-card">
+            <h1>Matches</h1>
+            <p>Here will be the matching system between profiles and AI Twins.</p>
+          </div>
+        </div>
+      </section>
 
-      <div class="daily-list">
-        <div>1. Р В РЎв„ўР В Р’В°Р В РЎвЂќР В Р вЂ Р В РЎвЂў Р РЋРІР‚С™Р В Р’Вµ Р В РЎвЂќР В Р’В°Р РЋР вЂљР В Р’В° Р В РўвЂР В Р’В° Р РЋР С“Р В Р’Вµ Р РЋРІР‚РЋР РЋРЎвЂњР В Р вЂ Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В Р’В°Р РЋРІвЂљВ¬ Р В РЎвЂР РЋР С“Р РЋРІР‚С™Р В РЎвЂР В Р вЂ¦Р РЋР С“Р В РЎвЂќР В РЎвЂ Р РЋР вЂљР В Р’В°Р В Р’В·Р В Р’В±Р РЋР вЂљР В Р’В°Р В Р вЂ¦?</div>
-        <div>2. Р В РЎв„ўР В Р’В°Р В РЎвЂќ Р РЋР вЂљР В Р’ВµР В Р’В°Р В РЎвЂ“Р В РЎвЂР РЋР вЂљР В Р’В°Р РЋРІвЂљВ¬, Р В РЎвЂќР В РЎвЂўР В РЎвЂ“Р В Р’В°Р РЋРІР‚С™Р В РЎвЂў Р В Р вЂ¦Р РЋР РЏР В РЎвЂќР В РЎвЂўР В РІвЂћвЂ“ Р РЋР С“Р В Р’Вµ Р В РЎвЂўР РЋРІР‚С™Р В РўвЂР РЋР вЂљР РЋР вЂ°Р В РЎвЂ”Р В Р вЂ¦Р В Р’Вµ?</div>
-        <div>3. Р В РЎв„ўР В Р’В°Р В РЎвЂќР В Р вЂ Р В РЎвЂў Р В Р’Вµ Р В РЎвЂ”Р В РЎвЂў-Р В Р вЂ Р В Р’В°Р В Р’В¶Р В Р вЂ¦Р В РЎвЂў Р В Р’В·Р В Р’В° Р РЋРІР‚С™Р В Р’ВµР В Р’В± Р Р†Р вЂљРІР‚Сњ Р РЋР С“Р РЋРІР‚С™Р РЋР вЂљР В Р’В°Р РЋР С“Р РЋРІР‚С™ Р В РЎвЂР В Р’В»Р В РЎвЂ Р РЋР С“Р В РЎвЂ”Р В РЎвЂўР В РЎвЂќР В РЎвЂўР В РІвЂћвЂ“Р РЋР С“Р РЋРІР‚С™Р В Р вЂ Р В РЎвЂР В Р’Вµ?</div>
-        <div>4. Р В РЎв„ўР В Р’В°Р В РЎвЂќР В Р вЂ Р В РЎвЂў Р В Р вЂ¦Р В Р’Вµ Р В Р’В±Р В РЎвЂ Р В РЎвЂ”Р РЋР вЂљР В РЎвЂўР РЋР С“Р РЋРІР‚С™Р В РЎвЂР В Р’В» Р В Р вЂ Р РЋР вЂ°Р В Р вЂ  Р В Р вЂ Р РЋР вЂљР РЋР вЂ°Р В Р’В·Р В РЎвЂќР В Р’В°?</div>
-        <div>5. Р В РЎв„ўР В Р’В°Р В РЎвЂќ Р В РЎвЂР В Р’В·Р В РЎвЂ“Р В Р’В»Р В Р’ВµР В Р’В¶Р В РўвЂР В Р’В° Р РЋРІР‚РЋР В РЎвЂўР В Р вЂ Р В Р’ВµР В РЎвЂќР РЋР вЂ°Р РЋРІР‚С™, Р В РЎвЂќР В РЎвЂўР В РІвЂћвЂ“Р РЋРІР‚С™Р В РЎвЂў Р В РЎвЂ”Р В Р’В°Р РЋР С“Р В Р вЂ Р В Р’В° Р В Р вЂ¦Р В Р’В° Р В Р вЂ Р РЋР вЂ°Р РЋРІР‚С™Р РЋР вЂљР В Р’ВµР РЋРІвЂљВ¬Р В Р вЂ¦Р В РЎвЂўР РЋРІР‚С™Р В РЎвЂў Р РЋРІР‚С™Р В РЎвЂ Р В РЎвЂ™Р В Р’В·?</div>
-      </div>
-    </section>
+      <section class="page" id="aitwin">
+        <iframe id="sfAiEchoFrame" src="/ai-echo.html?v=900" title="AI Echo"></iframe>
+      </section>
 
-  </main>
-</div>
+      <section class="page" id="profile">
+        <div class="simple-page">
+          <div class="simple-card">
+            <h1>Profile</h1>
+            <p>User profile, EchoProfile score, preferences and identity data.</p>
+          </div>
+        </div>
+      </section>
 
-<script src="app.js"></script>
-<script src="v78-fix.js"></script>
-  <script src="v81-fullscreen-ai.js"></script>
-  <script src="v81-hotfix.js?v=811"></script>
-  <script src="v82-drawer-tree.js?v=820"></script>
-  <script src="v83-user-admin-tree.js?v=830"></script>
-  <script src="final-admin-order.js?v=final"></script>
-  <script src="v85-admin-network.js?v=850"></script>
-  <script src="v87-user-split.js?v=870"></script>
-  <script src="v88-master-navigation.js?v=880"></script>
-  <script src="v89-final-buttons-tree.js?v=890"></script>
+      <section class="page" id="daily">
+        <div class="simple-page">
+          <div class="simple-card">
+            <h1>Daily</h1>
+            <p>Daily questions, prompts, matches and AI Twin growth.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const buttons = Array.from(document.querySelectorAll(".nav-btn"));
+    const pages = Array.from(document.querySelectorAll(".page"));
+    const drawerToggle = document.getElementById("drawerToggle");
+
+    function closeDrawer() {
+      document.body.classList.remove("drawer-open");
+      drawerToggle.textContent = "▶";
+    }
+
+    function openPage(id) {
+      pages.forEach(p => p.classList.remove("active"));
+      const page = document.getElementById(id);
+      if (page) page.classList.add("active");
+      buttons.forEach(b => b.classList.remove("active"));
+      closeDrawer();
+    }
+
+    function postToEcho(payload) {
+      openPage("aitwin");
+      setTimeout(() => {
+        const frame = document.getElementById("sfAiEchoFrame");
+        if (frame && frame.contentWindow) frame.contentWindow.postMessage(payload, "*");
+      }, 250);
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        if (btn.dataset.page) {
+          openPage(btn.dataset.page);
+          btn.classList.add("active");
+          return;
+        }
+
+        if (btn.dataset.echoPanel) {
+          postToEcho({ type: "V90_OPEN_PANEL", panel: btn.dataset.echoPanel });
+          return;
+        }
+
+        if (btn.dataset.userView) {
+          postToEcho({ type: "V90_USER_VIEW", view: btn.dataset.userView });
+          return;
+        }
+
+        if (btn.dataset.adminView) {
+          postToEcho({ type: "V90_ADMIN_VIEW", view: btn.dataset.adminView });
+          return;
+        }
+      });
+    });
+
+    drawerToggle.addEventListener("click", () => {
+      document.body.classList.toggle("drawer-open");
+      drawerToggle.textContent = document.body.classList.contains("drawer-open") ? "◀" : "▶";
+    });
+
+    document.getElementById("composer").addEventListener("submit", e => {
+      e.preventDefault();
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = "";
+      const div = document.createElement("div");
+      div.className = "bubble me";
+      div.textContent = text;
+      document.getElementById("chatArea").appendChild(div);
+    });
+  </script>
 </body>
 </html>
-
-

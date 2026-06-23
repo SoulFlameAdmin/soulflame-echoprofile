@@ -1,0 +1,18 @@
+﻿{
+  "name": "soulflame-echoprofile-v20",
+  "version": "1.0.0",
+  "description": "SoulFlame EchoProfile V20 Supabase Activation Command Center",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "env:audit": "node scripts/env-audit-v20.js",
+    "pin:generate": "node scripts/generate-admin-pin-v20.js",
+    "launch:readiness": "node scripts/launch-readiness-v20.js",
+    "export:clean": "node scripts/clean-launch-export-v20.js",
+    "mode:local": "powershell -ExecutionPolicy Bypass -File set-data-mode-local.ps1",
+    "mode:supabase": "powershell -ExecutionPolicy Bypass -File set-data-mode-supabase.ps1",
+    "supabase:check": "node scripts/supabase-check-v19.js"
+  },
+  "author": "SoulFlame",
+  "license": "MIT"
+}

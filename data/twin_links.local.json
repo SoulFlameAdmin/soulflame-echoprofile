@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sf_1782201132878_1ebbde64f54ad",
+    "createdAt": "2026-06-23T07:52:12.878Z",
+    "owner": {
+      "name": "m",
+      "instagram": "@instagram"
+    },
+    "friend": {
+      "name": "",
+      "instagram": "",
+      "twinId": ""
+    },
+    "status": "introduced",
+    "note": "Twin+ introduction created"
+  },
+  {
+    "id": "sf_1782201134863_6898e53a0569a",
+    "createdAt": "2026-06-23T07:52:14.863Z",
+    "owner": {
+      "name": "m",
+      "instagram": "@instagram"
+    },
+    "friend": {
+      "name": "",
+      "instagram": "",
+      "twinId": ""
+    },
+    "status": "introduced",
+    "note": "Twin+ introduction created"
+  },
+  {
+    "id": "sf_1782201135024_8b8df5c76ad3c",
+    "createdAt": "2026-06-23T07:52:15.024Z",
+    "owner": {
+      "name": "m",
+      "instagram": "@instagram"
+    },
+    "friend": {
+      "name": "",
+      "instagram": "",
+      "twinId": ""
+    },
+    "status": "introduced",
+    "note": "Twin+ introduction created"
+  },
+  {
+    "id": "sf_1782201135150_15e705d63dc91",
+    "createdAt": "2026-06-23T07:52:15.150Z",
+    "owner": {
+      "name": "m",
+      "instagram": "@instagram"
+    },
+    "friend": {
+      "name": "",
+      "instagram": "",
+      "twinId": ""
+    },
+    "status": "introduced",
+    "note": "Twin+ introduction created"
+  }
+]

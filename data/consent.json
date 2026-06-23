@@ -1,0 +1,5 @@
+﻿{
+  "consent_text": "Съгласни ли сте данните ви да се използват за създаването на вашия AI Twin?",
+  "consent_required": true,
+  "storage": "localStorage demo now, Supabase later"
+}

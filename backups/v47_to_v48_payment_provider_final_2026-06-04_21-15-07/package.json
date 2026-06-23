@@ -1,0 +1,10 @@
+{
+  "name": "soulflame-twins",
+  "version": "1.0.0",
+  "description": "AI Twin by SoulFlame V47 Deep Full Twin Report Engine",
+  "author": "SoulFlame",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

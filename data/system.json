@@ -1,0 +1,14 @@
+﻿{
+  "system": "SoulFlame AI Twin OS",
+  "version": "0.2",
+  "core_flow": [
+    "choose personal or business",
+    "fill profile data",
+    "accept consent",
+    "create twin core",
+    "open SoulFlame dashboard",
+    "connect EchoProfile",
+    "create AI Twin",
+    "expand to SoulMatch, Twins World and DAVID"
+  ]
+}

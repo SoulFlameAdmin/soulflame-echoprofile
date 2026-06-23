@@ -1,0 +1,350 @@
+[
+  {
+    "id": "sf_1782200524071_82b566915015c",
+    "createdAt": "2026-06-23T07:42:04.071Z",
+    "type": "ai_chat_message",
+    "payload": {
+      "message": "hi",
+      "profile": {
+        "name": "m",
+        "instagram": "@instagram",
+        "twinType": "Личен",
+        "echo": null,
+        "echoType": ""
+      },
+      "page": "ai-echo"
+    }
+  },
+  {
+    "id": "sf_1782200529547_83e6348a95fd9",
+    "createdAt": "2026-06-23T07:42:09.547Z",
+    "type": "ai_chat_message",
+    "payload": {
+      "message": "hi",
+      "profile": {
+        "name": "m",
+        "instagram": "@instagram",
+        "twinType": "Личен",
+        "echo": null,
+        "echoType": ""
+      },
+      "page": "ai-echo"
+    }
+  },
+  {
+    "id": "sf_1782200625614_6262437ffe746",
+    "createdAt": "2026-06-23T07:43:45.614Z",
+    "type": "ai_chat_message",
+    "payload": {
+      "message": "hi",
+      "profile": {
+        "name": "m",
+        "instagram": "@instagram",
+        "twinType": "Личен",
+        "echo": null,
+        "echoType": ""
+      },
+      "page": "ai-echo"
+    }
+  },
+  {
+    "id": "sf_1782200699327_f200c4093884f",
+    "createdAt": "2026-06-23T07:44:59.327Z",
+    "type": "admin_login_failed"
+  },
+  {
+    "id": "sf_1782200708372_8f8a6bd2e845f",
+    "createdAt": "2026-06-23T07:45:08.372Z",
+    "type": "admin_login_failed"
+  },
+  {
+    "id": "sf_1782200716848_b3a6f39c58c54",
+    "createdAt": "2026-06-23T07:45:16.848Z",
+    "type": "admin_login_failed"
+  },
+  {
+    "id": "sf_1782200722806_90edc55982865",
+    "createdAt": "2026-06-23T07:45:22.806Z",
+    "type": "admin_login_failed"
+  },
+  {
+    "id": "sf_1782200851994_c0550398bbdf3",
+    "createdAt": "2026-06-23T07:47:31.994Z",
+    "type": "admin_login_failed"
+  },
+  {
+    "id": "sf_1782200948174_56f9443c65a5b",
+    "createdAt": "2026-06-23T07:49:08.174Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782200968431_370b0d87ef9e8",
+    "createdAt": "2026-06-23T07:49:28.431Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782200973112_3f4216bd60dfe",
+    "createdAt": "2026-06-23T07:49:33.112Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782200998275_e24742ac776e1",
+    "createdAt": "2026-06-23T07:49:58.275Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782201098164_24c17c8374e2d",
+    "createdAt": "2026-06-23T07:51:38.164Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782201106545_fdda56bc4e0c2",
+    "createdAt": "2026-06-23T07:51:46.545Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "m",
+      "instagram": "@instagram",
+      "connector": "Facebook",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782201116903_f43bd85a413da",
+    "createdAt": "2026-06-23T07:51:56.903Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "m",
+      "instagram": "@instagram",
+      "connector": "GitHub",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782201119659_80fe63123fd27",
+    "createdAt": "2026-06-23T07:51:59.659Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "m",
+      "instagram": "@instagram",
+      "connector": "Telegram",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782201121040_67b27826eff25",
+    "createdAt": "2026-06-23T07:52:01.040Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "m",
+      "instagram": "@instagram",
+      "connector": "Snapchat",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782201124886_4b7315587efba",
+    "createdAt": "2026-06-23T07:52:04.886Z",
+    "type": "connector_update",
+    "payload": {
+      "name": "m",
+      "instagram": "@instagram",
+      "connector": "Instagram",
+      "status": "prepared"
+    }
+  },
+  {
+    "id": "sf_1782201132880_eb21f57dd2294",
+    "createdAt": "2026-06-23T07:52:12.880Z",
+    "type": "twin_plus_link",
+    "payload": {
+      "id": "sf_1782201132878_1ebbde64f54ad",
+      "createdAt": "2026-06-23T07:52:12.878Z",
+      "owner": {
+        "name": "m",
+        "instagram": "@instagram"
+      },
+      "friend": {
+        "name": "",
+        "instagram": "",
+        "twinId": ""
+      },
+      "status": "introduced",
+      "note": "Twin+ introduction created"
+    }
+  },
+  {
+    "id": "sf_1782201134865_00a04d063239",
+    "createdAt": "2026-06-23T07:52:14.865Z",
+    "type": "twin_plus_link",
+    "payload": {
+      "id": "sf_1782201134863_6898e53a0569a",
+      "createdAt": "2026-06-23T07:52:14.863Z",
+      "owner": {
+        "name": "m",
+        "instagram": "@instagram"
+      },
+      "friend": {
+        "name": "",
+        "instagram": "",
+        "twinId": ""
+      },
+      "status": "introduced",
+      "note": "Twin+ introduction created"
+    }
+  },
+  {
+    "id": "sf_1782201135026_75746bfcb32d1",
+    "createdAt": "2026-06-23T07:52:15.026Z",
+    "type": "twin_plus_link",
+    "payload": {
+      "id": "sf_1782201135024_8b8df5c76ad3c",
+      "createdAt": "2026-06-23T07:52:15.024Z",
+      "owner": {
+        "name": "m",
+        "instagram": "@instagram"
+      },
+      "friend": {
+        "name": "",
+        "instagram": "",
+        "twinId": ""
+      },
+      "status": "introduced",
+      "note": "Twin+ introduction created"
+    }
+  },
+  {
+    "id": "sf_1782201135152_c701954f25965",
+    "createdAt": "2026-06-23T07:52:15.152Z",
+    "type": "twin_plus_link",
+    "payload": {
+      "id": "sf_1782201135150_15e705d63dc91",
+      "createdAt": "2026-06-23T07:52:15.150Z",
+      "owner": {
+        "name": "m",
+        "instagram": "@instagram"
+      },
+      "friend": {
+        "name": "",
+        "instagram": "",
+        "twinId": ""
+      },
+      "status": "introduced",
+      "note": "Twin+ introduction created"
+    }
+  },
+  {
+    "id": "sf_1782202376854_d4548552cb881",
+    "createdAt": "2026-06-23T08:12:56.854Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782202388472_0de3545435e86",
+    "createdAt": "2026-06-23T08:13:08.472Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782202394219_a733d0fd08da4",
+    "createdAt": "2026-06-23T08:13:14.219Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782202397131_c81c08c599b25",
+    "createdAt": "2026-06-23T08:13:17.131Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782202430708_91ed4bbe56b3d",
+    "createdAt": "2026-06-23T08:13:50.708Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782202453116_d8f36b9f882c9",
+    "createdAt": "2026-06-23T08:14:13.116Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782202455081_732240747889d",
+    "createdAt": "2026-06-23T08:14:15.081Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782204837594_a87c8464e1625",
+    "createdAt": "2026-06-23T08:53:57.594Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782204943400_d260183e1ee15",
+    "createdAt": "2026-06-23T08:55:43.400Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207374710_2a69748bff7cb",
+    "createdAt": "2026-06-23T09:36:14.710Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207415054_5c76a3c688a11",
+    "createdAt": "2026-06-23T09:36:55.054Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207417719_ba498398acdf9",
+    "createdAt": "2026-06-23T09:36:57.719Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207467151_2a664798b229e",
+    "createdAt": "2026-06-23T09:37:47.151Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207472459_d267b88490693",
+    "createdAt": "2026-06-23T09:37:52.459Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207477092_dc0c9e481a3ac",
+    "createdAt": "2026-06-23T09:37:57.092Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207479623_320ca878cf136",
+    "createdAt": "2026-06-23T09:37:59.623Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782207482871_123f0ff87e9d8",
+    "createdAt": "2026-06-23T09:38:02.871Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782209854293_572eea84b2bee",
+    "createdAt": "2026-06-23T10:17:34.293Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782209854390_ebae68fb8f6de",
+    "createdAt": "2026-06-23T10:17:34.390Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782209859323_4583f9f2064be",
+    "createdAt": "2026-06-23T10:17:39.323Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782209859451_7526a9b616df7",
+    "createdAt": "2026-06-23T10:17:39.451Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782209861944_f64cd58dd33b",
+    "createdAt": "2026-06-23T10:17:41.944Z",
+    "type": "admin_login_success"
+  },
+  {
+    "id": "sf_1782209862046_740b39eec208b",
+    "createdAt": "2026-06-23T10:17:42.046Z",
+    "type": "admin_login_success"
+  }
+]

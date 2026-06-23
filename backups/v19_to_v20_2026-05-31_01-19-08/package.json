@@ -1,0 +1,14 @@
+﻿{
+  "name": "soulflame-echoprofile-v17",
+  "version": "1.0.0",
+  "description": "SoulFlame EchoProfile V17 Online Deploy Prep + Business Hardening",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check:production": "node scripts/production-check.js",
+    "export:cloud": "node scripts/export-cloud-ready.js",
+    "backup": "powershell -ExecutionPolicy Bypass -File backup-data.ps1"
+  },
+  "author": "SoulFlame",
+  "license": "MIT"
+}
