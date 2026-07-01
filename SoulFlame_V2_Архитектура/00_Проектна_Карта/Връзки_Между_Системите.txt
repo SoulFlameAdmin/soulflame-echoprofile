@@ -1,0 +1,74 @@
+ВРЪЗКИ МЕЖДУ СИСТЕМИТЕ
+
+Auth е свързан с:
+- Intro
+- Profile
+- Settings
+- Database / Supabase
+- Security
+- Connectors
+
+Intro е свързан с:
+- Auth
+- Home / SoulMatch Shell
+- AI Twin type
+- localStorage
+
+Home / SoulMatch Shell е свързан с:
+- Navigation
+- Messages
+- Matches
+- AI Twin iframe
+- Profile
+- Daily
+
+Messages е свързан с:
+- Profile
+- Matches
+- Notifications
+- AI reply suggestions
+- Database
+
+Matches е свързан с:
+- EchoProfile
+- Profile
+- Match Matrix
+- Danger Zones
+- Messages
+
+AI Twin е свързан с:
+- Profile
+- EchoProfile
+- GPT Chat
+- Memory
+- Future Twin
+- Connectors
+- Health
+- Admin
+
+EchoProfile е свързан с:
+- Questions
+- Scoring Engine
+- Echo Result
+- Profile
+- Match
+- AI Twin
+- Future Twin
+
+Admin е свързан с:
+- My Twin
+- All Twins
+- Payments
+- Connections
+- Bugs
+- Health
+- System Raw
+
+Database / Supabase е свързан с всички реални данни.
+
+Security пази:
+- Auth
+- Admin Pin
+- Secret keys
+- Supabase policies
+- AI memory permissions.
