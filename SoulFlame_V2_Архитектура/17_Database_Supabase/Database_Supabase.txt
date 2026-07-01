@@ -1,0 +1,27 @@
+DATABASE / SUPABASE
+
+Какво прави:
+Database описва реалната база за SoulFlame V2.
+
+Основни таблици:
+- users
+- profiles
+- echo_answers
+- echo_results
+- matches
+- messages
+- ai_twins
+- connectors
+- payments
+- twin_connections
+- events
+- notifications
+- settings
+- storage
+- policies
+
+Свързано с:
+Auth, Profile, EchoProfile, Match, Messages, AI Twin, Admin, Payments.
+
+Важно:
+Може да се ползва същият Supabase project, но е по-безопасно V2 таблиците да са отделни или добре мигрирани.
