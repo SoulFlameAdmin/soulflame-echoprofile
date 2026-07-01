@@ -1,0 +1,25 @@
+AI TWIN
+
+Какво прави:
+AI Twin е централният продукт на SoulFlame. Това е дигитално копие на човека, което започва от профил, EchoProfile, памет, чат, бъдеща версия и avatar.
+
+Основни части:
+- AI Twin Home
+- Twin Profile
+- EchoProfile Panel
+- GPT Chat
+- User Panel
+- Connectors Panel
+- Twin+ Network
+- AI Twin Health
+- Avatar Twin
+- Voice Twin
+- Memory Twin
+- Future Self
+- DAVID Agent
+
+Свързано с:
+Profile, EchoProfile, Memory, Chat, Connectors, Admin, Database, OpenAI.
+
+Важно:
+AI Twin не е просто чат. Той е центърът на личността, паметта, бъдещето и връзките.
