@@ -1,0 +1,50 @@
+ПРОЕКТНА КАРТА
+
+SoulFlame V2 се дели на 35 главни системи.
+Всяка система има собствена папка, собствено описание и връзки към другите системи.
+
+Главни системи:
+01 Анализ от GitHub
+02 Auth
+03 Intro
+04 Home / SoulMatch Shell
+05 Navigation
+06 Messages
+07 Matches
+08 AI Twin
+09 EchoProfile
+10 Future Twin
+11 Memory
+12 AR EchoCard
+13 Profile
+14 Settings / Privacy
+15 Admin
+16 Data
+17 Database / Supabase
+18 Connectors
+19 Payments
+20 Security
+21 Assets
+22 Deploy
+23 Tests
+24 CMD Tree
+25 API и Сървър
+26 Дизайн Система
+27 Бизнес Модел
+28 Правни Документи и Поверителност
+29 Аналитика
+30 Текстове на сайта
+31 Известия
+32 Търсене
+33 Логове и Наблюдение
+34 Резервни Копия
+35 Пътна Карта
+
+Път на потребителя:
+Intro -> Личен/Бизнес Twin -> Login -> SoulMatch Shell -> Messages / Matches / AI Twin / Profile -> EchoProfile -> Future Twin -> Full Twin -> Payment -> Admin.
+
+Път на данните:
+UI -> localStorage -> API -> local JSON -> Supabase -> AI -> UI.
+
+Краен принцип:
+Всяка нова функция първо се описва тук, после се прави код.
