@@ -1,0 +1,19 @@
+ASSETS / ВИЗУАЛНИ ФАЙЛОВЕ
+
+Какво прави:
+Assets пази всички визуални файлове.
+
+Основни части:
+- Logo
+- Icons
+- Avatars
+- Profile Photos
+- Backgrounds
+- AR Models
+- Loading Animations
+
+Свързано с:
+Profile, AI Twin, AR EchoCard, UI Design System, Deploy.
+
+Важно:
+Снимки и assets не се хвърлят произволно. Всеки файл трябва да знае към кой модул принадлежи.
