@@ -1,0 +1,21 @@
+MEMORY / ПАМЕТ
+
+Какво прави:
+Memory пази важните данни и събития около човека и неговия AI Twin.
+
+Основни части:
+- Profile Memory
+- Chat Memory
+- Event Log
+- Connector Memory
+- Payment Memory
+- Twin Link Memory
+- Conversation Memory
+- Data Export
+- Data Delete
+
+Свързано с:
+AI Twin, EchoProfile, Messages, Admin, Database, Security.
+
+Важно:
+В MVP паметта може да е localStorage / JSON. В реална версия трябва да мине към Supabase с permissions.
