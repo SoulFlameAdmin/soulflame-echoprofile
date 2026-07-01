@@ -1,0 +1,20 @@
+DEPLOY
+
+Какво прави:
+Deploy описва как SoulFlame се качва онлайн.
+
+Основни части:
+- GitHub
+- Vercel
+- Environment Variables
+- Production URL
+- Preview URL
+- Supabase Redirects
+- Deploy Checklist
+- Rollback
+
+Свързано с:
+GitHub, Vercel, Supabase, Auth, Security, API.
+
+Важно:
+Преди deploy се проверява login, routes, environment variables, API health и дали няма счупен redirect.
