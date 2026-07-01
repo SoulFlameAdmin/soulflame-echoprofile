@@ -1,0 +1,37 @@
+GITHUB АНАЛИЗ НА СЪЩЕСТВУВАЩИЯ ПРОЕКТ
+
+Основно repo за работа:
+SoulFlameAdmin/soulflame-echoprofile
+
+Свързани repos / части на екосистемата:
+- SoulFlameAdmin/Soulflame
+- SoulFlameAdmin/SoulMatch
+- SoulFlameAdmin/SF-chat
+- SoulFlameAdmin/soulflame-ar-card
+- SoulFlameAdmin/soulflame-echoprofile
+- SoulFlameAdmin/soulflame-twins
+- SoulFlameAdmin/soulflame-twin
+
+Какво има в текущия проект:
+- Node / Express backend
+- app.js като главен сървър
+- index.html за AI Twin onboarding
+- Soulmatch/index.html като shell за Messages, Matches, AI Twin, Profile, Daily
+- ai-echo.html като AI Twin център
+- localStorage login
+- connector избори
+- local JSON storage
+- API health
+- profile save
+- connectors save
+- payments
+- twin connections
+- AI chat fallback / OpenAI
+- admin panel
+- AI Twin health
+
+Главен проблем:
+Твърде много версии и пачове са натрупани в работещия проект. Това е нормално за MVP, но V2 трябва да има ясна архитектура.
+
+Решение:
+Не се трие старото. Създава се българска архитектурна карта, после постепенно се пренаписва чисто.
