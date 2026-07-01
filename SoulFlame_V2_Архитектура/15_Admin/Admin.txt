@@ -1,0 +1,21 @@
+ADMIN
+
+Какво прави:
+Admin управлява вътрешната система за My Twin, All Twins, Connect Talk, Network, Bugs, Payments, Health и System Raw.
+
+Основни части:
+- My Twin
+- All Twins
+- Connect Talk
+- Network
+- Bugs
+- Payments
+- Admin Health
+- System Raw
+- Admin Pin
+
+Свързано с:
+AI Twin, Database, Payments, Connections, Health, Security.
+
+Важно:
+Admin не трябва да е публичен. Трябва да има защита, роли и ясни логове.
