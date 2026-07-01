@@ -1,0 +1,22 @@
+API И СЪРВЪР
+
+Какво прави:
+Описва всички backend routes, server logic, заявки, отговори и грешки.
+
+Основни части:
+- Главен Сървър
+- Проверка на системата
+- Запис на профил
+- AI Чат API
+- Connector API
+- Плащания API
+- Отключване на Full Twin
+- Пълен Доклад
+- Admin API
+- API Грешки
+
+Свързано с:
+Frontend, AI Twin, Profile, Database, Payments, Admin, OpenAI, Supabase.
+
+Важно:
+Сегашният app.js прави много неща. Във V2 API частите трябва да се разделят ясно.
