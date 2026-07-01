@@ -1,0 +1,23 @@
+MATCHES / СЪВПАДЕНИЯ
+
+Какво прави:
+Matches управлява SoulMatch съвпаденията между хората.
+
+Основни части:
+- Match List
+- Match Card
+- Match Filters
+- Compatibility Score
+- Match Matrix
+- Fatal Match
+- Danger Zones
+- Match Reason
+
+Свързано с:
+EchoProfile, Profile, AI Twin, Messages, Admin.
+
+Данни:
+user_a, user_b, score, echo_difference, attraction_reason, danger_zones, status.
+
+Важно:
+SoulMatch не трябва да е обикновен dating swipe. Уникалното е обяснението защо двама души се привличат или сблъскват.
