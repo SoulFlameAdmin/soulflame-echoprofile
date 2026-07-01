@@ -1,1799 +1,353 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="bg">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>AI Twins by SoulFlame</title>
-  <meta name="description" content="SoulFlame AI Twin OS — personal or business AI Twin onboarding.">
-  <meta name="theme-color" content="#000000">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SoulFlame V2 Unified</title>
+  <meta name="description" content="SoulFlame V2 unified working site: SoulMatch, EchoProfile, AI Twin, Future Twin, AR EchoCard." />
+  <meta name="theme-color" content="#050816" />
   <style>
     :root {
-      --black:#000000;
-      --bg0:#03040b;
-      --bg1:#070817;
-      --bg2:#111a46;
-      --panel:rgba(255,255,255,.065);
+      --bg:#050816;
+      --panel:rgba(255,255,255,.075);
       --panel2:rgba(255,255,255,.045);
       --line:rgba(255,255,255,.13);
       --text:#f8f7ff;
-      --soft:#b9c3e8;
-      --muted:#7f8ab4;
+      --soft:#b8c2e8;
+      --muted:#7e8ab5;
+      --blue:#2563ff;
       --cyan:#00eaff;
       --violet:#7c3cff;
       --pink:#ff4ff3;
       --green:#23e6a8;
       --gold:#ffd166;
-      --headerH:74px;
-      --radius:28px;
+      --danger:#ff5572;
+      --radius:26px;
     }
-
     * { box-sizing:border-box; }
-
-    html, body {
-      margin:0;
-      min-height:100%;
-      background:#000;
-      color:var(--text);
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-    }
-
+    html, body { margin:0; min-height:100%; background:#000; color:var(--text); font-family:Inter, system-ui, Segoe UI, Arial, sans-serif; overflow-x:hidden; }
     button, input, textarea, select { font:inherit; }
-    a { color:inherit; text-decoration:none; }
-
+    button { cursor:pointer; }
     .hidden { display:none !important; }
-
-    .fadeIn {
-      animation: fadeIn .72s ease both;
-    }
-
-    .fadeOut {
-      animation: fadeOut .58s ease both;
-    }
-
-    @keyframes fadeIn {
-      from { opacity:0; transform:translateY(18px) scale(.985); filter:blur(10px); }
-      to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
-    }
-
-    @keyframes fadeOut {
-      from { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
-      to { opacity:0; transform:translateY(-16px) scale(.985); filter:blur(10px); }
-    }
-
-    @keyframes cardFloat {
-      0% { transform:translateY(18px); opacity:0; filter:blur(10px); }
-      100% { transform:translateY(0); opacity:1; filter:blur(0); }
-    }
-
-    @keyframes pulseGlow {
-      0%,100% { box-shadow:0 0 0 rgba(0,234,255,0); }
-      50% { box-shadow:0 0 42px rgba(124,60,255,.24), 0 0 80px rgba(0,234,255,.10); }
-    }
-
-    /* ========================================================
-       ONBOARDING BLACK SCREENS
-    ======================================================== */
-
-    .onboardScreen {
-      min-height:100dvh;
+    .bg {
+      min-height:100vh;
       background:
-        radial-gradient(circle at 18% 14%, rgba(124,60,255,.16), transparent 30rem),
-        radial-gradient(circle at 82% 70%, rgba(0,234,255,.10), transparent 32rem),
-        #000;
-      display:grid;
-      place-items:center;
-      padding:24px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .onboardScreen::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
-      background-size:52px 52px;
-      mask-image:radial-gradient(circle at center, black, transparent 68%);
-      opacity:.5;
-      pointer-events:none;
-    }
-
-    .onboardShell {
-      width:min(1120px, 94vw);
-      position:relative;
-      z-index:2;
-      display:grid;
-      gap:28px;
-    }
-
-    .onboardBrand {
-      text-align:center;
-      display:grid;
-      gap:12px;
-      justify-items:center;
-    }
-
-    .soulLogo {
-      width:76px;
-      height:76px;
-      border-radius:25px;
-      background:
-        radial-gradient(circle at 30% 24%, #fff, transparent 15%),
-        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
-      box-shadow:0 0 50px rgba(124,60,255,.35);
-    }
-
-    .onboardBrand h1 {
-      margin:0;
-      font-size:clamp(34px, 6vw, 76px);
-      line-height:.9;
-      letter-spacing:-3px;
-      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .onboardBrand p {
-      margin:0;
-      color:var(--soft);
-      font-size:clamp(15px, 2vw, 20px);
-      line-height:1.5;
-    }
-
-    .choiceGrid {
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:18px;
-      margin-top:12px;
-    }
-
-    .choiceBox {
-      min-height:250px;
-      border:1px solid rgba(255,255,255,.13);
-      background:
-        radial-gradient(circle at 20% 12%, rgba(0,234,255,.10), transparent 30%),
-        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
-      border-radius:34px;
-      padding:28px;
-      color:white;
-      cursor:pointer;
-      text-align:left;
-      overflow:hidden;
-      position:relative;
-      opacity:0;
-      animation:cardFloat .72s ease forwards;
-      transition:transform .22s ease, border-color .22s ease, background .22s ease;
-    }
-
-    .choiceBox:nth-child(2) {
-      animation-delay:.16s;
-      background:
-        radial-gradient(circle at 20% 12%, rgba(255,79,243,.12), transparent 30%),
-        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
-    }
-
-    .choiceBox:hover {
-      transform:translateY(-8px) scale(1.012);
-      border-color:rgba(0,234,255,.35);
-      background:
-        radial-gradient(circle at 20% 12%, rgba(0,234,255,.14), transparent 34%),
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
-    }
-
-    .choiceBox::after {
-      content:"";
-      position:absolute;
-      right:-80px;
-      bottom:-80px;
-      width:220px;
-      height:220px;
-      border-radius:50%;
-      background:rgba(124,60,255,.14);
-      filter:blur(4px);
-    }
-
-    .choiceBox small {
-      display:inline-flex;
-      color:var(--cyan);
-      font-weight:950;
-      letter-spacing:.9px;
-      text-transform:uppercase;
-      margin-bottom:44px;
-    }
-
-    .choiceBox h2 {
-      position:relative;
-      z-index:2;
-      margin:0 0 12px;
-      font-size:clamp(30px, 4vw, 52px);
-      letter-spacing:-2px;
-      line-height:.95;
-    }
-
-    .choiceBox p {
-      position:relative;
-      z-index:2;
-      margin:0;
-      color:var(--soft);
-      line-height:1.6;
-      max-width:520px;
-    }
-
-    .loginCard {
-      width:min(520px, 94vw);
-      margin:auto;
-      border:1px solid rgba(255,255,255,.13);
-      background:
-        radial-gradient(circle at 18% 12%, rgba(124,60,255,.18), transparent 30%),
-        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
-      border-radius:34px;
-      padding:30px;
-      box-shadow:0 28px 90px rgba(0,0,0,.48);
-      animation:pulseGlow 2.4s ease infinite;
-    }
-
-    .loginCard h2 {
-      margin:0 0 8px;
-      font-size:clamp(32px, 5vw, 54px);
-      letter-spacing:-2px;
-      line-height:.95;
-    }
-
-    .loginCard p {
-      margin:0 0 24px;
-      color:var(--soft);
-      line-height:1.5;
-    }
-
-    .loginFields {
-      display:grid;
-      gap:12px;
-    }
-
-    .loginFields input {
-      width:100%;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(0,0,0,.42);
-      color:var(--text);
-      border-radius:20px;
-      padding:16px 17px;
-      outline:0;
-      font-size:16px;
-    }
-
-    .loginBtn {
-      margin-top:16px;
-      width:100%;
-      border:0;
-      color:white;
-      background:linear-gradient(135deg, var(--violet), #3f8dff);
-      border-radius:20px;
-      padding:16px 18px;
-      font-weight:950;
-      cursor:pointer;
-      box-shadow:0 18px 44px rgba(124,60,255,.28);
-    }
-
-    .introTextScreen {
-      min-height:100dvh;
-      display:grid;
-      place-items:center;
-      background:#000;
-      padding:24px;
-      text-align:center;
-    }
-
-    .introTextScreen h1 {
-      margin:0;
-      font-size:clamp(38px, 7vw, 96px);
-      line-height:.9;
-      letter-spacing:-4px;
-      background:linear-gradient(90deg, #fff, var(--cyan), var(--violet), var(--pink));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .introTextScreen p {
-      margin:18px 0 0;
-      color:var(--soft);
-      font-size:clamp(16px, 2vw, 22px);
-    }
-
-    /* ========================================================
-       CURRENT CHAT APP
-    ======================================================== */
-
-    .appScreen {
-      min-height:100dvh;
-      background:
-        radial-gradient(circle at 16% 6%, rgba(124,60,255,.28), transparent 34rem),
-        radial-gradient(circle at 82% 8%, rgba(0,234,255,.16), transparent 32rem),
-        linear-gradient(135deg, var(--bg0), var(--bg1) 48%, var(--bg2));
-      color:var(--text);
-    }
-
-    .screen {
-      min-height:100dvh;
-      padding:14px;
-      display:grid;
-      grid-template-rows:var(--headerH) calc(100dvh - var(--headerH) - 42px);
-      gap:14px;
-      overflow:hidden;
-    }
-
-    .topbar {
-      display:grid;
-      grid-template-columns:auto 1fr auto;
-      align-items:center;
-      gap:12px;
-      border:1px solid var(--line);
-      background:rgba(5,6,17,.82);
-      backdrop-filter:blur(18px);
-      border-radius:26px;
-      padding:10px 12px;
-      box-shadow:0 16px 50px rgba(0,0,0,.25);
-      min-width:0;
-    }
-
-    .brand {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0;
-    }
-
-    .logo {
-      width:46px;
-      height:46px;
-      border-radius:17px;
-      background:
-        radial-gradient(circle at 30% 22%, #fff, transparent 15%),
-        linear-gradient(135deg, var(--cyan), var(--violet), var(--pink));
-      box-shadow:0 0 32px rgba(124,60,255,.32);
-      flex:0 0 auto;
-    }
-
-    .brandText {
-      display:grid;
-      line-height:1.02;
-    }
-
-    .brandText strong {
-      font-weight:950;
-      letter-spacing:-.6px;
-      white-space:nowrap;
-    }
-
-    .brandText span {
-      color:var(--muted);
-      font-size:12px;
-      font-weight:850;
-    }
-
-    .centerTitle {
-      text-align:center;
-      font-weight:950;
-      letter-spacing:-1px;
-      font-size:clamp(20px, 2.4vw, 34px);
-      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .topActions {
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      gap:8px;
-    }
-
-    .pill, .iconBtn, .btn {
-      border:1px solid rgba(255,255,255,.13);
-      color:var(--text);
-      background:rgba(255,255,255,.075);
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:950;
-      transition:transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-
-    .pill {
-      padding:11px 14px;
-      font-size:13px;
-    }
-
-    .iconBtn {
-      width:48px;
-      height:48px;
-      display:inline-grid;
-      place-items:center;
-      font-size:22px;
-    }
-
-    .pill:hover, .iconBtn:hover, .btn:hover {
-      transform:translateY(-1px);
-      background:rgba(255,255,255,.11);
-      border-color:rgba(0,234,255,.28);
-    }
-
-    .chatOnly {
-      min-height:0;
-      height:100%;
-      display:grid;
-    }
-
-    .chatPanel {
-      height:100%;
-      min-height:0;
-      width:100%;
-      border:1px solid var(--line);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(124,60,255,.14), transparent 34%),
-        radial-gradient(circle at 88% 0%, rgba(0,234,255,.08), transparent 35%),
-        linear-gradient(180deg, rgba(255,255,255,.076), rgba(255,255,255,.04));
-      border-radius:var(--radius);
-      box-shadow:0 28px 90px rgba(0,0,0,.42);
-      overflow:hidden;
-      display:grid;
-      grid-template-rows:auto 1fr auto;
-    }
-
-    .panelHead {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:17px 20px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.18);
-    }
-
-    .panelHeadTitle strong {
-      display:block;
-      font-size:18px;
-      letter-spacing:-.4px;
-    }
-
-    .panelHeadTitle span {
-      color:var(--muted);
-      font-size:12px;
-      font-weight:850;
-    }
-
-    .statusDot {
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color:#bfffe9;
-      font-size:12px;
-      font-weight:950;
-      border:1px solid rgba(35,230,168,.22);
-      background:rgba(35,230,168,.07);
-      padding:8px 10px;
-      border-radius:999px;
-      white-space:nowrap;
-    }
-
-    .statusDot:before {
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--green);
-      box-shadow:0 0 14px var(--green);
-    }
-
-    .messages {
-      min-height:0;
-      overflow-y:auto;
-      padding:24px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      scrollbar-width:thin;
-      scrollbar-color:rgba(255,255,255,.22) transparent;
-    }
-
-    .message {
-      width:min(78%, 940px);
-      padding:15px 16px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:22px;
-      line-height:1.56;
-      color:var(--soft);
-      white-space:pre-wrap;
-      animation:msgIn .22s ease both;
-    }
-
-    @keyframes msgIn {
-      from { opacity:0; transform:translateY(6px); }
-      to { opacity:1; transform:translateY(0); }
-    }
-
-    .message.bot {
-      align-self:flex-start;
-      background:rgba(255,255,255,.064);
-      border-top-left-radius:8px;
-    }
-
-    .message.user {
-      align-self:flex-end;
-      background:linear-gradient(135deg, rgba(124,60,255,.36), rgba(0,234,255,.12));
-      border-color:rgba(0,234,255,.24);
-      border-top-right-radius:8px;
-      color:#eef5ff;
-    }
-
-    .quickActions {
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:11px;
-    }
-
-    .quickActions button {
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(255,255,255,.08);
-      color:var(--text);
-      border-radius:999px;
-      padding:9px 11px;
-      cursor:pointer;
-      font-size:13px;
-      font-weight:900;
-    }
-
-    .composerWrap {
-      padding:16px;
-      border-top:1px solid rgba(255,255,255,.10);
-      background:rgba(0,0,0,.18);
-    }
-
-    .composer {
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-      align-items:end;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(0,0,0,.27);
-      border-radius:24px;
-      padding:10px;
-      width:min(1180px, 100%);
-      margin:0 auto;
-    }
-
-    .composer textarea {
-      width:100%;
-      min-height:46px;
-      max-height:130px;
-      resize:none;
-      border:0;
-      outline:0;
-      background:transparent;
-      color:var(--text);
-      padding:12px 13px;
-      line-height:1.35;
-    }
-
-    .sendBtn {
-      width:48px;
-      height:48px;
-      border:0;
-      border-radius:17px;
-      background:linear-gradient(135deg, var(--violet), #3f8dff);
-      color:white;
-      cursor:pointer;
-      font-size:21px;
-      font-weight:950;
-      box-shadow:0 12px 30px rgba(124,60,255,.25);
-    }
-
-    /* Drawer */
-    .drawerOverlay {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.58);
-      z-index:80;
-    }
-
-    .drawerOverlay.open { display:block; }
-
-    .drawer {
-      position:fixed;
-      top:0;
-      right:0;
-      width:min(640px, 94vw);
-      height:100dvh;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(0,234,255,.12), transparent 30%),
-        linear-gradient(180deg, rgba(12,15,38,.98), rgba(5,6,17,.985));
-      border-left:1px solid rgba(255,255,255,.14);
-      z-index:90;
-      transform:translateX(105%);
-      transition:transform .22s ease;
-      display:grid;
-      grid-template-rows:auto 1fr;
-      box-shadow:-20px 0 80px rgba(0,0,0,.45);
-    }
-
-    .drawer.open { transform:translateX(0); }
-
-    .drawerHead {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:16px;
-      border-bottom:1px solid rgba(255,255,255,.12);
-    }
-
-    .drawerBody {
-      overflow-y:auto;
-      padding:16px;
-      display:grid;
-      gap:14px;
-      align-content:start;
-    }
-
-    .bigLogoBlock {
-      min-height:126px;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      border:1px solid rgba(255,255,255,.13);
-      background:
-        radial-gradient(circle at 50% 10%, rgba(255,255,255,.10), transparent 22%),
-        linear-gradient(135deg, rgba(0,234,255,.10), rgba(124,60,255,.16), rgba(255,79,243,.10));
-      border-radius:24px;
-      padding:18px;
-    }
-
-    .bigLogoBlock h1 {
-      margin:0;
-      font-size:clamp(32px, 5vw, 60px);
-      letter-spacing:-2px;
-      line-height:.92;
-      background:linear-gradient(90deg, var(--cyan), #8bb7ff, var(--violet), var(--pink));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-
-    .bigLogoBlock p {
-      margin:10px 0 0;
-      color:var(--soft);
-      line-height:1.45;
-    }
-
-    .optionGrid {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .optionCard {
-      min-height:108px;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(255,255,255,.052);
-      border-radius:22px;
-      padding:15px;
-      cursor:pointer;
-      transition:transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-
-    .optionCard:hover {
-      transform:translateY(-2px);
-      background:rgba(255,255,255,.085);
-      border-color:rgba(0,234,255,.25);
-    }
-
-    .optionCard b {
-      display:block;
-      margin-bottom:7px;
-      font-size:16px;
-    }
-
-    .optionCard span {
-      color:var(--soft);
-      font-size:13px;
-      line-height:1.42;
-      display:block;
-    }
-
-    .formCard {
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(0,0,0,.18);
-      border-radius:24px;
-      padding:16px;
-    }
-
-    .formCard h2 {
-      margin:0 0 10px;
-      letter-spacing:-.8px;
-      font-size:24px;
-    }
-
-    .formGrid {
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-
-    .field { display:grid; gap:6px; }
-
-    label {
-      color:var(--muted);
-      font-size:12px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.5px;
-    }
-
-    input, select {
-      width:100%;
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(0,0,0,.25);
-      color:var(--text);
-      border-radius:16px;
-      padding:13px 14px;
-      outline:0;
-    }
-
-    .signalGrid {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:8px;
-      margin-top:10px;
-    }
-
-    .signal {
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(255,255,255,.055);
-      color:var(--text);
-      border-radius:16px;
-      padding:10px 9px;
-      cursor:pointer;
-      font-size:13px;
-      font-weight:900;
-      text-align:center;
-      user-select:none;
-    }
-
-    .signal.active {
-      background:linear-gradient(135deg, rgba(124,60,255,.8), rgba(0,234,255,.42));
-      border-color:rgba(0,234,255,.35);
-    }
-
-    .actions {
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .btn {
-      padding:13px 14px;
-      border-radius:18px;
-      text-align:center;
-    }
-
-    .btn.primary {
-      border:0;
-      background:linear-gradient(135deg, var(--violet), #3f8dff);
-    }
-
-    .btn.gold {
-      border:0;
-      background:linear-gradient(135deg, #ffb703, #ff4ff3);
-    }
-
-    .btn.green {
-      border:0;
-      background:linear-gradient(135deg, #23e6a8, #00eaff);
-      color:#071017;
-    }
-
-    .btn.red {
-      border:1px solid rgba(255,80,120,.28);
-      background:rgba(255,80,120,.12);
-      color:#ffd8e1;
-    }
-
-    .unlockGrid {
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-
-    .paymentNote {
-      border:1px solid rgba(255,209,102,.32);
-      background:rgba(255,209,102,.08);
-      color:#ffe7a8;
-      border-radius:18px;
-      padding:13px;
-      line-height:1.5;
-      font-size:13px;
-      margin-top:12px;
-    }
-
-    .paymentNote code {
-      color:#fff4cb;
-      background:rgba(0,0,0,.25);
-      padding:2px 6px;
-      border-radius:8px;
-    }
-
-    .apiBox {
-      margin-top:12px;
-      white-space:pre-wrap;
-      max-height:240px;
-      overflow:auto;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(0,0,0,.28);
-      border-radius:18px;
-      padding:14px;
-      color:#dbe4ff;
-      font-family:Consolas, ui-monospace, monospace;
-      font-size:12px;
-    }
-
-    .below {
-      width:min(1180px, calc(100% - 28px));
-      margin:0 auto;
-      padding:42px 0 80px;
-      display:grid;
-      gap:18px;
-    }
-
-    .sectionCard {
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.045);
-      border-radius:28px;
-      padding:clamp(22px, 4vw, 36px);
-      box-shadow:0 20px 70px rgba(0,0,0,.24);
-    }
-
-    .sectionCard h2 {
-      margin:0 0 12px;
-      font-size:clamp(28px, 5vw, 54px);
-      line-height:.95;
-      letter-spacing:-2px;
-    }
-
-    .sectionCard p {
-      color:var(--soft);
-      line-height:1.65;
-      font-size:16px;
-    }
-
-    .three {
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:14px;
-    }
-
-    .mini {
-      border:1px solid rgba(255,255,255,.13);
-      background:rgba(0,0,0,.16);
-      border-radius:22px;
-      padding:18px;
-    }
-
-    .mini span {
-      color:var(--soft);
-      line-height:1.5;
-      font-size:14px;
-    }
-
-    @media (max-width:980px) {
-      :root { --headerH:68px; }
-
-      .screen {
-        padding:10px;
-        gap:10px;
-      }
-
-      .topbar {
-        border-radius:22px;
-      }
-
-      .topActions .pill {
-        display:none;
-      }
-
-      .centerTitle {
-        font-size:17px;
-      }
-
-      .brandText span {
-        display:none;
-      }
-
-      .messages {
-        padding:14px;
-      }
-
-      .message {
-        width:min(92%, 760px);
-        font-size:15px;
-      }
-
-      .statusDot {
-        display:none;
-      }
-
-      .composerWrap {
-        padding:10px;
-      }
-
-      .composer textarea {
-        font-size:16px;
-      }
-
-      .three,
-      .choiceGrid {
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width:520px) {
-      .brandText strong {
-        max-width:94px;
-        overflow:hidden;
-        text-overflow:ellipsis;
-      }
-
-      .centerTitle {
-        font-size:15px;
-      }
-
-      .logo {
-        width:40px;
-        height:40px;
-        border-radius:15px;
-      }
-
-      .drawer {
-        width:94vw;
-      }
-
-      .drawerBody {
-        padding:12px;
-      }
-
-      .optionGrid {
-        grid-template-columns:1fr;
-      }
-
-      .bigLogoBlock h1 {
-        font-size:32px;
-      }
-
-      .choiceBox {
-        min-height:210px;
-      }
-    }
+        radial-gradient(circle at 15% 0%, rgba(124,60,255,.28), transparent 34rem),
+        radial-gradient(circle at 85% 12%, rgba(0,234,255,.16), transparent 32rem),
+        radial-gradient(circle at 60% 100%, rgba(255,79,243,.12), transparent 30rem),
+        linear-gradient(135deg,#03040c,#071026 52%,#101a44);
+    }
+    .intro { min-height:100vh; display:grid; place-items:center; padding:22px; }
+    .intro-card { width:min(980px, 96vw); display:grid; gap:18px; }
+    .brand-center { text-align:center; display:grid; justify-items:center; gap:12px; }
+    .logo { width:74px; height:74px; border-radius:25px; background:radial-gradient(circle at 30% 22%,#fff,transparent 15%),linear-gradient(135deg,var(--cyan),var(--violet),var(--pink)); box-shadow:0 0 50px rgba(124,60,255,.35); }
+    .brand-center h1 { margin:0; font-size:clamp(40px, 8vw, 92px); line-height:.9; letter-spacing:-4px; background:linear-gradient(90deg,#fff,var(--cyan),var(--violet),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .brand-center p { margin:0; color:var(--soft); font-size:clamp(16px, 2vw, 20px); max-width:720px; line-height:1.55; }
+    .choice-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:10px; }
+    .choice, .card, .panel, .login-card { border:1px solid var(--line); background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035)); border-radius:var(--radius); box-shadow:0 28px 90px rgba(0,0,0,.34); }
+    .choice { min-height:220px; padding:26px; color:#fff; text-align:left; }
+    .choice:hover { border-color:rgba(0,234,255,.35); transform:translateY(-3px); }
+    .choice small { color:var(--cyan); font-weight:950; text-transform:uppercase; letter-spacing:.1em; }
+    .choice h2 { margin:40px 0 10px; font-size:clamp(32px,4vw,54px); line-height:.95; }
+    .choice p { margin:0; color:var(--soft); line-height:1.55; }
+    .login-card { width:min(520px,94vw); padding:28px; margin:auto; }
+    .login-card h2 { margin:0 0 8px; font-size:44px; letter-spacing:-2px; }
+    .login-card p { color:var(--soft); line-height:1.5; }
+    .field, textarea, select { width:100%; border:1px solid rgba(255,255,255,.13); background:rgba(0,0,0,.25); color:var(--text); border-radius:17px; padding:14px 15px; outline:0; margin-bottom:10px; }
+    textarea { resize:vertical; min-height:90px; }
+    select option { color:#111; }
+    .btn { border:1px solid rgba(255,255,255,.13); color:var(--text); background:rgba(255,255,255,.08); border-radius:16px; padding:12px 15px; font-weight:950; }
+    .btn.primary { border:0; background:linear-gradient(135deg,var(--violet),var(--blue)); box-shadow:0 16px 40px rgba(37,99,255,.25); }
+    .btn.green { border:0; color:#071017; background:linear-gradient(135deg,var(--green),var(--cyan)); }
+    .btn.gold { border:0; background:linear-gradient(135deg,#ffb703,var(--pink)); }
+    .btn.danger { border-color:rgba(255,85,114,.35); background:rgba(255,85,114,.12); color:#ffd7df; }
+    .connectors { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0 16px; }
+    .connector.active { background:rgba(255,255,255,.20); border-color:rgba(255,255,255,.45); }
+    .app { min-height:100vh; display:grid; grid-template-columns:300px minmax(0,1fr); }
+    .sidebar { border-right:1px solid var(--line); background:rgba(5,8,22,.78); backdrop-filter:blur(18px); padding:22px; overflow:auto; }
+    .side-brand { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+    .side-brand .logo { width:48px; height:48px; border-radius:17px; }
+    .side-brand strong { display:block; font-size:24px; letter-spacing:-1px; }
+    .side-brand small { color:var(--muted); font-weight:800; }
+    .nav-title { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:950; margin:22px 0 10px; }
+    .nav-btn { width:100%; min-height:52px; border:0; border-radius:16px; background:transparent; color:var(--soft); text-align:left; padding:0 14px; font-weight:950; display:flex; align-items:center; gap:10px; }
+    .nav-btn:hover, .nav-btn.active { background:rgba(255,255,255,.10); color:#fff; }
+    .profile-mini { margin-top:24px; padding:16px; border:1px solid var(--line); border-radius:20px; background:rgba(255,255,255,.055); }
+    .main { min-width:0; padding:22px; overflow:auto; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; }
+    .topbar h1 { margin:0; font-size:clamp(32px,5vw,58px); letter-spacing:-2px; line-height:.95; }
+    .topbar p { margin:8px 0 0; color:var(--soft); }
+    .page { display:none; animation:fade .22s ease both; }
+    .page.active { display:block; }
+    @keyframes fade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .card, .panel { padding:22px; }
+    .card h3, .panel h2 { margin-top:0; }
+    .muted { color:var(--soft); line-height:1.55; }
+    .hero { min-height:320px; display:grid; align-content:center; }
+    .hero h2 { margin:0; font-size:clamp(38px,6vw,78px); line-height:.9; letter-spacing:-4px; background:linear-gradient(90deg,#fff,var(--cyan),var(--violet),var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .chatbox { height:calc(100vh - 210px); min-height:480px; display:grid; grid-template-rows:1fr auto; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:rgba(255,255,255,.045); }
+    .messages { padding:18px; overflow:auto; display:flex; flex-direction:column; gap:12px; }
+    .bubble { max-width:82%; padding:13px 15px; border-radius:18px; background:rgba(255,255,255,.08); color:var(--soft); line-height:1.48; white-space:pre-wrap; }
+    .bubble.me { align-self:flex-end; background:linear-gradient(135deg,rgba(124,60,255,.75),rgba(37,99,255,.75)); color:#fff; }
+    .composer { display:grid; grid-template-columns:1fr auto; gap:10px; padding:12px; border-top:1px solid rgba(255,255,255,.10); }
+    .composer input { margin:0; }
+    .list { display:grid; gap:10px; }
+    .row { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px; border:1px solid rgba(255,255,255,.10); border-radius:18px; background:rgba(255,255,255,.05); }
+    .avatar { width:52px; height:52px; border-radius:18px; display:grid; place-items:center; background:linear-gradient(135deg,var(--pink),var(--violet)); color:#fff; font-weight:950; flex:0 0 auto; }
+    .match-card { display:grid; gap:10px; justify-items:start; }
+    .score { font-size:48px; font-weight:950; letter-spacing:-2px; }
+    pre { white-space:pre-wrap; overflow:auto; max-height:460px; color:#dbe7ff; font-size:13px; line-height:1.45; }
+    .health-score { font-size:64px; font-weight:950; letter-spacing:-3px; }
+    .bar { height:16px; border-radius:999px; background:rgba(255,255,255,.10); overflow:hidden; }
+    .fill { height:100%; width:0%; background:linear-gradient(90deg,var(--danger),var(--gold),var(--green)); }
+    .mobile-menu { display:none; position:fixed; z-index:50; right:14px; bottom:14px; border:0; border-radius:999px; width:58px; height:58px; background:linear-gradient(135deg,var(--violet),var(--blue)); color:#fff; font-size:28px; }
+    @media(max-width:980px){ .app{grid-template-columns:1fr}.sidebar{position:fixed;z-index:40;inset:0 auto 0 0;width:min(86vw,360px);transform:translateX(-105%);transition:.22s}.sidebar.open{transform:translateX(0)}.mobile-menu{display:block}.grid2,.grid3,.choice-grid{grid-template-columns:1fr}.main{padding:16px}.topbar{display:block}.chatbox{height:70vh}.bubble{max-width:94%} }
   </style>
-<style id="bwChoiceScreenOnly">
-#choiceScreen,
-#choiceScreen * {
-  filter: grayscale(1) contrast(1.15) !important;
-}
-
-#choiceScreen {
-  background:#000 !important;
-  color:#fff !important;
-}
-
-#choiceScreen::before {
-  background:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px) !important;
-}
-
-#choiceScreen .onboardBrand h1,
-#choiceScreen h1,
-#choiceScreen h2,
-#choiceScreen h3 {
-  background:none !important;
-  -webkit-background-clip:initial !important;
-  background-clip:initial !important;
-  color:#fff !important;
-  text-shadow:none !important;
-}
-
-#choiceScreen p,
-#choiceScreen small {
-  color:#d0d0d0 !important;
-}
-
-#choiceScreen .soulLogo {
-  background:linear-gradient(135deg,#fff,#777,#111) !important;
-  box-shadow:0 0 34px rgba(255,255,255,.18) !important;
-}
-
-#choiceScreen .choiceBox,
-#choiceScreen .choiceBox:nth-child(2) {
-  background:
-    radial-gradient(circle at 85% 85%, rgba(255,255,255,.10), transparent 28%),
-    linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)) !important;
-  border:1px solid rgba(255,255,255,.18) !important;
-  box-shadow:0 22px 70px rgba(0,0,0,.70) !important;
-}
-
-#choiceScreen .choiceBox::after {
-  background:rgba(255,255,255,.08) !important;
-}
-
-#choiceScreen .choiceBox:hover {
-  border-color:rgba(255,255,255,.35) !important;
-}
-</style>
 </head>
-
 <body>
-
-  <!-- 1. PERSONAL / BUSINESS CHOICE -->
-  <section class="onboardScreen fadeIn" id="choiceScreen">
-    <div class="onboardShell">
-      <div class="onboardBrand">
-        <div class="soulLogo"></div>
-        <h1>AI Twin</h1>
-        <p>Избери какъв Twin искаш да създадеш.</p>
+<div class="bg">
+  <section class="intro" id="introChoice">
+    <div class="intro-card">
+      <div class="brand-center">
+        <div class="logo"></div>
+        <h1>SoulFlame</h1>
+        <p>Единна работеща версия: SoulMatch, EchoProfile, AI Twin, Future Twin, AR EchoCard, Messages, Admin и Memory в един сайт.</p>
       </div>
-
-      <div class="choiceGrid">
-        <button class="choiceBox" onclick="selectTwinType('Личен')">
+      <div class="choice-grid">
+        <button class="choice" data-twin-type="Личен">
           <small>Personal AI Twin</small>
-          <h2>Личен</h2>
-          <p>За личен профил, памет, характер, Future Twin, глас, стил и личен AI асистент.</p>
+          <h2>Личен Twin</h2>
+          <p>Профил, EchoProfile, Future Twin, Memory, SoulMatch и личен AI асистент.</p>
         </button>
-
-        <button class="choiceBox" onclick="selectTwinType('Бизнес')">
+        <button class="choice" data-twin-type="Бизнес">
           <small>Business AI Twin</small>
-          <h2>Бизнес</h2>
-          <p>За фирма, клиенти, оферти, имейли, документи, продажби и работен AI асистент.</p>
+          <h2>Бизнес Twin</h2>
+          <p>Фирма, клиенти, оферти, имейли, продажби, AR EchoCard и бизнес AI асистент.</p>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- 2. LOGIN -->
-  <section class="onboardScreen hidden" id="loginScreen">
-    <div class="loginCard fadeIn">
-      <div class="soulLogo" style="margin-bottom:22px;"></div>
+  <section class="intro hidden" id="loginScreen">
+    <div class="login-card">
+      <div class="logo" style="margin-bottom:18px"></div>
       <h2>Вход</h2>
-      <p>Въведи име. След това Twin-ът ще те поздрави лично.</p>
+      <p>Въведи име и избери connector-и. Това създава твоя V2 Mini Twin.</p>
+      <input class="field" id="loginName" placeholder="Име" value="Dimitar" />
+      <input class="field" id="loginContact" placeholder="Имейл / Instagram / телефон" value="@stere0metal360" />
+      <div class="connectors" id="connectorGrid"></div>
+      <button class="btn primary" id="enterApp">Вход в SoulFlame</button>
+    </div>
+  </section>
 
-      <div class="loginFields">
-        <input id="loginName" placeholder="Твоето име">
-        <input id="loginContact" placeholder="Имейл / телефон / Instagram — по желание">
+  <section class="app hidden" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand">
+        <div class="logo"></div>
+        <div><strong>SoulFlame</strong><small>V2 Unified</small></div>
       </div>
-
-      <button class="loginBtn" onclick="startTwinIntro()">Вход</button>
-    </div>
-  </section>
-
-  <!-- 3. CREATE TWIN TEXT -->
-  <section class="introTextScreen hidden" id="createTwinScreen">
-    <div class="fadeIn">
-      <h1>Създайте своя Twin</h1>
-      <p>AI ядрото се активира...</p>
-    </div>
-  </section>
-
-  <!-- 4. CREATED BY SOULFLAME -->
-  <section class="introTextScreen hidden" id="createdByScreen">
-    <div class="fadeIn">
-      <h1>Created by SoulFlame</h1>
-      <p>EchoProfile · AI Twin · SoulMatch · DAVID</p>
-    </div>
-  </section>
-
-  <!-- 5. CURRENT CHAT APP -->
-  <section class="appScreen hidden" id="appScreen">
-    <div class="screen">
-      <header class="topbar">
-        <div class="brand">
-          <div class="logo"></div>
-          <div class="brandText">
-            <strong>SoulFlame</strong>
-            <span>AI Twin OS</span>
-          </div>
+      <div class="nav-title">Главни</div>
+      <button class="nav-btn active" data-page="home">🏠 Home</button>
+      <button class="nav-btn" data-page="messages">💬 Messages</button>
+      <button class="nav-btn" data-page="matches">❤️ Matches</button>
+      <button class="nav-btn" data-page="echo">🧬 EchoProfile</button>
+      <button class="nav-btn" data-page="twin">🧠 AI Twin</button>
+      <button class="nav-btn" data-page="future">🔮 Future Twin</button>
+      <button class="nav-btn" data-page="ar">🌐 AR EchoCard</button>
+      <div class="nav-title">Система</div>
+      <button class="nav-btn" data-page="profile">👤 Profile</button>
+      <button class="nav-btn" data-page="settings">⚙️ Settings</button>
+      <button class="nav-btn" data-page="admin">🛠 Admin</button>
+      <div class="profile-mini">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="avatar" id="miniAvatar">D</div>
+          <div><strong id="miniName">Dimitar</strong><br><small id="miniInfo">Local profile</small></div>
         </div>
-
-        <div class="centerTitle">AI Twins by SoulFlame</div>
-
-        <div class="topActions">
-          <a class="pill" href="#how">How it works</a>
-          <a class="pill" href="/landing">Landing</a>
-          <a class="pill" href="/admin" target="_blank">Admin</a>
-          <button class="iconBtn" onclick="openDrawer()" aria-label="Open SF Options">☰</button>
-        </div>
-      </header>
-
-      <main class="chatOnly">
-        <section class="chatPanel" id="chat">
-          <div class="panelHead">
-            <div class="panelHeadTitle">
-              <strong>Echo Chat</strong>
-              <span id="profileLine">full screen chat · SF Options in drawer</span>
-            </div>
-            <div class="statusDot">Live MVP</div>
-          </div>
-
-          <div class="messages" id="messages"></div>
-
-          <div class="composerWrap">
-            <div class="composer">
-              <textarea id="prompt" placeholder="Ask your AI Twin... Напиши какво искаш да разбереш за себе си"></textarea>
-              <button class="sendBtn" onclick="sendPrompt()">➜</button>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <div class="drawerOverlay" id="drawerOverlay" onclick="closeDrawer()"></div>
-
-    <aside class="drawer" id="drawer">
-      <div class="drawerHead">
-        <strong>SF Options Drawer</strong>
-        <button class="iconBtn" onclick="closeDrawer()">×</button>
-      </div>
-
-      <div class="drawerBody">
-        <div class="bigLogoBlock">
-          <div>
-            <h1>AI Twins<br>by SoulFlame</h1>
-            <p>EchoProfile. Future Twin. Full AI Twin unlock.</p>
-          </div>
-        </div>
-
-        <div class="optionGrid" id="optionGrid"></div>
-
-        <div class="formCard" id="create">
-          <h2>Create Mini Twin</h2>
-
-          <div class="formGrid">
-            <div class="field">
-              <label>Name</label>
-              <input id="name" placeholder="Dimitar / Client">
-            </div>
-
-            <div class="field">
-              <label>Contact</label>
-              <input id="contact" placeholder="email / Instagram / phone">
-            </div>
-
-            <div class="field">
-              <label>Age</label>
-              <select id="age">
-                <option value="18-24">18-24</option>
-                <option value="25-34" selected>25-34</option>
-                <option value="35-44">35-44</option>
-                <option value="45+">45+</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Mode</label>
-              <select id="mode">
-                <option value="personal">Personal Twin</option>
-                <option value="work">Work Twin</option>
-                <option value="future">Future Twin</option>
-                <option value="creator">Creator Twin</option>
-                <option value="business">Business Twin</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Goal</label>
-              <input id="goal" placeholder="What do you want your AI Twin to help with?">
-            </div>
-          </div>
-
-          <div class="signalGrid" id="signals"></div>
-
-          <div class="actions">
-            <button class="btn primary" onclick="createMiniTwin()">Create Mini Twin</button>
-            <button class="btn gold" onclick="checkoutFullTwin()">Checkout Full Twin</button>
-            <button class="btn red" onclick="resetOnboarding()">Reset login flow</button>
-          </div>
-
-          <div class="paymentNote">
-            Full AI Twin: <b>20 EUR</b> through Revolut.<br>
-            Note in Revolut: <code>Full AI Twin + your email</code>
-          </div>
-
-          <div class="apiBox" id="apiBox">Ready.</div>
-        </div>
-
-        <div class="formCard" id="unlock">
-          <h2>Unlock Full Twin</h2>
-          <p style="color:var(--soft);line-height:1.5;margin-top:0">Enter the code received after payment.</p>
-
-          <div class="unlockGrid">
-            <input id="unlockCode" placeholder="ECHO-XXXX-XXXX">
-            <button class="btn green" onclick="unlockFullTwin()">Unlock</button>
-          </div>
-
-          <div class="apiBox" id="fullReportBox">Full report will appear here.</div>
-        </div>
+        <button class="btn danger" style="width:100%;margin-top:12px" id="logoutBtn">Изход</button>
       </div>
     </aside>
 
-    <section class="below">
-      <div class="sectionCard" id="how">
-        <h2>Presentation-ready SoulFlame flow</h2>
-        <p>
-          Първо потребителят избира Личен или Бизнес AI Twin. После влиза с име.
-          След кратък плавен intro flow се отваря Echo Chat и Twin-ът поздравява човека лично.
-        </p>
+    <main class="main">
+      <div class="topbar">
+        <div><h1 id="pageTitle">Home</h1><p id="pageDesc">Целият SoulFlame в един работещ shell.</p></div>
+        <button class="btn" id="refreshSystem">Refresh system</button>
+      </div>
 
-        <div class="three">
-          <div class="mini">
-            <b>1. Личен / Бизнес</b><br>
-            <span>Първият избор определя типа Twin.</span>
-          </div>
-
-          <div class="mini">
-            <b>2. Вход</b><br>
-            <span>Името се пази локално и се използва за поздрава.</span>
-          </div>
-
-          <div class="mini">
-            <b>3. Echo Chat</b><br>
-            <span>След intro flow се отваря сегашният чат.</span>
+      <section class="page active" id="page-home">
+        <div class="panel hero">
+          <h2>Build SoulFlame without chaos.</h2>
+          <p class="muted">Тази версия маха разпилените V-екрани и събира нужните части в един работещ сайт: login, messages, match, AI Twin, EchoProfile, Future Twin, AR, payments, admin и health.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+            <button class="btn primary" data-page-go="echo">Започни EchoProfile</button>
+            <button class="btn" data-page-go="twin">Отвори AI Twin</button>
+            <button class="btn gold" data-page-go="ar">AR EchoCard</button>
           </div>
         </div>
-      </div>
+        <div class="grid3" style="margin-top:16px">
+          <div class="card"><h3>EchoProfile</h3><p class="muted">Психологически двигател за профил, match и AI Twin.</p></div>
+          <div class="card"><h3>AI Twin</h3><p class="muted">Профил, памет, чат, Future Twin и health.</p></div>
+          <div class="card"><h3>AR EchoCard</h3><p class="muted">Първи продаваем продукт за лични и бизнес профили.</p></div>
+        </div>
+      </section>
 
-      <div class="sectionCard">
-        <h2>What is AI Twins by SoulFlame?</h2>
-        <p>
-          AI Twin е дигитален профил, който започва с EchoProfile и постепенно се развива към Future Twin,
-          Memory, SoulMatch и персонален AI асистент.
-        </p>
-      </div>
-    </section>
+      <section class="page" id="page-messages">
+        <div class="chatbox">
+          <div class="messages" id="humanMessages">
+            <div class="bubble">SoulMatch Room е готов.</div>
+            <div class="bubble me">Вече няма отделен счупен messages екран.</div>
+          </div>
+          <form class="composer" id="humanComposer">
+            <input class="field" id="humanInput" placeholder="Напиши съобщение..." />
+            <button class="btn primary">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="page" id="page-matches">
+        <div class="grid3" id="matchGrid"></div>
+      </section>
+
+      <section class="page" id="page-echo">
+        <div class="grid2">
+          <div class="card">
+            <h3>EchoProfile Mini Test</h3>
+            <p class="muted">Избери основни сигнали. Това създава Mini Twin и захранва Match/AI Twin.</p>
+            <div class="connectors" id="signalGrid"></div>
+            <button class="btn primary" id="createMiniTwin">Създай Mini Twin</button>
+          </div>
+          <div class="card"><h3>Echo output</h3><pre id="echoOutput">Ready.</pre></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-twin">
+        <div class="grid2">
+          <div class="card">
+            <h3>AI Twin Chat</h3>
+            <div class="chatbox" style="height:520px;min-height:520px">
+              <div class="messages" id="aiMessages"><div class="bubble">AI Twin е готов. Питай ме нещо.</div></div>
+              <form class="composer" id="aiComposer">
+                <input class="field" id="aiInput" placeholder="Ask your AI Twin..." />
+                <button class="btn primary">Send</button>
+              </form>
+            </div>
+          </div>
+          <div class="card">
+            <h3>AI Twin Health</h3>
+            <div class="health-score" id="healthScore">0%</div>
+            <div class="bar"><div class="fill" id="healthFill"></div></div>
+            <p class="muted" id="healthLabel">Loading...</p>
+            <button class="btn" id="loadHealth">Load Health</button>
+            <pre id="healthOutput">Ready.</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-future">
+        <div class="grid2">
+          <div class="card">
+            <h3>Future Twin</h3>
+            <select class="field" id="futureMode">
+              <option>Ти след 1 година</option>
+              <option>Ти след 5 години</option>
+              <option>Ти ако избереш смелия път</option>
+              <option>Ти ако не промениш нищо</option>
+            </select>
+            <textarea id="futureQuestion" placeholder="Какво искаш да ти каже бъдещото аз?"></textarea>
+            <button class="btn primary" id="futureBtn">Генерирай Future Message</button>
+          </div>
+          <div class="card"><h3>Future output</h3><pre id="futureOutput">Ready.</pre></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-ar">
+        <div class="grid2">
+          <div class="card">
+            <h3>AR EchoCard</h3>
+            <p class="muted">Бъдеща AR визитка с профил, AI Twin, QR/NFC и бизнес присъствие.</p>
+            <input class="field" id="arName" placeholder="Име / Бизнес" />
+            <input class="field" id="arService" placeholder="Услуга / роля" />
+            <button class="btn gold" id="arBtn">Създай AR демо карта</button>
+          </div>
+          <div class="card"><h3>AR output</h3><pre id="arOutput">Ready.</pre></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-profile">
+        <div class="grid2">
+          <div class="card">
+            <h3>Profile</h3>
+            <input class="field" id="profileName" placeholder="Име" />
+            <input class="field" id="profileContact" placeholder="Contact" />
+            <select class="field" id="profileType"><option>Личен</option><option>Бизнес</option></select>
+            <button class="btn primary" id="saveProfile">Save Profile</button>
+          </div>
+          <div class="card"><h3>Profile output</h3><pre id="profileOutput">Ready.</pre></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="grid3">
+          <div class="card"><h3>Privacy</h3><p class="muted">AI memory control, public/private profile, data export/delete.</p></div>
+          <div class="card"><h3>Connectors</h3><p class="muted" id="settingsConnectors">No connectors.</p></div>
+          <div class="card"><h3>System</h3><button class="btn danger" id="resetLocal">Reset local app</button></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-admin">
+        <div class="grid2">
+          <div class="card">
+            <h3>Admin System</h3>
+            <button class="btn primary" id="loadAdmin">Load system</button>
+            <button class="btn" id="markPaid">Mark current profile paid</button>
+            <button class="btn" id="checkoutBtn">Create checkout</button>
+            <input class="field" id="unlockCode" placeholder="Unlock code" />
+            <button class="btn green" id="unlockBtn">Unlock Full Twin</button>
+          </div>
+          <div class="card"><h3>Admin output</h3><pre id="adminOutput">Ready.</pre></div>
+        </div>
+      </section>
+    </main>
   </section>
 
-  <script>
-    const version = "V56_PERSONAL_BUSINESS_LOGIN_INTRO";
-    const byId = id => document.getElementById(id);
-
-    let selectedTwinType = null;
-    let selectedSignals = ["vision", "logic", "future"];
-    let lastTwin = null;
-
-    const optionItems = [
-      ["EchoProfile", "личностни и работни сигнали"],
-      ["AI Twin", "Personal, Work, Future, Voice, Avatar"],
-      ["Future Twin", "ти след 1 година / 5 години"],
-      ["Memory", "лична памет и развитие"],
-      ["SoulMatch", "съвместимост и връзки"],
-      ["AR EchoCard", "визитка с AI присъствие"],
-      ["Settings", "privacy, unlock, profile"],
-      ["Full Twin", "20€ unlock report"],
-      ["Twins World", "свят от дигитални двойници"],
-      ["DAVID", "главен AI агент и OS"]
-    ];
-
-    const signalItems = [
-      ["vision", "Vision"],
-      ["logic", "Logic"],
-      ["emotion", "Emotion"],
-      ["action", "Action"],
-      ["social", "Social"],
-      ["future", "Future"],
-      ["deep", "Deep"],
-      ["creator", "Creator"]
-    ];
-
-    function getProfile() {
-      try {
-        return JSON.parse(localStorage.getItem("soulflame_v56_profile") || "{}");
-      } catch {
-        return {};
-      }
-    }
-
-    function saveProfile(data) {
-      localStorage.setItem("soulflame_v56_profile", JSON.stringify(data));
-    }
-
-    function showOnly(id) {
-      ["choiceScreen", "loginScreen", "createTwinScreen", "createdByScreen", "appScreen"].forEach(screenId => {
-        const el = byId(screenId);
-        if (!el) return;
-        if (screenId === id) {
-          el.classList.remove("hidden");
-          el.classList.add("fadeIn");
-        } else {
-          el.classList.add("hidden");
-          el.classList.remove("fadeIn");
-        }
-      });
-    }
-
-    function fadeSwitch(fromId, toId, delay = 520) {
-      const from = byId(fromId);
-      if (from) {
-        from.classList.add("fadeOut");
-      }
-
-      setTimeout(() => {
-        if (from) {
-          from.classList.add("hidden");
-          from.classList.remove("fadeOut", "fadeIn");
-        }
-
-        const to = byId(toId);
-        if (to) {
-          to.classList.remove("hidden");
-          to.classList.add("fadeIn");
-        }
-      }, delay);
-    }
-
-    function selectTwinType(type) {
-      selectedTwinType = type;
-      saveProfile({
-        type,
-        name:"",
-        contact:"",
-        createdAt:new Date().toISOString(),
-        version
-      });
-
-      fadeSwitch("choiceScreen", "loginScreen");
-      setTimeout(() => {
-        const nameInput = byId("loginName");
-        if (nameInput) nameInput.focus();
-      }, 800);
-    }
-
-    function startTwinIntro() {
-      const name = (byId("loginName").value || "").trim() || "приятелю";
-      const contact = (byId("loginContact").value || "").trim();
-
-      const current = getProfile();
-      const profile = {
-        ...current,
-        type:selectedTwinType || current.type || "Личен",
-        name,
-        contact,
-        loggedAt:new Date().toISOString(),
-        version:"V77_SOULMATCH_MAIN_AFTER_LOGIN"
-      };
-
-      saveProfile(profile);
-
-      fadeSwitch("loginScreen", "createTwinScreen");
-
-      setTimeout(() => {
-        fadeSwitch("createTwinScreen", "createdByScreen", 430);
-      }, 1200);
-
-      setTimeout(() => {
-        window.location.href = "/soulmatch";
-      }, 2400);
-    }
-
-    function resetOnboarding() {
-      localStorage.removeItem("soulflame_v56_profile");
-      localStorage.removeItem("soulflame_last_twin");
-      location.reload();
-    }
-
-    function bootChat(profile) {
-      initOptions();
-      initSignals();
-
-      const name = profile.name || "приятелю";
-      const type = profile.type || "Личен";
-
-      const profileLine = byId("profileLine");
-      if (profileLine) {
-        profileLine.textContent = type + " AI Twin · logged as " + name;
-      }
-
-      const nameInput = byId("name");
-      const contactInput = byId("contact");
-      const modeInput = byId("mode");
-
-      if (nameInput) nameInput.value = name;
-      if (contactInput) contactInput.value = profile.contact || "";
-      if (modeInput) {
-        modeInput.value = type === "Бизнес" ? "business" : "personal";
-      }
-
-      addMessage("bot", "Здравей, " + name + ".\n\nАз съм твоят " + type + " AI Twin by SoulFlame.\n\nМога да започна с EchoProfile, AI Twin, Future Twin, Memory, SoulMatch или DAVID.", [
-        { label: "Open SF Options", onClick: openDrawer },
-        { label: "Create Mini Twin", onClick: openDrawer },
-        { label: "EchoProfile", onClick: () => optionClick("EchoProfile") }
-      ]);
-
-      try {
-        fetch("/api/event", {
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body:JSON.stringify({
-            type:"v56_login_chat_open",
-            page:"/",
-            payload:{
-              version,
-              profile,
-              screen:window.innerWidth + "x" + window.innerHeight,
-              time:new Date().toISOString()
-            }
-          })
-        });
-      } catch {}
-    }
-
-    function bootIfLogged() {
-      const profile = getProfile();
-
-      if (profile && profile.name) {
-        window.location.href = "/soulmatch";
-      } else {
-        showOnly("choiceScreen");
-      }
-    }
-
-    function showJson(id, data) {
-      const el = byId(id);
-      if (!el) return;
-      el.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
-    }
-
-    function addMessage(role, text, actions = []) {
-      const box = byId("messages");
-      if (!box) return;
-
-      const msg = document.createElement("div");
-      msg.className = "message " + role;
-      msg.textContent = text;
-
-      if (actions.length) {
-        const actionBox = document.createElement("div");
-        actionBox.className = "quickActions";
-
-        actions.forEach(action => {
-          const btn = document.createElement("button");
-          btn.textContent = action.label;
-          btn.onclick = action.onClick;
-          actionBox.appendChild(btn);
-        });
-
-        msg.appendChild(actionBox);
-      }
-
-      box.appendChild(msg);
-      box.scrollTop = box.scrollHeight;
-    }
-
-    function initOptions() {
-      const grid = byId("optionGrid");
-      if (!grid) return;
-
-      grid.innerHTML = optionItems.map(item => {
-        return "<div class='optionCard' onclick='optionClick(\"" + item[0] + "\")'><b>" + item[0] + "</b><span>" + item[1] + "</span></div>";
-      }).join("");
-    }
-
-    function initSignals() {
-      const sig = byId("signals");
-      if (!sig) return;
-
-      sig.innerHTML = signalItems.map(item => {
-        const active = selectedSignals.includes(item[0]) ? " active" : "";
-        return "<div class='signal" + active + "' onclick='toggleSignal(\"" + item[0] + "\")'>" + item[1] + "</div>";
-      }).join("");
-    }
-
-    function toggleSignal(key) {
-      if (selectedSignals.includes(key)) {
-        selectedSignals = selectedSignals.filter(x => x !== key);
-      } else {
-        selectedSignals.push(key);
-      }
-
-      if (selectedSignals.length === 0) selectedSignals = ["vision"];
-      initSignals();
-    }
-
-    function optionClick(name) {
-      const map = {
-        "EchoProfile": "EchoProfile е стартът: въпроси, сигнали и scoring за Mini Twin.",
-        "AI Twin": "AI Twin има Personal, Work, Future, Voice и Avatar посоки.",
-        "Future Twin": "Future Twin показва каква версия можеш да станеш след време.",
-        "Memory": "Memory ще пази важните избори, цели и модели на човека.",
-        "SoulMatch": "SoulMatch ще използва EchoProfile за съвместимост.",
-        "AR EchoCard": "AR EchoCard е визитка/профил с AI присъствие.",
-        "Settings": "Settings пази privacy, unlock и профилните настройки.",
-        "Full Twin": "Full Twin се отключва с код след 20€ Revolut checkout.",
-        "Twins World": "Twins World е свят от дигитални двойници.",
-        "DAVID": "DAVID е главният агент над SoulFlame."
-      };
-
-      addMessage("bot", map[name] || name);
-      closeDrawer();
-    }
-
-    function sendPrompt() {
-      const input = byId("prompt");
-      const text = input.value.trim();
-      if (!text) return;
-
-      addMessage("user", text);
-      input.value = "";
-
-      const lower = text.toLowerCase();
-      const profile = getProfile();
-      const name = profile.name || "приятелю";
-
-      if (lower.includes("price") || lower.includes("cena") || lower.includes("цена") || lower.includes("20")) {
-        addMessage("bot", name + ", Full AI Twin струва 20 EUR. Плащането е през Revolut. В бележката се пише: Full AI Twin + your email.", [
-          { label: "Open SF Options", onClick: openDrawer },
-          { label: "Checkout Full Twin", onClick: checkoutFullTwin }
-        ]);
-        return;
-      }
-
-      if (lower.includes("code") || lower.includes("unlock") || lower.includes("код")) {
-        addMessage("bot", "Отвори SF Options чекмеджето и въведи unlock code в секцията Unlock Full Twin.", [
-          { label: "Open SF Options", onClick: openDrawer }
-        ]);
-        return;
-      }
-
-      if (lower.includes("create") || lower.includes("twin") || lower.includes("създай")) {
-        addMessage("bot", "Отвори SF Options чекмеджето и попълни Create Mini Twin. Аз вече знам, че си в режим: " + (profile.type || "Личен") + ".", [
-          { label: "Open SF Options", onClick: openDrawer }
-        ]);
-        return;
-      }
-
-      addMessage("bot", "Разбрах, " + name + ". Това ще го използвам като сигнал към твоя Twin Core. Следващото ниво е EchoProfile + Memory.", [
-        { label: "Open SF Options", onClick: openDrawer },
-        { label: "EchoProfile", onClick: () => optionClick("EchoProfile") }
-      ]);
-    }
-
-    function dominantTraits() {
-      const scores = {};
-      signalItems.forEach(item => scores[item[0]] = selectedSignals.includes(item[0]) ? 8 : 3);
-
-      selectedSignals.forEach((key, index) => {
-        scores[key] = 10 - Math.min(index, 4);
-      });
-
-      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-
-      return {
-        scores,
-        mainTrait: sorted[0][0],
-        secondTrait: sorted[1] ? sorted[1][0] : "logic"
-      };
-    }
-
-    function profileName(main, second) {
-      const names = {
-        vision: "Future Architect",
-        logic: "Quantum System Builder",
-        emotion: "Emotional Mirror",
-        action: "Momentum Engine",
-        social: "Influence Twin",
-        future: "Future Self Twin",
-        deep: "Subconscious Explorer",
-        creator: "Creator Twin"
-      };
-
-      return (names[main] || "Future Architect") + " + " + (names[second] || "Quantum System Builder");
-    }
-
-    async function createMiniTwin() {
-      const traits = dominantTraits();
-      const savedProfile = getProfile();
-
-      const user = {
-        name: byId("name").value.trim() || savedProfile.name || "SoulFlame User",
-        contact: byId("contact").value.trim() || savedProfile.contact || "",
-        age: byId("age").value,
-        goal: byId("goal").value.trim() || "Build a stronger future version",
-        mode: byId("mode").value,
-        selectedType: savedProfile.type || selectedTwinType || "Личен"
-      };
-
-      const profile = profileName(traits.mainTrait, traits.secondTrait);
-
-      lastTwin = {
-        id: Date.now(),
-        user,
-        mainTrait: traits.mainTrait,
-        secondTrait: traits.secondTrait,
-        profile,
-        scores: traits.scores,
-        report: "Mini Twin: " + profile + ". Your strongest signals are " + selectedSignals.join(", ") + ".",
-        fullReport: "",
-        createdAt: new Date().toISOString(),
-        version
-      };
-
-      localStorage.setItem("soulflame_last_twin", JSON.stringify(lastTwin));
-
-      addMessage("bot", "Mini Twin created:\n\n" + profile + "\n\nGoal: " + user.goal + "\n\nNow you can checkout Full AI Twin for 20 EUR.", [
-        { label: "Checkout Full Twin", onClick: checkoutFullTwin }
-      ]);
-
-      showJson("apiBox", "Saving profile...");
-
-      try {
-        const res = await fetch("/api/profile", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(lastTwin)
-        });
-
-        const data = await res.json();
-        showJson("apiBox", data);
-      } catch (error) {
-        showJson("apiBox", error.message);
-      }
-    }
-
-    function loadLastTwin() {
-      if (lastTwin) return;
-
-      try {
-        const saved = localStorage.getItem("soulflame_last_twin");
-        if (saved) lastTwin = JSON.parse(saved);
-      } catch {}
-    }
-
-    async function checkoutFullTwin() {
-      loadLastTwin();
-
-      if (!lastTwin) {
-        openDrawer();
-        addMessage("bot", "Първо създай Mini Twin в SF Options чекмеджето. После checkout-ът ще е готов.", [
-          { label: "Open SF Options", onClick: openDrawer }
-        ]);
-        return;
-      }
-
-      showJson("apiBox", "Creating checkout...");
-
-      try {
-        const res = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            offer: "Full AI Twin by SoulFlame",
-            amount: "20.00 EUR",
-            provider: "revolut_manual_checkout",
-            user: lastTwin.user,
-            profile: lastTwin.profile,
-            scores: lastTwin.scores,
-            rawTwin: lastTwin
-          })
-        });
-
-        const data = await res.json();
-        showJson("apiBox", data);
-
-        if (data.paymentUrl) {
-          addMessage("bot", "Checkout is ready.\n\nPay exactly 20 EUR through Revolut.\nNote: Full AI Twin + your email\n\nAfter payment you will receive unlock code.", [
-            { label: "Open Revolut", onClick: () => window.open(data.paymentUrl, "_blank") },
-            { label: "Open SF Options", onClick: openDrawer }
-          ]);
-
-          window.open(data.paymentUrl, "_blank");
-        } else {
-          addMessage("bot", "Checkout created, but payment link is missing. Admin must check PAYMENT_LINK_FULL_TWIN.");
-        }
-      } catch (error) {
-        showJson("apiBox", error.message);
-        addMessage("bot", "Checkout error: " + error.message);
-      }
-    }
-
-    async function unlockFullTwin() {
-      const code = byId("unlockCode").value.trim().toUpperCase();
-
-      if (!code) {
-        addMessage("bot", "Paste your unlock code first.");
-        return;
-      }
-
-      showJson("fullReportBox", "Unlocking...");
-
-      try {
-        const res = await fetch("/api/unlock", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            code,
-            user: byId("contact").value.trim() || null,
-            profileId: lastTwin ? lastTwin.id : null
-          })
-        });
-
-        const data = await res.json();
-
-        if (!data.ok) {
-          showJson("fullReportBox", data);
-          addMessage("bot", data.error || "Unlock failed.");
-          return;
-        }
-
-        loadLastTwin();
-
-        const reportRes = await fetch("/api/full-report", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            code: data.code,
-            twin: lastTwin,
-            name: lastTwin && lastTwin.user ? lastTwin.user.name : "SoulFlame User",
-            source: "v56_unlock"
-          })
-        });
-
-        const reportData = await reportRes.json();
-
-        showJson("fullReportBox", reportData.report || reportData);
-        addMessage("bot", "Full AI Twin unlocked. Your report is visible in the SF Options drawer.");
-      } catch (error) {
-        showJson("fullReportBox", error.message);
-        addMessage("bot", "Unlock error: " + error.message);
-      }
-    }
-
-    function openDrawer() {
-      byId("drawer").classList.add("open");
-      byId("drawerOverlay").classList.add("open");
-    }
-
-    function closeDrawer() {
-      byId("drawer").classList.remove("open");
-      byId("drawerOverlay").classList.remove("open");
-    }
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        const active = document.activeElement;
-
-        if (active && active.id === "prompt" && !event.shiftKey) {
-          event.preventDefault();
-          sendPrompt();
-        }
-
-        if (active && (active.id === "loginName" || active.id === "loginContact")) {
-          event.preventDefault();
-          startTwinIntro();
-        }
-      }
-    });
-
-    window.addEventListener("load", bootIfLogged);
-  </script>
+  <button class="mobile-menu" id="mobileMenu">☰</button>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const state = {
+  twinType: "Личен",
+  connectors: [],
+  signals: ["vision", "logic", "future"],
+  system: null,
+  lastTwin: null
+};
+const connectorItems = ["Google", "Instagram", "Facebook", "GitHub", "Snapchat"];
+const signalItems = ["vision", "logic", "emotion", "action", "social", "future", "deep", "creator"];
+const pageMeta = {
+  home:["Home","Целият SoulFlame в един работещ shell."], messages:["Messages","Човешки чат и SoulMatch room."], matches:["Matches","SoulMatch съвпадения и match matrix."], echo:["EchoProfile","Въпроси, сигнали, scoring и Mini Twin."], twin:["AI Twin","Профил, чат, памет, health и бъдещо ядро."], future:["Future Twin","Бъдещи версии на човека."], ar:["AR EchoCard","AR визитка, QR/NFC и публичен профил."], profile:["Profile","Потребителски данни и AI Twin статус."], settings:["Settings","Privacy, connectors и reset."], admin:["Admin","System health, payments и unlock demo."]
+};
+function getProfile(){ try{return JSON.parse(localStorage.getItem("sf_v2_profile")||"{}");}catch{return{};} }
+function saveProfileLocal(p){ localStorage.setItem("sf_v2_profile", JSON.stringify(p)); }
+function showOnlyIntro(id){ ["introChoice","loginScreen","app"].forEach(x=>$(x).classList.toggle("hidden", x!==id)); }
+function makeButtonGrid(id, items, selected, onClick){ const box=$(id); box.innerHTML=""; items.forEach(item=>{ const b=document.createElement("button"); b.type="button"; b.className="btn connector"+(selected.includes(item)?" active":""); b.textContent=item; b.onclick=()=>onClick(item,b); box.appendChild(b); }); }
+function refreshMini(){ const p=getProfile(); $("miniName").textContent=p.name||"Dimitar"; $("miniAvatar").textContent=(p.name||"D").charAt(0).toUpperCase(); $("miniInfo").textContent=(p.type||"Личен")+" Twin • "+(state.connectors.length||0)+" connectors"; $("profileName").value=p.name||"Dimitar"; $("profileContact").value=p.contact||"@stere0metal360"; $("profileType").value=p.type||"Личен"; $("arName").value=p.name||"Dimitar"; $("settingsConnectors").textContent=(state.connectors.length?state.connectors.join(", "):"No connectors"); }
+function openPage(page){ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active")); $("page-"+page).classList.add("active"); document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active", b.dataset.page===page)); $("pageTitle").textContent=pageMeta[page][0]; $("pageDesc").textContent=pageMeta[page][1]; if(innerWidth<980) $("sidebar").classList.remove("open"); if(page==="matches") renderMatches(); if(page==="twin") loadHealth(); }
+async function api(url, opts={}){ const res=await fetch(url,{headers:{"Content-Type":"application/json"},...opts}); const data=await res.json().catch(()=>({ok:false,error:"Invalid JSON"})); if(!res.ok && !data.error) data.error="Request failed"; return data; }
+function addBubble(box, text, me=false){ const d=document.createElement("div"); d.className="bubble"+(me?" me":""); d.textContent=text; $(box).appendChild(d); $(box).scrollTop=$(box).scrollHeight; }
+function dominantTraits(){ const scores={}; signalItems.forEach(s=>scores[s]=state.signals.includes(s)?8:3); state.signals.forEach((s,i)=>scores[s]=10-Math.min(i,4)); const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]); return { scores, main:sorted[0][0], second:sorted[1]?sorted[1][0]:"logic" }; }
+function profileName(main, second){ const names={vision:"Future Architect",logic:"Quantum System Builder",emotion:"Emotional Mirror",action:"Momentum Engine",social:"Influence Twin",future:"Future Self Twin",deep:"Subconscious Explorer",creator:"Creator Twin"}; return (names[main]||"Future Architect")+" + "+(names[second]||"Quantum System Builder"); }
+async function saveConnectorList(profile){ for(const c of state.connectors){ await api("/api/connectors",{method:"POST",body:JSON.stringify({name:profile.name, instagram:profile.contact, connector:c, status:"connected_from_login"})}); } }
+async function enterApp(){ const profile={type:state.twinType,name:$("loginName").value.trim()||"Dimitar",contact:$("loginContact").value.trim()||"@stere0metal360",createdAt:new Date().toISOString(),version:"V2_UNIFIED"}; saveProfileLocal(profile); await api("/api/profile",{method:"POST",body:JSON.stringify({name:profile.name, instagram:profile.contact, contact:profile.contact, twinType:profile.type+" AI Twin", user:profile})}); await saveConnectorList(profile); refreshMini(); showOnlyIntro("app"); openPage("home"); }
+async function createMiniTwin(){ const p=getProfile(); const traits=dominantTraits(); const prof=profileName(traits.main, traits.second); const twin={user:{name:p.name||"Dimitar", contact:p.contact||"@stere0metal360", selectedType:p.type||"Личен"}, profile:prof, main_trait:traits.main, second_trait:traits.second, scores:{A:traits.scores.action,AV:traits.scores.vision,S:traits.scores.social,D:traits.scores.deep}, selectedSignals:state.signals, echo:{echoType:prof, compatibility:82, level:8, score:{A:traits.scores.action,AV:traits.scores.vision,S:traits.scores.social,D:traits.scores.deep}, summary:"Mini Twin created from selected signals."}, createdAt:new Date().toISOString()}; state.lastTwin=twin; localStorage.setItem("sf_v2_last_twin",JSON.stringify(twin)); const data=await api("/api/profile",{method:"POST",body:JSON.stringify(twin)}); $("echoOutput").textContent=JSON.stringify({miniTwin:twin, saved:data},null,2); await loadSystem(); }
+async function loadSystem(){ const data=await api("/api/v91/system"); state.system=data; return data; }
+async function loadHealth(){ const data=await api("/api/v91/health"); const score=data.globalHealth?data.globalHealth.score:0; $("healthScore").textContent=score+"%"; $("healthFill").style.width=score+"%"; $("healthLabel").textContent=data.globalHealth?data.globalHealth.label:"No data"; $("healthOutput").textContent=JSON.stringify(data,null,2); }
+async function renderMatches(){ const data=await loadSystem(); const grid=$("matchGrid"); grid.innerHTML=""; const twins=data.twins&&data.twins.length?data.twins:[{name:"Anna",instagram:"@anna",echoType:"Emotional Mirror",health:{score:80},scores:{A:5,AV:8,S:7,D:6}},{name:"Mira",instagram:"@mira",echoType:"Future Architect",health:{score:75},scores:{A:7,AV:9,S:6,D:8}},{name:"Victoria",instagram:"@victoria",echoType:"Creator Twin",health:{score:70},scores:{A:8,AV:7,S:8,D:5}}]; twins.slice(0,9).forEach((t,i)=>{ const score=90-i*4; const card=document.createElement("div"); card.className="card match-card"; card.innerHTML=`<div class="avatar">${(t.name||"S").charAt(0)}</div><h3>${t.name||"Unknown"}</h3><p class="muted">${t.instagram||"-"}<br>${t.echoType||"Not profiled"}</p><div class="score">${score}%</div><button class="btn primary">Open match</button>`; grid.appendChild(card); }); }
+async function saveProfileBtn(){ const p={name:$("profileName").value.trim()||"Dimitar",contact:$("profileContact").value.trim()||"@stere0metal360",type:$("profileType").value,updatedAt:new Date().toISOString()}; saveProfileLocal(p); const data=await api("/api/profile",{method:"POST",body:JSON.stringify({name:p.name,instagram:p.contact,contact:p.contact,twinType:p.type+" AI Twin",user:p})}); refreshMini(); $("profileOutput").textContent=JSON.stringify(data,null,2); }
+function boot(){ makeButtonGrid("connectorGrid",connectorItems,state.connectors,(item,btn)=>{ state.connectors=state.connectors.includes(item)?state.connectors.filter(x=>x!==item):[...state.connectors,item]; btn.classList.toggle("active"); }); makeButtonGrid("signalGrid",signalItems,state.signals,(item,btn)=>{ state.signals=state.signals.includes(item)?state.signals.filter(x=>x!==item):[...state.signals,item]; if(!state.signals.length) state.signals=["vision"]; makeButtonGrid("signalGrid",signalItems,state.signals,(it,b)=>{state.signals=state.signals.includes(it)?state.signals.filter(x=>x!==it):[...state.signals,it]; if(!state.signals.length) state.signals=["vision"]; bootSignalsOnly();}); }); document.querySelectorAll(".choice").forEach(b=>b.onclick=()=>{state.twinType=b.dataset.twinType;showOnlyIntro("loginScreen")}); $("enterApp").onclick=enterApp; document.querySelectorAll(".nav-btn[data-page]").forEach(b=>b.onclick=()=>openPage(b.dataset.page)); document.querySelectorAll("[data-page-go]").forEach(b=>b.onclick=()=>openPage(b.dataset.pageGo)); $("mobileMenu").onclick=()=>$("sidebar").classList.toggle("open"); $("logoutBtn").onclick=()=>{localStorage.removeItem("sf_v2_profile");location.reload();}; $("refreshSystem").onclick=async()=>{await loadSystem(); await loadHealth();}; $("createMiniTwin").onclick=createMiniTwin; $("loadHealth").onclick=loadHealth; $("saveProfile").onclick=saveProfileBtn; $("loadAdmin").onclick=async()=>{$("adminOutput").textContent=JSON.stringify(await loadSystem(),null,2)}; $("markPaid").onclick=async()=>{const p=getProfile(); const data=await api("/api/v91/payment",{method:"POST",body:JSON.stringify({name:p.name,instagram:p.contact,amount:20,currency:"EUR",product:"Full AI Twin",paid:true,status:"paid"})}); $("adminOutput").textContent=JSON.stringify(data,null,2);}; $("checkoutBtn").onclick=async()=>{const data=await api("/api/checkout",{method:"POST",body:JSON.stringify({offer:"Full AI Twin",amount:"20.00 EUR",user:getProfile()})}); $("adminOutput").textContent=JSON.stringify(data,null,2); if(data.paymentUrl) window.open(data.paymentUrl,"_blank");}; $("unlockBtn").onclick=async()=>{const code=$("unlockCode").value.trim(); const data=await api("/api/unlock",{method:"POST",body:JSON.stringify({code,profileId:getProfile().name})}); const report= data.ok ? await api("/api/full-report",{method:"POST",body:JSON.stringify({code,twin:state.lastTwin||JSON.parse(localStorage.getItem("sf_v2_last_twin")||"{}"),name:getProfile().name})}) : data; $("adminOutput").textContent=JSON.stringify(report,null,2);}; $("futureBtn").onclick=()=>{$("futureOutput").textContent=`${$("futureMode").value}\n\nТвоят Future Twin казва:\nПодреди SoulFlame в работещи части. Не гони всички идеи наведнъж. Първо стабилен сайт, после EchoProfile, после AI Twin, после плащане, после AR EchoCard.\n\nВъпрос: ${$("futureQuestion").value||"-"}`;}; $("arBtn").onclick=()=>{$("arOutput").textContent=JSON.stringify({type:"AR EchoCard demo",name:$("arName").value||getProfile().name||"SoulFlame",service:$("arService").value||"AI Twin / AR Profile",status:"prepared",next:"QR, NFC, public profile, AR avatar"},null,2);}; $("resetLocal").onclick=()=>{localStorage.clear();location.reload();}; $("humanComposer").onsubmit=e=>{e.preventDefault(); const text=$("humanInput").value.trim(); if(!text)return; $("humanInput").value=""; addBubble("humanMessages",text,true); addBubble("humanMessages","Message saved locally for V2 demo.");}; $("aiComposer").onsubmit=async e=>{e.preventDefault(); const text=$("aiInput").value.trim(); if(!text)return; $("aiInput").value=""; addBubble("aiMessages",text,true); const data=await api("/api/chat",{method:"POST",body:JSON.stringify({message:text,profile:getProfile()})}); addBubble("aiMessages",data.reply||data.error||"No reply.");}; const p=getProfile(); if(p.name){refreshMini();showOnlyIntro("app");openPage("home");} }
+function bootSignalsOnly(){ makeButtonGrid("signalGrid",signalItems,state.signals,(item,btn)=>{ state.signals=state.signals.includes(item)?state.signals.filter(x=>x!==item):[...state.signals,item]; if(!state.signals.length) state.signals=["vision"]; bootSignalsOnly(); }); }
+window.addEventListener("load", boot);
+</script>
 </body>
 </html>
-
-
-
