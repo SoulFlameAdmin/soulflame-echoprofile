@@ -1,0 +1,19 @@
+AR ECHOCARD
+
+Какво прави:
+AR EchoCard е бъдещият продукт за визитки, профили, бизнеси и AR присъствие.
+
+Основни части:
+- QR Card
+- NFC Card
+- AR Profile
+- AR Object
+- AR Map
+- Business Card
+- Public Profile Link
+
+Свързано с:
+Profile, Business, AI Twin, Assets, QR, NFC, AR World.
+
+Важно:
+AR EchoCard може да стане първи реален продукт за пари, защото е по-лесен за продажба от пълен AI Twin.
