@@ -1,0 +1,18 @@
+PAYMENTS / ПЛАЩАНИЯ
+
+Какво прави:
+Payments управлява Full AI Twin, Twin Talk, paid matches, Revolut checkout и unlock codes.
+
+Основни части:
+- Full AI Twin 20 EUR
+- Revolut Checkout
+- Unlock Code
+- Payment Status
+- Twin Talk Payment
+- Payment Admin
+
+Свързано с:
+AI Twin, Admin, User Profile, Business Model, Notifications.
+
+Важно:
+Плащането трябва да бъде ясно: какво купува човекът, как се потвърждава и как се отключва Full Twin.
