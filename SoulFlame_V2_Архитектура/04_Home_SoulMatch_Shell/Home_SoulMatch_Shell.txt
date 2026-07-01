@@ -1,0 +1,18 @@
+HOME / SOULMATCH SHELL
+
+Какво прави:
+Това е главната обвивка след вход. В текущия проект това е Soulmatch/index.html.
+
+Основни страници:
+- Messages
+- Matches
+- AI Twin
+- Profile
+- Daily
+- бъдещи: AR, Settings, Family, Friends, Work, Business
+
+Свързано с:
+Navigation, Messages, Matches, AI Twin iframe, Profile, Notifications.
+
+Важно:
+Shell-ът не трябва да съдържа цялата логика. Той само държи layout и отваря правилните модули.
