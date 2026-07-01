@@ -1,0 +1,24 @@
+AUTH
+
+Какво прави:
+Auth управлява вход, изход, session, localStorage, бъдещ Supabase Auth и social login.
+
+Свързано с:
+Intro, Profile, Settings, Database / Supabase, Security, Connectors.
+
+Основни подмодули:
+- Email Login
+- Google Login
+- Instagram Login
+- Facebook Login
+- GitHub Login
+- Snapchat Login
+- Guest Login
+- Session
+- Logout
+
+Данни:
+user_id, name, email, phone, instagram, provider, avatar, session_token, created_at, last_login.
+
+Важно:
+Всички login методи трябва да водят към един SoulFlame user profile.
