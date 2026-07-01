@@ -1,0 +1,23 @@
+TESTS / ТЕСТОВЕ
+
+Какво прави:
+Tests описва как се проверява всяка система.
+
+Основни тестове:
+- Auth Tests
+- Intro Tests
+- Navigation Tests
+- Messages Tests
+- Match Tests
+- AI Twin Tests
+- EchoProfile Tests
+- Admin Tests
+- Connector Tests
+- Mobile Tests
+- Deploy Tests
+
+Свързано с:
+Всички модули.
+
+Важно:
+Всяка функция трябва да има прост ръчен тест: отваря ли се, пази ли данни, има ли console грешки, работи ли mobile.
