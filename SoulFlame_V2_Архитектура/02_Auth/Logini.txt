@@ -1,0 +1,31 @@
+ВСИЧКИ LOGIN СИСТЕМИ
+
+Email Login:
+вход с имейл и стандартна Auth система.
+
+Google Login:
+Google профил, имейл, снимка и външен provider.
+
+Instagram Login:
+Instagram име и бъдеща Meta връзка.
+
+Facebook Login:
+Facebook профил и бъдеща Meta връзка.
+
+GitHub Login:
+developer / creator профил.
+
+Snapchat Login:
+социална връзка за бъдещ профил.
+
+Guest Login:
+демо вход без истински account.
+
+Session:
+проверява дали потребителят е логнат.
+
+Logout:
+изход от профила и връщане към login.
+
+Правило:
+Никой login не трябва да създава дублиран човек, ако потребителят вече съществува.
