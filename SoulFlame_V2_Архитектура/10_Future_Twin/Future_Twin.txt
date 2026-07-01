@@ -1,0 +1,18 @@
+FUTURE TWIN
+
+Какво прави:
+Future Twin показва бъдещи версии на човека.
+
+Основни части:
+- One Year Twin
+- Five Year Twin
+- Brave Path Twin
+- No Change Twin
+- Future Report
+- Future Message Generator
+
+Свързано с:
+EchoProfile, AI Twin, Memory, Profile, Chat.
+
+Важно:
+Future Twin е силен hook за потребителя. Показва какво може да стане, ако продължи по определен път.
