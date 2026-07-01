@@ -1,0 +1,23 @@
+ECHOPROFILE
+
+Какво прави:
+EchoProfile е психологическият двигател на SoulFlame.
+
+Основни части:
+- Questions
+- Answers
+- Scoring Engine
+- Echo Result
+- Echo Type
+- Emotional Profile
+- Communication Profile
+- Future Twin Message
+
+Свързано с:
+Profile, Match, AI Twin, Future Twin, Memory, Admin.
+
+Данни:
+question_id, answer_value, score_A, score_AV, score_S, score_D, echo_type, compatibility.
+
+Важно:
+EchoProfile трябва да захранва Match, AI Twin и Future Twin. Не е само тест, а основа на цялата система.
