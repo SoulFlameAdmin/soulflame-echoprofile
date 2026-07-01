@@ -1,0 +1,18 @@
+NAVIGATION
+
+Какво прави:
+Navigation управлява преминаването между страниците.
+
+Подмодули:
+- Sidebar
+- Bottom Nav
+- Top Bar
+- Drawer
+- Router
+- AI Twin iframe router
+
+Свързано с:
+Home Shell, Messages, Matches, AI Twin, Profile, Daily, Settings.
+
+Важно:
+Във V2 navigation трябва да е единна система. Не трябва всяка страница сама да решава как да се отваря.
