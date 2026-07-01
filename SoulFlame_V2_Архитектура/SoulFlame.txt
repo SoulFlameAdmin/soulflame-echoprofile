@@ -1,0 +1,24 @@
+SOULFLAME V2 - ГЛАВЕН МОЗЪК НА ПРОЕКТА
+
+Идея:
+SoulFlame е система за EchoProfile, SoulMatch, AI Twin, Future Twin, Memory, AR EchoCard, Business Twin, Messages, Payments, Admin и DAVID.
+
+Текущ проблем:
+Съществуващият проект има много версии и части: V56, V91, V92, V95, V96, V99, V100. Част от логиката е в големи HTML/JS файлове, има localStorage, backend JSON файлове, AI Twin iframe, connectors и admin логика.
+
+V2 правило:
+Всяка функция има собствена папка.
+Всяка папка има .txt обяснение на български.
+Първо се чете обяснението, после се пише код.
+
+Главен flow:
+Intro -> Auth -> Home / SoulMatch Shell -> Messages -> Matches -> AI Twin -> EchoProfile -> Future Twin -> Memory -> AR EchoCard -> Profile -> Settings -> Admin -> Database -> Deploy.
+
+Какво НЕ правим сега:
+Не трием стария код.
+Не преименуваме production файлове.
+Не местим app.js без план.
+Не чупим Vercel.
+
+Какво правим:
+Създаваме професионална архитектура за чиста V2 версия.
