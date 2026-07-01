@@ -1,0 +1,20 @@
+SETTINGS / PRIVACY
+
+Какво прави:
+Settings управлява account настройки, поверителност, известия, AI memory, видимост, export/delete data и connectors.
+
+Основни части:
+- Account Settings
+- Privacy Settings
+- Notification Settings
+- AI Memory Settings
+- Connector Settings
+- Payment Settings
+- Delete Account
+- Export Data
+
+Свързано с:
+Auth, Profile, AI Twin, Memory, Security, Notifications.
+
+Важно:
+Потребителят трябва да има контрол над данните си и AI паметта.
