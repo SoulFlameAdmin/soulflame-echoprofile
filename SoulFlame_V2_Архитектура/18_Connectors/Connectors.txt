@@ -1,0 +1,22 @@
+CONNECTORS
+
+Какво прави:
+Connectors описва всички външни връзки към SoulFlame.
+
+Основни connectors:
+- Google
+- Instagram
+- Facebook
+- Snapchat
+- GitHub
+- OpenAI
+- Supabase
+- Vercel
+- Revolut
+- Telegram
+
+Свързано с:
+Auth, AI Twin, Profile, Admin, Payments, Deploy.
+
+Важно:
+Connector не трябва да държи secret ключове във frontend. Всички важни ключове стоят в environment variables.
