@@ -1,0 +1,22 @@
+MESSAGES / СЪОБЩЕНИЯ
+
+Какво прави:
+Messages управлява разговорите между хората, match-овете и бъдещите AI предложения за отговор.
+
+Основни части:
+- Inbox
+- Conversation List
+- Chat Room
+- Composer
+- Message Bubble
+- AI Reply Suggestions
+- Read / Unread Status
+
+Свързано с:
+Profile, Matches, Notifications, AI Twin, Database.
+
+Данни:
+message_id, thread_id, from_user, to_user, text, created_at, read_status.
+
+Важно:
+Чатът трябва да е отделен от AI Twin chat. Messages е човешки чат, AI Twin Chat е отделен модул.
