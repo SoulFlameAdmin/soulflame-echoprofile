@@ -1,0 +1,19 @@
+DATA / ДАННИ
+
+Какво прави:
+Data описва временните и реалните данни в SoulFlame.
+
+Основни части:
+- localStorage keys
+- JSON local files
+- Demo Users
+- Demo Matches
+- Echo Questions
+- Nav Items
+- Data Migration
+
+Свързано с:
+Всички модули, Database, Supabase, Memory.
+
+Важно:
+В MVP може да има localStorage и JSON, но във V2 реалните данни трябва да се преместят към Supabase.
