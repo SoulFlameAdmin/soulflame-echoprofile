@@ -1,0 +1,20 @@
+SECURITY / ЗАЩИТА
+
+Какво прави:
+Security пази Auth, Admin, secret keys, Supabase policies, AI memory privacy, profile visibility и error handling.
+
+Основни части:
+- Admin Pin
+- Auth Security
+- Secret Keys
+- Supabase Policies
+- AI Memory Privacy
+- Profile Visibility
+- Rate Limits
+- Error Handling
+
+Свързано с:
+Auth, Admin, Database, AI Twin, Settings, Deploy.
+
+Важно:
+Никакви secret ключове във frontend. Потребителят трябва да контролира AI паметта си.
