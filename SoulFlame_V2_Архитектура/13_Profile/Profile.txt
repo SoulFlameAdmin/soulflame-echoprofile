@@ -1,0 +1,20 @@
+PROFILE / ПРОФИЛ
+
+Какво прави:
+Profile пази човека: име, снимки, bio, интереси, Echo Type, AI Twin статус, видимост.
+
+Основни части:
+- Basic Info
+- Photos
+- Bio
+- Interests
+- Echo Type
+- AI Twin Status
+- Profile Edit
+- Public Profile
+
+Свързано с:
+Auth, EchoProfile, Match, AI Twin, Messages, Settings, Assets, Database.
+
+Важно:
+Profile е единният център на потребителя. Всички login-и трябва да водят към един Profile.
