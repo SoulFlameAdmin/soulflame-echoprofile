@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you reference SoulFlame EchoProfile, please cite the project and its creator."
+title: "SoulFlame EchoProfile"
+type: software
+authors:
+  - family-names: "Lambov"
+    given-names: "Dimitar Veselinov"
+url: "https://soulflame-twins.vercel.app/founder/dimitar-veselinov-lambov/"
+repository-code: "https://github.com/SoulFlameAdmin/soulflame-echoprofile"
+abstract: "EchoProfile is a SoulFlame project associated with creator Dimitar Veselinov Lambov (Димитър Веселинов Ламбов)."
